@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>Как отразить в 1С услуги СДЭК: пошаговая инструкция — СДЭК Гид</title>
+    <meta name="description" content="Подробный гид по настройке и отражению услуг СДЭК в 1С. Интеграция, проводки, настройки и устранение ошибок при работе с логистикой.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/k/ka/kak-otrazit-v-1s-uslugi-sdek.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Как отразить в 1С услуги СДЭК: пошаговая инструкция">
+    <meta property="og:description" content="Подробный гид по настройке и отражению услуг СДЭК в 1С. Интеграция, проводки, настройки и устранение ошибок при работе с логистикой.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/drugoe/">Другое</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Как отразить в 1С услуги СДЭК: пошаговая инструкция</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Как отразить в 1С услуги СДЭК: полное руководство</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#настройка-справочников-и-контрагентов">Настройка справочников и контрагентов</a></li><li><a href="#отражение-услуг-через-документ-поступление-товаров-и-услуг">Отражение услуг через документ «Поступление товаров и услуг»</a></li><li><a href="#распределение-дополнительных-расходов">Распределение дополнительных расходов</a></li><li><a href="#автоматизация-через-интеграцию-и-api">Автоматизация через интеграцию и API</a></li><li><a href="#учет-ндс-и-налоговые-аспекты">Учет НДС и налоговые аспекты</a></li><li><a href="#типичные-ошибки-и-их-устранение">Типичные ошибки и их устранение</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+<p>Работа с транспортными компаниями требует не только грамотной организации логистики, но и безупречного документооборота. Для бухгалтерии и отдела снабжения критически важно своевременно и правильно <strong>отразить в 1С</strong> все операции, связанные с доставкой товаров. Ошибки на этом этапе могут привести к расхождениям в учете и проблемам при сдаче отчетности.</p>
+
+<p>Интеграция с <em>CDEK</em> позволяет автоматизировать многие процессы, однако ручное отражение услуг или настройка обмена данными требуют четкого понимания структуры документов. Вам необходимо знать, какие именно счета используются для проводок и как корректно распределить накладные расходы по стоимости товаров.</p>
+
+<p>В этой статье мы разберем основные сценарии работы: от первичной настройки справочников до финального закрытия периода. Мы рассмотрим, как <mark>автоматизированный обмен через API</mark> может сократить время обработки документов в разы, исключив человеческий фактор при вводе данных.</p>
+
+<h2 id="настройка-справочников-и-контрагентов">Настройка справочников и контрагентов</h2>
+<p>Перед тем как проводить любые операции, необходимо убедиться, что в вашей базе <em>1С:Предприятие</em> корректно заведен контрагент. Найдите организацию «СДЭК» в справочнике контрагентов или создайте новую карточку, если она отсутствует. Важно заполнить все реквизиты, включая ИНН и КПП, чтобы система могла автоматически подтягивать данные из проверенных источников.</p>
+
+<p>Особое внимание уделите настройке <strong>договоров</strong>. Для услуг доставки обычно создается отдельный тип договора, например, «Договор с поставщиком» или специфический договор на оказание транспортных услуг. Это позволит в дальнейшем правильно формировать отчеты и видеть взаиморасчеты именно по логистике, не смешивая их с закупкой товара.</p>
+
+<blockquote>⚠️ Внимание: Если вы используете единую базу для разных юрлиц, убедитесь, что договор с СДЭК привязан к правильному договору с контрагентом, иначе проводки могут «улететь» не на тот счет.</blockquote>
+
+<p>Также стоит проверить номенклатуру. Создайте отдельные позиции для разных типов услуг: «Доставка до склада», «Доставка до двери», «Упаковка», «Страховка». Это упростит аналитику расходов в будущем. Не забывайте указывать правильные <strong>статьи затрат</strong> при создании номенклатуры, чтобы расходы автоматически относились на нужные счета бухгалтерского учета.</p>
+
+<div class="poll-widget" id="poll-6cedfe6f"><div class="poll-widget-question">📊 Как вы сейчас отражаете услуги СДЭК в 1С?</div><div class="poll-widget-option" data-poll="6cedfe6f" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Вручную через документы поступления</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="6cedfe6f" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Автоматически через обмен</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="6cedfe6f" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Через внешнюю обработку</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="6cedfe6f" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Не отражаем, ждем бумажные документы</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="отражение-услуг-через-документ-поступление-товаров-и-услуг">Отражение услуг через документ «Поступление товаров и услуг»</h2>
+<p>Самый распространенный способ зафиксировать расходы — использовать стандартный документ <code>Поступление (акты, накладные)</code>. При получении акта выполненных работ от транспортной компании, создайте новый документ в разделе «Покупки». В табличной части выберите услугу «Доставка» из вашей номенклатуры.</p>
+
+<p>Ключевым моментом здесь является правильный выбор <strong>счета затрат</strong>. Если вы закупаете товар для перепродажи, расходы на доставку логичнее всего включить в стоимость самого товара. Для этого в документе поступления используется вкладка «Дополнительно», где можно распределить расходы. Система предложит несколько методов распределения: по количеству, по весу или по сумме.</p>
+
+<ul>
+<li>📦 <strong>По количеству</strong>: подходит, если все товары в накладной имеют схожие габариты и стоимость.</li>
+<li>⚖️ <strong>По весу</strong>: идеальный вариант для СДЭК, так как тарифы часто зависят от массы груза.</li>
+<li>💰 <strong>По сумме</strong>: используется, если стоимость доставки пропорциональна цене товара.</li>
+</ul>
+
+<p>После заполнения всех полей проведите документ. Система сформирует необходимые <strong>бухгалтерские проводки</strong>, отнеся стоимость доставки либо сразу на счет 41 (Товары), либо на счет 44 (Расходы на продажу), в зависимости от вашей учетной политики. Проверьте сформированные движения по счетам в режиме «Движения документа», чтобы убедиться в корректности данных.</p>
+
+<div class="checklist-block"><h4>☑️ Проверка документа поступления</h4><label class="check-item"><input type="checkbox"><span>Выбран правильный контрагент СДЭК</span></label><label class="check-item"><input type="checkbox"><span>Указан верный договор</span></label><label class="check-item"><input type="checkbox"><span>Заполнена табличная часть услугами</span></label><label class="check-item"><input type="checkbox"><span>Выбрана статья затрат</span></label><label class="check-item"><input type="checkbox"><span>Проведены расчеты распределения</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 5</div></div>
+
+<h2 id="распределение-дополнительных-расходов">Распределение дополнительных расходов</h2>
+<p>Часто возникает ситуация, когда товар уже оприходован, а акт от СДЭК пришел позже. В этом случае используется механизм распределения дополнительных расходов. В <em>1С:Бухгалтерия</em> и <em>1С:УТ</em> для этого предназначен документ <code>Транспортная накладная</code> или специальный вид документа «Поступление дополнительных расходов».</p>
+
+<p>При создании такого документа вы ссылаетесь на ранее проведенное поступление товаров. Это позволяет «привязать» incurred costs к конкретной партии. Алгоритм действий прост: выбираете документ-основание, указываете сумму услуги и выбираете метод распределения. Система сама пересчитает себестоимость товаров в партии.</p>
+
+<p>Если товаров было много, а доставка осуществлялась одной машиной, важно правильно выбрать базу распределения. <strong>Аналитика затрат</strong> в этом случае становится критичной для маржинального анализа. Неправильное распределение может исказить реальную прибыль от продажи конкретной позиции.</p>
+
+<table>
+<thead>
+<tr>
+<th>Тип расхода</th>
+<th>Счет учета (План)</th>
+<th>Метод распределения</th>
+<th>Влияние на цену</th>
+</tr>
+<tr>
+<td>Доставка до склада</td>
+<td>41.01</td>
+<td>Пропорционально весу</td>
+<td>Увеличивает себестоимость</td>
+</tr>
+<tr>
+<td>Доставка до клиента</td>
+<td>44.01</td>
+<td>Прямо</td>
+<td>Расходы периода</td>
+</tr>
+<tr>
+<td>Упаковка/Обрешетка</td>
+<td>41.01 / 44.01</td>
+<td>Пропорционально кол-ву</td>
+<td>Зависит от учета</td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Страховка груза</td>
+<td>41.01</td>
+<td>Пропорционально стоимости</td>
+<td>Увеличивает себ Stoимость</td>
+</tr>
+<tr>
+<td>Наложенный платеж</td>
+<td>60.01</td>
+<td>Прямо</td>
+<td>Не влияет</td>
+</tr>
+</tbody>
+</table>
+
+<details class="faq-item"><summary>Что делать, если партия уже продана?</summary><div class="faq-answer"><p>Если вы распределили расходы на партию, которая уже полностью реализована, 1С автоматически скорректирует себестоимость проданных товаров в текущем периоде, что повлияет на финансовый результат месяца.</p></div></details>
+
+<h2 id="автоматизация-через-интеграцию-и-api">Автоматизация через интеграцию и API</h2>
+<p>Ручной ввод данных — это всегда риск ошибки и потеря времени. Современные версии <em>1С</em> позволяют подключать модули интеграции с СДЭК. Такие решения работают через <strong>API</strong> (Application Programming Interface), обеспечивая двусторонний обмен данными в реальном времени.</p>
+
+<p>При настроенной интеграции statuses заказов и трекинг-номера подгружаются автоматически. Вы можете видеть, где находится груз, прямо в карточке документа в 1С. Более того, акты выполненных работ могут формироваться автоматически на основе данных о доставленных грузах, что избавляет бухгалтера от сверки бумажных актов с базой.</p>
+
+<p>Для подключения вам потребуется договор с СДЭК с доступом к API и установка соответствующего расширения или внешней обработки. После настройки в интерфейсе программы появляются новые кнопки, например, «Заказать курьера» или «Получить статусы». Это значительно ускоряет работу склада и отдела логистики.</p>
+
+<blockquote>⚠️ Внимание: При использовании API убедитесь, что ваш антивирус или фаервол не блокирует outgoing-соединения от сервера 1С к шлюзам СДЭК, иначе синхронизация будет прерываться.</blockquote>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Настройте автоматическую выгрузку трекинг-номеров в карточку клиента или в CRM-систему сразу после получения статуса «В пути», чтобы менеджеры могли информировать покупателей без лишних звонков.</p></div>
+
+<h2 id="учет-ндс-и-налоговые-аспекты">Учет НДС и налоговые аспекты</h2>
+<p>При отражении услуг СДЭК важно правильно учесть <strong>НДС</strong>. Транспортная компания выставляет счета-фактуры (или УПД), где услуги доставки могут облагаться по ставке 20% или 0% (в зависимости от типа перевозки и направления). В документе поступления в 1С необходимо выбрать соответствующую ставку налога.</p>
+
+<p>Если вы работаете на упрощенной системе налогообложения (УСН), НДС вам не нужен, но в документе все равно следует указать «Без НДС», чтобы система не формировала лишние проводки по счету 19. Ошибки в указании ставки налога могут привести к проблемам при сдаче декларации и расхождениям в книге покупок.</p>
+
+<p>Также стоит помнить про «входящий» НДС. Если услуга относится к облагаемым операциям, вы имеете право принять налог к вычету. Для этого в 1С формируется запись книги покупок. Убедитесь, что первичный документ (УПД) от СДЭК получен и зарегистрирован в журнале учета входящих документов в текущем квартале.</p>
+
+<h2 id="типичные-ошибки-и-их-устранение">Типичные ошибки и их устранение</h2>
+<p>В процессе работы пользователи часто сталкиваются с ситуацией, когда <strong>сальдо расчетов</strong> с контрагентом СДЭК не сходится с реальностью. Это может происходить из-за того, что часть услуг была проведена как «Аванс», а часть как «Постоплата», или же потерялся какой-то акт. Регулярная сверка взаиморасчетов поможет избежать таких проблем.</p>
+
+<p>Еще одна распространенная ошибка — неправильная дата принятия услуги к учету. Бухгалтерские принципы требуют отражать расходы в том периоде, когда услуга была фактически оказана, а не когда пришел акт. В 1С дата документа и дата услуги могут отличаться, и для корректного закрытия месяца важно, чтобы они соответствовали реальности.</p>
+
+<ul>
+<li>📉 <strong>Отрицательная себестоимость</strong>: возникает, если распределить расходы на уже проданный товар без корректного пересчета.</li>
+<li>📅 <strong>Смещение периодов</strong>: акт от СДЭК за март проведен в апреле, что искажает маржу.</li>
+<li>🔢 <strong>Ошибки округления</strong>: при распределении копеек на большое количество позиций могут возникать микро-расхождения.</li>
+</ul>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Регулярная сверка с актами СДЭК (хотя бы раз в месяц) позволяет выявлять расхождения на ранних этапах и избегать сложных корректировок в конце года.</p></div>
+
+<details>
+<summary>Как исправить ошибку в уже проведенном документе?</summary>
+<p>Если вы обнаружили ошибку в документе, который уже был проведен, используйте режим «Корректировка» или создайте документ «Корректировка поступления». Это позволит изменить сумму, количество или ставку НДС, сохранив историю изменений и сформировав правильные проводки.</p>
+</details>
+
+<details>
+<summary>Нужно ли отражать в 1С трекинг-номер?</summary>
+<p>Формально для бухгалтерии это не обязательно, но для управленческого учета и работы склада — крайне желательно. Трекинг-номер можно добавить в поле «Комментарий» или в специальное пользовательское поле документа, чтобы всегда иметь доступ к истории перемещения груза.</p>
+</details>
+
+<details>
+<summary>Что делать, если СДЭК потерял груз?</summary>
+<p>В этом случае составляется акт о потери. В 1С делается возвратная накладная или сторнирование услуги, а сумма потери относится на счет виновных лиц или на прочие расходы, в зависимости от условий договора и страховки.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#настройка-справочников-и-контрагентов">Настройка справочников и контрагентов</a></li><li><a href="#отражение-услуг-через-документ-поступление-товаров-и-услуг">Отражение услуг через документ «Поступление товаров и услуг»</a></li><li><a href="#распределение-дополнительных-расходов">Распределение дополнительных расходов</a></li><li><a href="#автоматизация-через-интеграцию-и-api">Автоматизация через интеграцию и API</a></li><li><a href="#учет-ндс-и-налоговые-аспекты">Учет НДС и налоговые аспекты</a></li><li><a href="#типичные-ошибки-и-их-устранение">Типичные ошибки и их устранение</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/m/me/melkonov-andrej-mikhajlovich-sdek-kto-eto.html" class="related-card">Мелконов Андрей Михайлович в СДЭК: кто это и как связан с компанией?</a></li><li><a href="/articles/k/ka/kak-vospolzovatsya-uslugami-sdek.html" class="related-card">Как пользоваться услугами СДЭК: полный гид по отправке</a></li><li><a href="/articles/c/ch/chto-nuzhno-dlya-otpravki-sdekom-ot-poluchatelya.html" class="related-card">Отправка СДЭКом от получателя: правила, цены и нюансы</a></li><li><a href="/articles/k/ko/kogda-osnovana-kompaniya-sdek.html" class="related-card">Когда основана СДЭК: история создания и развития компании</a></li><li><a href="/articles/c/ch/chto-takoe-tk-sdek-rasshifrovka.html" class="related-card">ТК СДЭК — расшифровка аббревиатуры и что это за компания</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/m/me/melkonov-andrej-mikhajlovich-sdek-kto-eto.html" class="related-bottom-card"><span class="related-bottom-title">Мелконов Андрей Михайлович в СДЭК: кто это и как связан с компанией?</span><span class="related-bottom-desc">Разбираемся, кто такой Андрей Мелконов в структуре СДЭК: должность, влияние на логистику и как его р</span></a><a href="/articles/k/ka/kak-vospolzovatsya-uslugami-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как пользоваться услугами СДЭК: полный гид по отправке</span><span class="related-bottom-desc">Узнайте, как воспользоваться услугами СДЭК: пошаговая инструкция по отправке, оплате и получению пос</span></a><a href="/articles/c/ch/chto-nuzhno-dlya-otpravki-sdekom-ot-poluchatelya.html" class="related-bottom-card"><span class="related-bottom-title">Отправка СДЭКом от получателя: правила, цены и нюансы</span><span class="related-bottom-desc">Может ли получатель отправить груз через СДЭК? Полная инструкция по оформлению обратного возврата, с</span></a><a href="/articles/k/ko/kogda-osnovana-kompaniya-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Когда основана СДЭК: история создания и развития компании</span><span class="related-bottom-desc">Узнайте точную дату основания СДЭК, как менялась компания с 2000 года и во что превратилась междунар</span></a><a href="/articles/c/ch/chto-takoe-tk-sdek-rasshifrovka.html" class="related-bottom-card"><span class="related-bottom-title">ТК СДЭК — расшифровка аббревиатуры и что это за компания</span><span class="related-bottom-desc">Что означает ТК СДЭК: расшифровка названия, история компании, услуги и особенности работы транспортн</span></a><a href="/articles/k/ka/kak-vyzvat-kurera-sdek-v-drugom-gorode.html" class="related-bottom-card"><span class="related-bottom-title">Как вызвать курьера СДЭК в другом городе: пошаговая инструкция</span><span class="related-bottom-desc">Полный гид: как заказать выезд курьера СДЭК в другом городе онлайн. Тарифы, правила упаковки, нюансы</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>Что значит «создана накладная СДЭК Шейн» — разбор статуса и действия — СДЭК Гид</title>
+    <meta name="description" content="Разбираем статус «создана накладная» в СДЭК Шейн: что он означает для отправителя и получателя, сколько ждать движения груза и как проверить детали.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/c/ch/chto-znachit-sozdana-nakladnaya-sdek-shejn.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Что значит «создана накладная СДЭК Шейн» — разбор статуса и действия">
+    <meta property="og:description" content="Разбираем статус «создана накладная» в СДЭК Шейн: что он означает для отправителя и получателя, сколько ждать движения груза и как проверить детали.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/otslezhivanie/">Отслеживание</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Что значит «создана накладная СДЭК Шейн» — разбор статуса и действия</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Статус «Создана накладная СДЭК Шейн»: что это значит и что делать дальше?</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#что-такое-накладная-сдэк-и-зачем-она-нужна">Что такое накладная СДЭК и зачем она нужна</a></li><li><a href="#почему-статус-создана-накладная-может-висеть-долго">Почему статус «Создана накладная» может висеть долго</a></li><li><a href="#как-проверить-подробности-по-накладной-сдэк-шейн">Как проверить подробности по накладной СДЭК Шейн</a></li><li><a href="#что-делать-отправителю-если-накладная-зависла">Что делать отправителю, если накладная «зависла»</a></li><li><a href="#что-делать-получателю-когда-ждать-посылку">Что делать получателю: когда ждать посылку</a></li><li><a href="#частые-ошибки-и-как-их-избежать">Частые ошибки и как их избежать</a></li><li><a href="#как-ускорить-обработку-накладной">Как ускорить обработку накладной</a></li><li><a href="#faq-ответы-на-частые-вопросы">FAQ: Ответы на частые вопросы</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body"><p>Вы получили уведомление от <em>СДЭК</em> со статусом «<strong>создана накладная Шейн</strong>» и не понимаете, что это значит? Этот статус — ключевой этап в обработке вашей посылки, но его значение зависит от того, кто вы: отправитель, получатель или партнёр компании. В этой статье мы детально разберём, что происходит с грузом на этом этапе, почему накладная может «зависнуть» в статусе <code>Создана</code>, и какие шаги предпринять, чтобы ускорить доставку.</p>
+
+<p>Статус появляется в системе <em>СДЭК</em> после того, как данные о грузе внесены в базу, но физическая обработка ещё не началась. Для сервиса <strong>Шейн</strong> (международные отправления из Китая) это часто означает, что посылка находится на этапе <em>предварительной регистрации</em> перед таможенным оформлением. Однако есть нюансы: иногда статус обновляется с задержкой, а в некоторых случаях требует вмешательства пользователя. Далее — пошаговый разбор.</p>
+
+<h2 id="что-такое-накладная-сдэк-и-зачем-она-нужна">Что такое накладная СДЭК и зачем она нужна</h2>
+
+<p>Накладная — это <strong>документ, подтверждающий договор перевозки</strong> между отправителем и транспортной компанией. В случае <em>СДЭК Шейн</em> она формируется автоматически при создании заказа на сайте или через API партнёров (например, маркетплейсов вроде <em>AliExpress</em> или <em>Wildberries</em>). В накладной фиксируются:</p>
+
+<ul>
+  <li>📦 <strong>Характеристики груза</strong>: вес, габариты, количество мест.</li>
+  <li>📍 <strong>Адреса</strong>: пункт отправления и доставки (включая индексы и контактные данные).</li>
+  <li>💰 <strong>Стоимость услуг</strong>: тариф, страховка, дополнительные опции (например, <code>Доставка до двери</code>).</li>
+  <li>📑 <strong>Данные для таможни</strong>: декларация, коды ТН ВЭД (для международных отправлений).</li>
+</ul>
+
+<p>Без накладной груз <mark>не может быть принят в обработку</mark> — это основа логистического процесса. В сервисе <em>Шейн</em> накладные часто создаются заранее, ещё до фактической передачи посылки в <em>СДЭК</em>, что и вызывает путаницу у пользователей.</p>
+
+<div class="poll-widget" id="poll-c370f481"><div class="poll-widget-question">📊 Как часто вы отправляете посылки через СДЭК?</div><div class="poll-widget-option" data-poll="c370f481" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Регулярно (раз в неделю и чаще)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="c370f481" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Иногда (раз в месяц)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="c370f481" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Рядом (раз в полгода)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="c370f481" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Первый раз</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="почему-статус-создана-накладная-может-висеть-долго">Почему статус «Создана накладная» может висеть долго</h2>
+
+<p>В идеальном сценарии статус <code>Создана накладная</code> сменяется на <code>Принято на склад</code> в течение <strong>1–3 дней</strong>. Однако на практике задержки бывают дольше — до недели и более. Основные причины:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Причина задержки</th>
+      <th>Типичный срок</th>
+      <th>Что делать</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Ожидание груза от отправителя</td>
+      <td>2–5 дней</td>
+      <td>Уточнить у продавца (если покупка на маркетплейсе), когда посылка будет передана в <em>СДЭК</em>.</td>
+    </tr>
+    <tr>
+      <td>Таможенное оформление (для <em>Шейн</em>)</td>
+      <td>3–10 дней</td>
+      <td>Проверить, не требуются ли дополнительные документы (например, копия паспорта для дорогостоящих товаров).</td>
+    </tr>
+    <tr>
+      <td>Технические сбои в системе</td>
+      <td>1–2 дня</td>
+      <td>Обновить страницу отслеживания или связаться с поддержкой <em>СДЭК</em>.</td>
+    </tr>
+    <tr>
+      <td>Пиковые нагрузки (праздники, распродажи)</td>
+      <td>5–14 дней</td>
+      <td>Подождать или уточнить сроки у менеджера.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Если статус не меняется более <strong>7 дней</strong>, это повод насторожиться. Возможные проблемы:</p>
+<ul>
+  <li>❌ Отправитель не передал груз в <em>СДЭК</em> (например, заказ на <em>AliExpress</em> ещё не собран).</li>
+  <li>❌ Ошибка в данных накладной (неверный адрес, вес или тариф).</li>
+  <li>❌ Таможня приостановила оформление (требуется доплата пошлины или документы).</li>
+</ul>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Если посылка из Китая через <em>Шейн</em>, проверьте статус на сайте продавца — иногда груз ещё не покинул склад отправителя, хотя накладная в <em>СДЭК</em> уже создана.</p></div>
+
+<h2 id="как-проверить-подробности-по-накладной-сдэк-шейн">Как проверить подробности по накладной СДЭК Шейн</h2>
+
+<p>Чтобы узнать больше о вашей накладной, воспользуйтесь официальными инструментами <em>СДЭК</em>:</p>
+
+<ol>
+  <li><strong>Отслеживание по номеру</strong>: Введите трек-номер на странице <a href="https://www.cdek.ru/ru/tracking" target="_blank" rel="noopener noreferrer"><em>отслеживания СДЭК</em></a>. Если статус <code>Создана накладная</code>, но движения нет, нажмите «<strong>Подробнее</strong>» — там могут быть комментарии от логистов.</li>
+  <li><strong>Личный кабинет</strong>: Для зарегистрированных пользователей доступна расширенная информация, включая <code>историю изменений статуса</code> и <code>планируемую дату доставки</code>.</li>
+  <li><strong>Мобильное приложение</strong>: В приложении <em>СДЭК</em> (iOS/Android) статусы обновляются чаще, чем на сайте.</li>
+  <li><strong>Обращение в поддержку</strong>: Напишите в чат на сайте или позвоните по телефону <code>8 800 250-04-05</code> (звонок бесплатный). Укажите номер накладной и спросите о причине задержки.</li>
+</ol>
+
+<p>Для международных отправлений (<em>Шейн</em>) полезно проверить статус на <a href="https://global.cainiao.com/" target="_blank" rel="noopener noreferrer"><em>платформе Cainiao</em></a> (логистический партнёр <em>AliExpress</em>). Там может быть информация о прохождении таможни в Китае, которую <em>СДЭК</em> ещё не отобразил.</p>
+
+<details class="faq-item"><summary>Что делать, если накладная создана, но трек-номер не работает?</summary><div class="faq-answer"><p>
+<p>Если трек-номер не распознаётся на сайте <em>СДЭК</em>, возможно, он ещё не активирован в системе. Это нормально для предварительно созданных накладных. Подождите 1–2 дня и проверьте снова. Если проблема сохраняется, запросите у отправителя скриншот накладной с номером — иногда в уведомлениях указывается неверный трек.</p></div></details></p>
+
+<h2 id="что-делать-отправителю-если-накладная-зависла">Что делать отправителю, если накладная «зависла»</h2>
+
+<p>Если вы отправили груз, но статус не обновляется, следуйте этому алгоритму:</p>
+
+
+<p>Убедиться, что груз физически передан в <em>СДЭК</em> (есть акт приёма-передачи)|Проверить корректность данных в накладной (адрес, вес, тариф)|Связаться с менеджером <em>СДЭК</em> по телефону или через чат|При международной отправке уточнить статус у таможенного брокера|Если ошибка в данных — запросить корректировку накладной через личный кабинет--></p>
+
+<p>Особое внимание уделите <strong>таможенному оформлению</strong> для отправлений <em>Шейн</em>. Если в накладной указаны неверные коды ТН ВЭД или занижена стоимость товара, груз могут задержать. В таком случае <em>СДЭК</em> пришлёт уведомление с требованием предоставить дополнительные документы (например, инвойс от продавца).</p>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Если вы отправили груз через <em>Шейн</em> с опцией «Доставка до двери», но статус <code>Создана накладная</code> не меняется более 5 дней, проверьте, не требуется ли оплата <strong>таможенных платежей</strong>. В некоторых случаях <em>СДЭК</em> не уведомляет об этом автоматически.</blockquote>
+
+<h2 id="что-делать-получателю-когда-ждать-посылку">Что делать получателю: когда ждать посылку</h2>
+
+<p>Если вы ждёте посылку, а статус застрял на <code>Создана накладная</code>, ваши действия зависят от типа отправления:</p>
+
+<ul>
+  <li>📦 <strong>Внутренняя доставка по России:</strong> Свяжитесь с отправителем и уточните, когда груз был передан в <em>СДЭК</em>. Если прошло более 3 дней, напишите в поддержку с указанием номера накладной.</li>
+  <li>🌍 <strong>Международная посылка (<em>Шейн</strong>):</em> Отслеживайте груз на <a href="https://global.cainiao.com/" target="_blank" rel="noopener noreferrer"><em>Cainiao</em></a>. Если там статус «<code>Departed from Airport of Origin Country</code>», значит, посылка уже летит в Россию, но <em>СДЭК</em> ещё не обновил данные.</li>
+  <li>💳 <strong>Оплата при получении:</strong> Убедитесь, что сумма к оплате указана верно. Иногда из-за ошибок в накладной курьер не может доставить посылку.</li>
+</ul>
+
+<p>Средние сроки доставки после смены статуса:</p>
+<ul>
+  <li>🚚 <strong>По России:</strong> 2–7 дней (в зависимости от региона).</li>
+  <li>✈️ <strong>Из Китая (<em>Шейн</strong>):</strong> 10–25 дней (включая таможню).</li>
+</ul>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Если посылка из Китая, основная задержка происходит на этапе таможенного оформления. Статус «Создана накладная» может означать, что груз ещё не прошёл контроль в РФ.</p></div>
+
+<h2 id="частые-ошибки-и-как-их-избежать">Частые ошибки и как их избежать</h2>
+
+<p>Многие проблемы со статусом <code>Создана накладная</code> возникают из-за типичных ошибок. Рассмотрим самые распространённые:</p>
+
+<ol>
+  <li><strong>Неверный адрес получателя</strong>: Если в накладной указана несуществующая улица или неполный индекс, груз могут вернуть. Всегда <strong>двойная проверка</strong> адреса перед отправкой!</li>
+  <li><strong>Несоответствие веса</em>: Если реальный вес груза превышает указанный в накладной, <em>СДЭК</em> может приостановить обработку до оплаты разницы. Это актуально для отправлений <em>Шейн</em>, где продавцы иногда занижают вес для экономии.</li>
+  <li><strong>Отсутствие контактного телефона</strong>: Без номера телефона получателя курьер не сможет связаться для согласования доставки. Убедитесь, что в накладной указан <strong>актуальный телефон</strong>.</li>
+  <li><strong>Неоплаченные услуги</strong>: Например, если выбрана опция <code>Подъём на этаж</code>, но не внесена доплата, статус не обновится до урегулирования платежа.</li>
+</ol>
+
+<p>Для международных отправлений (<em>Шейн</em>) дополнительные риски:</p>
+<ul>
+  <li>📄 <strong>Неполная декларация</strong>: Если в накладной не указан состав груза или занижена его стоимость, таможня может заблокировать посылку.</li>
+  <li>💸 <strong>Неоплаченные пошлины</strong>: Для товаров стоимостью выше <strong>200 евро</strong> или весом более <strong>31 кг</strong> требуется оплата таможенных сборов. <em>СДЭК</em> уведомит об этом по SMS или email.</li>
+</ul>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Если вы получаете посылку из Китая через <em>Шейн</em> и статус <code>Создана накладная</code> не меняется дольше 10 дней, проверьте, не отправлен ли вам запрос на оплату пошлины на email. Иногда письма попадают в спам!</blockquote>
+
+<h2 id="как-ускорить-обработку-накладной">Как ускорить обработку накладной</h2>
+
+<p>Если вам нужно срочно получить груз, воспользуйтесь этими советами:</p>
+
+<ul>
+  <li>📞 <strong>Звонок в колл-центр</strong>: Объясните ситуацию оператору и попросите уточнить, на каком этапе находится груз. Укажите номер накладной и данные получателя.</li>
+  <li>📧 <strong>Обращение через email</strong>: Напишите на <code>info@cdek.ru</code> с темой «Уточнение по накладной [номер]». В письме укажите дату создания накладной и опишите проблему.</li>
+  <li>🏢 <strong>Визит в офис <em>СДЭК</strong></strong>: Если груз отправлен из вашего города, посетите ближайший пункт выдачи с паспортом и номером накладной. Сотрудники могут уточнить детали по внутренней базе.</li>
+  <li>💬 <strong>Чат с продавцом</em>: Если посылка с <em>AliExpress</em> или другого маркетплейса, напишите продавцу и попросите уточнить, когда груз был передан в <em>СДЭК</em>.</li>
+</ul>
+
+<p>Для международных отправлений (<em>Шейн</em>) ускорение возможно только на этапе таможни. Если груз уже в России, но статус не обновляется, свяжитесь с таможенным брокером <em>СДЭК</em> по телефону <code>8 800 250-04-05</code> (доб. 2 — для таможенных вопросов).</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Если вы ждёте важный груз, создайте «заявку на ускоренную обработку» через личный кабинет <em>СДЭК</em>. Эта опция платная (от 500 рублей), но сокращает сроки на 2–3 дня.</p></div>
+
+<h2 id="faq-ответы-на-частые-вопросы">FAQ: Ответы на частые вопросы</h2>
+
+<details>
+  <summary>❓ Что делать, если статус «Создана накладная» висит уже месяц?</summary>
+  <p>Это ненормально. Скорее всего, груз не был передан в <em>СДЭК</em> или потерян. Немедленно свяжитесь с поддержкой (<code>8 800 250-04-05</code>) и запросите розыск посылки. Если отправление международное (<em>Шейн</em>), уточните статус у продавца — возможно, посылка ещё не покинула Китай.</p>
+</details>
+
+<details>
+  <summary>❓ Можно ли отменить накладную, если груз ещё не отправлен?</summary>
+  <p>Да, если статус <code>Создана накладная</code>, но физической передачи груза в <em>СДЭК</em> не было, вы можете отменить заказ. Для этого:</p>
+  <ol>
+    <li>Зайдите в личный кабинет на сайте <em>СДЭК</em>.</li>
+    <li>Найдите накладную в разделе «Мои отправления».</li>
+    <li>Нажмите «Отменить» и укажите причину.</li>
+  </ol>
+  <p>Если груз уже принят, отмена невозможна — придётся оформлять возврат.</p>
+</details>
+
+<details>
+  <summary>❓ Почему накладная создана, но трек-номер не работает на сайте <em>СДЭК</em>?</summary>
+  <p>Это происходит, если накладная создана <strong>предварительно</strong> (например, при заказе на маркетплейсе), но груз ещё не передан в <em>СДЭК</em>. Подождите 1–3 дня и проверьте снова. Если трек не заработал, уточните у отправителя, когда посылка будет передана курьеру.</p>
+</details>
+
+<details>
+  <summary>❓ Нужно ли платить за накладную, если статус не меняется?</summary>
+  <p>Нет, оплата взимается только за фактическую доставку. Если груз не движется, платить не за что. Однако если проблема в неверных данных (например, занижен вес), <em>СДЭК</em> может потребовать доплату перед продолжением обработки.</p>
+</details>
+
+<details>
+  <summary>❓ Как узнать, какой груз указан в накладной?</summary>
+  <p>Если вы получатель, информацию о содержимом можно уточнить:</p>
+  <ul>
+    <li>У отправителя (продавца).</li>
+    <li>В личном кабинете <em>СДЭК</em> (если накладная привязана к вашему аккаунту).</li>
+    <li>Через поддержку <em>СДЭК</em>, предъявив паспорт и номер накладной.</li>
+  </ul>
+  <p>Для международных отправлений (<em>Шейн</em>) данные о грузе могут быть скрыты до прохождения таможни.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#что-такое-накладная-сдэк-и-зачем-она-нужна">Что такое накладная СДЭК и зачем она нужна</a></li><li><a href="#почему-статус-создана-накладная-может-висеть-долго">Почему статус «Создана накладная» может висеть долго</a></li><li><a href="#как-проверить-подробности-по-накладной-сдэк-шейн">Как проверить подробности по накладной СДЭК Шейн</a></li><li><a href="#что-делать-отправителю-если-накладная-зависла">Что делать отправителю, если накладная «зависла»</a></li><li><a href="#что-делать-получателю-когда-ждать-посылку">Что делать получателю: когда ждать посылку</a></li><li><a href="#частые-ошибки-и-как-их-избежать">Частые ошибки и как их избежать</a></li><li><a href="#как-ускорить-обработку-накладной">Как ускорить обработку накладной</a></li><li><a href="#faq-ответы-на-частые-вопросы">FAQ: Ответы на частые вопросы</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/g/gd/gde-posylka-sdek-otslezhivanie-po-shtrikh-kodu.html" class="related-card">Где посылка СДЭК: отслеживание по штрих-коду</a></li><li><a href="/articles/k/ka/kak-uznat-trek-nomer-otpravlennoj-posylki-sdek.html" class="related-card">Как узнать трек-номер посылки СДЭК: 7 способов отслеживания</a></li><li><a href="/articles/s/sk/skolko-po-vremeni-vezet-sdek.html" class="related-card">Сколько везёт СДЭК: сроки доставки в 2026 году по регионам</a></li><li><a href="/articles/k/ka/kak-otsledit-posylku-otpravlennuyu-cherez-sdek.html" class="related-card">Как отследить посылку СДЭК: пошаговая инструкция</a></li><li><a href="/articles/k/ka/kak-uznat-est-li-posylka-v-sdeke.html" class="related-card">Как узнать есть ли посылка в СДЭК: проверка по номеру</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/g/gd/gde-posylka-sdek-otslezhivanie-po-shtrikh-kodu.html" class="related-bottom-card"><span class="related-bottom-title">Где посылка СДЭК: отслеживание по штрих-коду</span><span class="related-bottom-desc">Узнайте, где находится ваша посылка СДЭК. Подробная инструкция по отслеживанию по штрих-коду, расшиф</span></a><a href="/articles/k/ka/kak-uznat-trek-nomer-otpravlennoj-posylki-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как узнать трек-номер посылки СДЭК: 7 способов отслеживания</span><span class="related-bottom-desc">Потеряли трек-номер СДЭК? Узнайте, как найти его в чеке, SMS, личном кабинете или у отправителя. Пош</span></a><a href="/articles/s/sk/skolko-po-vremeni-vezet-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Сколько везёт СДЭК: сроки доставки в 2026 году по регионам</span><span class="related-bottom-desc">Актуальные сроки доставки СДЭК по России и миру: как рассчитать время в пути, от чего зависит скорос</span></a><a href="/articles/k/ka/kak-otsledit-posylku-otpravlennuyu-cherez-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как отследить посылку СДЭК: пошаговая инструкция</span><span class="related-bottom-desc">Узнайте, как отследить посылку СДЭК по трек-номеру на сайте или в приложении. Полное руководство по </span></a><a href="/articles/k/ka/kak-uznat-est-li-posylka-v-sdeke.html" class="related-bottom-card"><span class="related-bottom-title">Как узнать есть ли посылка в СДЭК: проверка по номеру</span><span class="related-bottom-desc">Узнайте, как проверить наличие посылки в СДЭК. Подробная инструкция по отслеживанию, статусам и срок</span></a><a href="/articles/n/no/nomer-sdek-otsledit-posylku-gde-nakhoditsya.html" class="related-bottom-card"><span class="related-bottom-title">Как отследить посылку СДЭК по номеру: где находится груз</span><span class="related-bottom-desc">Узнайте, где находится ваша посылка СДЭК. Инструкция по отслеживанию трек-номером, расшифровка стату</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

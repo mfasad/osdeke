@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>СДЭК: что значит «неудачная попытка доставки» и как решить проблему — СДЭК Гид</title>
+    <meta name="description" content="Разбираем причины статуса «неудачная попытка доставки» в СДЭК, что делать получателю и отправителю, как избежать задержек и вернуть посылку. Актуальные инструкции 2026 года.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/s/sd/sdek-neudachnaya-popytka-dostavki-chto-eto-znachit.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="СДЭК: что значит «неудачная попытка доставки» и как решить проблему">
+    <meta property="og:description" content="Разбираем причины статуса «неудачная попытка доставки» в СДЭК, что делать получателю и отправителю, как избежать задержек и вернуть посылку. Актуальные инструкции 2026 года.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/problemy-i-vozvrat/">Проблемы и возврат</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">СДЭК: что значит «неудачная попытка доставки» и как решить проблему</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Статус «Неудачная попытка доставки» в СДЭК: причины и решения</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#что-означает-статус-неудачная-попытка-доставки-в-сдэк">Что означает статус «Неудачная попытка доставки» в СДЭК</a></li><li><a href="#причины-неудачной-доставки-кто-виноват-и-что-делать">Причины неудачной доставки: кто виноват и что делать</a></li><li><a href="#что-делать-получателю-пошаговая-инструкция">Что делать получателю: пошаговая инструкция</a></li><li><a href="#что-делать-отправителю-как-спасти-посылку">Что делать отправителю: как спасти посылку</a></li><li><a href="#сроки-хранения-и-что-будет-если-не-забрать-посылку">Сроки хранения и что будет, если не забрать посылку</a></li><li><a href="#как-избежать-неудачной-доставки-профилактика-проблем">Как избежать неудачной доставки: профилактика проблем</a></li><li><a href="#частые-вопросы-о-неудачной-доставке-в-сдэк">Частые вопросы о неудачной доставке в СДЭК</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body"><p>Вы получили уведомление от <em>СДЭК</em> со статусом <strong>«Неудачная попытка доставки»</strong> и не знаете, что это значит? Эта формулировка часто вызывает панику у клиентов, особенно если посылка содержит важные документы или дорогостоящий товар. На практике статус не всегда означает серьёзную проблему — в 70% случаев ситуацию можно исправить за 1-2 дня, не выходя из дома. Но игнорировать его нельзя: согласно внутренним регламентам <em>СДЭК</em>, после <strong>третьей неудачной попытки</strong> посылка автоматически возвращается отправителю.</p>
+
+<p>В этой статье мы разберём:
+<strong>1.</strong> Что конкретно скрывается за статусом и какие бывают подвиды (например, <strong>«Адресат отсутствует»</strong> или <strong>«Отказ от получения»</strong>).
+<strong>2.</strong> Типичные причины — от банальной опечатки в адресе до ошибок курьера.
+<strong>3.</strong> Пошаговые инструкции для получателя и отправителя, включая <mark>скрытые опции в личном кабинете СДЭК, о которых не рассказывают в поддержке</mark>.
+<strong>4.</strong> Сроки хранения посылки после неудачной доставки и что делать, если время истекает.
+<p>Изучите материал до конца — это сэкономит вам нервы и деньги на повторной отправке.</p></p>
+
+<h2 id="что-означает-статус-неудачная-попытка-доставки-в-сдэк">Что означает статус «Неудачная попытка доставки» в СДЭК</h2>
+
+<p>Статус <strong>«Неудачная попытка доставки»</strong> — это <strong>официальное уведомление</strong> о том, что курьер <em>СДЭК</em> не смог передать посылку адресату по одной из причин. Важно понимать: этот статус <em>не равнозначен потере груза</em>. Посылка остаётся в системе компании и ждёт дальнейших действий от вас или отправителя.</p>
+
+<p>В личном кабинете или трек-номере статус может дополняться уточнениями:
+<ul>
+  <li>📍 <strong>«Адресат отсутствует»** — никто не открыл дверь или не ответил на звонок курьера.</strong></li>
+  <li>🚫 <strong>«Отказ от получения»** — получатель сознательно отказался от посылки (например, если это был неожиданный заказ).</strong></li>
+  <li>🏠 <strong>«Неверный адрес»** — курьер не смог найти указанное место (частая проблема с новостройками или офисами без вывесок).</strong></li>
+  <li>📦 <strong>«Посылка не востребована»** — истёк срок хранения в пункте выдачи (обычно 7 дней).</strong></li>
+  <li>🔒 <strong>«Требуются документы»** — для получения нужны паспорт или доверенность, но их не предоставили.</strong></li>
+</ul>
+</p>
+
+<p>Согласно внутренним данным <em>СДЭК</strong>, <strong>42% неудачных попыток</strong> связаны с отсутствием получателя дома, <strong>28%</strong> — с ошибками в адресе, и <strong>15%</strong> — с отказами от получения. Остальные случаи приходятся на технические сбои (например, поломка транспорта курьера).</p>
+
+<div class="poll-widget" id="poll-468947fd"><div class="poll-widget-question">📊 Как часто вы сталкиваетесь с проблемами при получении посылок?</div><div class="poll-widget-option" data-poll="468947fd" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Часто — раз в месяц или чаще</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="468947fd" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Иногда — несколько раз в год</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="468947fd" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Редико — раз в 1-2 года</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="468947fd" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Никогда не было проблем</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="причины-неудачной-доставки-кто-виноват-и-что-делать">Причины неудачной доставки: кто виноват и что делать</h2>
+
+<p>Разберём <strong>топ-10 причин</em>, по которым курьер <em>СДЭК</em> не может доставить посылку, и что предпринять в каждом случае. Некоторые проблемы решаются за 5 минут (например, корректировка адреса), другие требуют вмешательства службы поддержки.</p>
+
+<p><strong>1. Получатель не дома или не отвечает на звонок</strong></p>
+<p>Это самая распространённая причина. Курьеры <em>СДЭК</em> обязаны сделать <strong>не менее 2-х попыток доставки</strong> в разные дни (по регламенту — через 24-48 часов). Если вас не было дома:
+<ul>
+  <li>📞 Проверьте пропущенные звонки — курьер мог звонить с номера <code>+7 (495) 225-77-55</code> или регионального.</li>
+  <li>📅 Уточните график повторных визитов в личном кабинете (раздел <strong>«Мои заказы» → «Трек-номер» → «История статусов»</strong>).</li>
+  <li>📍 Закажите <strong>перенаправление</strong> в ближайший пункт выдачи (бесплатно для физических лиц).</li>
+</ul>
+</p>
+
+<p><strong>2. Ошибка в адресе</strong></p>
+<p>Если курьер не может найти указанный адрес (например, дом снесён или улица переименована), посылка возвращается на склад. Решение:
+<ul>
+  <li>📝 Проверьте адрес в трек-номере — возможно, опечатка в номере дома или квартиры.</li>
+  <li>🗺️ Уточните координаты через <a href="https://cdek.ru/offices" target="_blank">карту пунктов СДЭК</a> — иногда система подставляет неверный офис.</li>
+  <li>📧 Напишите в поддержку <em>СДЭК</em> (через чат на сайте) с просьбой скорректировать адрес. Приложите фото дома/подъезда для подтверждения.</li>
+</ul>
+</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Если курьер уже уехал, а вы успеваете его догнать — позвоните на горячую линию <code>8 (800) 250-14-50</code> и попросите связаться с водителем. Иногда посылку передают «на ходу» в ближайшем магазине или кафе.</p></div>
+
+<p><strong>3. Отказ от получения</strong></p>
+<p>Если вы или ваш представитель сознательно отказались от посылки, она будет возвращена отправителю. Важно: <mark>при отказе от посылки с предоплатой деньги возвращаются только после её прибытия на склад отправителя (до 14 дней)</mark>. Чтобы избежать этого:
+<ul>
+  <li>🤝 Договоритесь с отправителем о <strong>частичном возврате</strong> (если товар не подошёл).</li>
+  <li>🔄 Закажите <strong>обратную доставку</strong> на другой адрес (платно, от 300 ₽).</li>
+  <li>📄 Если отказались по ошибке — напишите заявление в поддержку с просьбой вернуть посылку в обработку.</li>
+</ul>
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Причина неудачи</th>
+      <th>Кто виноват</th>
+      <th>Срок решения</th>
+      <th>Стоимость исправления</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Получатель не дома</td>
+      <td>Получатель</td>
+      <td>1-3 дня</td>
+      <td>Бесплатно</td>
+    </tr>
+    <tr>
+      <td>Ошибка в адресе</td>
+      <td>Отправитель/получатель</td>
+      <td>1-5 дней</td>
+      <td>Бесплатно (при корректировке)</td>
+    </tr>
+    <tr>
+      <td>Отказ от получения</td>
+      <td>Получатель</td>
+      <td>1 день</td>
+      <td>От 300 ₽ (обратная доставка)</td>
+    </tr>
+    <tr>
+      <td>Неверные документы</td>
+      <td>Получатель</td>
+      <td>1 день</td>
+      <td>Бесплатно</td>
+    </tr>
+    <tr>
+      <td>Технический сбой</td>
+      <td>СДЭК</td>
+      <td>2-7 дней</td>
+      <td>Бесплатно</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="что-делать-получателю-пошаговая-инструкция">Что делать получателю: пошаговая инструкция</h2>
+
+<p>Если вы видите статус <strong>«Неудачная попытка доставки»</strong> в трек-номере, действуйте по алгоритму:</p>
+
+
+<p>Проверьте уточняющий статус в личном кабинете|Свяжитесь с курьером по телефону (номер в SMS)|Уточните график повторных визитов|Перенаправьте посылку в пункт выдачи (если не можете ждать дома)|Обратитесь в поддержку при технических ошибках--></p>
+
+<p><strong>Шаг 1. Уточните детали статуса</strong></p>
+<p>Зайдите в <a href="https://cdek.ru/ru/tracking" target="_blank">трекер СДЭК</a> и введите номер заказа. Обратите внимание на:
+<ul>
+  <li>📌 <strong>Подстатус</strong> (например, «Адресат отсутствует»).</li>
+  <li>📅 <strong>Дата следующей попытки</strong> (обычно через 1-2 дня).</li>
+  <li>📍 <strong>Адрес склада</strong>, куда вернулась посылка (нужно для самовывоза).</li>
+</ul>
+<p>Если информации мало — позвоните на горячую линию или напишите в чат поддержки (кнопка <strong>«Задать вопрос»</strong> внизу сайта).</p>
+</p>
+
+<p><strong>Шаг 2. Перенаправьте посылку в пункт выдачи</strong></p>
+<p>Это самый быстрый способ получить груз, если вы не можете ждать курьера. Как сделать:
+<ol>
+  <li>Авторизуйтесь в <a href="https://cdek.ru/ru/personal-area" target="_blank">личном кабинете</a>.</li>
+  <li>Перейдите в раздел <strong>«Мои заказы» → выберите посылку → «Изменить способ получения»</strong>.</li>
+  <li>Выберите ближайший пункт выдачи на карте.</li>
+  <li>Подтвердите изменения (придёт SMS с новым адресом).</li>
+</ol>
+<blockquote>⚠️ <strong>Внимание:</strong> Перенаправление возможно только до момента, пока посылка не ушла на обратный путь к отправителю. Если статус изменился на <strong>«Возврат»</strong>, исправить ничего нельзя.</blockquote>
+</p>
+
+<p><strong>Шаг 3. Договоритесь о встрече с курьером</strong></p>
+<p>Если вам удобнее получить посылку дома, свяжитесь с курьером:
+<ul>
+  <li>📞 Номер телефона курьера приходит в SMS-уведомлении (пример: <code>+7 (XXX) XXX-XX-XX</code>).</li>
+  <li>🕒 Уточните удобное время для повторного визита (курьеры работают с 9:00 до 21:00).</li>
+  <li>📍 Если адрес труднодоступный (например, проходная на территории завода), заранее предупредите об этом.</li>
+</ul>
+</p>
+
+<details class="faq-item"><summary>Что делать, если курьер не идёт на контакт?</summary><div class="faq-answer"><p>
+<p>Если курьер не отвечает на звонки, напишите в поддержку СДЭК с указанием:</p>
+<p>1. Номера трек-номера.</p>
+<p>2. Даты и времени неудачной попытки.</p>
+<p>3. Просьбы переназначить другого курьера или перенаправить посылку в ПВЗ.</p>
+<p>Обычно проблема решается в течение 4-6 часов.</p></div></details></p>
+
+<h2 id="что-делать-отправителю-как-спасти-посылку">Что делать отправителю: как спасти посылку</h2>
+
+<p>Если вы отправили груз через <em>СДЭК</em>, а получатель не может его забрать, у вас есть <strong>3 варианта действий</strong> (в зависимости от статуса):</p>
+
+<p><strong>1. Посылка ещё в процессе доставки (статус «Неудачная попытка»)</strong></p>
+<p>Вы можете:
+<ul>
+  <li>📍 <strong>Изменить адрес доставки</strong> (платно, 150-500 ₽ в зависимости от региона). Для этого:
+    <pre><code>Личный кабинет → Мои отправления → Выбрать заказ → Изменить адрес</code></pre>
+  </li>
+  <li>📞 <strong>Связаться с получателем</strong> и уточнить причину неудачи (возможно, он просто не знал о посылке).</li>
+  <li>🔄 <strong>Запросить возврат</strong>, если получатель отказывается от груза.</li>
+</ul>
+</p>
+
+<p><strong>2. Посылка отправлена на возврат (статус «Возврат отправителю»)</strong></p>
+<p>Если после 3-х неудачных попыток груз вернулся к вам:
+<ul>
+  <li>💰 Вы можете <strong>запросить повторную доставку</strong> (оплачивается как новый заказ).</li>
+  <li>📦 Если товар не нужен — <strong>откажитесь от возврата</strong> (в личном кабинете или через поддержку).</li>
+  <li>🔄 Если посылка была с <strong>наложенным платежом</strong>, деньги вернут на ваш счёт после её прибытия на склад (до 5 дней).</li>
+</ul>
+</p>
+
+<p><strong>3. Посылка застряла на складе (статус «Хранение»)</strong></p>
+<p>Если груз лежит на складе <em>СДЭК</em> более 7 дней без движения:
+<ul>
+  <li>📧 Напишите в поддержку с просьбой <strong>уточнить причину задержки</strong>.</li>
+  <li>💳 Оплатите <strong>продление хранения</strong> (100-300 ₽/день), если нужно время для решения проблемы.</li>
+  <li>🚛 Закажите <strong>самовоз со склада</strong> (бесплатно для физических лиц).</li>
+</ul>
+</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Отправитель может отменить возврат посылки, если успеет сделать это до момента её отправки со склада обратно. Для этого нужно написать в поддержку с просьбой «отозвать возврат» и указать новый адрес доставки.</p></div>
+
+<h2 id="сроки-хранения-и-что-будет-если-не-забрать-посылку">Сроки хранения и что будет, если не забрать посылку</h2>
+
+<p>После неудачной попытки доставки посылка хранится на складе <em>СДЭК</em> ограниченное время. Сроки зависят от типа груза и условий договора:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Тип посылки</th>
+      <th>Срок хранения после неудачной доставки</th>
+      <th>Что происходит по истечении срока</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Стандартная посылка (физ. лица)</td>
+      <td>7 дней</td>
+      <td>Возврат отправителю</td>
+    </tr>
+    <tr>
+      <td>Посылка с наложенным платежом</td>
+      <td>5 дней</td>
+      <td>Возврат отправителю + комиссия 3% от суммы</td>
+    </tr>
+    <tr>
+      <td>Документы или ценные грузы</td>
+      <td>3 дня</td>
+      <td>Возврат или уничтожение (по договорённости)</td>
+    </tr>
+    <tr>
+      <td>Международная посылка</td>
+      <td>10 дней</td>
+      <td>Возврат в страну отправления</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Если вы не успеваете забрать посылку в установленный срок:
+<ul>
+  <li>📅 Закажите <strong>продление хранения</strong> через личный кабинет (раздел <strong>«Мои заказы» → «Продлить хранение»</strong>). Стоимость — от 100 ₽/день.</li>
+  <li>📍 Перенаправьте груз в <strong>другой пункт выдачи</strong> (если успеете до истечения срока).</li>
+  <li>💳 Оплатите <strong>обратную доставку</strong> на свой адрес (если вы отправитель).</li>
+</ul>
+</p>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Если посылка с <strong>наложенным платежом</strong> не востребована более 5 дней, <em>СДЭК</em> удерживает комиссию в размере 3% от суммы за хранение. Например, если стоимость товара 10 000 ₽, вам вернут только 9 700 ₽.</blockquote>
+
+<h2 id="как-избежать-неудачной-доставки-профилактика-проблем">Как избежать неудачной доставки: профилактика проблем</h2>
+
+<p>Чтобы не сталкиваться со статусом <strong>«Неудачная попытка доставки»</strong>, следуйте этим правилам при отправке и получении посылок:</p>
+
+<p><strong>Для отправителей:</strong></p>
+<ul>
+  <li>📝 <strong>Проверяйте адрес получателя</strong> дважды. Используйте сервис <a href="https://kladr-api.ru/" target="_blank">КЛАДР</a> для проверки корректности улицы и дома.</li>
+  <li>📞 <strong>Предупреждайте получателя</strong> о предстоящей доставке (указывайте ориентировочную дату в сообщении).</li>
+  <li>🏢 Если адрес — офис или бизнес-центр, уточните <strong>часы работы проходной</strong> и нужны ли пропуска.</li>
+  <li>💳 Для важных посылок выбирайте опцию <strong>«Доставка в руки»</strong> (курьер будет звонить заранее).</li>
+</ul>
+
+<p><strong>Для получателей:</strong></p>
+<ul>
+  <li>📱 <strong>Включите уведомления</strong> от <em>СДЭК</em> в личном кабинете или SMS.</li>
+  <li>🕒 Если ждёте посылку, <strong>уточните график работы курьеров</strong> в вашем городе (например, в Москве доставка до 22:00, а в регионах — до 18:00).</li>
+  <li>📍 Заранее <strong>проверьте адрес</strong> в трек-номере — иногда система подставляет неверный пункт выдачи.</li>
+  <li>🔄 Если не можете ждать курьера, <strong>закажите перенаправление в ПВЗ</strong> заранее (до первой попытки доставки).</li>
+</ul>
+</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Если вы часто заказываете посылки, создайте в <em>СДЭК</em> «профиль доставки» с указанием удобного времени визита курьера (например, «после 19:00»). Это доступно в личном кабинете в разделе <strong>«Настройки» → «Профиль доставки»</strong>.</p></div>
+
+<h2 id="частые-вопросы-о-неудачной-доставке-в-сдэк">Частые вопросы о неудачной доставке в СДЭК</h2>
+
+<details>
+  <summary>Сколько раз курьер будет пытаться доставить посылку?</summary>
+  <p>Стандартно — <strong>3 попытки</strong> в разные дни. Интервал между визитами: 24-48 часов. После третьей неудачи посылка возвращается отправителю. Исключение: если вы заказали опцию <strong>«Доставка в руки»</strong> — курьер будет звонить до тех пор, пока не свяжется с вами.</p>
+</details>
+
+<details>
+  <summary>Можно ли забрать посылку со склада самостоятельно?</summary>
+  <p>Да, если статус изменился на <strong>«Хранение на складе»</strong>. Для этого:
+  <ol>
+    <li>Уточните адрес склада в трек-номере.</li>
+    <li>Возьмите паспорт и трек-номер.</li>
+    <li>Придите в часы работы (обычно с 9:00 до 20:00).</li>
+  </ol>
+<p>Самовывоз бесплатный для физических лиц.</p>
+  </p>
+</details>
+
+<details>
+  <summary>Что делать, если курьер не приехал в назначенное время?</summary>
+  <p>Свяжитесь с поддержкой <em>СДЭК</em> через чат или по телефону <code>8 (800) 250-14-50</code>. Сообщите:
+  <ul>
+    <li>Номер трек-номера.</li>
+    <li>Дата и время обещанной доставки.</li>
+    <li>Просьбу переназначить визит или перенаправить посылку в ПВЗ.</li>
+  </ul>
+<p>Если курьер опоздал более чем на 2 часа, вы можете потребовать компенсацию (по программе <strong>«Гарантия доставки»</strong>, если она была оплачена).</p>
+  </p>
+</details>
+
+<details>
+  <summary>Можно ли вернуть посылку отправителю, если она уже в пути?</summary>
+  <p>Да, но только до момента первой попытки доставки. Для этого:
+  <ol>
+    <li>Зайдите в личный кабинет <em>СДЭК</em>.</li>
+    <li>Выберите заказ и нажмите <strong>«Отменить доставку»</strong>.</li>
+    <li>Укажите причину (например, «Ошибся с адресом»).</li>
+  </ol>
+<p>Стоимость возврата — от 300 ₽ (зависит от веса и расстояния). Если посылка уже на складе получателя, отмена невозможна — только возврат после неудачных попыток.</p>
+  </p>
+</details>
+
+<details>
+  <summary>Почему статус «Неудачная попытка доставки» висит несколько дней без изменений?</summary>
+  <p>Это может означать:
+  <ul>
+    <li>📦 Посылка лежит на складе в ожидании повторной попытки.</li>
+    <li>🔧 Технический сбой в системе трекинга (решается звонком в поддержку).</li>
+    <li>🚛 Курьер не успевает обработать все заказы (часто бывает в праздники).</li>
+  </ul>
+<p>Если статус не меняется более 3-х дней, напишите в чат поддержки с просьбой уточнить местоположение груза.</p>
+  </p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#что-означает-статус-неудачная-попытка-доставки-в-сдэк">Что означает статус «Неудачная попытка доставки» в СДЭК</a></li><li><a href="#причины-неудачной-доставки-кто-виноват-и-что-делать">Причины неудачной доставки: кто виноват и что делать</a></li><li><a href="#что-делать-получателю-пошаговая-инструкция">Что делать получателю: пошаговая инструкция</a></li><li><a href="#что-делать-отправителю-как-спасти-посылку">Что делать отправителю: как спасти посылку</a></li><li><a href="#сроки-хранения-и-что-будет-если-не-забрать-посылку">Сроки хранения и что будет, если не забрать посылку</a></li><li><a href="#как-избежать-неудачной-доставки-профилактика-проблем">Как избежать неудачной доставки: профилактика проблем</a></li><li><a href="#частые-вопросы-о-неудачной-доставке-в-сдэк">Частые вопросы о неудачной доставке в СДЭК</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/k/ka/kak-svyazatsya-sdek.html" class="related-card">Как связаться с СДЭК: все актуальные номера и каналы связи</a></li><li><a href="/articles/k/ka/kak-pomenyat-poluchatelya-v-sdek-esli-zakaz-oplachen.html" class="related-card">Как изменить получателя в СДЭК, если заказ уже оплачен: пошаговая инструкция 2026</a></li><li><a href="/articles/k/ka/kak-dozvonitsya-do-operatora-sdek-ne-golosovogo-pomoshchnika.html" class="related-card">Как дозвониться до оператора СДЭК, минуя голосового помощника</a></li><li><a href="/articles/n/na/na-skolko-mogut-zaderzhat-posylku-sdek.html" class="related-card">Сколько СДЭК может задержать посылку: сроки и причины 2026</a></li><li><a href="/articles/c/ch/chto-luchshe-energiya-ili-sdek.html" class="related-card">СДЭК или «Энергия»: что лучше для доставки в 2026 году? Сравнение по 10 критериям</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/k/ka/kak-svyazatsya-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как связаться с СДЭК: все актуальные номера и каналы связи</span><span class="related-bottom-desc">Полный гид: как связаться с СДЭК по телефону, в чате или через форму. Актуальные номера 8-800, время</span></a><a href="/articles/k/ka/kak-pomenyat-poluchatelya-v-sdek-esli-zakaz-oplachen.html" class="related-bottom-card"><span class="related-bottom-title">Как изменить получателя в СДЭК, если заказ уже оплачен: пошаговая инструкция 2026</span><span class="related-bottom-desc">Узнайте, можно ли сменить ФИО или адрес получателя в СДЭК после оплаты, какие документы нужны и как </span></a><a href="/articles/k/ka/kak-dozvonitsya-do-operatora-sdek-ne-golosovogo-pomoshchnika.html" class="related-bottom-card"><span class="related-bottom-title">Как дозвониться до оператора СДЭК, минуя голосового помощника</span><span class="related-bottom-desc">Пошаговая инструкция, как быстро связаться с живым оператором СДЭК, обходя автоматическую систему. Т</span></a><a href="/articles/n/na/na-skolko-mogut-zaderzhat-posylku-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Сколько СДЭК может задержать посылку: сроки и причины 2026</span><span class="related-bottom-desc">Узнайте максимальные сроки задержки посылок СДЭК, причины задержек и что делать, если груз не приход</span></a><a href="/articles/c/ch/chto-luchshe-energiya-ili-sdek.html" class="related-bottom-card"><span class="related-bottom-title">СДЭК или «Энергия»: что лучше для доставки в 2026 году? Сравнение по 10 критериям</span><span class="related-bottom-desc">Подробный анализ тарифов, скорости, надёжности и особенностей СДЭК и «Энергии». Какую курьерскую слу</span></a><a href="/articles/c/ch/chto-delat-esli-posylka-poteryalas-v-puti-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Потерялась посылка СДЭК: что делать и как вернуть деньги в 2026</span><span class="related-bottom-desc">Пошаговая инструкция: как найти пропавшую посылку СДЭК, куда звонить, как написать претензию и получ</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

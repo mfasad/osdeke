@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>Интеграция 1С и СДЭК: пошаговая настройка для бизнеса 2026 — СДЭК Гид</title>
+    <meta name="description" content="Как настроить интеграцию 1С с СДЭК для автоматической отправки заказов и отслеживания грузов. Инструкции для 1С:УТ, ERP, Розница + API СДЭК.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/i/in/integratsiya-1s-i-sdek-kak-nastroit.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Интеграция 1С и СДЭК: пошаговая настройка для бизнеса 2026">
+    <meta property="og:description" content="Как настроить интеграцию 1С с СДЭК для автоматической отправки заказов и отслеживания грузов. Инструкции для 1С:УТ, ERP, Розница + API СДЭК.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/biznes-i-dogovory/">Бизнес и договоры</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Интеграция 1С и СДЭК: пошаговая настройка для бизнеса 2026</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Интеграция 1С и СДЭК: полное руководство по настройке в 2026 году</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#зачем-нужна-интеграция-1с-и-сдэк-5-ключевых-преимуществ">Зачем нужна интеграция 1С и СДЭК: 5 ключевых преимуществ</a></li><li><a href="#подготовка-к-интеграции-что-нужно-сделать-до-настройки">Подготовка к интеграции: что нужно сделать до настройки</a></li><li><a href="#способы-интеграции-1с-и-сдэк-какой-выбрать">Способы интеграции 1С и СДЭК: какой выбрать?</a></li><li><a href="#пошаговая-настройка-интеграции-через-стандартную-обработку-1сут-11">Пошаговая настройка интеграции через стандартную обработку (1С:УТ 11)</a></li><li><a href="#настройка-автоматического-расчёта-тарифов-сдэк-в-1с">Настройка автоматического расчёта тарифов СДЭК в 1С</a></li><li><a href="#решение-типичных-ошибок-интеграции-1с-и-сдэк">Решение типичных ошибок интеграции 1С и СДЭК</a></li><li><a href="#расширенные-возможности-сдэк-id-мультисклад-и-кастомные-поля">Расширенные возможности: СДЭК ID, мультисклад и кастомные поля</a></li><li><a href="#faq-частые-вопросы-по-интеграции-1с-и-сдэк">FAQ: Частые вопросы по интеграции 1С и СДЭК</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body"><p>Автоматизация логистики через интеграцию <strong>1С</strong> и <em>СДЭК</em> позволяет сократить ручной ввод данных на 80%, ускорить обработку заказов и минимизировать ошибки при оформлении накладных. Если ваш бизнес работает с большим потоком заказов, синхронизация систем становится не роскошью, а необходимостью: клиенты получают актуальные трек-номера сразу после оплаты, а менеджеры экономят часы на перепечатывании адресов.</p>
+
+<p>В этой статье — <mark>пошаговые инструкции для всех актуальных конфигураций 1С (УТ 11, ERP 2, Розница 2.3+), включая настройку API СДЭК, обработку обратной связи по статусам доставки и решение типичных ошибок интеграции</mark>. Мы разберём как стандартные модули обмена от <em>1С-Битрикс</em> и <em>Инфостарт</em>, так и кастомные решения через <code>HTTP-сервис</code> и <code>REST API</code>. Особое внимание уделим нюансам работы с <strong>СДЭК ID</strong>, мультискладскими схемами и автоматическим расчётом тарифов.</p>
+
+<h2 id="зачем-нужна-интеграция-1с-и-сдэк-5-ключевых-преимуществ">Зачем нужна интеграция 1С и СДЭК: 5 ключевых преимуществ</h2>
+
+<p>Без интеграции менеджеру приходится вручную переносить данные из 1С в личный кабинет СДЭК — это занимает от 3 до 10 минут на один заказ. При 50 заказах в день вы теряете <strong>до 8 рабочих часов еженедельно</strong>. Автоматизация решает эту проблему, но её польза не ограничивается экономией времени:</p>
+
+<ul>
+    <li>⚡ <strong>Мгновенная передача заказов</strong>: данные о новом заказе попадают в СДЭК сразу после проведения документа в 1С (без задержек на экспорт/импорт).</li>
+    <li>📦 <strong>Автоматический расчёт тарифов</strong>: система подбирает оптимальный тариф СДЭК с учётом габаритов, веса и региона доставки (включая <em>СДЭК.Экспресс</em> и <em>СДЭК.СуперЭкспресс</em>).</li>
+    <li>🔄 <strong>Двусторонняя синхронизация статусов</strong>: информация о движении груза (например, "Прибыл в город получателя") автоматически обновляется в карточке заказа 1С.</li>
+    <li>📊 <strong>Упрощённая отчётность</strong>: все накладные, акты и чеки формируются в 1С с учётом требований СДЭК (включая <code>ЕНВД</code> и <code>ОСНО</code>).</li>
+    <li>🛡️ <strong>Снижение ошибок</strong>: исключены опечатки в адресах, неверные габариты или вес груза (система валидирует данные перед отправкой в СДЭК).</li>
+</ul>
+
+<p>По данным <em>СДЭК</em>, компании, внедрившие интеграцию с 1С, сокращают количество возвратов из-за ошибок в адресах на <strong>40%</strong>. Кроме того, автоматизация позволяет гибко управлять логистикой: например, перенаправлять заказы на другой склад, если основной перегружен, или выбирать тариф в зависимости от срочности (стандартная доставка vs. <em>СДЭК.СуперЭкспресс</em>).</p>
+
+<div class="poll-widget" id="poll-5c7e811c"><div class="poll-widget-question">📊 Какую конфигурацию 1С вы используете?</div><div class="poll-widget-option" data-poll="5c7e811c" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">1С:Управление торговлей 11</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="5c7e811c" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">1С:ERP 2</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="5c7e811c" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">1С:Розница 2.3</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="5c7e811c" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Другую конфигурацию</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="5c7e811c" data-idx="4" onclick="pbPollVote(this)"><span class="poll-widget-label">Не используем 1С</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="подготовка-к-интеграции-что-нужно-сделать-до-настройки">Подготовка к интеграции: что нужно сделать до настройки</h2>
+
+<p>Прежде чем приступать к технической настройке, убедитесь, что выполнены все организационные шаги. Без них интеграция либо не заработает, либо будет функционировать с ошибками.</p>
+
+<p><strong>1. Заключите договор с СДЭК на интеграцию</strong>. Даже если вы уже работаете с СДЭК, для API-обмена потребуется отдельное соглашение. Обратитесь к своему менеджеру в СДЭК и запросите:</p>
+<ul>
+    <li>🔑 <strong>Логин и пароль</strong> для доступа к <em>API СДЭК</em> (отличаются от данных личного кабинета!).</li>
+    <li>📄 <strong>Документ с тарифами</strong> (нужен для настройки автоматического расчёта стоимости доставки в 1С).</li>
+    <li>🏢 <strong>Список доступных пунктов выдачи</strong> (если планируете предлагать клиентам выбор ПВЗ).</li>
+</ul>
+
+<p><strong>2. Проверьте версию 1С</strong>. Интеграция возможна только с актуальными релизами:</p>
+<table>
+    <thead>
+        <tr>
+            <th>Конфигурация 1С</th>
+            <th>Минимальная версия</th>
+            <th>Поддерживаемые редакции</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1С:Управление торговлей</td>
+            <td>11.4.10.х</td>
+            <td>ПРОФ, КОРП</td>
+        </tr>
+        <tr>
+            <td>1С:ERP</td>
+            <td>2.4.12.х</td>
+            <td>КОРП</td>
+        </tr>
+        <tr>
+            <td>1С:Розница</td>
+            <td>2.3.4.х</td>
+            <td>ПРОФ, КОРП</td>
+        </tr>
+        <tr>
+            <td>1С:Бухгалтерия</td>
+            <td>3.0.83.х</td>
+            <td>ПРОФ (только для выгрузки документов)</td>
+        </tr>
+    </tbody>
+</table>
+
+<p><strong>3. Настройте справочники в 1С</strong>. Убедитесь, что в системе заведены:</p>
+<ul>
+    <li>📍 <strong>Адреса складов</strong> (с привязкой к кодам СДЭК).</li>
+    <li>🚚 <strong>Виды доставки</strong> (например, "Курьер СДЭК", "ПВЗ СДЭК", "СДЭК.Экспресс").</li>
+    <li>📦 <strong>Типы упаковок</strong> (коробка, паллета и т.д.) с указанием габаритов и веса.</li>
+</ul>
+
+
+<p>Заключить договор на API-доступ в СДЭК|</p>
+<p>Получить логин/пароль для API|</p>
+<p>Обновить 1С до поддерживаемой версии|</p>
+<p>Завести справочники складов и видов доставки|</p>
+<p>Скачать актуальную обработку обмена с сайта 1С или Инфостарт--></p>
+
+<blockquote>⚠️ <strong>Внимание</strong>: Если вы используете <em>1С:УТ 10.3</em> или более старые версии, интеграция с СДЭК возможна только через сторонние обработки (например, от <em>Инфостарт</em>), но не гарантирует стабильную работу. Рекомендуем обновиться до актуальной версии.</blockquote>
+
+<h2 id="способы-интеграции-1с-и-сдэк-какой-выбрать">Способы интеграции 1С и СДЭК: какой выбрать?</h2>
+
+<p>Существует три основных подхода к настройке обмена данными. Выбор зависит от бюджета, технических возможностей и специфики бизнеса:</p>
+
+<p><strong>1. Стандартные обработки от 1С</strong></p>
+<p>Подходят для типовых конфигураций (<em>1С:УТ 11</em>, <em>ERP 2</em>). Бесплатны, но имеют ограничения:</p>
+<ul>
+    <li>✅ Простая настройка (интуитивный интерфейс).</li>
+    <li>✅ Поддержка базовых функций: выгрузка заказов, загрузка статусов.</li>
+    <li>❌ Нет гибкой настройки тарифов (используются фиксированные значения).</li>
+    <li>❌ Не поддерживает <em>СДЭК.СуперЭкспресс</em> и некоторые региональные тарифы.</li>
+</ul>
+
+<p><strong>2. Сторонние решения (Инфостарт, 1С-Битрикс)</strong></p>
+<p>Платные обработки (от 5 000 до 30 000 ₽) с расширенным функционалом:</p>
+<ul>
+    <li>✅ Автоматический расчёт тарифов с учётом скидок по договору.</li>
+    <li>✅ Поддержка <em>СДЭК ID</em> (отслеживание по номеру заказа без трек-номера).</li>
+    <li>✅ Интеграция с <em>СДЭК.Дроны</em> и <em>СДЭК.Почтоматы</em>.</li>
+    <li>❌ Требует доработки при нестандартных бизнес-процессах.</li>
+</ul>
+
+<p><strong>3. Кастомная разработка через API</strong></p>
+<p>Индивидуальное решение для крупных компаний с уникальными требованиями:</p>
+<ul>
+    <li>✅ Полный контроль над логикой обмена.</li>
+    <li>✅ Возможность интеграции с <em>WMS</em>, <em>CRM</em> или <em>OMS</em>.</li>
+    <li>✅ Поддержка нестандартных схем (например, мультибрендовые заказы).</li>
+    <li>❌ Высокая стоимость (от 50 000 ₽) и длительные сроки внедрения.</li>
+</ul>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Если ваш оборот через СДЭК превышает 100 заказов в день, рассмотрите кастомную интеграцию. Стандартные обработки могут не справиться с нагрузкой, особенно в пиковые периоды (например, перед Новым годом).</p></div>
+
+<h2 id="пошаговая-настройка-интеграции-через-стандартную-обработку-1сут-11">Пошаговая настройка интеграции через стандартную обработку (1С:УТ 11)</h2>
+
+<p>Рассмотрим процесс на примере <em>1С:Управление торговлей 11.4</em>. Аналогичные шаги применимы для <em>ERP 2</em> и <em>Розницы 2.3</em> с незначительными различиями.</p>
+
+<p><strong>Шаг 1. Установите обработку обмена</strong></p>
+<p>Скачайте актуальную версию обработки с сайта <a href="https://its.1c.ru/" target="_blank">ИТС</a> (раздел "Обмен с транспортными компаниями"). Для установки:</p>
+<ol>
+    <li>Откройте 1С в режиме <code>Конфигуратор</code>.</li>
+    <li>Перейдите в <code>Файл → Открыть → Выбрать файл обработки</code>.</li>
+    <li>Нажмите <code>Загрузить</code> и подтвердите установку.</li>
+</ol>
+
+<p><strong>Шаг 2. Настройте подключение к СДЭК</strong></p>
+<p>В разделе <code>Администрирование → Обмен с транспортными компаниями</code>:</p>
+<ol>
+    <li>Создайте новый профиль обмена, выбрав <em>СДЭК</em>.</li>
+    <li>Укажите <strong>логин и пароль</strong> от API (полученные от СДЭК).</li>
+    <li>В поле <code>URL API</code> введите: <code>https://api.cdek.ru/v2</code>.</li>
+    <li>Активируйте опции:
+        <ul>
+            <li>🔄 <strong>Выгружать заказы</strong> (автоматически при проведении).</li>
+            <li>📥 <strong>Загружать статусы</strong> (каждые 30 минут).</li>
+            <li>📦 <strong>Рассчитывать тарифы</strong> (если нужно).</li>
+        </ol>
+    </li>
+</ol>
+
+<p><strong>Шаг 3. Свяжите справочники</strong></p>
+<p>В карточке профиля обмена укажите соответствия:</p>
+<ul>
+    <li>🏢 <strong>Склады 1С → Коды складов СДЭК</strong> (например, <code>MSK101</code> для склада в Москве).</li>
+    <li>🚚 <strong>Виды доставки 1С → Тарифы СДЭК</strong> (например, "Курьер СДЭК" → тариф <code>137</code>).</li>
+    <li>📦 <strong>Типы упаковок → Габариты в СДЭК</strong> (например, "Коробка M" → 30×20×15 см).</li>
+</ul>
+
+<p><strong>Шаг 4. Протестируйте обмен</strong></p>
+<p>Создайте тестовый заказ в 1С и проведите его. Если настройка верна, в личном кабинете СДЭК появится новая заявка с статусом <code>"Принят на склад"</code>. Проверьте:</p>
+<ul>
+    <li>Корректность адреса получателя.</li>
+    <li>Совпадение габаритов и веса.</li>
+    <li>Наличие трек-номера в карточке заказа 1С.</li>
+</ul>
+
+<details class="faq-item"><summary>Что делать, если заказ не выгрузился в СДЭК?</summary><div class="faq-answer"><p>
+<p>Если заказ не появился в личном кабинете СДЭК, проверьте:</p>
+<p>1. <strong>Логи обмена</strong> в 1С (<code>Администрирование → Журнал обменов</code>). Типичные ошибки:</p>
+<p>- <code>401 Unauthorized</code> — неверный логин/пароль API.</p>
+<p>- <code>400 Bad Request</code> — отсутствуют обязательные поля (например, не указан вес).</p>
+<p>2. <strong>Настройки справочников</strong>: убедитесь, что вид доставки в заказе привязан к тарифу СДЭК.</p>
+<p>3. <strong>Сетевые ограничения</strong>: если у вас корпоративный прокси, добавьте <code>api.cdek.ru</code> в исключения.</p>
+<p></p></div></details></p>
+
+<blockquote>⚠️ <strong>Внимание</strong>: Если вы используете <em>1С:Розница 2.3</em>, перед настройкой обмена обязательно обновите конфигурацию до версии <strong>2.3.4.228</strong> или новее. В более старых релизах отсутствует поддержка мультискладских схем, что приведёт к ошибкам при выгрузке заказов с разных складов.</blockquote>
+
+<h2 id="настройка-автоматического-расчёта-тарифов-сдэк-в-1с">Настройка автоматического расчёта тарифов СДЭК в 1С</h2>
+
+<p>Чтобы 1С сама подбирала оптимальный тариф СДЭК с учётом веса, габаритов и региона, выполните следующие шаги:</p>
+
+<p><strong>1. Активируйте расчёт тарифов в профиле обмена</strong></p>
+<p>В настройках интеграции (<code>Администрирование → Обмен с СДЭК</code>) включите опцию <code>"Рассчитывать тарифы при создании заказа"</code>. Укажите:</p>
+<ul>
+    <li>📦 <strong>Дефолтные габариты упаковки</strong> (если не указаны в карточке товара).</li>
+    <li>⚖️ <strong>Минимальный вес</strong> (например, 0.1 кг для документов).</li>
+    <li>💰 <strong>Валюту расчёта</strong> (рубли или доллары).</li>
+</ul>
+
+<p><strong>2. Настройте правила тарификации</strong></p>
+<p>В разделе <code>"Тарифы СДЭК"</code> создайте правила для разных сценариев:</p>
+<table>
+    <thead>
+        <tr>
+            <th>Условие</th>
+            <th>Тариф СДЭК</th>
+            <th>Пример</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Вес ≤ 5 кг, Москва</td>
+            <td>Курьерский экспресс (тариф 137)</td>
+            <td>Доставка документов</td>
+        </tr>
+        <tr>
+            <td>Вес > 20 кг, регионы</td>
+            <td>Грузовые линии (тариф 234)</td>
+            <td>Крупногабаритные товары</td>
+        </tr>
+        <tr>
+            <td>СДЭК.Почтоматы</td>
+            <td>Тариф 482 (постоматы)</td>
+            <td>Заказы с самовывозом</td>
+        </tr>
+    </tbody>
+</table>
+
+<p><strong>3. Проверьте корректность расчёта</strong></p>
+<p>Создайте тестовый заказ с разными параметрами и сравните рассчитанный тариф с данными из <a href="https://calculator.cdek.ru/" target="_blank">калькулятора СДЭК</a>. Если значения не совпадают:</p>
+<ul>
+    <li>Проверьте <strong>наценки по договору</strong> (они могут не учитываться в стандартной обработке).</li>
+    <li>Обновите <strong>справочник регионов</strong> в 1С (через <code>Администрирование → Поддержка → Обновление справочников</code>).</li>
+    <li>Убедитесь, что в карточке товара указаны <strong>вес и габариты</strong>.</li>
+</ul>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Если вы работаете со скидками по договору СДЭК, стандартная обработка 1С их не учитывает. В этом случае используйте сторонние решения (например, <em>Инфостарт: Обмен с СДЭК ПРО</em>) или дорабатывайте конфигурацию через <code>HTTP-сервис</code>.</p></div>
+
+<h2 id="решение-типичных-ошибок-интеграции-1с-и-сдэк">Решение типичных ошибок интеграции 1С и СДЭК</h2>
+
+<p>Даже при правильной настройке могут возникать сбои. Рассмотрим самые частые проблемы и способы их устранения.</p>
+
+<p><strong>1. Ошибка "401 Unauthorized"</strong></p>
+<p>Причина: неверные данные для доступа к API. Решение:</p>
+<ul>
+    <li>Проверьте логин и пароль в настройках обмена.</li>
+    <li>Убедитесь, что у вас <strong>активен договор на API</strong> (иногда доступ блокируется за просрочку оплаты).</li>
+    <li>Если используете <em>СДЭК ID</em>, убедитесь, что в личном кабинете включена опция <code>"Разрешить доступ по API"</code>.</li>
+</ul>
+
+<p><strong>2. Заказы не выгружаются в СДЭК</strong></p>
+<p>Возможные причины и решения:</p>
+<ul>
+    <li>🔌 <strong>Нет связи с API</strong>: проверьте интернет-соединение и настройки прокси.</li>
+    <li>📦 <strong>Отсутствуют обязательные поля</strong>: в заказе должны быть указаны вес, габариты и адрес получателя.</li>
+    <li>🚫 <strong>Ограничения по статусу</strong>: в настройках обмена может быть указано, что выгружаются только заказы со статусом <code>"Оплачен"</code>.</li>
+</ul>
+
+<p><strong>3. Некорректные тарифы</strong></p>
+<p>Если 1С рассчитывает стоимость доставки неверно:</p>
+<ul>
+    <li>Обновите <strong>справочник тарифов</strong> в 1С (через <code>Администрирование → Обмен с СДЭК → Обновить тарифы</code>).</li>
+    <li>Проверьте, что в карточке товара указан <strong>правильный вес</strong> (в килограммах, не в граммах!).</li>
+    <li>Убедитесь, что в настройках обмена выбран правильный <strong>профиль тарификации</strong> (например, для <em>СДЭК.Экспресс</em> нужен отдельный профиль).</li>
+</ul>
+
+<p><strong>4. Статусы не обновляются в 1С</strong></p>
+<p>Если трек-номер есть, но статусы не подтягиваются:</p>
+<ul>
+    <li>Проверьте <strong>расписание обмена</strong> (по умолчанию обновление статусов происходит раз в 30 минут).</li>
+    <li>Убедитесь, что в настройках включена опция <code>"Загружать статусы автоматически"</code>.</li>
+    <li>Если используете <em>СДЭК ID</em>, проверьте, что в личном кабинете СДЭК включена опция <code>"Отправлять уведомления по API"</code>.</li>
+</ul>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Если ошибка повторяется, включите <strong>логгирование обмена</strong> в 1С (<code>Администрирование → Настройки системы → Логирование</code>). Это поможет точнее определить причину сбоя. Логи сохраняются в файл <code>1Cv8Log\exchange_cdek.log</code>.</p></div>
+
+<h2 id="расширенные-возможности-сдэк-id-мультисклад-и-кастомные-поля">Расширенные возможности: СДЭК ID, мультисклад и кастомные поля</h2>
+
+<p>Для крупных компаний стандартной интеграции может быть недостаточно. Рассмотрим продвинутые сценарии.</p>
+
+<p><strong>1. Работа со СДЭК ID</strong></p>
+<p><em>СДЭК ID</em> позволяет отслеживать заказы по внутреннему номеру (без трек-номера). Для настройки:</p>
+<ol>
+    <li>В личном кабинете СДЭК активируйте опцию <code>"Использовать СДЭК ID"</code>.</li>
+    <li>В 1С в настройках обмена укажите префикс для номеров заказов (например, <code>ORD-</code>).</li>
+    <li>В карточке заказа добавьте поле <code>СДЭК ID</code> и свяжите его с номером документа.</li>
+</ol>
+
+<p><strong>2. Мультискладские схемы</strong></p>
+<p>Если заказы обрабатываются на нескольких складах:</p>
+<ul>
+    <li>В 1С создайте отдельные <strong>профили обмена</strong> для каждого склада.</li>
+    <li>В настройках укажите <strong>код склада СДЭК</strong> (например, <code>SPB001</code> для Петербурга).</li>
+    <li>Настройте правила маршрутизации: например, заказы из Москвы отправляются со склада <code>MSK101</code>, а из регионов — с <code>REG005</code>.</li>
+</ul>
+
+<p><strong>3. Кастомные поля в заказах</strong></p>
+<p>Если нужно передавать в СДЭК дополнительные данные (например, <strong>комментарий к заказу</strong> или <strong>номер телефона второго получателя</strong>), используйте:</p>
+<ul>
+    <li>В стандартной обработке: поле <code>Дополнительная информация</code> в карточке заказа.</li>
+    <li>В кастомной интеграции: параметр <code>additional_fields</code> в <code>JSON</code>-запросе к API.</li>
+</ul>
+<p>Пример <code>JSON</code> для передачи комментария:</p>
+<pre><code>{
+<p>"order": {</p>
+<p>"number": "ORD-12345",</p>
+<p>"comment": "Не звонить, оставить у двери",</p>
+<p>"recipient": {</p>
+<p>"name": "Иванов Иван",</p>
+<p>"phone": "+79991234567"</p>
+<p>}</p>
+<p>}</p>
+<p>}</code></pre></p>
+
+<blockquote>⚠️ <strong>Внимание</strong>: При использовании кастомных полей убедитесь, что они поддерживаются тарифом СДЭК. Например, поле <code>delivery_time</code> (желаемое время доставки) работает только для тарифов <em>СДЭК.Экспресс</em> и <em>СДЭК.СуперЭкспресс</em>.</blockquote>
+
+<h2 id="faq-частые-вопросы-по-интеграции-1с-и-сдэк">FAQ: Частые вопросы по интеграции 1С и СДЭК</h2>
+
+<details>
+    <summary>Можно ли интегрировать 1С:Бухгалтерию 3.0 с СДЭК?</summary>
+    <p>Да, но с ограничениями. <em>1С:Бухгалтерия</em> позволяет выгружать только документы (счета, накладные), но не поддерживает автоматический расчёт тарифов или обмен статусами. Для полноценной интеграции потребуется доработка через <code>HTTP-сервис</code> или сторонняя обработка.</p>
+</details>
+
+<details>
+    <summary>Как передавать в СДЭК данные о нескольких товарах в одном заказе?</summary>
+    <p>В стандартной обработке 1С все товары из заказа группируются в одну позицию с указанием общего веса и габаритов. Если нужно передавать детализацию (наименования, артикулы), используйте:</p>
+    <ul>
+        <li>Стороннюю обработку (например, <em>Инфостарт: СДЭК Плюс</em>).</li>
+        <li>Кастомную доработку через <code>API</code> (параметр <code>items</code> в запросе).</li>
+    </ul>
+    <p>Пример структуры для детализации:</p>
+    <pre><code>{
+<p>"items": [</p>
+<p>{</p>
+<p>"name": "Ноутбук",</p>
+<p>"ware_key": "LAP-001",</p>
+<p>"weight": 2.5,</p>
+<p>"quantity": 1</p>
+<p>},</p>
+<p>{</p>
+<p>"name": "Мышь",</p>
+<p>"ware_key": "MOUSE-01",</p>
+<p>"weight": 0.2,</p>
+<p>"quantity": 2</p>
+<p>}</p>
+<p>]</p>
+<p>}</code></pre></p>
+</details>
+
+<details>
+    <summary>Что делать, если СДЭК изменил API, и обмен перестал работать?</summary>
+    <p>СДЭК периодически обновляет API (например, при переходе с <code>v1</code> на <code>v2</code>). В этом случае:</p>
+    <ol>
+        <li>Проверьте <a href="https://api-docs.cdek.ru/" target="_blank">документацию СДЭК</a> на наличие изменений.</li>
+        <li>Обновите обработку обмена до последней версии (через <code>ИТС</code> или сайт разработчика).</li>
+        <li>Если используете кастомную интеграцию, обновите <code>endpoint</code> в запросах (например, с <code>/v1/orders</code> на <code>/v2/orders</code>).</li>
+    </ol>
+    <p>СДЭК обычно заранее уведомляет о таких изменениях по email. Если обмен перестал работать внезапно, проверьте папку <code>Спам</code> в почте.</p>
+</details>
+
+<details>
+    <summary>Как интегрировать 1С с СДЭК, если у нас несколько юридических лиц?</summary>
+    <p>Для каждого юрлица потребуется:</p>
+    <ol>
+        <li>Отдельный <strong>договор с СДЭК</strong> (и, соответственно, отдельные логин/пароль для API).</li>
+        <li>Отдельный <strong>профиль обмена</strong> в 1С.</li>
+        <li>Настройка <strong>правил маршрутизации</strong>: например, заказы от ИП Иванова отправляются через профиль <code>СДЭК_Иванов</code>, а от ООО "Ромашка" — через <code>СДЭК_Ромашка</code>.</li>
+    </ol>
+    <p>В карточке заказа 1С добавьте поле <code>Юрлицо</code> и свяжите его с соответствующим профилем обмена.</p>
+</details>
+
+<details>
+    <summary>Можно ли автоматически печатать этикетки СДЭК из 1С?</summary>
+    <p>Да, для этого:</p>
+    <ol>
+        <li>В настройках обмена включите опцию <code>"Печатать этикетки автоматически"</code>.</li>
+        <li>Укажите <strong>шаблон этикетки</strong> (стандартный или кастомный).</li>
+        <li>Подключите <strong>термопринтер</strong> к компьютеру с 1С (рекомендуемые модели: <em>Zebra ZD420</em>, <em>TSC TE200</em>).</li>
+    </ol>
+    <p>Если этикетки печатаются некорректно (смазанный текст, неправильный размер), проверьте:</p>
+    <ul>
+        <li>Настройки <strong>DPI принтера</strong> (должно быть 203 или 300).</li>
+        <li>Формат этикетки в 1С (должен совпадать с размером рулона, например, <code>100×100 мм</code>).</li>
+    </ul>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#зачем-нужна-интеграция-1с-и-сдэк-5-ключевых-преимуществ">Зачем нужна интеграция 1С и СДЭК: 5 ключевых преимуществ</a></li><li><a href="#подготовка-к-интеграции-что-нужно-сделать-до-настройки">Подготовка к интеграции: что нужно сделать до настройки</a></li><li><a href="#способы-интеграции-1с-и-сдэк-какой-выбрать">Способы интеграции 1С и СДЭК: какой выбрать?</a></li><li><a href="#пошаговая-настройка-интеграции-через-стандартную-обработку-1сут-11">Пошаговая настройка интеграции через стандартную обработку (1С:УТ 11)</a></li><li><a href="#настройка-автоматического-расчёта-тарифов-сдэк-в-1с">Настройка автоматического расчёта тарифов СДЭК в 1С</a></li><li><a href="#решение-типичных-ошибок-интеграции-1с-и-сдэк">Решение типичных ошибок интеграции 1С и СДЭК</a></li><li><a href="#расширенные-возможности-сдэк-id-мультисклад-и-кастомные-поля">Расширенные возможности: СДЭК ID, мультисклад и кастомные поля</a></li><li><a href="#faq-частые-вопросы-по-интеграции-1с-и-сдэк">FAQ: Частые вопросы по интеграции 1С и СДЭК</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/s/sd/sdek-marketplejs-kak-stat-prodavtsom.html" class="related-card">Как стать продавцом на СДЭК Маркетплейс: регистрация и старт</a></li><li><a href="/articles/k/ka/kakie-dobavit-sdek.html" class="related-card">Какие добавить СДЭК: настройка виджетов, опций и способов оплаты</a></li><li><a href="/articles/k/ka/kak-otkryt-sdek-v-svoem.html" class="related-card">Как открыть пункт СДЭК в своём городе: пошаговая инструкция 2026</a></li><li><a href="/articles/s/sk/skolko-zarabatyvaet-otdelenie-sdek.html" class="related-card">Сколько зарабатывает отделение СДЭК: реальные цифры и факторы дохода</a></li><li><a href="/articles/k/ka/kak-otpravit-sdek-po-dogovoru-klienta.html" class="related-card">Как отправить СДЭК по договору клиента: пошаговая инструкция</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/s/sd/sdek-marketplejs-kak-stat-prodavtsom.html" class="related-bottom-card"><span class="related-bottom-title">Как стать продавцом на СДЭК Маркетплейс: регистрация и старт</span><span class="related-bottom-desc">Полная инструкция: как стать продавцом на СДЭК Маркетплейс. Пошаговая регистрация, выбор тарифа, док</span></a><a href="/articles/k/ka/kakie-dobavit-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Какие добавить СДЭК: настройка виджетов, опций и способов оплаты</span><span class="related-bottom-desc">Подробный гид: какие добавить виджеты СДЭК на сайт, как включить новые опции доставки и подключить д</span></a><a href="/articles/k/ka/kak-otkryt-sdek-v-svoem.html" class="related-bottom-card"><span class="related-bottom-title">Как открыть пункт СДЭК в своём городе: пошаговая инструкция 2026</span><span class="related-bottom-desc">Хотите стать партнёром СДЭК? Узнайте, как открыть пункт выдачи или приёма посылок: требования, докум</span></a><a href="/articles/s/sk/skolko-zarabatyvaet-otdelenie-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Сколько зарабатывает отделение СДЭК: реальные цифры и факторы дохода</span><span class="related-bottom-desc">Разбираемся, как формируется прибыль отделения СДЭК: от тарифов до франшизы. Актуальные данные 2026 </span></a><a href="/articles/k/ka/kak-otpravit-sdek-po-dogovoru-klienta.html" class="related-bottom-card"><span class="related-bottom-title">Как отправить СДЭК по договору клиента: пошаговая инструкция</span><span class="related-bottom-desc">Полный гид по оформлению отправки через СДЭК для юридических лиц. Как создать накладную, передать гр</span></a><a href="/articles/k/ka/kak-otkryt-sdek-dostavku.html" class="related-bottom-card"><span class="related-bottom-title">Как открыть СДЭК доставку: пошаговая инструкция для бизнеса</span><span class="related-bottom-desc">Узнайте, как открыть СДЭК доставку и стать партнером. Условия франшизы, требования к ПВЗ, инвестиции</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

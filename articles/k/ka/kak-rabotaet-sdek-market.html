@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>Как работает СДЭК Маркет: подробный гайд для покупателей и продавцов — СДЭК Гид</title>
+    <meta name="description" content="Разбираемся, как функционирует СДЭК Маркет: от поиска товаров до доставки. Инструкции для покупателей и продавцов, тарифы, нюансы работы платформы.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/k/ka/kak-rabotaet-sdek-market.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Как работает СДЭК Маркет: подробный гайд для покупателей и продавцов">
+    <meta property="og:description" content="Разбираемся, как функционирует СДЭК Маркет: от поиска товаров до доставки. Инструкции для покупателей и продавцов, тарифы, нюансы работы платформы.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/otpravka-gruzov/">Отправка грузов</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Как работает СДЭК Маркет: подробный гайд для покупателей и продавцов</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>СДЭК Маркет: как работает платформа для покупок и продаж с доставкой</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#что-такое-сдэк-маркет-и-кому-он-нужен">Что такое СДЭК Маркет и кому он нужен</a></li><li><a href="#как-работает-сдэк-маркет-для-покупателей-от-поиска-до-получения">Как работает СДЭК Маркет для покупателей: от поиска до получения</a></li><li><a href="#регистрация-и-работа-для-продавцов-пошаговая-инструкция">Регистрация и работа для продавцов: пошаговая инструкция</a></li><li><a href="#тарифы-и-комиссии-сколько-стоит-продавать-на-сдэк-маркет">Тарифы и комиссии: сколько стоит продавать на СДЭК Маркет</a></li><li><a href="#преимущества-и-недостатки-сдэк-маркет">Преимущества и недостатки СДЭК Маркет</a></li><li><a href="#частые-проблемы-и-как-их-решить">Частые проблемы и как их решить</a></li><li><a href="#сдэк-маркет-vs-другие-маркетплейсы-сравнительная-таблица">СДЭК Маркет vs другие маркетплейсы: сравнительная таблица</a></li><li><a href="#faq-ответы-на-частые-вопросы">FAQ: ответы на частые вопросы</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body"><p>Платформа <strong>СДЭК Маркет</strong> — это не просто маркетплейс, а уникальное решение, объединяющее возможности онлайн-торговли с логистическими преимуществами одной из крупнейших транспортных компаний России. Здесь покупатели находят товары от проверенных продавцов, а предприниматели получают доступ к готовой инфраструктуре для продаж с доставкой по всей стране. Но как именно устроена эта система? Чем она отличается от классических маркетплейсов вроде <em>Ozon</em> или <em>Wildberries</em>?</p>
+
+<p>В отличие от традиционных площадок, где логистика часто отдаётся на аутсорс, <strong>СДЭК Маркет</strong> интегрирован с собственной транспортной сетью компании. Это означает, что продавцы могут не только выставлять товары, но и оперативно отправлять их через пункты выдачи или курьерскую доставку СДЭК. Для покупателей это гарантия быстрой обработки заказов и прозрачного отслеживания посылки на каждом этапе — от склада продавца до двери получателя.</p>
+
+<p>В этой статье мы детально разберём, как работает <strong>СДЭК Маркет</strong> для обеих сторон: от регистрации и размещения товаров до оплаты, доставки и решения спорных ситуаций. Особое внимание уделим тарифам, срокам и нюансам, о которых редко говорят в официальных инструкциях.</p>
+
+<h2 id="что-такое-сдэк-маркет-и-кому-он-нужен">Что такое СДЭК Маркет и кому он нужен</h2>
+
+<p><strong>СДЭК Маркет</strong> — это гибридная платформа, сочетающая функции маркетплейса и логистического оператора. Она была запущена в 2020 году как ответ на растущий спрос на онлайн-покупки с быстрой доставкой. Главное отличие от конкурентов — тесная интеграция с инфраструктурой <em>СДЭК</em>, что позволяет:</p>
+
+<ul>
+  <li>📦 Продавцам: сократить издержки на логистику за счёт внутренних тарифов компании.</li>
+  <li>🚚 Покупателям: получать заказы быстрее благодаря оптимизированным маршрутам доставки.</li>
+  <li>💳 Оплачивать покупки удобным способом (картой, наличными при получении, через СБП).</li>
+  <li>🔍 Отслеживать посылку в реальном времени через личный кабинет или мобильное приложение.</li>
+</ul>
+
+<p>Платформа подходит для разных категорий пользователей:</p>
+<ul>
+  <li>🛒 <strong>Покупатели</strong>, ищущие товары с гарантированной доставкой и возможностью возврата.</li>
+  <li>🏢 <strong>Малый и средний бизнес</strong>, который хочет расширить каналы сбыта без больших вложений в логистику.</li>
+  <li>🏭 <strong>Крупные поставщики</strong>, использующие <em>СДЭК</em> для дистрибуции по регионам.</li>
+  <li>📦 <strong>Дропшипперы</strong>, работающие без собственного склада (товар отправляется напрямую от производителя).</li>
+</ul>
+
+<p>Важно понимать, что <strong>СДЭК Маркет</strong> не заменяет классические маркетплейсы, а дополняет их. Здесь нет миллионов предложений, как на <em>Wildberries</em>, но зато есть чёткая логистическая цепочка и прозрачные условия для продавцов. Например, комиссия за продажу на платформе ниже, чем у многих конкурентов, а доставка часто обходится дешевле благодаря внутренним тарифам <em>СДЭК</em>.</p>
+
+<div class="poll-widget" id="poll-9ccafbb9"><div class="poll-widget-question">📊 Вы уже пользовались СДЭК Маркет?</div><div class="poll-widget-option" data-poll="9ccafbb9" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Да, как покупатель</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="9ccafbb9" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Да, как продавец</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="9ccafbb9" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Нет, но планирую</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="9ccafbb9" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Нет и не планирую</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="как-работает-сдэк-маркет-для-покупателей-от-поиска-до-получения">Как работает СДЭК Маркет для покупателей: от поиска до получения</h2>
+
+<p>Процесс покупки на <strong>СДЭК Маркет</strong> мало отличается от других площадок, но есть ключевые моменты, связанные с логистикой. Рассмотрим пошагово, как оформить заказ и получить его максимально быстро.</p>
+
+<h3>1. Поиск и выбор товара</h3>
+<p>Каталог платформы разделен на категории: электроника, одежда, товары для дома, автозапчасти и др. В отличие от гигантов вроде <em>Ozon</em>, здесь меньше предложений, но зато:</p>
+<ul>
+  <li>🔍 Больше фильтров по регионам (можно искать товары, которые есть на ближайшем складе <em>СДЭК</em>).</li>
+  <li>📊 Подробные карточки товаров с указанием срока доставки и стоимости (включая логистику).</li>
+  <li>💬 Возможность задать вопрос продавцу прямо на странице товара.</li>
+</ul>
+
+<p>Обратите внимание на метки:</p>
+<ul>
+  <li>⚡ "<strong>Быстрая доставка</strong>" — товар есть на складе <em>СДЭК</em> в вашем городе (доставка за 1–2 дня).</li>
+  <li>🏢 "<strong>Самовывоз</strong>" — можно забрать заказ в пункте выдачи без ожидания курьера.</li>
+  <li>🔄 "<strong>Возврат 14 дней</strong>" — продавец гарантирует возврат или обмен.</li>
+</ul>
+
+<h3>2. Оформление заказа и оплата</h3>
+<p>После добавления товаров в корзину система автоматически рассчитывает стоимость доставки исходя из:</p>
+<ul>
+  <li>📍 Вашего региона (например, доставка в Москву дешевле, чем в отдалённые области).</li>
+  <li>📦 Габаритов и веса посылки (используются тарифы <em>СДЭК</em>).</li>
+  <li>🚀 Выбранного типа доставки (курьер, пункт выдачи, постамат).</li>
+</ul>
+
+<p>Оплатить заказ можно:</p>
+<ul>
+  <li>💳 Банковской картой (Visa, Mastercard, МИР).</li>
+  <li>💵 Наличными при получении (для курьерской доставки).</li>
+  <li>📱 Через СБП (Система быстрых платежей).</li>
+  <li>🏦 По счёту для юридических лиц.</li>
+</ul>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Если выбираете оплату при получении, проверьте, есть ли в вашем городе пункты выдачи <em>СДЭК</em> с функцией приёма наличных. Не все отделения работают с cash on delivery.</p></div>
+
+<h3>3. Отслеживание и получение</h3>
+<p>После оплаты заказу присваивается трек-номер, по которому можно отслеживать статусы:</p>
+<ol>
+  <li><code>Принят продавцом</code> — товар готов к отправке.</li>
+  <li><code>Передан в СДЭК</code> — посылка на складе транспортной компании.</li>
+  <li><code>В пути</code> — груз следует к пункту назначения.</li>
+  <li><code>Готов к выдаче</code> — можно забрать в ПВЗ или дождаться курьера.</li>
+</ol>
+
+<p>Отслеживать посылку можно:</p>
+<ul>
+  <li>🌐 На сайте <a href="https://www.cdek.ru" target="_blank"><em>СДЭК</em></a> в разделе "Отслеживание".</li>
+  <li>📱 В мобильном приложении <em>СДЭК</em> (доступно для iOS и Android).</li>
+  <li>📧 Через уведомления по email или SMS.</li>
+</ul>
+
+<details class="faq-item"><summary>Что делать, если трек-номер не обновляется?</summary><div class="faq-answer"><p>Если статус заказа застрял на этапе "Передан в СДЭК" дольше 2 дней, свяжитесь с продавцом или поддержкой <em>СДЭК Маркет</em>. Возможные причины: ошибка при регистрации посылки, задержка на сортировочном центре или проблемы с документами (например, неверно указан вес).</p></div></details>
+
+<p>Сроки доставки зависят от региона и типа отправления:</p>
+<table>
+  <thead>
+    <tr>
+      <th>Тип доставки</th>
+      <th>Москва и МО</th>
+      <th>Регионы (европейская часть)</th>
+      <th>Дальний Восток, Сибирь</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Курьерская</td>
+      <td>1–2 дня</td>
+      <td>2–5 дней</td>
+      <td>5–10 дней</td>
+    </tr>
+    <tr>
+      <td>Пункт выдачи</td>
+      <td>1–3 дня</td>
+      <td>3–7 дней</td>
+      <td>7–14 дней</td>
+    </tr>
+    <tr>
+      <td>Постамат</td>
+      <td>1–2 дня</td>
+      <td>3–6 дней</td>
+      <td>7–12 дней</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Если вы заказали товар с пометкой "<strong>Доставка сегодня</strong>", убедитесь, что оформили заказ до 12:00 по местному времени. В противном случае сроки сдвинутся на следующий день.</blockquote>
+
+<h2 id="регистрация-и-работа-для-продавцов-пошаговая-инструкция">Регистрация и работа для продавцов: пошаговая инструкция</h2>
+
+<p>Чтобы начать продавать на <strong>СДЭК Маркет</strong>, нужно пройти регистрацию и настроить личный кабинет. Процесс проще, чем на других маркетплейсах, но есть нюансы, связанные с логистикой.</p>
+
+<h3>1. Регистрация аккаунта продавца</h3>
+<p>Для начала работы:</p>
+<ol>
+  <li>Перейдите на сайт <a href="https://market.cdek.ru" target="_blank"><em>СДЭК Маркет</em></a> и нажмите "<strong>Стать продавцом</strong>".</li>
+  <li>Заполните данные о компании (ИНН, ОГРН, реквизиты).</li>
+  <li>Подтвердите email и телефон.</li>
+  <li>Подпишите договор оферты (электронно).</li>
+</ol>
+
+<p>Важно: для юридических лиц требуется пакет документов (выписка из ЕГРЮЛ, доверенность на представителя). ИП могут начать продавать сразу после верификации.</p>
+
+<h3>2. Добавление товаров в каталог</h3>
+<p>Чтобы выставить товар, нужно:</p>
+
+<p>Загрузить качественные фото (минимум 3 шт., разрешением от 800×800 px)|</p>
+<p>Указать полное название с ключевыми словами (например, "Смартфон Xiaomi Redmi Note 12 6/128GB, чёрный")|</p>
+<p>Заполнить характеристики (вес, габариты, материал, страна-производитель)|</p>
+<p>Установить цену с учётом комиссии платформы (от 5% до 15% в зависимости от категории)|</p>
+<p>Выбрать способы доставки (курьер, ПВЗ, постамат) и указать сроки обработки заказа (от 1 до 5 дней)</p>
+<p>--></p>
+
+<p>Особое внимание уделите:</p>
+<ul>
+  <li>📦 <strong>Весу и габаритам</strong> — от этого зависит стоимость доставки. Если укажете неверные данные, покупатель может заплатить больше, а вы — получить штраф.</li>
+  <li>🏷️ <strong>Штрихкодам</strong> — если товар имеет заводской штрихкод, его нужно указать для ускорения обработки на складе.</li>
+  <li>🔄 <strong>Условиям возврата</strong> — платформа требует чётко прописать, принимаете ли вы возврат в течение 14 дней.</li>
+</ul>
+
+<h3>3. Логистика: как отправлять заказы через СДЭК</h3>
+<p>После того как покупатель оформил заказ, вам нужно:</p>
+<ol>
+  <li>Подтвердить заказ в личном кабинете (в течение 24 часов).</li>
+  <li>Упаковать товар согласно <a href="https://www.cdek.ru/ru/individuals/help/packaging" target="_blank">требованиям <em>СДЭК</em></a> (использовать гофрокороб, защитить хрупкие предметы).</li>
+  <li>Распечатать этикетку (формируется автоматически в ЛК) и наклеить на посылку.</li>
+  <li>Отвезти заказ в ближайший пункт приёма <em>СДЭК</em> или вызвать курьера (для крупных отправлений).</li>
+</ol>
+
+<p>Стоимость доставки для продавца рассчитывается по внутренним тарифам <em>СДЭК</em>, которые ниже рыночных. Например, отправка посылки весом 1 кг из Москвы в Санкт-Петербург обойдётся в ~250–300 рублей (в зависимости от габаритов).</p>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Если вы указали в карточке товара бесплатную доставку, её стоимость будет удержана из вашей выручки. Платформа автоматически списывает сумму согласно тарифам <em>СДЭК</em>.</blockquote>
+
+<h2 id="тарифы-и-комиссии-сколько-стоит-продавать-на-сдэк-маркет">Тарифы и комиссии: сколько стоит продавать на СДЭК Маркет</h2>
+
+<p>Одним из ключевых преимуществ <strong>СДЭК Маркет</strong> являются прозрачные тарифы. В отличие от других маркетплейсов, где комиссия может достигать 20–30%, здесь ставки ниже, но есть нюансы.</p>
+
+<h3>1. Комиссия платформы</h3>
+<p>Размер комиссии зависит от категории товара:</p>
+<table>
+  <thead>
+    <tr>
+      <th>Категория</th>
+      <th>Комиссия</th>
+      <th>Пример</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Электроника</td>
+      <td>8–12%</td>
+      <td>Смартфоны, ноутбуки, бытовая техника</td>
+    </tr>
+    <tr>
+      <td>Одежда и обувь</td>
+      <td>5–10%</td>
+      <td>Футболки, джинсы, кроссовки</td>
+    </tr>
+    <tr>
+      <td>Товары для дома</td>
+      <td>7–15%</td>
+      <td>Посуда, текстиль, мебель</td>
+    </tr>
+    <tr>
+      <td>Автозапчасти</td>
+      <td>10–14%</td>
+      <td>Аккумуляторы, фильтры, шины</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Комиссия списывается с каждого успешного заказа. Например, если вы продали смартфон за 20 000 рублей с комиссией 10%, платформа удержит 2 000 рублей.</p>
+
+<h3>2. Стоимость доставки</h3>
+<p>Доставка оплачивается покупателем, но продавец может выбрать один из вариантов:</p>
+<ul>
+  <li>📦 <strong>Стандартная</strong> — по тарифам <em>СДЭК</em> (расчёт индивидуальный).</li>
+  <li>🚀 <strong>Экспресс</strong> — ускоренная доставка (дороже на 30–50%).</li>
+  <li>🎁 <strong>Бесплатная</strong> — если готовы оплатить её сами (списание с выручки).</li>
+</ul>
+
+<p>Пример расчёта доставки для посылки весом 2 кг (габариты 30×20×10 см) из Москвы в Казань:</p>
+<ul>
+  <li>Пункт выдачи: ~350 рублей.</li>
+  <li>Курьерская доставка: ~500 рублей.</li>
+  <li>Постамат: ~300 рублей.</li>
+</ul>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Чем тяжелее и габаритнее товар, тем выше стоимость доставки. Например, отправка холодильника весом 50 кг обойдётся в 3–5 тысяч рублей, поэтому такие товары лучше продавать с самовывозом или предоплатой.</p></div>
+
+<h3>3. Дополнительные платежи</h3>
+<p>Помимо комиссии и доставки, могут взиматься:</p>
+<ul>
+  <li>📤 <strong>Возврат товара</strong> — если покупатель вернёт заказ, вы оплатите обратную доставку (по тарифам <em>СДЭК</em>).</li>
+  <li>📦 <strong>Хранение на складе</strong> — если товар лежит на складе <em>СДЭК</em> дольше 30 дней (от 1 рубля за кг/день).</li>
+  <li>🔄 <strong>Обмен валюты</strong> — если продаёте в тенге или долларах (комиссия 1–3%).</li>
+</ul>
+
+<h2 id="преимущества-и-недостатки-сдэк-маркет">Преимущества и недостатки СДЭК Маркет</h2>
+
+<p>Как и любая платформа, <strong>СДЭК Маркет</strong> имеет плюсы и минусы. Рассмотрим их с точки зрения покупателей и продавцов.</p>
+
+<h3>Для покупателей</h3>
+<p><strong>Плюсы:</strong></p>
+<ul>
+  <li>✅ Быстрая доставка за счёт интеграции с <em>СДЭК</em> (в некоторых регионах — уже на следующий день).</li>
+  <li>✅ Прозрачное отслеживание посылки на всех этапах.</li>
+  <li>✅ Возможность оплаты при получении (наличными или картой).</li>
+  <li>✅ Ниже риск нарваться на мошенников — платформа проверяет продавцов.</li>
+</ul>
+
+<p><strong>Минусы:</strong></p>
+<ul>
+  <li>❌ Меньше выбор товаров по сравнению с <em>Ozon</em> или <em>Wildberries</em>.</li>
+  <li>❌ Не все продавцы предлагают бесплатную доставку.</li>
+  <li>❌ В отдалённых регионах сроки доставки могут достигать 2 недель.</li>
+</ul>
+
+<h3>Для продавцов</h3>
+<p><strong>Плюсы:</strong></p>
+<ul>
+  <li>✅ Низкая комиссия (от 5%) по сравнению с другими маркетплейсами.</li>
+  <li>✅ Готовая логистическая инфраструктура — не нужно искать транспортные компании.</li>
+  <li>✅ Возможность продавать без собственного склада (дропшиппинг).</li>
+  <li>✅ Лояльная аудитория — покупатели доверяют бренду <em>СДЭК</em>.</li>
+</ul>
+
+<p><strong>Минусы:</strong></p>
+<ul>
+  <li>❌ Меньше трафика, чем на крупных площадках.</li>
+  <li>❌ Жёсткие требования к упаковке и срокам отправки.</li>
+  <li>❌ Ограничения по категориям товаров (например, нельзя продавать алкоголь или лекарства).</li>
+</ul>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>СДЭК Маркет выгоден продавцам, которые уже работают с <em>СДЭК</em> как с транспортной компанией. Для них интеграция с платформой упрощает логистику и снижает издержки.</p></div>
+
+<h2 id="частые-проблемы-и-как-их-решить">Частые проблемы и как их решить</h2>
+
+<p>Даже на надёжной платформе могут возникать сложности. Рассмотрим типичные ситуации и способы их решения.</p>
+
+<h3>1. Заказ не доставлен в срок</h3>
+<p>Если посылка задерживается:</p>
+<ul>
+  <li>Проверьте статус на сайте <em>СДЭК</em> по трек-номеру.</li>
+  <li>Если статус не обновляется больше 3 дней, свяжитесь с поддержкой:
+    <ul>
+      <li>📞 По телефону: 8 800 250-04-05 (звонок бесплатный).</li>
+      <li>📧 По email: <code>support@cdek.ru</code>.</li>
+      <li>💬 Через чат в личном кабинете.</li>
+    </ul>
+  </li>
+  <li>Если задержка по вине <em>СДЭК</em>, вы можете потребовать компенсацию за просрочку (до 50% от стоимости доставки).</li>
+</ul>
+
+<h3>2. Товар пришёл с дефектом</h3>
+<p>Порядок действий:</p>
+<ol>
+  <li>Сфотографируйте повреждения и упаковку.</li>
+  <li>Свяжитесь с продавцом через личный кабинет (кнопка "<strong>Задать вопрос</strong>").</li>
+  <li>Если продавец отказывается решать вопрос, обратитесь в поддержку <em>СДЭК Маркет</em> с доказательствами (фото, видео, переписка).</li>
+  <li>В большинстве случаев вам предложат возврат или обмен.</li>
+</ol>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Если вы оплатили товар при получении, осмотрите его при курьере. В случае повреждений составьте акт — это ускорит процесс возврата.</blockquote>
+
+<h3>3. Продавец не отправляет заказ</h3>
+<p>Если продавец не подтверждает заказ больше 24 часов:</p>
+<ul>
+  <li>Напишите ему сообщение через личный кабинет.</li>
+  <li>Если нет ответа, обратитесь в поддержку <em>СДЭК Маркет</em> с требованием отменить заказ и вернуть деньги.</li>
+  <li>Срок возврата средств — до 10 рабочих дней (зависит от банка).</li>
+</ul>
+
+<h3>4. Ошибка в адресе доставки</h3>
+<p>Если вы указали неверный адрес:</p>
+<ul>
+  <li>Свяжитесь с поддержкой <em>СДЭК</em> как можно быстрее (до момента отправки посылки).</li>
+  <li>Если посылка уже в пути, её можно перенаправить на другой адрес (услуга платная, ~100–300 рублей).</li>
+  <li>Если посылка вернулась как невостребованная, вам придётся оплатить обратную доставку.</li>
+</ul>
+
+<h2 id="сдэк-маркет-vs-другие-маркетплейсы-сравнительная-таблица">СДЭК Маркет vs другие маркетплейсы: сравнительная таблица</h2>
+
+<p>Чтобы понять, подходит ли вам <strong>СДЭК Маркет</strong>, сравним его с основными конкурентами:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Критерий</th>
+      <th>СДЭК Маркет</th>
+      <th>Ozon</th>
+      <th>Wildberries</th>
+      <th>Яндекс Маркет</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Комиссия продавца</td>
+      <td>5–15%</td>
+      <td>10–25%</td>
+      <td>5–15% + плата за логистику</td>
+      <td>8–20%</td>
+    </tr>
+    <tr>
+      <td>Скорость доставки</td>
+      <td>1–14 дней (зависит от региона)</td>
+      <td>1–7 дней</td>
+      <td>2–10 дней</td>
+      <td>1–5 дней</td>
+    </tr>
+    <tr>
+      <td>Возможность самовывоза</td>
+      <td>Да (пункты выдачи СДЭК)</td>
+      <td>Да (пункты выдачи Ozon)</td>
+      <td>Да (постаматы и ПВЗ)</td>
+      <td>Да (пункты выдачи партнёров)</td>
+    </tr>
+    <tr>
+      <td>Оплата при получении</td>
+      <td>Да</td>
+      <td>Да</td>
+      <td>Да</td>
+      <td>Да</td>
+    </tr>
+    <tr>
+      <td>Требования к продавцам</td>
+      <td>Минимальные (подходит для ИП и самозанятых)</td>
+      <td>Строгие (нужен ОГРН, проверка документов)</td>
+      <td>Средние (нужен ИНН, договор)</td>
+      <td>Строгие (только юрлица и ИП)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><mark>СДЭК Маркет выигрывает по комиссиям и логистике, но проигрывает в ассортименте и скорости доставки в отдалённые регионы.</mark> Если вам важна надёжность и низкие издержки — это хороший выбор. Если приоритет — широкий выбор и сверхбыстрая доставка, лучше рассмотреть <em>Ozon</em> или <em>Яндекс Маркет</em>.</p>
+
+<h2 id="faq-ответы-на-частые-вопросы">FAQ: ответы на частые вопросы</h2>
+
+<details>
+  <summary>Можно ли продавать на СДЭК Маркет без ИП?</summary>
+  <p>Да, но с ограничениями. Физические лица могут продавать товары ручной работы или б/у вещи, но для полноценной торговли требуется регистрация ИП или самозанятого. Юридические лица проходят верификацию строже — нужны выписка из ЕГРЮЛ и доверенность на представителя.</p>
+</details>
+
+<details>
+  <summary>Сколько времени занимает moderation товара?</summary>
+  <p>Обычно карточка товара проходит модерацию в течение 1–3 рабочих дней. Если есть ошибки (некорректные фото, отсутствие характеристик), модератор вернёт заявку на доработку. Ускорить процесс можно, если заранее подготовить качественные фото и полное описание.</p>
+</details>
+
+<details>
+  <summary>Можно ли отменить заказ после оплаты?</summary>
+  <p>Да, но условия зависят от статуса заказа:
+    <ul>
+      <li>Если заказ ещё не передан в <em>СДЭК</em>, продавец может отменить его без штрафов.</li>
+      <li>Если посылка уже в пути, отмена возможна, но покупатель оплачивает доставку в обе стороны.</li>
+    </ul>
+  </p>
+</details>
+
+<details>
+  <summary>Что делать, если продавец не отвечает?</summary>
+  <p>Если продавец игнорирует сообщения больше 24 часов:
+    <ol>
+      <li>Обратитесь в поддержку <em>СДЭК Маркет</em> через личный кабинет.</li>
+      <li>Приложите скрины переписки и данные заказа.</li>
+      <li>Платформа заблокирует продавца до выяснения обстоятельств и поможет вернуть деньги.</li>
+    </ol>
+  </p>
+</details>
+
+<details>
+  <summary>Как вернуть товар, если он не подошёл?</summary>
+  <p>Порядок возврата:
+    <ol>
+      <li>Свяжитесь с продавцом в течение 14 дней с момента получения.</li>
+      <li>Упакуйте товар в оригинальную упаковку (без следов использования).</li>
+      <li>Отвезите посылку в пункт выдачи <em>СДЭК</em> или вызовите курьера (оплата обратной доставки — за счёт продавца или покупателя, в зависимости от причины возврата).</li>
+      <li>Деньги вернутся на карту в течение 10 рабочих дней.</li>
+    </ol>
+    <p>Исключение: товары надлежащего качества (например, нижнее бельё или косметика) возврату не подлежат.</p>
+  </p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#что-такое-сдэк-маркет-и-кому-он-нужен">Что такое СДЭК Маркет и кому он нужен</a></li><li><a href="#как-работает-сдэк-маркет-для-покупателей-от-поиска-до-получения">Как работает СДЭК Маркет для покупателей: от поиска до получения</a></li><li><a href="#регистрация-и-работа-для-продавцов-пошаговая-инструкция">Регистрация и работа для продавцов: пошаговая инструкция</a></li><li><a href="#тарифы-и-комиссии-сколько-стоит-продавать-на-сдэк-маркет">Тарифы и комиссии: сколько стоит продавать на СДЭК Маркет</a></li><li><a href="#преимущества-и-недостатки-сдэк-маркет">Преимущества и недостатки СДЭК Маркет</a></li><li><a href="#частые-проблемы-и-как-их-решить">Частые проблемы и как их решить</a></li><li><a href="#сдэк-маркет-vs-другие-маркетплейсы-сравнительная-таблица">СДЭК Маркет vs другие маркетплейсы: сравнительная таблица</a></li><li><a href="#faq-ответы-на-частые-вопросы">FAQ: ответы на частые вопросы</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/k/ka/kak-otpravit-posylku-iz-turtsii-v-rossiyu-cherez-sdek.html" class="related-card">Как отправить посылку из Турции в Россию через СДЭК: инструкция</a></li><li><a href="/articles/c/ch/chto-takoe-sdek-forvard.html" class="related-card">СДЭК Форвард: что это, как работает и кому подходит в 2026 году</a></li><li><a href="/articles/k/ka/kak-otpravit-kompaniej-sdek-posylku.html" class="related-card">Как отправить посылку СДЭК: пошаговая инструкция</a></li><li><a href="/articles/g/gd/gde-vzyat-korobku-dlya-posylki-sdek.html" class="related-card">Где взять коробку для посылки СДЭК: 7 проверенных способов 2026</a></li><li><a href="/articles/c/ch/chto-takoe-obreshetka-v-sdek.html" class="related-card">Обрешетка в СДЭК: что это, зачем нужна и сколько стоит</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/k/ka/kak-otpravit-posylku-iz-turtsii-v-rossiyu-cherez-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как отправить посылку из Турции в Россию через СДЭК: инструкция</span><span class="related-bottom-desc">Полный гид по отправке посылок из Турции в РФ через СДЭК. Тарифы, сроки, ограничения и пошаговая инс</span></a><a href="/articles/c/ch/chto-takoe-sdek-forvard.html" class="related-bottom-card"><span class="related-bottom-title">СДЭК Форвард: что это, как работает и кому подходит в 2026 году</span><span class="related-bottom-desc">Разбираем сервис СДЭК Форвард: тарифы, условия, преимущества и ограничения. Как оформить заказ, отсл</span></a><a href="/articles/k/ka/kak-otpravit-kompaniej-sdek-posylku.html" class="related-bottom-card"><span class="related-bottom-title">Как отправить посылку СДЭК: пошаговая инструкция</span><span class="related-bottom-desc">Подробная инструкция, как отправить посылку СДЭК. Упаковка, расчет стоимости, вызов курьера и заполн</span></a><a href="/articles/g/gd/gde-vzyat-korobku-dlya-posylki-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Где взять коробку для посылки СДЭК: 7 проверенных способов 2026</span><span class="related-bottom-desc">Ищете, где взять коробку для отправки через СДЭК? Узнайте о бесплатных и платных вариантах, стандарт</span></a><a href="/articles/c/ch/chto-takoe-obreshetka-v-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Обрешетка в СДЭК: что это, зачем нужна и сколько стоит</span><span class="related-bottom-desc">Подробный гид по услуге обрешетки в СДЭК. Узнайте, когда требуется жесткая упаковка, как рассчитать </span></a><a href="/articles/s/sd/sdek-v-kakie-strany-otpravlyaet-spisok.html" class="related-bottom-card"><span class="related-bottom-title">СДЭК: в какие страны отправляет посылки в 2026 году — полный список</span><span class="related-bottom-desc">Актуальный перечень стран, куда СДЭК доставляет грузы: тарифы, сроки, ограничения. Как проверить дос</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

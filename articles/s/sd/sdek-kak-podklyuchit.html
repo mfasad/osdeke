@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>СДЭК: как подключить личный кабинет и API — полная инструкция — СДЭК Гид</title>
+    <meta name="description" content="Подробный гид, как подключить СДЭК для бизнеса и частных лиц. Настройка личного кабинета, интеграция API, модулей CMS и работа с ЭТТН.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/s/sd/sdek-kak-podklyuchit.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="СДЭК: как подключить личный кабинет и API — полная инструкция">
+    <meta property="og:description" content="Подробный гид, как подключить СДЭК для бизнеса и частных лиц. Настройка личного кабинета, интеграция API, модулей CMS и работа с ЭТТН.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/biznes-i-dogovory/">Бизнес и договоры</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">СДЭК: как подключить личный кабинет и API — полная инструкция</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Как подключить СДЭК: настройка сервисов для бизнеса и частных лиц</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#регистрация-в-системе-сдэконлайн-для-старта-работы">Регистрация в системе СДЭК.Онлайн для старта работы</a></li><li><a href="#получение-учетных-данных-для-api-и-модулей">Получение учетных данных для API и модулей</a></li><li><a href="#подключение-модулей-для-популярных-cms-и-маркетплейсов">Подключение модулей для популярных CMS и маркетплейсов</a></li><li><a href="#интеграция-с-1с-и-учетными-системами-предприятия">Интеграция с 1С и учетными системами предприятия</a></li><li><a href="#электронная-товарно-транспортная-накладная-эттн">Электронная товарно-транспортная накладная (ЭТТН)</a></li><li><a href="#частые-ошибки-при-подключении-и-их-решение">Частые ошибки при подключении и их решение</a></li><li><a href="#faq-вопросы-и-ответы">FAQ: Вопросы и ответы</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+<p>Подключение к логистическим сервисам СДЭК открывает перед пользователями широкие возможности по автоматизации процессов доставки и значительному снижению операционных издержек. Для бизнеса это означает переход на новый уровень управления товарными потоками, когда все операции по оформлению накладных и отслеживанию грузов становятся частью единой экосистемы. Частным лицам интеграция позволяет быстрее получать уведомления и гибко управлять своими отправками через цифровые каналы.</p>
+
+<p>Существует несколько способов взаимодействия с системой, зависящих от масштабов деятельности и технических возможностей заказчика. Крупные интернет-магазины чаще всего выбирают прямую интеграцию по протоколу <strong>API</strong>, которая обеспечивает максимальную скорость обмена данными. Малый бизнес и индивидуальные предприниматели могут ограничиться настройкой модулей для CMS или работой через веб-интерфейс <em>СДЭК.Онлайн</em>, что требует минимальных технических знаний.</p>
+
+<p>Внедрение автоматизированных решений требует тщательной подготовки и понимания архитектуры взаимодействия между вашей учетной системой и серверами логистического оператора. В этой статье мы детально разберем все доступные методы подключения, рассмотрим нюансы получения ключей доступа и ответим на вопросы по настройке различных форматов документооборота.</p>
+
+<h2 id="регистрация-в-системе-сдэконлайн-для-старта-работы">Регистрация в системе СДЭК.Онлайн для старта работы</h2>
+<p>Первым и обязательным шагом для любого пользователя, желающего воспользоваться цифровыми сервисами компании, является создание учетной записи. Процедура регистрации в системе <em>СДЭК.Онлайн</em> максимально упрощена и занимает не более пяти минут. Вам потребуется действующий номер мобильного телефона и адрес электронной почты для подтверждения личности.</p>
+
+<p>После ввода базовых данных система предложит выбрать тип аккаунта: для физических лиц или для юридических лиц и ИП. <strong>Важно</strong> сразу указать корректный статус, так как от этого зависит доступный функционал и условия тарификации в будущем. Для бизнес-аккаунтов потребуется ввод ИНН, который система проверит автоматически.</p>
+
+<blockquote>⚠️ Внимание: При регистрации юридического лица убедитесь, что данные в профиле полностью совпадают с учредительными документами, иначе могут возникнуть проблемы при заключении договора и выставлении счетов.</blockquote>
+
+<p>Завершающим этапом становится подтверждение контактных данных через коды, которые придут в СМС и на email. После успешной активации вам станут доступны базовые функции: отслеживание посылок, поиск пунктов выдачи и создание тестовых накладных.</p>
+
+<div class="poll-widget" id="poll-102d3826"><div class="poll-widget-question">📊 Какой у вас статус клиента?</div><div class="poll-widget-option" data-poll="102d3826" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Физическое лицо</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="102d3826" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">ИП</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="102d3826" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">ООО/Юрлицо</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="102d3826" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Планирую открыть бизнес</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="получение-учетных-данных-для-api-и-модулей">Получение учетных данных для API и модулей</h2>
+<p>Для технической интеграции вашего сайта или 1С с сервисами СДЭК необходимо получить специальные ключи доступа. Эти данные находятся в личном кабинете в разделе настроек профиля или интеграций. Вам будут предоставлены два уникальных идентификатора: <code>Account ID</code> и <code>Secure Key</code>, которые используются для авторизации запросов.</p>
+
+<p>Ключи доступа следует хранить в секрете, так как они дают право совершать действия от имени вашего аккаунта. В настройках безопасности рекомендуется привязать IP-адреса серверов, с которых будут осуществляться вызовы API. Это создаст дополнительный уровень защиты от несанкционированного доступа к вашим данным.</p>
+
+<p>Процесс получения ключей полностью автоматизирован и не требует вмешательства менеджеров. После генерации ключей они отображаются в интерфейсе один раз, поэтому их необходимо сразу скопировать и сохранить в надежном месте. Утерянный <code>Secure Key</code> можно перевыпустить, но это потребует обновления настроек во всех подключенных системах.</p>
+
+<details class="faq-item"><summary>Где найти ключи в новом интерфейсе?</summary><div class="faq-answer"><p>Ключи доступа расположены в верхнем меню профиля, раздел "Настройки", вкладка "Интеграции". Там же доступна документация для разработчиков.</p></div></details>
+
+<p>Для тестирования интеграции перед запуском в "боевом" режиме СДЭК предоставляет доступ к тестовому серверу (sandbox). Это позволяет разработчикам отладить обмен данными без риска создания реальных накладных и начисления денежных средств.</p>
+
+<h2 id="подключение-модулей-для-популярных-cms-и-маркетплейсов">Подключение модулей для популярных CMS и маркетплейсов</h2>
+<p>Владельцам интернет-магазинов на базе популярных движков нет необходимости писать код интеграции с нуля. СДЭК предлагает готовые плагины и модули, которые устанавливаются в пару кликов и сразу начинают работать. Поддерживаются такие платформы как <em>1С-Битрикс</em>, <em>OpenCart</em>, <em>WordPress (WooCommerce)</em>, <em>PrestaShop</em> и многие другие.</p>
+
+<p>Процесс установки стандартного модуля включает в себя скачивание архива с последней версией, загрузку его на хостинг и активацию в админ-панели сайта. После активации необходимо ввести ранее полученные <code>Account ID</code> и <code>Secure Key</code>. Модуль автоматически подгрузит актуальные тарифы и список пунктов выдачи.</p>
+
+<ul>
+  <li>📦 <strong>Автоматический расчет</strong> стоимости доставки для клиента в корзине на основе веса и габаритов.</li>
+  <li>📍 <strong>Интерактивная карта</strong> с выбором удобного пункта получения заказа (ПВЗ) или постамата.</li>
+  <li>🖨️ <strong>Генерация документов</strong>: автоматическое создание накладных и ярлыков для печати сразу после оформления заказа.</li>
+  <li>🔄 <strong>Синхронизация статусов</strong>: клиент видит актуальное положение груза прямо в личном кабинете магазина.</li>
+</ul>
+
+<p>Особое внимание стоит уделить настройке весовых категорий и габаритов товаров в каталоге. От точности этих данных зависит корректность расчета стоимости доставки. Если вес указан неверно, при фактической приемке груза в пункте отправления может возникнуть пересчет стоимости в большую сторону.</p>
+
+<div class="checklist-block"><h4>☑️ Проверка настройки модуля</h4><label class="check-item"><input type="checkbox"><span>Модуль установлен и активирован</span></label><label class="check-item"><input type="checkbox"><span>Введены ключи доступа</span></label><label class="check-item"><input type="checkbox"><span>Настроены типы доставки (Курьер/ПВЗ)</span></label><label class="check-item"><input type="checkbox"><span>Проверен расчет стоимости на тестовом товаре</span></label><label class="check-item"><input type="checkbox"><span>Включена печать накладных</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 5</div></div>
+
+<h2 id="интеграция-с-1с-и-учетными-системами-предприятия">Интеграция с 1С и учетными системами предприятия</h2>
+<p>Для компаний, использующих продукты фирмы "1С", подключение СДЭК является критически важным этапом автоматизации. Обмен данными позволяет выгружать заказы из учетной системы, передавать их в логистический сервис и получать обратно трекинг-номера и статусы. Это исключает двойной ввод данных и минимизирует человеческий фактор.</p>
+
+<p>Существует два основных способа интеграции: через встроенные механизмы обмена (если версия конфигурации поддерживает) или с помощью сторонних обработок. В большинстве случаев используется обработчик, который устанавливается в базу данных 1С. Он настраивается на периодическое выполнение задач, например, каждые 5-10 минут.</p>
+
+<p>Настройка обмена требует указания параметров соединения, путей к файлам обмена и маппинга полей. Необходимо сопоставить справочники контрагентов и номенклатуры, чтобы система понимала, какие данные передавать. <strong>Корректная настройка</strong> справочников городов и адресов — залог успешной автоматической обработки заказов.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Параметр</th>
+      <th>Описание</th>
+      <th>Важность</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>URL API</td>
+      <td>Адрес сервера для обмена данными</td>
+      <td>Высокая</td>
+    </tr>
+    <tr>
+      <td>Интервал опроса</td>
+      <td>Частота проверки новых статусов</td>
+      <td>Средняя</td>
+    </tr>
+    <tr>
+      <td>Логирование</td>
+      <td>Ведение журнала ошибок и запросов</td>
+      <td>Высокая</td>
+    </tr>
+    <tr>
+      <td>Печатные формы</td>
+      <td>Шаблон накладной СДЭК в 1С</td>
+      <td>Высокая</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>При возникновении ошибок в логах обмена в первую очередь следует проверять валидность ключей доступа и соответствие версий обработчика. Часто проблемы возникают из-за изменений в API со стороны СДЭК, поэтому рекомендуется регулярно обновлять внешние обработки.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Настройте автоматическую выгрузку заказов в СДЭК только для статусов "Оплачен" или "Подтвержден", чтобы избежать лишней работы с отмененными заказами.</p></div>
+
+<h2 id="электронная-товарно-транспортная-накладная-эттн">Электронная товарно-транспортная накладная (ЭТТН)</h2>
+<p>Переход на электронный документооборот (ЭДО) является современным стандартом логистики. Подключение услуги ЭТТН позволяет отказаться от бумажных накладных, что ускоряет процесс приемки груза и упрощает архивирование документов. Электронная накладная имеет ту же юридическую силу, что и бумажный оригинал.</p>
+
+<p>Для работы с ЭТТН необходимо, чтобы ваш аккаунт был переведен на соответствующий тарифный план, а в личном кабинете была активирована опция электронного документооборота. Подписание документов происходит с использованием усиленной квалифицированной электронной подписи (УКЭП).</p>
+
+<p>Процесс оформления выглядит следующим образом: вы формируете заказ в системе, данные уходят в СДЭК, курьер или сотрудник ПВЗ сканирует QR-код на вашем устройстве или планшете, и накладная подписывается электронно. Копия документа мгновенно поступает в ваш личный кабинет.</p>
+
+<blockquote>⚠️ Внимание: Для использования ЭТТН убедитесь, что на устройствах сотрудников (планшетах, телефонах) установлено необходимое ПО для работы с электронной подписью и стабильный интернет.</blockquote>
+
+<p>Использование "цифровой" накладной также упрощает процесс возврата документов. Вам не нужно ждать физической доставки бумажных экземпляров почтой, все закрывающие документы доступны для скачивания в любое время. Это особенно актуально для компаний с большим документооборотом.</p>
+
+<h2 id="частые-ошибки-при-подключении-и-их-решение">Частые ошибки при подключении и их решение</h2>
+<p>В процессе настройки интеграции пользователи часто сталкиваются с типовыми проблемами, которые легко решаются при наличии правильной информации. Одной из самых распространенных ошибок является неверное указание формата данных при отправке запросов к API. Система ожидает строго определенный формат JSON или XML, и любое отклонение вызывает ошибку валидации.</p>
+
+<p>Другая частая проблема — блокировка по IP. Если вы сменили хостинг или провайдера, но не обновили белый список IP-адресов в настройках аккаунта СДЭК, сервер просто отклонит ваши запросы. Также стоит следить за лимитами количества запросов в секунду (Rate Limit), чтобы не получить временный бан за спам.</p>
+
+<ul>
+  <li>❌ <strong>Ошибка авторизации:</strong> проверьте, не истек ли срок действия ключей и нет ли лишних пробелов при копировании.</li>
+  <li>❌ <strong>Неверный адрес:</strong> система может не находить адрес доставки, если он не соответствует стандарту ФИАС/КЛАДР.</li>
+  <li>❌ <strong>Проблемы с весом:</strong> передача веса в граммах вместо килограммов (или наоборот) приведет к неверному расчету стоимости.</li>
+</ul>
+
+<p>Для отладки всегда используйте тестовый режим. Если в песочнице все работает, а в "боевом" режиме возникают ошибки, проблема чаще всего кроется в правах доступа аккаунта или в различиях конфигурации окружения.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>90% ошибок интеграции связаны с неверным форматом передаваемых данных или истекшими ключами доступа. Всегда проверяйте логи ответов сервера.</p></div>
+
+<h2 id="faq-вопросы-и-ответы">FAQ: Вопросы и ответы</h2>
+
+<details>
+  <summary>Сколько времени занимает активация API ключей?</summary>
+  <p>Ключи активируются мгновенно после генерации в личном кабинете. Вам не нужно ждать подтверждения менеджера. Однако, если вы новый клиент и у вас еще не заключен договор, доступ к API может быть ограничен до момента подписания документов.</p>
+</details>
+
+<details>
+  <summary>Можно ли подключить СДЭК к самописному сайту?</summary>
+  <p>Да, конечно. СДЭК предоставляет открытую документацию API (REST), которая позволяет разработчикам интегрировать сервис доставки в любую платформу, включая самописные решения на PHP, Python, Node.js и других языках программирования.</p>
+</details>
+
+<details>
+  <summary>Нужно ли платить за подключение модулей?</summary>
+  <p>Само подключение и использование базовых функций API бесплатно для клиентов СДЭК. Однако некоторые CMS могут требовать покупки платных версий модулей у сторонних разработчиков, если стандартного функционала вам недостаточно.</p>
+</details>
+
+<details>
+  <summary>Что делать, если модуль показывает старые тарифы?</summary>
+  <p>Тарифы могут кэшироваться для ускорения работы сайта. Попробуйте очистить кэш модуля в настройках или сбросить кэш самой CMS. Также проверьте, стоит ли у вас галочка "Использовать актуальные тарифы API" в настройках плагина.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#регистрация-в-системе-сдэконлайн-для-старта-работы">Регистрация в системе СДЭК.Онлайн для старта работы</a></li><li><a href="#получение-учетных-данных-для-api-и-модулей">Получение учетных данных для API и модулей</a></li><li><a href="#подключение-модулей-для-популярных-cms-и-маркетплейсов">Подключение модулей для популярных CMS и маркетплейсов</a></li><li><a href="#интеграция-с-1с-и-учетными-системами-предприятия">Интеграция с 1С и учетными системами предприятия</a></li><li><a href="#электронная-товарно-транспортная-накладная-эттн">Электронная товарно-транспортная накладная (ЭТТН)</a></li><li><a href="#частые-ошибки-при-подключении-и-их-решение">Частые ошибки при подключении и их решение</a></li><li><a href="#faq-вопросы-и-ответы">FAQ: Вопросы и ответы</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/k/ka/kak-otkryt-sdek.html" class="related-card">Как открыть СДЭК: открытие пункта выдачи и франшизы</a></li><li><a href="/articles/s/sd/sdek-dogovor-s-samozanyatym-kakie-dokumenty.html" class="related-card">Договор СДЭК с самозанятым: список документов 2026 года</a></li><li><a href="/articles/d/do/dogovor-so-sdek-kak-samozanyatyj.html" class="related-card">Договор с СДЭК для самозанятых 2026: как заключить и работать легально</a></li><li><a href="/articles/d/do/dogovor-sdek-dlya-fizicheskikh-lits-skolko.html" class="related-card">Договор СДЭК для физических лиц 2026: стоимость и условия</a></li><li><a href="/articles/k/ka/kak-zaregistrirovatsya-na-sdek-markete.html" class="related-card">Как зарегистрироваться на СДЭК Маркет: пошаговая инструкция</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/k/ka/kak-otkryt-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как открыть СДЭК: открытие пункта выдачи и франшизы</span><span class="related-bottom-desc">Полная инструкция: как открыть пункт выдачи СДЭК, требования к помещению, стоимость франшизы и пошаг</span></a><a href="/articles/s/sd/sdek-dogovor-s-samozanyatym-kakie-dokumenty.html" class="related-bottom-card"><span class="related-bottom-title">Договор СДЭК с самозанятым: список документов 2026 года</span><span class="related-bottom-desc">Какие документы нужны для заключения договора с СДЭК, если вы самозанятый? Пошаговая инструкция, обр</span></a><a href="/articles/d/do/dogovor-so-sdek-kak-samozanyatyj.html" class="related-bottom-card"><span class="related-bottom-title">Договор с СДЭК для самозанятых 2026: как заключить и работать легально</span><span class="related-bottom-desc">Пошаговая инструкция по заключению договора с СДЭК для самозанятых: тарифы, документы, налоги и нюан</span></a><a href="/articles/d/do/dogovor-sdek-dlya-fizicheskikh-lits-skolko.html" class="related-bottom-card"><span class="related-bottom-title">Договор СДЭК для физических лиц 2026: стоимость и условия</span><span class="related-bottom-desc">Сколько стоит оформить договор с СДЭК для физлиц? Тарифы, условия, пошаговая инструкция и нюансы зак</span></a><a href="/articles/k/ka/kak-zaregistrirovatsya-na-sdek-markete.html" class="related-bottom-card"><span class="related-bottom-title">Как зарегистрироваться на СДЭК Маркет: пошаговая инструкция</span><span class="related-bottom-desc">Полная инструкция по регистрации на СДЭК Маркет. Узнайте, как создать аккаунт продавца, подключить м</span></a><a href="/articles/s/sd/sdek-chto-takoe-marketplejs.html" class="related-bottom-card"><span class="related-bottom-title">Маркетплейс СДЭК: что это, как работает и зачем нужен в 2026 году</span><span class="related-bottom-desc">Разбираемся, что такое маркетплейс СДЭК, как он работает для продавцов и покупателей, какие товары м</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

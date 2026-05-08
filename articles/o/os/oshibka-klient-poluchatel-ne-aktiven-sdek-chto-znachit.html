@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>Ошибка «клиент получатель не активен» в СДЭК: причины и решение — СДЭК Гид</title>
+    <meta name="description" content="Статус в СДЭК «клиент получатель не активен»: что это значит, как исправить и стоит ли переживать. Полный разбор технических причин и действий.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/o/os/oshibka-klient-poluchatel-ne-aktiven-sdek-chto-znachit.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Ошибка «клиент получатель не активен» в СДЭК: причины и решение">
+    <meta property="og:description" content="Статус в СДЭК «клиент получатель не активен»: что это значит, как исправить и стоит ли переживать. Полный разбор технических причин и действий.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/problemy-i-vozvrat/">Проблемы и возврат</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Ошибка «клиент получатель не активен» в СДЭК: причины и решение</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Статус СДЭК «клиент получатель не активен»: расшифровка и действия</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#техническая-природа-статуса-в-системе-сдэк">Техническая природа статуса в системе СДЭК</a></li><li><a href="#основные-причины-появления-сообщения-об-неактивности">Основные причины появления сообщения об неактивности</a></li><li><a href="#алгоритм-действий-для-получателя-груза">Алгоритм действий для получателя груза</a></li><li><a href="#что-делать-отправителю-инструкции-и-нюансы">Что делать отправителю: инструкции и нюансы</a></li><li><a href="#сроки-хранения-и-финансовые-последствия">Сроки хранения и финансовые последствия</a></li><li><a href="#процедура-возврата-и-повторной-доставки">Процедура возврата и повторной доставки</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>Ситуация, когда при отслеживании посылки вы внезапно видите странный статус вроде «клиент получатель не активен», может вызвать растерянность и ненужное беспокойство. Чаще всего такая формулировка появляется в автоматизированных системах логистических операторов и указывает на технические нюансы обработки данных, а не на потерю груза. Важно понимать, что автоматические сообщения не всегда отражают реальную физическую ситуацию с вашим отправлением прямо сейчас.</p>
+
+<p>В этой статье мы детально разберем, что скрывается за сухими терминами системы СДЭК, почему статус может меняться на такой и какие конкретные шаги нужно предпринять отправителю или адресату. Мы проанализируем алгоритмы работы службы доставки, возможные сбои в базе данных и юридические аспекты хранения посылок, чтобы вы могли четко понимать свои права и порядок действий.</p>
+
+<h2 id="техническая-природа-статуса-в-системе-сдэк">Техническая природа статуса в системе СДЭК</h2>
+
+<p>Система трекинга СДЭК — это сложный программный комплекс, который обрабатывает миллионы операций ежедневно. Статус «<strong>клиент получатель не активен</strong>» или схожие формулировки часто являются результатом работы внутренних алгоритмов сортировки данных, а не прямым сообщением курьера. Это может означать, что система временно не может связаться с профилем получателя в базе данных или ожидает подтверждения определенных действий.</p>
+
+<p>В большинстве случаев такая надпись появляется, когда посылка прибывает в пункт выдачи, но в системе еще не зафиксирован факт уведомления клиента или, наоборот, уведомление ушло, но система не получила ответа (статуса «забрано» или «отказ») в течение определенного времени. <em>Автоматизированные шлюзы</em> могут интерпретировать отсутствие реакции как неактивность.</p>
+
+<p>Стоит отметить, что термин «не активен» может также относиться к статусу аккаунта в личном кабинете, если отслеживание происходит через интегрированные сервисы или API интернет-магазинов. В этом случае проблема решается на стороне платформы-отправителя, которая передает данные в СДЭК.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Всегда проверяйте статус не только в СМС или email-уведомлениях, но и в официальном приложении СДЭК или на сайте, вводя трек-номер вручную — там информация обновляется быстрее и точнее.</p></div>
+
+<h2 id="основные-причины-появления-сообщения-об-неактивности">Основные причины появления сообщения об неактивности</h2>
+
+<p>Понимание причин помогает выбрать правильную стратегию решения проблемы. Чаще всего статус связан с тайм-аутами ожидания или ошибками ввода данных. Рассмотрим наиболее вероятные сценарии, почему система выдает такое предупреждение.</p>
+
+<p>Во-первых, это может быть <strong>истечение срока хранения</strong> без реакции получателя. Если вы не подходите за грузом и не продлеваете срок хранения, система может пометить вас как «неактивного получателя» перед тем, как инициировать процесс возврата. Во-вторых, частой причиной становится <strong>ошибка в номере телефона</strong>, указанном отправителем. Если СМС с кодом подтверждения или уведомление не доходят, система фиксирует невозможность связи.</p>
+
+<ul>
+<li>📦 <strong>Истек срок бесплатного хранения:</strong> Посылка ждет в пункте выдачи, но лимит дней исчерпан, и требуется оплата продления.</li>
+<li>📱 <strong>Неверные контактные данные:</strong> Ошибка в одной цифре номера телефона блокирует возможность получения кодов доступа.</li>
+<li>💻 <strong>Синхронизация баз данных:</strong> Временный сбой между серверами интернет-магазина и логистической компании СДЭК.</li>
+<li>🔒 <strong>Блокировка профиля:</strong> Редкий случай, когда аккаунт получателя заблокирован за нарушения правил сервиса.</li>
+</ul>
+
+<div class="poll-widget" id="poll-e573b5a8"><div class="poll-widget-question">📊 Как вы обычно узнаете о прибытии посылки?</div><div class="poll-widget-option" data-poll="e573b5a8" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">СМС-уведомление</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="e573b5a8" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Звонок от оператора</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="e573b5a8" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Проверяю трек-номер сам(а)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="e573b5a8" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Мне пишет продавец</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="алгоритм-действий-для-получателя-груза">Алгоритм действий для получателя груза</h2>
+
+<p>Если вы увидели тревожный статус, паниковать не стоит. Существует четкий алгоритм действий, который поможет быстро разобраться в ситуации и получить свой товар. Главное — действовать последовательно и иметь под рукой трек-номер.</p>
+
+<p>Первым делом необходимо <strong>проверить контактные данные</strong>. Убедитесь, что в заказе указан правильный номер телефона. Если есть возможность, войдите в личный кабинет СДЭК (если он у вас есть) и проверьте, не висят ли там неоплаченные штрафы за хранение или уведомления о необходимости подтверждения личности.</p>
+
+<p>Следующий шаг — прямая связь с пунктом выдачи. Найдите адрес пункта, куда доставлена посылка (это видно в трекинге), и свяжитесь с ними. Операторы на местах видят более детальную информацию в своей внутренней системе, чем отображается в публичном трекинге. Они могут вручную проверить статус посылки и сказать, ждет ли она вас или уже отправлена обратно.</p>
+
+<div class="checklist-block"><h4>☑️ Проверка статуса посылки</h4><label class="check-item"><input type="checkbox"><span>Найти трек-номер в заказе</span></label><label class="check-item"><input type="checkbox"><span>Проверить номер телефона в профиле</span></label><label class="check-item"><input type="checkbox"><span>Позвонить в пункт выдачи</span></label><label class="check-item"><input type="checkbox"><span>Уточнить сроки хранения</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 4</div></div>
+
+<h2 id="что-делать-отправителю-инструкции-и-нюансы">Что делать отправителю: инструкции и нюансы</h2>
+
+<p>Для отправителя (интернет-магазина или частного лица) статус «получатель не активен» или проблемы с вручением могут означать финансовые потери или необходимость повторной логистики. Вам необходимо контролировать процесс, особенно если товар дорогостоящий.</p>
+
+<p>Если вы видите, что статус завис, свяжитесь со своим персональным менеджером или в службу поддержки для юридических лиц. Часто требуется <strong>подтверждение изменений</strong> в маршрутном листе. Если получатель не выходит на связь, отправитель имеет право инициировать возврат товара или изменение адреса доставки.</p>
+
+<p>Важно помнить про документооборот. Все изменения статуса, особенно связанные с отказами или невозможностью вручения, должны быть зафиксированы. Это поможет в случае возникновения спорных ситуаций по оплате доставки или страховым случаям.</p>
+
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> Если посылка помечена как «возврат» из-за неактивности получателя, процесс ее обратного пути может занять от 7 до 14 дней. Не планируйте повторную отправку этого же товара другому клиенту до фактического возвращения груза на склад.</p>
+</blockquote>
+
+<h2 id="сроки-хранения-и-финансовые-последствия">Сроки хранения и финансовые последствия</h2>
+
+<p>Один из ключевых моментов, который часто путают с «неактивностью» — это платное хранение. СДЭК предоставляет определенный период бесплатного хранения (обычно от 3 до 7 дней, в зависимости от тарифа и типа груза). После истечения этого срока начинают капать деньги.</p>
+
+<p>Если получатель игнорирует уведомления, сумма долга растет. В системе это может отображаться как блокировка выдачи до момента оплаты. Статус «не активен» в данном контексте означает, что получатель не выполняет финансовые обязательства по договору перевозки.</p>
+
+<table>
+<thead>
+<tr>
+<th>Тип груза</th>
+<th>Бесплатное хранение</th>
+<th>Плата за продление (примерно)</th>
+<th>Срок до возврата</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Документы</td>
+<td>3 дня</td>
+<td>50 руб./день</td>
+<td>15 дней</td>
+</tr>
+<tr>
+<td>Посылка до 5 кг</td>
+<td>4 дня</td>
+<td>70 руб./день</td>
+<td>15 дней</td>
+</tr>
+<tr>
+<td>Крупногабарит</td>
+<td>7 дней</td>
+<td>150 руб./день</td>
+<td>30 дней</td>
+</tr>
+<tr>
+<td>Одежда/Обувь</td>
+<td>4 дня</td>
+<td>60 руб./день</td>
+<td>15 дней</td>
+</tr>
+</tbody>
+</table>
+
+<details class="faq-item"><summary>Можно ли продлить хранение бесплатно?</summary><div class="faq-answer"><p>В некоторых случаях, при обращении в службу поддержки до истечения срока, операторы могут продлить бесплатное хранение на 1-2 дня, если задержка вызвана техническими проблемами самой службы доставки.</p></div></details>
+
+<h2 id="процедура-возврата-и-повторной-доставки">Процедура возврата и повторной доставки</h2>
+
+<p>Когда все попытки связаться с получателем исчерпаны, запускается механизм возврата. Посылка меняет свой статус на «Возврат отправителю». Это штатная процедура, но она требует внимания.</p>
+
+<p>Отправитель получает уведомление о том, что груз едет обратно. Важно проверить, по какому адресу он возвращается. Иногда, при смене офисов, адрес склада возврата мог измениться. Если вы не хотите получать товар обратно (например, он потерял актуальность), можно оформить <strong>утилизацию</strong> груза в стране назначения, если правила тарифа это позволяют.</p>
+
+<p>Для повторной доставки необходимо создать новую накладную. Старый трек-номер «сгорает» после завершения цикла возврата. Попытки реактивировать старый номер обычно безуспешны.</p>
+
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> Стоимость обратной доставки (возврата) почти всегда оплачивает отправитель, если в договоре не указано иное. Убедитесь, что на вашем балансе СДЭК есть средства для оплаты этой услуги, иначе груз может застрять на складе.</p>
+</blockquote>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Статус «не активен» — это сигнал к действию, а не конец пути посылки. Своевременный звонок в поддержку или пункт выдачи решает 90% проблем с доставкой.</p></div>
+
+<h2 id="часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</h2>
+
+<details>
+<summary>Можно ли изменить пункт выдачи, если статус уже «не активен»?</summary>
+<p>Да, изменить пункт выдачи можно, но только до момента фактической отправки посылки на возврат. Для этого нужно обратиться в службу поддержки СДЭК или воспользоваться функцией в личном кабинете, если она доступна для вашего типа отправления. Однако, если посылка уже помечена как «возврат», изменить ее маршрут на другой город будет сложнее — проще дождаться возврата и отправить заново.</p>
+</details>
+
+<details>
+<summary>Что означает статус «Клиент не подтвердил получение»?</summary>
+<p>Это близкий по смыслу статус, который часто путают с неактивностью. Он означает, что посылка лежит в пункте выдачи, срок хранения идет, но получатель не пришел за ней и не продлил хранение. Система ждет подтверждения, что груз нужен адресату.</p>
+</details>
+
+<details>
+<summary>Как долго посылка хранится перед возвратом при статусе неактивности?</summary>
+<p>Обычно СДЭК хранит посылку около 15 календарных дней с момента прибытия в пункт выдачи. После этого, если получатель не проявил активности (не забрал, не оплатил хранение, не ответил на звонки), отправляется уведомление отправителю, и груз запускается в обратный путь.</p>
+</details>
+
+<details>
+<summary>Кто оплачивает хранение, если получатель не активен?</summary>
+<p>По умолчанию первые несколько дней (тарифный план) — бесплатно. Далее платит тот, кто заключил договор (обычно отправитель, если это интернет-магазин). Если договоренности нет, груз не выдадут получателю до погашения задолженности за хранение.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#техническая-природа-статуса-в-системе-сдэк">Техническая природа статуса в системе СДЭК</a></li><li><a href="#основные-причины-появления-сообщения-об-неактивности">Основные причины появления сообщения об неактивности</a></li><li><a href="#алгоритм-действий-для-получателя-груза">Алгоритм действий для получателя груза</a></li><li><a href="#что-делать-отправителю-инструкции-и-нюансы">Что делать отправителю: инструкции и нюансы</a></li><li><a href="#сроки-хранения-и-финансовые-последствия">Сроки хранения и финансовые последствия</a></li><li><a href="#процедура-возврата-и-повторной-доставки">Процедура возврата и повторной доставки</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/k/ku/kurer-ne-smog-dostavit-zakaz-sdek-chto-znachit.html" class="related-card">Курьер СДЭК не доставил заказ — что это значит и что делать?</a></li><li><a href="/articles/c/ch/chto-delat-esli-posylka-poteryalas-v-puti-sdek.html" class="related-card">Потерялась посылка СДЭК: что делать и как вернуть деньги в 2026</a></li><li><a href="/articles/k/ku/kuda-zvonit-po-povodu-posylki-sdek.html" class="related-card">Куда звонить по поводу посылки СДЭК: номера и инструкция</a></li><li><a href="/articles/n/ne/ne-prishla-posylka-sdek-kuda-zvonit.html" class="related-card">Не пришла посылка СДЭК: куда звонить и что делать в 2026 году</a></li><li><a href="/articles/k/ka/kak-vernut-tovar-v-sdek-esli-ne-podoshel.html" class="related-card">Как вернуть товар в СДЭК если не подошел: пошаговая инструкция</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/k/ku/kurer-ne-smog-dostavit-zakaz-sdek-chto-znachit.html" class="related-bottom-card"><span class="related-bottom-title">Курьер СДЭК не доставил заказ — что это значит и что делать?</span><span class="related-bottom-desc">Разбираем причины, почему курьер СДЭК не смог доставить посылку, и даём пошаговую инструкцию по реше</span></a><a href="/articles/c/ch/chto-delat-esli-posylka-poteryalas-v-puti-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Потерялась посылка СДЭК: что делать и как вернуть деньги в 2026</span><span class="related-bottom-desc">Пошаговая инструкция: как найти пропавшую посылку СДЭК, куда звонить, как написать претензию и получ</span></a><a href="/articles/k/ku/kuda-zvonit-po-povodu-posylki-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Куда звонить по поводу посылки СДЭК: номера и инструкция</span><span class="related-bottom-desc">Куда звонить по поводу посылки СДЭК? Полный справочник телефонов, инструкции по отслеживанию и решен</span></a><a href="/articles/n/ne/ne-prishla-posylka-sdek-kuda-zvonit.html" class="related-bottom-card"><span class="related-bottom-title">Не пришла посылка СДЭК: куда звонить и что делать в 2026 году</span><span class="related-bottom-desc">Посылка от СДЭК задерживается или пропала? Узнайте, куда звонить, как отследить груз и что делать, е</span></a><a href="/articles/k/ka/kak-vernut-tovar-v-sdek-esli-ne-podoshel.html" class="related-bottom-card"><span class="related-bottom-title">Как вернуть товар в СДЭК если не подошел: пошаговая инструкция</span><span class="related-bottom-desc">Полный гайд: как вернуть товар через СДЭК, если он не подошел. Сроки, бланки, кто оплачивает доставк</span></a><a href="/articles/s/sd/sdek-kak-otpravit-posylku-obratno-otpravitelyu.html" class="related-bottom-card"><span class="related-bottom-title">Как вернуть посылку отправителю через СДЭК: пошаговая инструкция 2026</span><span class="related-bottom-desc">Узнайте, как правильно оформить возврат посылки через СДЭК: условия, стоимость, сроки и пошаговый ал</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

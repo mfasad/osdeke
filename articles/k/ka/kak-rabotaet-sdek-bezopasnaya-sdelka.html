@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>СДЭК Безопасная сделка: как работает сервис гарантированных расчётов — СДЭК Гид</title>
+    <meta name="description" content="Пошаговый разбор механизма «Безопасная сделка» от СДЭК: как защитить деньги при покупке/продаже, тарифы, сроки и нюансы для покупателей и продавцов. Актуально на 2026 год.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/k/ka/kak-rabotaet-sdek-bezopasnaya-sdelka.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="СДЭК Безопасная сделка: как работает сервис гарантированных расчётов">
+    <meta property="og:description" content="Пошаговый разбор механизма «Безопасная сделка» от СДЭК: как защитить деньги при покупке/продаже, тарифы, сроки и нюансы для покупателей и продавцов. Актуально на 2026 год.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/bezopasnost/">Безопасность</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">СДЭК Безопасная сделка: как работает сервис гарантированных расчётов</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Как работает «Безопасная сделка» в СДЭК: механизм защиты денег при покупке и продаже</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#что-такое-безопасная-сделка-и-зачем-она-нужна">Что такое «Безопасная сделка» и зачем она нужна</a></li><li><a href="#как-работает-механизм-пошаговая-схема">Как работает механизм: пошаговая схема</a></li><li><a href="#тарифы-и-комиссии-сколько-стоит-защита">Тарифы и комиссии: сколько стоит защита</a></li><li><a href="#как-оформить-безопасную-сделку-инструкция-для-покупателя">Как оформить «Безопасную сделку»: инструкция для покупателя</a></li><li><a href="#что-делать-если-товар-не-подходит-споры-и-возвраты">Что делать, если товар не подходит: споры и возвраты</a></li><li><a href="#ограничения-и-нюансы-что-нужно-знать">Ограничения и нюансы: что нужно знать</a></li><li><a href="#альтернативы-безопасной-сделке-от-сдэк">Альтернативы «Безопасной сделке» от СДЭК</a></li><li><a href="#faq-ответы-на-частые-вопросы">FAQ: ответы на частые вопросы</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body"><h2 id="что-такое-безопасная-сделка-и-зачем-она-нужна">Что такое «Безопасная сделка» и зачем она нужна</h2>
+
+<p>Сервис <strong>«Безопасная сделка»** от <em>СДЭК</em> — это инструмент для защиты денежных средств при покупке или продаже товаров через курьерскую службу. Его основная задача: гарантировать, что покупатель получит именно тот товар, который заказал, а продавец — оплату без риска мошенничества. Механизм работает как <mark>эскроу-счёт (депозитарий)</mark>, где деньги «замораживаются» на счёте <em>СДЭК</em> до момента подтверждения успешной сделки.</p>
+
+<p>Проблема недобросовестных продавцов (отправка брака, несоответствие описанию) или покупателей (отказ от оплаты после получения) знакома многим. «Безопасная сделка» решает её за счёт посредничества: деньги переходят продавцу только после того, как покупатель осмотрит товар и подтвердит его соответствие. Сервис интегрирован в инфраструктуру <em>СДЭК</em>, поэтому работает с любыми грузами — от мелких посылок до габаритных товаров.</p>
+
+<p>Важно: услуга доступна как для физических лиц, так и для юридических (включая интернет-магазины). Тарифы зависят от суммы сделки и типа груза, но обычно не превышают 2–3% от стоимости товара. Подробнее о комиссиях — в разделе про тарифы.</p>
+
+<h2 id="как-работает-механизм-пошаговая-схема">Как работает механизм: пошаговая схема</h2>
+
+<p>Процесс «Безопасной сделки» можно разделить на 5 ключевых этапов. Рассмотрим их на примере покупки смартфона через <em>Авито</em> с доставкой <em>СДЭК</strong>:</p>
+
+<ol>
+  <li><strong>Заключение договора.</em> Покупатель и продавец договариваются о цене (например, 50 000 ₽) и выбирают опцию «Безопасная сделка» при оформлении заказа в <em>СДЭК</em>.</li>
+  <li><strong>Блокировка денег.</strong> Покупатель переводит сумму на специальный счёт <em>СДЭК</em> (через сайт, мобильное приложение или в офисе компании). Деньги «замораживаются» до подтверждения сделки.</li>
+  <li><strong>Отправка товара.</strong> Продавец передаёт смартфон в пункт <em>СДЭК</em> для отправки. Груз страхуется автоматически (страховка входит в тариф).</li>
+  <li><strong>Проверка покупателем.</strong> После получения посылки у покупателя есть <code>48 часов</code> на осмотр товара. Он может:
+    <ul>
+      <li>🔍 Проверить комплектацию (наличие зарядки, чеков, коробки).</li>
+      <li>📱 Включить устройство и протестировать основные функции.</li>
+      <li>📏 Сверить серийный номер с договором.</li>
+    </ol>
+  </li>
+  <li><strong>Подтверждение или отказ.</strong> Если всё в порядке, покупатель нажимает «Подтвердить получение» в личном кабинете <em>СДЭК</em>, и деньги переводятся продавцу. При обнаружении проблем — открывается спор.</li>
+</ol>
+
+<p>Срок блокировки денег — до <code>5 рабочих дней</code> с момента получения товара. Если покупатель не подтвердит сделку и не иницирует спор, средства автоматически вернутся ему на счёт.</p>
+
+<div class="poll-widget" id="poll-cde23042"><div class="poll-widget-question">📊 Как часто вы используете «Безопасную сделку» при покупках?</div><div class="poll-widget-option" data-poll="cde23042" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Всегда</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="cde23042" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Только для дорогих товаров</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="cde23042" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Раньше не пробовал</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="cde23042" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Не доверяю таким сервисам</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="тарифы-и-комиссии-сколько-стоит-защита">Тарифы и комиссии: сколько стоит защита</h2>
+
+<p>Стоимость услуги зависит от суммы сделки и типа груза. <em>СДЭК</em> взимает комиссию с продавца (покупатель платит только за доставку). Актуальные тарифы на 2026 год:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Сумма сделки (₽)</th>
+      <th>Комиссия для физлиц (%)</th>
+      <th>Комиссия для юрлиц (%)</th>
+      <th>Минимальная комиссия (₽)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>До 10 000</td>
+      <td>3%</td>
+      <td>2.5%</td>
+      <td>300</td>
+    </tr>
+    <tr>
+      <td>10 001–50 000</td>
+      <td>2%</td>
+      <td>1.8%</td>
+      <td>500</td>
+    </tr>
+    <tr>
+      <td>50 001–100 000</td>
+      <td>1.5%</td>
+      <td>1.3%</td>
+      <td>1 000</td>
+    </tr>
+    <tr>
+      <td>Свыше 100 000</td>
+      <td>1%</td>
+      <td>0.9%</td>
+      <td>1 500</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Дополнительные расходы:
+  <ul>
+    <li>📦 <strong>Страховка:</strong> 0.5% от стоимости товара (включена в тариф «Безопасной сделки»).</li>
+    <li>🚚 <strong>Доставка:</strong> оплачивается покупателем по тарифам <em>СДЭК</em> (от 250 ₽ в зависимости от веса и расстояния).</li>
+    <li>⏳ <strong>Хранение:</strong> если товар не забрали в течение 3 дней, взимается плата за хранение (100 ₽/день).</li>
+  </ul>
+</p>
+
+<blockquote>⚠️ <strong>Внимание:</strong> При сумме сделки менее 3 000 ₽ «Безопасная сделка» недоступна. Для таких случаев <em>СДЭК</em> рекомендует использовать наложенный платёж.</blockquote>
+
+<h2 id="как-оформить-безопасную-сделку-инструкция-для-покупателя">Как оформить «Безопасную сделку»: инструкция для покупателя</h2>
+
+<p>Чтобы воспользоваться сервисом, покупателю нужно:</p>
+
+
+<p>Договориться с продавцом о цене и условиях|Создать заказ на сайте СДЭК или в мобильном приложении|Выбрать опцию «Безопасная сделка» при оформлении|Оплатить сумму сделки + доставку на счёт СДЭК|Получить трек-номер и дождаться уведомления о прибытии товара--></p>
+
+<p>Подробнее о каждом шаге:</p>
+
+<ol>
+  <li><strong>Создание заказа.</strong> Перейдите на сайт <a href="https://www.cdek.ru" target="_blank"><em>СДЭК</em></a>, выберите «Отправить груз» → «Безопасная сделка». Укажите данные продавца (ФИО, телефон) и параметры груза (вес, габариты).</li>
+  <li><strong>Оплата.</strong> Система сформирует счёт на сумму товара + комиссию. Оплатить можно банковской картой, через <em>СберБанк Онлайн</em> или в офисе <em>СДЭК</em> наличными.</li>
+  <li><strong>Отслеживание.</strong> После отправки товара продавцом вы получите трек-номер. Статусы обновляются в реальном времени: «Груз принят», «В пути», «Готов к выдаче».</li>
+  <li><strong>Получение и проверка.</strong> В пункте выдачи предъявите паспорт и трек-номер. У вас будет 48 часов на осмотр товара. Для подтверждения сделки:
+    <pre><code>Перейдите в личный кабинет → «Мои сделки» → выберите заказ → нажмите «Подтвердить получение»</code></pre>
+  </li>
+</ol>
+
+<p>Если товар не соответствует описанию, нажмите «Открыть спор» и загрузите фото/видео дефектов. <em>СДЭК</em> рассмотрит претензию в течение <code>3 рабочих дней</code>.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Сфотографируйте товар сразу при вскрытии упаковки — это поможет доказать претензии, если продавец откажется возвращать деньги.</p></div>
+
+<h2 id="что-делать-если-товар-не-подходит-споры-и-возвраты">Что делать, если товар не подходит: споры и возвраты</h2>
+
+<p>Если покупатель обнаружил проблемы с товаром, он может иницировать спор в личном кабинете. Причины для возврата:
+  <ul>
+    <li>🔧 Неисправность или заводской брак.</li>
+    <li>📦 Несоответствие комплектации (отсутствуют аксессуары, документация).</li>
+    <li>🎨 Расхождение по внешнему виду (цвет, размер, модель).</li>
+  </ul>
+</p>
+
+<p>Процесс разрешения спора:
+  <ol>
+    <li>Покупатель загружает доказательства (фото, видео, скриншоты переписки с продавцом).</li>
+    <li><em>СДЭК</em> запрашивает комментарии у продавца (на ответ даётся 24 часа).</li>
+    <li>Служба безопасности анализирует аргументы обеих сторон.</li>
+    <li>Принимается решение: возвратить деньги покупателю или перевести их продавцу.</li>
+  </ol>
+</p>
+
+<p>Срок рассмотрения спора — до <code>5 рабочих дней</code>. Если решение в пользу покупателя, деньги возвращаются на счёт в течение 1–3 банковских дней. При отказе — товар возвращается продавцу за его счёт.</p>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Если покупатель не инициировал спор в течение 48 часов после получения, сделка автоматически подтверждается, и деньги переводятся продавцу. Вернуть их после этого можно только через суд.</blockquote>
+
+<h2 id="ограничения-и-нюансы-что-нужно-знать">Ограничения и нюансы: что нужно знать</h2>
+
+<p>Сервис «Безопасная сделка» не универсален. Есть ограничения, о которых стоит помнить:</p>
+
+<ul>
+  <li>💰 <strong>Максимальная сумма сделки:</strong> 500 000 ₽ (для сумм выше — требуется индивидуальный договор с <em>СДЭК</em>).</li>
+  <li>🌍 <strong>География:</strong> доступно только для отправлений внутри России. Международные грузы не поддерживаются.</li>
+  <li>📦 <strong>Запрещённые товары:</strong> нельзя отправлять деньги, драгоценности, оружие, лекарства и скоропортящиеся продукты.</li>
+  <li>⏱ <strong>Сроки хранения:</strong> если товар не забран в течение 10 дней, он возвращается продавцу, а комиссия не возвращается.</li>
+</ul>
+
+<p>Также стоит учитывать:
+  <ul>
+    <li>При возврате товара продавцу <strong>доставка оплачивается им</strong> (если вина лежит на нём).</li>
+    <li>Если покупатель отказался от товара без причины, он оплачивает <strong>обратную доставку</strong>.</li>
+    <li>Для товаров весом более 30 кг требуется предварительное согласование с <em>СДЭК</em>.</li>
+  </ul>
+</p>
+
+<details class="faq-item"><summary>Что делать, если продавец отказывается от «Безопасной сделки»?</summary><div class="faq-answer"><p>
+<p>Если продавец настаивает на прямой оплате (например, на карту или через перевод), это может быть признаком мошенничества. Альтернативы:</p>
+<p>1. Предложите оплату наложенным платежом (но это не даёт гарантий проверки товара до оплаты).</p>
+<p>2. Используйте эскроу-сервисы других компаний (например, <em>QIWI Кошелёк</em> или <em>Тинькофф Эскроу</em>).</p>
+<p>3. Откажитесь от сделки — риск получить брак или подделку слишком высок.</p></div></details></p>
+
+<h2 id="альтернативы-безопасной-сделке-от-сдэк">Альтернативы «Безопасной сделке» от СДЭК</h2>
+
+<p>Если по каким-то причинам сервис <em>СДЭК</em> не подходит, можно рассмотреть аналоги:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Сервис</th>
+      <th>Комиссия</th>
+      <th>Макс. сумма сделки</th>
+      <th>Особенности</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><em>QIWI Эскроу</em></td>
+      <td>1–2%</td>
+      <td>300 000 ₽</td>
+      <td>Работает с физическими и юридическими лицами, интеграция с <em>Авито</em>.</td>
+    </tr>
+    <tr>
+      <td><em>Тинькофф Эскроу</em></td>
+      <td>0.5–1.5%</td>
+      <td>1 000 000 ₽</td>
+      <td>Требуется карта <em>Тинькофф</em>, поддержка криптовалют.</td>
+    </tr>
+    <tr>
+      <td><em>Яндекс Эскроу</em></td>
+      <td>1.9%</td>
+      <td>200 000 ₽</td>
+      <td>Удобно для пользователей <em>Яндекс.Денег</em>, быстрые переводы.</td>
+    </tr>
+    <tr>
+      <td><em>Почта России</em></td>
+      <td>2–3%</td>
+      <td>100 000 ₽</td>
+      <td>Доступно в отделениях, но медленнее и менее надёжно.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Преимущество «Безопасной сделки» от <em>СДЭК</em> — интеграция с логистикой: вы получаете не только финансовую гарантию, но и контроль над доставкой. Альтернативы выгоднее по комиссиям, но не всегда обеспечивают такую же защиту при транспортировке.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>«Безопасная сделка» от СДЭК выгодна, если вам важна не только финансовая гарантия, но и надёжная доставка с отслеживанием и страховкой.</p></div>
+
+<h2 id="faq-ответы-на-частые-вопросы">FAQ: ответы на частые вопросы</h2>
+
+<details>
+  <summary>Можно ли использовать «Безопасную сделку» для покупки с рукой (самовывоз)?</summary>
+  <p>Нет, сервис работает только при доставке через <em>СДЭК</em>. Для самовывоза лучше использовать эскроу-сервисы банков (например, <em>Тинькофф</em> или <em>СберБанк</em>).</p>
+</details>
+
+<details>
+  <summary>Что делать, если продавец не отправил товар после оплаты?</summary>
+  <p>Если в течение <code>3 рабочих дней</code> после оплаты товар не отправлен, обратитесь в поддержку <em>СДЭК</em> с чеком об оплате. Деньги будут возвращены на ваш счёт, а продавец получит блокировку в системе.</p>
+</details>
+
+<details>
+  <summary>Можно ли продлить срок проверки товара (больше 48 часов)?</summary>
+  <p>Да, но только по согласованию с <em>СДЭК</em>. Для этого нужно написать в поддержку с обоснованием (например, если товар требует экспертизы). Максимальный срок продления — <code>5 дней</code>.</p>
+</details>
+
+<details>
+  <summary>Как вернуть деньги, если товар потерялся при доставке?</summary>
+  <p>В этом случае действует страховка, включённая в тариф. <em>СДЭК</em> компенсирует стоимость товара в полном объёме (но не более 500 000 ₽). Для этого нужно предоставить:
+    <ul>
+      <li>Договор купли-продажи.</li>
+      <li>Чек об оплате.</li>
+      <li>Акт о потерянном грузе (формирует <em>СДЭК</em>).</li>
+    </ul>
+  </p>
+</details>
+
+<details>
+  <summary>Может ли продавец отказаться от «Безопасной сделки» после оплаты?</summary>
+  <p>Нет. После того как покупатель оплатил сделку через <em>СДЭК</em>, продавец обязан отправить товар. Отказ расценивается как нарушение договора, и деньги возвращаются покупателю.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#что-такое-безопасная-сделка-и-зачем-она-нужна">Что такое «Безопасная сделка» и зачем она нужна</a></li><li><a href="#как-работает-механизм-пошаговая-схема">Как работает механизм: пошаговая схема</a></li><li><a href="#тарифы-и-комиссии-сколько-стоит-защита">Тарифы и комиссии: сколько стоит защита</a></li><li><a href="#как-оформить-безопасную-сделку-инструкция-для-покупателя">Как оформить «Безопасную сделку»: инструкция для покупателя</a></li><li><a href="#что-делать-если-товар-не-подходит-споры-и-возвраты">Что делать, если товар не подходит: споры и возвраты</a></li><li><a href="#ограничения-и-нюансы-что-нужно-знать">Ограничения и нюансы: что нужно знать</a></li><li><a href="#альтернативы-безопасной-сделке-от-сдэк">Альтернативы «Безопасной сделке» от СДЭК</a></li><li><a href="#faq-ответы-на-частые-вопросы">FAQ: ответы на частые вопросы</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/p/po/pochemu-sdek-vskryvaet-posylki.html" class="related-card">Почему СДЭК вскрывает посылки: причины и что делать в 2026 году</a></li><li><a href="/articles/s/sd/sdek-bezopasnaya-sdelka-chto-eto-moshenniki.html" class="related-card">СДЭК Безопасная сделка: как работает и как не стать жертвой мошенников</a></li><li><a href="/articles/s/sd/sdek-kak-obmanyvayut-moshenniki.html" class="related-card">СДЭК: как обманывают мошенники — схемы и защита</a></li><li><a href="/articles/k/ka/kak-sovershit-bezopasnuyu-sdelku-cherez-sdek.html" class="related-card">Как безопасно получить посылку через СДЭК: пошаговая инструкция</a></li><li><a href="/articles/k/ka/kak-razvodyat-cherez-sdek.html" class="related-card">Методы мошенничества через СДЭК: как не стать жертвой в 2026 году</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/p/po/pochemu-sdek-vskryvaet-posylki.html" class="related-bottom-card"><span class="related-bottom-title">Почему СДЭК вскрывает посылки: причины и что делать в 2026 году</span><span class="related-bottom-desc">Разбираемся, почему курьер СДЭК может вскрыть вашу посылку: законные основания, частые причины, прав</span></a><a href="/articles/s/sd/sdek-bezopasnaya-sdelka-chto-eto-moshenniki.html" class="related-bottom-card"><span class="related-bottom-title">СДЭК Безопасная сделка: как работает и как не стать жертвой мошенников</span><span class="related-bottom-desc">Разбираем сервис СДЭК Безопасная сделка: принцип работы, как избежать мошенничества при покупке/прод</span></a><a href="/articles/s/sd/sdek-kak-obmanyvayut-moshenniki.html" class="related-bottom-card"><span class="related-bottom-title">СДЭК: как обманывают мошенники — схемы и защита</span><span class="related-bottom-desc">Полный разбор мошеннических схем СДЭК: фейковые СМС, звонки от лже-сотрудников, фишинговые сайты. Ка</span></a><a href="/articles/k/ka/kak-sovershit-bezopasnuyu-sdelku-cherez-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как безопасно получить посылку через СДЭК: пошаговая инструкция</span><span class="related-bottom-desc">Проверенные способы безопасной сделки с СДЭК: как избежать мошенничества, правильно оформить заказ и</span></a><a href="/articles/k/ka/kak-razvodyat-cherez-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Методы мошенничества через СДЭК: как не стать жертвой в 2026 году</span><span class="related-bottom-desc">Разбираем реальные схемы обмана при отправке/получении посылок через СДЭК: фейковые уведомления, под</span></a><a href="/articles/z/za/zachem-sdek-prosit-pasportnye.html" class="related-bottom-card"><span class="related-bottom-title">Почему СДЭК просит паспортные данные: разбираемся в правилах</span><span class="related-bottom-desc">Зачем курьер СДЭК требует паспорт при получении посылки? Все причины, законные основания и как избеж</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

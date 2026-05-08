@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>Интеграция СДЭК с сайтом: пошаговое руководство 2026 — СДЭК Гид</title>
+    <meta name="description" content="Как подключить API СДЭК к интернет-магазину или CRM: способы интеграции, настройка модулей, примеры кода и решение ошибок. Актуально для 1С, WooCommerce, Bitrix.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/k/ka/kak-integrirovat-sdek.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Интеграция СДЭК с сайтом: пошаговое руководство 2026">
+    <meta property="og:description" content="Как подключить API СДЭК к интернет-магазину или CRM: способы интеграции, настройка модулей, примеры кода и решение ошибок. Актуально для 1С, WooCommerce, Bitrix.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/otpravka-gruzov/">Отправка грузов</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Интеграция СДЭК с сайтом: пошаговое руководство 2026</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Как интегрировать СДЭК с сайтом или CRM: полное руководство с примерами</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#почему-интеграция-с-сдэк-обязательна-для-бизнеса">Почему интеграция с СДЭК обязательна для бизнеса</a></li><li><a href="#способы-интеграции-какой-выбрать-для-вашего-бизнеса">Способы интеграции: какой выбрать для вашего бизнеса</a></li><li><a href="#пошаговая-инструкция-как-подключить-готовый-модуль-для-cms">Пошаговая инструкция: как подключить готовый модуль для CMS</a></li><li><a href="#работа-с-api-сдэк-20-примеры-кода-и-ключевые-параметры">Работа с API СДЭК 2.0: примеры кода и ключевые параметры</a></li><li><a href="#типичные-ошибки-при-интеграции-и-как-их-избежать">Типичные ошибки при интеграции и как их избежать</a></li><li><a href="#автоматизация-печати-этикеток-и-документов">Автоматизация печати этикеток и документов</a></li><li><a href="#интеграция-с-1с-особенности-и-нюансы">Интеграция с 1С: особенности и нюансы</a></li><li><a href="#faq-ответы-на-частые-вопросы-об-интеграции-с-с">FAQ: Ответы на частые вопросы об интеграции с С</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>Интеграция с <strong>СДЭК</strong> — обязательный шаг для любого интернет-магазина или логистической компании, работающей с доставкой по России и СНГ. Без автоматизированного обмена данными между вашей платформой и системой курьерской службы вы рискуете терять заказы на этапе оформления, допускать ошибки в адресах и тарифах, а также тратить часы на ручной ввод информации. Но как правильно настроить эту интеграцию, чтобы она работала стабильно и покрывала все бизнес-процессы?</p>
+
+<p>В этой статье мы разберём <strong>все актуальные способы подключения СДЭК</strong> — от готовых модулей для популярных CMS до кастомизированных решений через <strong>API 2.0</strong>. Вы узнаете, как выбрать оптимальный метод для вашего бизнеса, избежать типичных ошибок при настройке и даже автоматизировать печать этикеток. А для тех, кто только начинает работать с СДЭК, мы подготовили <strong>пошаговые инструкции с примерами кода</strong> и разбором ключевых параметров.</p>
+
+<p>Важно: материалы статьи актуальны для <strong>2026 года</strong> и учитывают последние обновления документации СДЭК, включая изменения в тарифах и структуре API. Если вы интегрировались ранее (до 2023 года), некоторые параметры могли измениться — проверьте их по <a href="https://api.cdek.ru/v2/" target="_blank">официальной документации</a>.</p>
+
+<h2 id="почему-интеграция-с-сдэк-обязательна-для-бизнеса">Почему интеграция с СДЭК обязательна для бизнеса</h2>
+
+<p>Ручная обработка заказов через личный кабинет СДЭК оправдана только для микро-бизнеса с 1–2 заказами в день. Как только поток клиентов превышает 10–15 отправлений в сутки, отсутствие автоматизации приводит к:</p>
+
+<ul>
+  <li>📦 <strong>Ошибкам в адресах</strong> — оператор может опечататься при переносе данных из заказа в систему СДЭК, что ведёт к возвратам и штрафам.</li>
+  <li>⏳ <strong>Задержкам обработки</strong> — вручную создавать заявку на доставку занимает 5–10 минут (против 2–3 секунд при автоматизации).</li>
+  <li>💰 <strong>Потере прибыли</strong> — невозможно оперативно обновлять тарифы на сайте, из-за чего клиенты видят устаревшие цены и отказываются от покупки.</li>
+  <li>📊 <strong>Отсутствию аналитики</strong> — без синхронизации статусов заказов сложно отслеживать эффективность логистики и вовремя реагировать на проблемы.</li>
+</ul>
+
+<p>По данным <em>СДЭК</em>, компании, автоматизировавшие интеграцию, сокращают время обработки заказа на <strong>70%</strong>, а количество ошибок в адресах снижается до <strong>0,3%</strong> (против 5–7% при ручном вводе). При этом даже базовая интеграция через готовые модули обходится дешевле, чем содержание штатного логиста для ручной работы.</p>
+
+<p>Но не все способы подключения одинаково полезны. Например, <strong>виджет расчёта стоимости доставки</strong> на сайте решает только часть задач — он показывает цену клиенту, но не передаёт заказ в СДЭК автоматически. А <strong>полноценное API-подключение</strong> позволяет не только создавать заявки, но и отслеживать их статус, печатать этикетки и даже управлять возвратами. Выбор метода зависит от масштаба бизнеса и технических возможностей вашей платформы.</p>
+
+<div class="poll-widget" id="poll-a2d4a4de"><div class="poll-widget-question">📊 Какой способ интеграции вы планируете использовать?</div><div class="poll-widget-option" data-poll="a2d4a4de" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Готовый модуль для CMS</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="a2d4a4de" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">API СДЭК 2.0</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="a2d4a4de" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">1С + СДЭК</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="a2d4a4de" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Ещё не решил</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="a2d4a4de" data-idx="4" onclick="pbPollVote(this)"><span class="poll-widget-label">Другой</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="способы-интеграции-какой-выбрать-для-вашего-бизнеса">Способы интеграции: какой выбрать для вашего бизнеса</h2>
+
+<p>СДЭК предлагает несколько вариантов подключения, отличающихся по сложности реализации и функционалу. Ниже — сравнительная таблица с ключевыми параметрами:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Способ интеграции</th>
+      <th>Сложность настройки</th>
+      <th>Функционал</th>
+      <th>Подходит для</th>
+      <th>Стоимость</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Виджет расчёта доставки</strong></td>
+      <td>⭐ (просто)</td>
+      <td>Только калькулятор стоимости на сайте</td>
+      <td>Маленькие магазины (до 50 заказов/месяц)</td>
+      <td>Бесплатно</td>
+    </tr>
+    <tr>
+      <td><strong>Готовые модули для CMS</strong> (WooCommerce, Bitrix, OpenCart)</td>
+      <td>⭐⭐ (средняя)</td>
+      <td>Создание заказов, печать этикеток, отслеживание статусов</td>
+      <td>Средний бизнес (50–500 заказов/месяц)</td>
+      <td>От 3 000 до 15 000 ₽ (разово)</td>
+    </tr>
+    <tr>
+      <td><strong>API СДЭК 2.0</strong> (самостоятельная разработка)</td>
+      <td>⭐⭐⭐⭐ (сложно)</td>
+      <td>Полная автоматизация: заказы, тарифы, статусы, возвраты, мультизаказы</td>
+      <td>Крупный бизнес (500+ заказов/месяц)</td>
+      <td>От 30 000 ₽ (разработка + поддержка)</td>
+    </tr>
+    <tr>
+      <td><strong>1С + СДЭК</strong> (через "1С-Линк" или "Атол Онлайн")</td>
+      <td>⭐⭐⭐ (выше среднего)</td>
+      <td>Синхронизация заказов, остатков, цен</td>
+      <td>Омниканальные ритейлеры с офлайн-точками</td>
+      <td>От 10 000 ₽/год (абонентская плата)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Если ваш магазин работает на <em>WooCommerce</em>, <em>Bitrix</em> или <em>OpenCart</em>, начинайте с готовых модулей — они покрывают 80% задач и не требуют глубоких технических знаний. Например, модуль <strong>"СДЭК для WooCommerce"</strong> от <em>WPShop</em> позволяет:</p>
+<ul>
+  <li>🔄 Автоматически передавать заказы в СДЭК после оплаты.</li>
+  <li>📋 Печатать этикетки и квитанции прямо из админки WordPress.</li>
+  <li>📈 Отображать статусы доставки в личном кабинете клиента.</li>
+  <li>💰 Динамически рассчитывать стоимость доставки с учётом веса и габаритов.</li>
+</ul>
+
+<p>Для более гибкой настройки (например, если вам нужна поддержка <strong>мультизаказов</strong> или <strong>нестандартных тарифов</strong>) придётся работать с <strong>API СДЭК 2.0</strong>. Этот способ требует участия разработчика, но даёт полный контроль над процессом. Например, вы можете:</p>
+<ul>
+  <li>📦 Настраивать <strong>автоматическую упаковку товаров</strong> по алгоритму (например, "объединить в одну коробку все товары весом до 5 кг").</li>
+  <li>🔄 Синхронизировать статусы заказов в реальном времени (включая частичную выдачу в пункте выдачи).</li>
+  <li>💳 Интегрировать оплату доставки при получении (<em>наложенный платёж</em>) с вашей платежной системой.</li>
+</ul>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Перед выбором способа интеграции проверьте, поддерживает ли ваша CMS актуальную версию API СДЭК. Например, модули для <em>Bitrix</em> старше 2022 года могут не работать с API 2.0 из-за изменений в структуре запросов.</p></div>
+
+<h2 id="пошаговая-инструкция-как-подключить-готовый-модуль-для-cms">Пошаговая инструкция: как подключить готовый модуль для CMS</h2>
+
+<p>Рассмотрим процесс на примере <strong>WooCommerce</strong> — самой популярной платформы для интернет-магазинов. Аналогичные шаги применимы и для других CMS (<em>Bitrix</em>, <em>OpenCart</em>, <em>Shopify</em>), но могут отличаться детали настройки.</p>
+
+<h3>1. Установка и активация модуля</h3>
+<p>Скачайте официальный модуль <strong>"СДЭК для WooCommerce"</strong> с <a href="https://wordpress.org/plugins/woocommerce/" target="_blank">репозитория WordPress</a> или с сайта разработчика (например, <em>WPShop</em>). Установите его через панель администратора:</p>
+<ol>
+  <li>Перейдите в <code>Плагины → Добавить новый</code>.</li>
+  <li>Нажмите <code>Загрузить плагин</code> и выберите скачанный архив.</li>
+  <li>Активируйте модуль после установки.</li>
+</ol>
+
+<h3>2. Настройка подключения к СДЭК</h3>
+<p>После активации в меню WooCommerce появится новый пункт <code>Настройки → Доставка → СДЭК</code>. Здесь нужно:</p>
+<ul>
+  <li>🔑 Ввести <strong>API-ключ</strong> и <strong>логин</strong> из личного кабинета СДЭК (где их взять — см. следующий раздел).</li>
+  <li>📍 Указать <strong>город отправителя</strong> (код из справочника СДЭК).</li>
+  <li>⚖️ Настроить <strong>вес и габариты по умолчанию</strong> (если они не указаны в карточках товаров).</li>
+  <li>💰 Выбрать <strong>тарифы доставки</strong>, которые будут доступны клиентам (например, "Дверь-Дверь", "Склад-Склад").</li>
+</ul>
+
+
+<p>Установить и активировать плагин|Ввести API-ключ и логин|Указать город отправителя (код)|Настроить габариты по умолчанию|Выбрать доступные тарифы|Протестировать расчёт стоимости--></p>
+
+<h3>3. Тестирование и запуск</h3>
+<p>Перед тем как открывать модуль для клиентов, обязательно:</p>
+<ol>
+  <li>Создайте <strong>тестовый заказ</strong> с разными параметрами (вес, габариты, город доставки).</li>
+  <li>Проверьте, что стоимость доставки рассчитывается корректно (сравните с данными на сайте СДЭК).</li>
+  <li>Убедитесь, что заказ автоматически появляется в <a href="https://lk.cdek.ru/" target="_blank">личном кабинете СДЭК</a> после оплаты.</li>
+</ol>
+
+<p>Если что-то идёт не так, проверьте:</p>
+<ul>
+  <li>🔌 <strong>Правильность API-ключа</strong> (он должен быть актуальным и не заблокированным).</li>
+  <li>📡 <strong>Настройки веса и габаритов</strong> — если они заданы неверно, СДЭК может возвращать ошибку <code>Invalid dimensions</code>.</li>
+  <li>🌍 <strong>Коды городов</strong> — они должны соответствовать справочнику СДЭК (например, Москва — <code>44</code>, Санкт-Петербург — <code>64</code>).</li>
+</ul>
+
+<details class="faq-item"><summary>Где взять API-ключ для СДЭК?</summary><div class="faq-answer"><p>
+<p>1. Авторизуйтесь в <a href="https://lk.cdek.ru/" target="_blank">личном кабинете СДЭК</a>.</p>
+<p>2. Перейдите в раздел <code>Настройки → Интеграции → API</code>.</p>
+<p>3. Нажмите <code>Создать новый ключ</code> и скопируйте его.</p>
+<p>4. Убедитесь, что ключ имеет права на <strong>создание заказов</strong> и <strong>получение тарифов</strong>.</p>
+<em>Внимание: один ключ можно использовать только для одного домена!</em>
+<p></p></div></details></p>
+
+<h2 id="работа-с-api-сдэк-20-примеры-кода-и-ключевые-параметры">Работа с API СДЭК 2.0: примеры кода и ключевые параметры</h2>
+
+<p>Если готовые модули не покрывают ваши нужды (например, вам нужна <strong>интеграция с саморазработанной CRM</strong> или <strong>нестандартная логика упаковки товаров</strong>), придётся работать с <strong>API СДЭК 2.0</strong> напрямую. Ниже — базовые примеры запросов на <em>PHP</em> и <em>Python</em>, а также разбор ключевых параметров.</p>
+
+<h3>1. Получение списка городов (справочник)</h3>
+<p>Чтобы клиент мог выбрать город доставки, нужно подгрузить актуальный справочник из СДЭК. Пример запроса на <em>PHP</em>:</p>
+<pre><code>$ch = curl_init();
+<p>curl_setopt($ch, CURLOPT_URL, "https://api.cdek.ru/v2/location/cities");</p>
+<p>curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);</p>
+<p>curl_setopt($ch, CURLOPT_HTTPHEADER, [</p>
+<p>"Authorization: Bearer ВАШ_API_КЛЮЧ",</p>
+<p>"Content-Type: application/json"</p>
+<p>]);</p>
+<p>$response = curl_exec($ch);</p>
+<p>curl_close($ch);</p>
+<p>$data = json_decode($response, true);</p>
+<p>print_r($data);</code></pre></p>
+
+<p>В ответе вы получите массив городов с кодами, которые потом нужно будет использовать при создании заказа. Например:</p>
+<pre><code>{
+<p>"code": 44,</p>
+<p>"name": "Москва",</p>
+<p>"country_code": "RU",</p>
+<p>...</p>
+<p>}</code></pre></p>
+
+<h3>2. Расчёт стоимости доставки</h3>
+<p>Чтобы показать клиенту актуальную цену, отправьте запрос с параметрами заказа:</p>
+<pre><code>$post_data = [
+<p>"tariff_code" => 136, // Код тарифа (например, 136 — "Дверь-Дверь")</p>
+<p>"from_location" => [</p>
+<p>"code" => 44 // Код города отправителя (Москва)</p>
+<p>],</p>
+<p>"to_location" => [</p>
+<p>"code" => 64 // Код города получателя (Санкт-Петербург)</p>
+<p>],</p>
+<p>"packages" => [</p>
+<p>[</p>
+<p>"weight" => 500, // Вес в граммах</p>
+<p>"length" => 10, // Длина в см</p>
+<p>"width" => 10,  // Ширина в см</p>
+<p>"height" => 10  // Высота в см</p>
+<p>]</p>
+<p>]</p>
+<p>];</p>
+
+<p>$ch = curl_init();</p>
+<p>curl_setopt($ch, CURLOPT_URL, "https://api.cdek.ru/v2/calculator/tariff");</p>
+<p>curl_setopt($ch, CURLOPT_POST, true);</p>
+<p>curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post_data));</p>
+<p>curl_setopt($ch, CURLOPT_HTTPHEADER, [</p>
+<p>"Authorization: Bearer ВАШ_API_КЛЮЧ",</p>
+<p>"Content-Type: application/json"</p>
+<p>]);</p>
+<p>$response = curl_exec($ch);</p>
+<p>curl_close($ch);</p>
+<p>$result = json_decode($response, true);</p>
+<p>echo $result['total_sum']; // Стоимость доставки в рублях</code></pre></p>
+
+<p><mark>Критически важно: параметры <code>weight</code>, <code>length</code>, <code>width</code> и <code>height</code> должны быть указаны в <strong>миллиметрах и граммах</strong>, а не в метрах и килограммах, как многие ошибочно думают. Иначе СДЭК вернёт ошибку <code>Invalid package dimensions</code>.</mark></p>
+
+<h3>3. Создание заказа в СДЭК</h3>
+<p>Когда клиент оформил заказ, его нужно передать в СДЭК. Пример запроса:</p>
+<pre><code>$order_data = [
+<p>"type" => 1, // Тип заказа (1 — интернет-магазин)</p>
+<p>"number" => "12345-A", // Ваш внутренний номер заказа</p>
+<p>"tariff_code" => 136,</p>
+<p>"from_location" => [</p>
+<p>"code" => 44</p>
+<p>],</p>
+<p>"to_location" => [</p>
+<p>"code" => 64</p>
+<p>],</p>
+<p>"packages" => [</p>
+<p>[</p>
+<p>"number" => "Бокс-1",</p>
+<p>"weight" => 500,</p>
+<p>"length" => 100,</p>
+<p>"width" => 100,</p>
+<p>"height" => 100,</p>
+<p>"items" => [</p>
+<p>[</p>
+<p>"name" => "Книга 'SEO для чайников'",</p>
+<p>"ware_key" => "SKU-123",</p>
+<p>"cost" => 1000,</p>
+<p>"payment" => [</p>
+<p>"value" => 1000</p>
+<p>],</p>
+<p>"amount" => 1</p>
+<p>]</p>
+<p>]</p>
+<p>]</p>
+<p>],</p>
+<p>"recipient" => [</p>
+<p>"name" => "Иван Иванов",</p>
+<p>"phones" => [</p>
+<p>[</p>
+<p>"number" => "+79991234567"</p>
+<p>]</p>
+<p>]</p>
+<p>],</p>
+<p>"delivery_point" => 12345 // Код ПВЗ (если доставка до пункта выдачи)</p>
+<p>];</p>
+
+<p>$ch = curl_init();</p>
+<p>curl_setopt($ch, CURLOPT_URL, "https://api.cdek.ru/v2/orders");</p>
+<p>curl_setopt($ch, CURLOPT_POST, true);</p>
+<p>curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($order_data));</p>
+<p>curl_setopt($ch, CURLOPT_HTTPHEADER, [</p>
+<p>"Authorization: Bearer ВАШ_API_КЛЮЧ",</p>
+<p>"Content-Type: application/json"</p>
+<p>]);</p>
+<p>$response = curl_exec($ch);</p>
+<p>curl_close($ch);</p>
+<p>$result = json_decode($response, true);</p>
+<p>echo $result['entity']['uuid']; // Уникальный идентификатор заказа в СДЭК</code></pre></p>
+
+<p>После успешного создания заказа вы получите его <code>uuid</code> — сохраните его в своей базе, чтобы потом отслеживать статус.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Всегда проверяйте ответ от API на наличие ошибок! Например, если вы укажете несуществующий <code>tariff_code</code>, СДЭК вернёт <code>"errors": [{"code": "VALIDATION_ERROR", "message": "Tariff not found"}]</code>.</p></div>
+
+<h2 id="типичные-ошибки-при-интеграции-и-как-их-избежать">Типичные ошибки при интеграции и как их избежать</h2>
+
+<p>Даже при использовании готовых модулей или API могут возникать проблемы. Вот самые распространённые ошибки и способы их решения:</p>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Если вы получаете ошибку <code>403 Forbidden</code> при работе с API, проверьте:</p>
+<ul>
+  <li>🔑 Правильность <strong>API-ключа</strong> (он мог истечь или быть заблокированным).</li>
+  <li>🌐 <strong>IP-адрес сервера</strong> — СДЭК может блокировать запросы с недоверенных IP (настройте белый список в личном кабинете).</li>
+  <li>📅 <strong>Дата и время сервера</strong> — если они не синхронизированы, СДЭК откажет в доступе.</li>
+</ul>
+</blockquote>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ошибка</th>
+      <th>Причина</th>
+      <th>Решение</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Invalid credentials</code></td>
+      <td>Неверный API-ключ или логин</td>
+      <td>Проверьте ключ в личном кабинете СДЭК и обновите его в настройках модуля</td>
+    </tr>
+    <tr>
+      <td><code>Location not found</code></td>
+      <td>Неверный код города</td>
+      <td>Используйте актуальный справочник городов (обновляйте его раз в месяц)</td>
+    </tr>
+    <tr>
+      <td><code>Package too heavy</code></td>
+      <td>Превышен максимальный вес (обычно 30 кг для стандартных тарифов)</td>
+      <td>Разбейте заказ на несколько упаковок или выберите тариф для тяжелых грузов</td>
+    </tr>
+    <tr>
+      <td><code>Tariff not available</code></td>
+      <td>Выбранный тариф не доступен для данного направления</td>
+      <td>Проверьте список доступных тарифов через метод <code>/v2/deliverypoints</code></td>
+    </tr>
+    <tr>
+      <td><code>Insufficient funds</code></td>
+      <td>Не хватает денег на счёте СДЭК</td>
+      <td>Пополните баланс в личном кабинете или включите опцию "Оплата при получении"</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Ещё одна частая проблема — <strong>несовпадение статусов заказов</strong> между вашей CMS и СДЭК. Например, клиент видит на сайте статус "В обработке", а в СДЭК заказ уже "В пути". Чтобы избежать этого:</p>
+<ul>
+  <li>🔄 Настройте <strong>автоматическую синхронизацию статусов</strong> через <code>webhooks</code> (если ваша CMS поддерживает).</li>
+  <li>⏱️ Установите <strong>крон-задачу</strong> на проверку статусов раз в час (пример скрипта есть в <a href="https://api.cdek.ru/v2/" target="_blank">документации СДЭК</a>).</li>
+  <li>📋 Ведите <strong>лог изменений статусов</strong> — это поможет отследить, на каком этапе произошёл сбой.</li>
+</ul>
+
+<p>Если вы используете <em>1С</em>, обратите внимание на типичную ошибку при синхронизации: дублирование заказов. Это происходит, когда в <em>1С</em> и СДЭК разные форматы номеров заказов. Решение:</p>
+<ol>
+  <li>Настройте в <em>1С</em> префикс для номеров заказов (например, <code>WEB-</code>).</li>
+  <li>В личном кабинете СДЭК укажите этот префикс в настройках интеграции.</li>
+  <li>Проверьте, чтобы в API-запросах передавался полный номер (например, <code>WEB-12345</code>, а не просто <code>12345</code>).</li>
+</ol>
+
+<h2 id="автоматизация-печати-этикеток-и-документов">Автоматизация печати этикеток и документов</h2>
+
+<p>Одной из самых трудоёмких задач при работе с СДЭК является печать <strong>транспортных этикеток</strong> и <strong>товарных накладных</strong>. При ручной обработке на это уходит до 30% времени логиста. Автоматизация печати позволяет:</p>
+<ul>
+  <li>🖨️ Печатать этикетки <strong>пакетом</strong> (например, все заказы за день одним кликом).</li>
+  <li>📄 Генерировать <strong>товарные накладные</strong> в формате Excel или PDF.</li>
+  <li>📦 Автоматически подставлять <strong>штрихкоды</strong> и <strong>QR-коды</strong> для отслеживания.</li>
+</ul>
+
+<p>Если вы используете <strong>готовый модуль</strong> (например, для <em>WooCommerce</em> или <em>Bitrix</em>), функция печати обычно встроена. Достаточно:</p>
+<ol>
+  <li>Выделить нужные заказы в админке.</li>
+  <li>Нажать кнопку <code>Печать этикеток СДЭК</code>.</li>
+  <li>Выбрать принтер (лучше использовать <strong>термопринтер</strong> для этикеток, например, <em>Zebra</em> или <em>Godex</em>).</li>
+</ol>
+
+<p>Для <strong>кастомизированных решений</strong> (через API) печать этикеток настраивается так:</p>
+<ol>
+  <li>Получите <strong>PDF с этикеткой</strong> через запрос к API:</li>
+</ol>
+<pre><code>$ch = curl_init();
+<p>curl_setopt($ch, CURLOPT_URL, "https://api.cdek.ru/v2/orders/{uuid}/print");</p>
+<p>curl_setopt($ch, CURLOPT_HTTPHEADER, [</p>
+<p>"Authorization: Bearer ВАШ_API_КЛЮЧ",</p>
+<p>"Content-Type: application/json"</p>
+<p>]);</p>
+<p>curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);</p>
+<p>$pdf = curl_exec($ch);</p>
+<p>curl_close($ch);</p>
+<p>file_put_contents("etiketka_{$uuid}.pdf", $pdf);</code></pre></p>
+<ol start="2">
+  <li>Автоматизируйте печать с помощью скрипта на <em>Python</em> или <em>Bash</em>. Пример для Linux:</li>
+</ol>
+<pre><code>lp -d Zebra etiketka_*.pdf</code></pre>
+
+<blockquote>⚠️ <strong>Внимание:</strong> При печати этикеток через API убедитесь, что:</p>
+<ul>
+  <li>📏 <strong>Размер этикетки</strong> соответствует стандарту СДЭК (обычно 100×100 мм).</li>
+  <li>🖼️ <strong>DPI принтера</strong> настроен на 200–300 (при меньшем разрешении штрихкод может не считываться).</li>
+  <li>📋 <strong>На этикетке указаны</strong> номер заказа, адрес получателя и контактный телефон.</li>
+</ul>
+</blockquote>
+
+<p>Для ускорения процесса можно интегрировать печать с <strong>терминалом сбора данных (ТСД)</strong>. Например, <em>CipherLab</em> или <em>Honeywell</em>. Это позволит:</p>
+<ul>
+  <li>📱 Сканировать штрихкоды товаров и автоматически формировать этикетки.</li>
+  <li>🔄 Синхронизировать данные с <em>1С</em> или <em>WMS</em>-системой.</li>
+  <li>📊 Вести учёт собранных заказов в реальном времени.</li>
+</ul>
+
+<h2 id="интеграция-с-1с-особенности-и-нюансы">Интеграция с 1С: особенности и нюансы</h2>
+
+<p>Если ваш бизнес работает на <em>1С:Управление торговлей</em> или <em>1С:ERP</em>, интеграция с СДЭК обычно осуществляется через:</p>
+<ul>
+  <li>🔗 <strong>"1С-Линк"</strong> — официальное решение от СДЭК.</li>
+  <li>🔄 <strong>"Атол Онлайн"</strong> — универсальный сервис для обмена данными.</li>
+  <li>🛠️ <strong>Самостоятельную разработку</strong> через <em>1С:Предприятие 8.3</em> и API СДЭК.</li>
+</ul>
+
+<p>Рассмотрим подключение через <strong>"1С-Линк"</strong> — самый надёжный и поддерживаемый способ:</p>
+
+<h3>1. Установка и настройка</h3>
+<ol>
+  <li>Скачайте <a href="https://lk.cdek.ru/integrations" target="_blank">дистрибутив "1С-Линк"</a> с сайта СДЭК.</li>
+  <li>Установите его на сервер, где развёрнута ваша <em>1С</em>.</li>
+  <li>В личном кабинете СДЭК перейдите в <code>Настройки → Интеграции → 1С-Линк</code> и скопируйте <strong>ключ интеграции</strong>.</li>
+  <li>В <em>1С</em> перейдите в <code>Администрирование → Обмен данными → Настройки обмена с СДЭК</code> и вставьте ключ.</li>
+</ol>
+
+<h3>2. Настройка обмена данными</h3>
+<p>В настройках "1С-Линк" укажите:</p>
+<ul>
+  <li>📦 <strong>Типы заказов</strong>, которые нужно передавать в СДЭК (например, только оплаченные).</li>
+  <li>📅 <strong>Частоту синхронизации</strong> (рекомендуется каждые 15–30 минут).</li>
+  <li>📋 <strong>Поля для передачи</strong> (адрес, телефон, email клиента и т. д.).</li>
+  <li>💰 <strong>Способы оплаты</strong> (наличные, безнал, наложенный платёж).</li>
+</ul>
+
+<p>После настройки запустите тестовый обмен:</p>
+<ol>
+  <li>Создайте тестовый заказ в <em>1С</em>.</li>
+  <li>Запустите синхронизацию вручную (<code>Обмен данными → Выполнить обмен</code>).</li>
+  <li>Проверьте, что заказ появился в <a href="https://lk.cdek.ru/" target="_blank">личном кабинете СДЭК</a>.</li>
+</ol>
+
+<blockquote>⚠️ <strong>Внимание:</strong> При интеграции <em>1С</em> и СДЭК часто возникает проблема с <strong>кодировками</strong>. Если в заказах вместо кириллицы отображаются "кракозябры", проверьте:</p>
+<ul>
+  <li>📌 Кодировку базы <em>1С</em> (должна быть <code>UTF-8</code>).</li>
+  <li>📎 Кодировку файлов обмена (в настройках "1С-Линк" укажите <code>UTF-8</code>).</li>
+  <li>🔧 Настройки региональных стандартов в Windows (должны поддерживать русский язык).</li>
+</ul>
+</blockquote>
+
+<p>Если вам нужно кастомизировать обмен (например, добавить передачу <strong>серийных номеров товаров</strong> или <strong>дополнительных полей</strong>), придётся дорабатывать конфигурацию <em>1С</em>. Для этого:</p>
+<ol>
+  <li>Откройте конфигуратор <em>1С</em> (<code>Файл → Конфигуратор</code>).</li>
+  <li>Найдите обработку <code>ОбменССДЭК</code>.</li>
+  <li>Добавьте нужные поля в структуру передаваемых данных (пример кода можно взять в <a href="https://its.1c.ru/" target="_blank">базе знаний 1С</a>).</li>
+  <li>Обновите конфигурацию базы и перезапустите обмен.</li>
+</ol>
+
+<h2 id="faq-ответы-на-частые-вопросы-об-интеграции-с-с">FAQ: Ответы на частые вопросы об интеграции с С</h2></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#почему-интеграция-с-сдэк-обязательна-для-бизнеса">Почему интеграция с СДЭК обязательна для бизнеса</a></li><li><a href="#способы-интеграции-какой-выбрать-для-вашего-бизнеса">Способы интеграции: какой выбрать для вашего бизнеса</a></li><li><a href="#пошаговая-инструкция-как-подключить-готовый-модуль-для-cms">Пошаговая инструкция: как подключить готовый модуль для CMS</a></li><li><a href="#работа-с-api-сдэк-20-примеры-кода-и-ключевые-параметры">Работа с API СДЭК 2.0: примеры кода и ключевые параметры</a></li><li><a href="#типичные-ошибки-при-интеграции-и-как-их-избежать">Типичные ошибки при интеграции и как их избежать</a></li><li><a href="#автоматизация-печати-этикеток-и-документов">Автоматизация печати этикеток и документов</a></li><li><a href="#интеграция-с-1с-особенности-и-нюансы">Интеграция с 1С: особенности и нюансы</a></li><li><a href="#faq-ответы-на-частые-вопросы-об-интеграции-с-с">FAQ: Ответы на частые вопросы об интеграции с С</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/s/sd/sdek-chto-znachit-arenda-kurera.html" class="related-card">Аренда курьера СДЭК: что это значит и как работает в 2026 году</a></li><li><a href="/articles/k/ka/kak-bystro-dostavlyaet-sdek.html" class="related-card">Скорость доставки СДЭК в 2026: сроки, тарифы и секреты ускорения</a></li><li><a href="/articles/s/sd/sdek-kak-otpravit-posylku-fiz-litsu-za-schet.html" class="related-card">Как отправить посылку физлицу за счёт СДЭК: пошаговая инструкция 2026</a></li><li><a href="/articles/s/sd/sdek-kurer-ot-dveri-do-dveri-kak-eto-rabotaet.html" class="related-card">СДЭК курьер «от двери до двери»: как работает услуга в 2026 году</a></li><li><a href="/articles/k/ka/kak-sdelat-nakladnuyu-sdek-dlya-otpravki.html" class="related-card">Как сделать накладную СДЭК: пошаговая инструкция для отправителя</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/s/sd/sdek-chto-znachit-arenda-kurera.html" class="related-bottom-card"><span class="related-bottom-title">Аренда курьера СДЭК: что это значит и как работает в 2026 году</span><span class="related-bottom-desc">Разбираемся, что такое аренда курьера в СДЭК: условия, тарифы, преимущества и пошаговая инструкция д</span></a><a href="/articles/k/ka/kak-bystro-dostavlyaet-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Скорость доставки СДЭК в 2026: сроки, тарифы и секреты ускорения</span><span class="related-bottom-desc">Актуальные сроки доставки СДЭК по России и миру: как ускорить посылку, от чего зависит время, сравне</span></a><a href="/articles/s/sd/sdek-kak-otpravit-posylku-fiz-litsu-za-schet.html" class="related-bottom-card"><span class="related-bottom-title">Как отправить посылку физлицу за счёт СДЭК: пошаговая инструкция 2026</span><span class="related-bottom-desc">Разбираем все способы отправки посылки физическому лицу за счёт СДЭК: через сайт, офис, курьера. Тар</span></a><a href="/articles/s/sd/sdek-kurer-ot-dveri-do-dveri-kak-eto-rabotaet.html" class="related-bottom-card"><span class="related-bottom-title">СДЭК курьер «от двери до двери»: как работает услуга в 2026 году</span><span class="related-bottom-desc">Пошаговое руководство по доставке СДЭК курьером от двери до двери: тарифы, сроки, правила упаковки и</span></a><a href="/articles/k/ka/kak-sdelat-nakladnuyu-sdek-dlya-otpravki.html" class="related-bottom-card"><span class="related-bottom-title">Как сделать накладную СДЭК: пошаговая инструкция для отправителя</span><span class="related-bottom-desc">Узнайте, как создать накладную СДЭК онлайн или в отделении. Подробный гид по заполнению, печати и пе</span></a><a href="/articles/k/ka/kak-upakovat-bolshuyu-posylku-v-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как упаковать большую посылку в СДЭК: инструкция и требования</span><span class="related-bottom-desc">Подробная инструкция по упаковке крупногабаритных грузов в СДЭК. Требования к коробкам, весу, габари</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

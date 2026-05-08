@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>СДЭК Omni: как пользоваться и подключить к своему магазину — СДЭК Гид</title>
+    <meta name="description" content="Полный гид по сервису Omni СДЭК: как подключить API, настроить выгрузку заказов и отслеживание посылок для интернет-магазинов.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/o/om/omni-sdek-kak-polzovatsya.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="СДЭК Omni: как пользоваться и подключить к своему магазину">
+    <meta property="og:description" content="Полный гид по сервису Omni СДЭК: как подключить API, настроить выгрузку заказов и отслеживание посылок для интернет-магазинов.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/biznes-i-dogovory/">Бизнес и договоры</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">СДЭК Omni: как пользоваться и подключить к своему магазину</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Omni СДЭК: пошаговая инструкция по подключению и настройке</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#что-такое-omni-сдэк-и-зачем-он-нужен-бизнесу">Что такое Omni СДЭК и зачем он нужен бизнесу</a></li><li><a href="#регистрация-в-личном-кабинете-и-получение-ключей-доступа">Регистрация в личном кабинете и получение ключей доступа</a></li><li><a href="#техническая-интеграция-endpoints-и-методы-запросов">Техническая интеграция: endpoints и методы запросов</a></li><li><a href="#настройка-калькулятора-доставки-и-тарифов">Настройка калькулятора доставки и тарифов</a></li><li><a href="#создание-заказов-и-генерация-сопроводительных-документов">Создание заказов и генерация сопроводительных документов</a></li><li><a href="#отслеживание-статусов-и-работа-с-вебхуками">Отслеживание статусов и работа с вебхуками</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+<p>Интеграция логистических сервисов в электронную коммерцию перестала быть опцией и стала необходимостью для выживания бизнеса в условиях высокой конкуренции. <strong>Omni СДЭК</strong> представляет собой специализированный IT-продукт, разработанный для автоматизации процессов доставки в интернет-магазинах, маркетплейсах и ERP-системах. Этот инструмент позволяет бизнесу управлять заказами, рассчитывать стоимость доставки в реальном времени и отслеживать статусы посылок без ручного ввода данных.</p>
+
+<p>Внедрение данного решения требует понимания базовых принципов работы API и взаимодействия с серверами логистического оператора. <em>Omni-сервис</em> берет на себя сложную техническую работу по согласованию форматов данных между вашей платформой и транспортной компанией. В результате клиенты получают актуальную информацию о сроках и стоимости, что напрямую влияет на конверсию и снижение количества брошенных корзин.</p>
+
+<p>В этой статье мы подробно разберем алгоритм подключения, настройки и использования функционала Omni. Вы узнаете, как получить необходимые ключи доступа, какие параметры необходимо передавать в запросах и как избежать типичных ошибок при интеграции. Готовность к техническим деталям станет вашим преимуществом в настройке бесперебойной логистики.</p>
+
+<h2 id="что-такое-omni-сдэк-и-зачем-он-нужен-бизнесу">Что такое Omni СДЭК и зачем он нужен бизнесу</h2>
+
+<p><strong>Omni СДЭК</strong> — это универсальный шлюз, который объединяет функционал калькулятора, трекера и системы оформления накладных в единый программный интерфейс. Основное отличие от стандартных виджетов заключается в глубине интеграции: данные не просто отображаются на странице, а полноценно участвуют в бизнес-процессах магазина. Это позволяет создавать бесшовный пользовательский опыт, когда клиент видит точную дату доставки еще до перехода в корзину.</p>
+
+<p>Использование этого инструмента критически важно для автоматизации. Вместо того чтобы менеджер вручную рассчитывал стоимость для каждого клиента, <em>API Omni</em> делает это за доли секунды. Система учитывает габариты товара, вес, тарифную зону и текущие акции логистического оператора. Это исключает человеческий фактор и ошибки в расчетах, которые часто приводят к финансовым потерям.</p>
+
+<blockquote>
+<p>⚠️ Внимание: Не путайте Omni с обычным виджетом карты на сайте. Omni — это backend-решение для интеграции, требующее технической настройки, тогда как виджет — это готовый frontend-элемент для быстрой установки без программирования.</p>
+</blockquote>
+
+<p>Ключевые преимущества внедрения Omni для бизнеса включают:</p>
+<ul>
+<li>🚀 <strong>Мгновенный расчет</strong> стоимости доставки по всем доступным тарифам в момент оформления заказа.</li>
+<li>📦 <strong>Автоматическое создание</strong> заказов в системе СДЭК сразу после оплаты клиентом.</li>
+<li>🔄 <strong>Синхронизация статусов</strong> в реальном времени, позволяющая клиенту отслеживать путь посылки без звонков в поддержку.</li>
+<li>🌍 <strong>Гибкость настройки</strong> под специфику любого CMS или самописного решения магазина.</li>
+</ul>
+
+<blockquote>
+<p>⚠️ Внимание: Для корректной работы Omni необходимо, чтобы в карточках товаров были указаны точные габариты и вес. Отсутствие этих данных приведет к некорректному расчету стоимости доставки на стороне клиента.</p>
+</blockquote>
+
+<h2 id="регистрация-в-личном-кабинете-и-получение-ключей-доступа">Регистрация в личном кабинете и получение ключей доступа</h2>
+
+<p>Первым шагом к интеграции является создание учетной записи в <strong>Личном кабинете СДЭК</strong>. Если у вас уже есть договор с компанией, вам необходимо использовать именно его, так как Omni привязывается к конкретному договору и тарифам. Для новых пользователей процесс начинается с регистрации юридического лица или ИП, после чего открывается доступ к разделу разработчика.</p>
+
+<p>Для работы с API Omni требуются два основных параметра: <code>Account</code> и <code>Secure Password</code>. Эти данные находятся в разделе настроек профиля или в специальном подразделе для разработчиков. <em>Secure Password</em> генерируется пользователем самостоятельно и служит для авторизации запросов, обеспечивая высокий уровень безопасности передаваемых данных.</p>
+
+<div class="poll-widget" id="poll-0d7b79d2"><div class="poll-widget-question">📊 Какой у вас тип интеграции с СДЭК?</div><div class="poll-widget-option" data-poll="0d7b79d2" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Готовый плагин для CMS</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="0d7b79d2" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Самописная интеграция через API</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="0d7b79d2" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Использую виджет на сайте</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="0d7b79d2" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Пока не интегрирован</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<p>Процесс получения ключей выглядит следующим образом:</p>
+<ul>
+<li>🔑 <strong>Авторизация</strong> в личном кабинете СДЭК под учетной записью договора.</li>
+<li>⚙️ <strong>Переход</strong> в раздел "Настройки" → "Профиль разработчика" (или аналогичный раздел API).</li>
+<li>📝 <strong>Генерация</strong> пароля безопасности, если он еще не создан, и копирование логина аккаунта.</li>
+<li>🔒 <strong>Сохранение</strong> данных в надежном месте, так как они потребуются для конфигурации сервера.</p>
+
+<p>Важно понимать, что доступ к тестовому окружению (sandbox) и продуктивному серверу может требовать отдельной активации. В некоторых случаях для получения полного доступа к Omni необходимо подать заявку через менеджера или через форму обратной связи в кабинете, указав технические детали вашего проекта.</p>
+
+<div class="checklist-block"><h4>☑️ Подготовка к интеграции</h4><label class="check-item"><input type="checkbox"><span>Получен логин и пароль API:Проверены права доступа к договору:Изучена документация API СДЭК:Подготовлено тестовое окружение магазина</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 1</div></div>
+
+<h2 id="техническая-интеграция-endpoints-и-методы-запросов">Техническая интеграция: endpoints и методы запросов</h2>
+
+<p>Техническая часть работы с Omni СДЭК строится на отправке HTTP-запросов к определенным адресам (endpoints). Основным форматом обмена данными является <strong>JSON</strong>, что делает интеграцию удобной для большинства современных языков программирования. Базовый URL для продуктивного окружения обычно имеет вид <code>https://api.cdek.ru/v2/</code>, однако для тестирования рекомендуется использовать sandbox-сервер.</p>
+
+<p>Для авторизации в системе используется метод получения токена доступа. Вы отправляете POST-запрос с вашими учетными данными (Account и Secure Password), а в ответ получаете временный токен, который действителен в течение определенного времени (обычно один час). Этот токен необходимо передавать в заголовке <code>Authorization</code> при всех последующих запросах.</p>
+
+<pre><code>POST https://api.cdek.ru/v2/oauth/token?parameters
+<p>Content-Type: application/x-www-form-urlencoded</p>
+
+<p>{</p>
+<p>"type": "client_credentials",</p>
+<p>"client_id": "ваш_логин",</p>
+<p>"client_secret": "ваш_пароль"</p>
+<p>}</code></pre></p>
+
+<p>После успешной авторизации становятся доступны основные методы для работы с заказами. Метод <code>/orders</code> позволяет создавать новые отправления, передавая полные данные о отправителе, получателе и товарах. Метод <code>/calculator</code> служит для расчета стоимости и сроков доставки на основе введенных параметров.</p>
+
+<details class="faq-item"><summary>Почему важен правильный таймаут?</summary><div class="faq-answer"><p>При интеграции важно настроить правильные таймауты ожидания ответа от сервера СДЭК. Если ваш сервер будет ждать ответа слишком долго, это может привести к зависанию процесса оформления заказа у клиента. Оптимальное время ожидания — 5-10 секунд, после чего следует показывать пользователю сообщение о временной недоступности сервиса расчета.</spoiler>
+
+<p>Структура запроса на создание заказа должна строго соответствовать спецификации. Ошибка в формате даты (должен быть ISO 8601) или в коде тарифа приведет к отказу в обработке. <em>Валидация данных</em> на стороне вашего приложения перед отправкой запроса значительно ускорит процесс разработки и отладки.</p>
+
+<h2 id="настройка-калькулятора-доставки-и-тарифов">Настройка калькулятора доставки и тарифов</h2>
+
+<p>Одной из главных функций Omni является точный <strong>калькулятор доставки</strong>. Чтобы он работал корректно, ваш магазин должен передавать в запросе координаты или почтовые индексы отправителя и получателя, а также вес и габариты груза. Система СДЭК анализирует эти данные и возвращает список доступных тарифов с ценами и сроками.</p>
+
+<p>В настройках интеграции важно правильно сопоставить тарифы СДЭК с методами доставки в вашем магазине. Например, тариф "Посылочка" может быть переименован в "Эконом-доставка" для удобства клиентов, а "Курьер до двери" — в "Экспресс". Это позволяет адаптировать сложные логистические названия под маркетинговую стратегию бренда.</p>
+
+<p>Таблица основных параметров для запроса расчета:</p>
+
+<table>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>Описание</th>
+<th>Тип данных</th>
+<th>Обязательный</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>weight</td>
+<td>Вес груза в килограммах</td>
+<td>Float</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>dimensions</td>
+<td>Габариты (ДхШхВ)</td>
+<td>Object</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>to_postal_code</td>
+<td>Индекс получателя</td>
+<td>String</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>services</td>
+<td>Коды дополнительных услуг</td>
+<td>Array</td>
+<td>Нет</td>
+</tr>
+</tbody>
+</table>
+
+<p>При настройке калькулятора стоит предусмотреть сценарии, когда доставка в определенный регион невозможна или временно ограничена. Omni позволяет получать информацию о таких ограничениях, и ваш сайт должен уметь корректно отображать эту информацию, предлагая альтернативные варианты или скрывая недоступные методы.</p>
+
+
+
+<h2 id="создание-заказов-и-генерация-сопроводительных-документов">Создание заказов и генерация сопроводительных документов</h2>
+
+<p>После того как клиент оформил заказ и оплатил его, система должна автоматически создать соответствующее отправление в базе СДЭК через Omni. Для этого формируется POST-запрос с полными данными о контрагентах. Важно передавать актуальные контактные данные получателя, так как курьерская служба будет использовать их для связи.</p>
+
+<p>В ответ на успешное создание заказа система возвращает уникальный номер заказа в системе СДЭК (<code>cdek_id</code>) и его трек-номер. Эти данные необходимо сохранить в вашей базе данных и привязать к заказу клиента. Именно трек-номер будет использоваться для дальнейшего отслеживания и информирования покупателя.</p>
+
+<p>Одним из ключевых преимуществ автоматизации является возможность печати <strong>сопроводительных документов</strong>. Omni позволяет запрашивать генерацию PDF-файлов с накладными и стикерами для маркировки. Это избавляет сотрудников склада от ручного заполнения бланков и снижает риск ошибки при адресации.</p>
+
+<ul>
+<li>🖨️ <strong>Генерация</strong> manifest-листа для передачи партии товаров курьеру.</li>
+<li>🏷️ <strong>Печать</strong> стикеров с штрих-кодами непосредственно на упаковке товара.</li>
+<li>📄 <strong>Формирование</strong> акта приема-передачи для подписи курьером.</li>
+<li>📧 <strong>Отправка</strong> копий документов на электронную почту ответственного лица.</li>
+</ul>
+
+<blockquote>
+<p>⚠️ Внимание: При передаче данных о товарах (содержимое посылки) убедитесь, что описание соответствует таможенным требованиям, если возможна международная доставка или доставка в отдаленные регионы (Крым, Калининград). Неполное описание может привести к задержке груза.</p>
+</blockquote>
+
+<h2 id="отслеживание-статусов-и-работа-с-вебхуками">Отслеживание статусов и работа с вебхуками</h2>
+
+<p>Для обеспечения прозрачности доставки необходимо настроить механизм получения обновлений о статусах заказа. Omni СДЭК поддерживает работу с <strong>вебхуками</strong> (webhooks). Это позволяет серверу СДЭК самостоятельно отправлять уведомление на ваш сайт каждый раз, когда статус посылки меняется (например, "Принят", "В пути", "Вручен").</p>
+
+<p>Использование вебхуков предпочтительнее периодического опроса (polling) сервера СДЭК, так как это снижает нагрузку на обе системы и обеспечивает мгновенную реакцию. Вам необходимо предоставить СДЭКу URL-адрес на вашем сервере, который будет принимать POST-запросы с данными о событии.</p>
+
+<p>Структура типичного уведомления о смене статуса:</p>
+<pre><code>{
+<p>"type": "cdek.order.status",</p>
+<p>"entity": {</p>
+<p>"order_uid": "UUID_заказа",</p>
+<p>"cdek_id": 123456,</p>
+<p>"status_code": 4,</p>
+<p>"status_name": "Принят",</p>
+<p>"date_time": "2023-10-25T10:00:00+03:00"</p>
+<p>}</p>
+<p>}</code></pre></p>
+
+<p>Если настройка вебхуков невозможна по техническим причинам, допускается опрос статуса вручную через API по трек-номеру. Однако интервал опроса не должен быть слишком частым, чтобы не нарушать лимиты запросов. Оптимально проверять статус раз в 30-60 минут для активных заказов.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Автоматическое обновление статусов через вебхуки — критически важная функция для снижения нагрузки на службу поддержки. Клиенты видят актуальную информацию и перестают писать вопросы "Где мой заказ?".</p></div>
+
+<h2 id="часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</h2>
+
+<details>
+<summary>Можно ли использовать Omni СДЭК для интернет-магазинов на зарубежных платформах?</summary>
+<p>Да, Omni является универсальным API-решением, не зависящим от платформы магазина. Главное требование — возможность вашей CMS или самописного движка отправать HTTP-запросы и обрабатывать JSON-ответы. Существуют готовые плагины для популярных систем (Bitrix, WordPress, OpenCart), но при необходимости интеграцию можно реализовать вручную.</p>
+</details>
+
+<details>
+<summary>Что делать, если API возвращает ошибку авторизации?</summary>
+<p>Ошибка авторизации чаще всего возникает из-за неверного логина, пароля или истекшего токена доступа. Проверьте правильность введенных данных в настройках. Также убедитесь, что ваш IP-адрес сервера добавлен в белый список в личном кабинете СДЭК, если такая опция безопасности включена.</p>
+</details>
+
+<details>
+<summary>Есть ли ограничения на количество запросов к Omni?</summary>
+<p>Да, СДЭК устанавливает лимиты на количество запросов в секунду (RPS) для защиты серверов. Для стандартных тарифов эти ограничения достаточно высоки для большинства магазинов, но при очень больших объемах (тысячи заказов в минуту) может потребоваться согласование индивидуальных лимитов с техническим отделом.</p>
+</details>
+
+<details>
+<summary>Как тестировать интеграцию без создания реальных накладных?</summary>
+<p>Для тестирования используйте тестовое окружение (sandbox), адреса которого указаны в документации разработчика. В sandbox-режиме создание заказов не приводит к реальной отгрузке и списанию средств, но позволяет проверить корректность работы всех методов API и формат передаваемых данных.</p>
+</details>
+
+<details>
+<summary>Можно ли через Omni оформить возврат товара?</summary>
+<p>Да, функционал API позволяет создавать заказы на возврат. Для этого используется специальный тип заказа или соответствующий метод, где указывается оригинальный номер заказа, который требуется вернуть. Логика возврата также настраивается в личном кабинете.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#что-такое-omni-сдэк-и-зачем-он-нужен-бизнесу">Что такое Omni СДЭК и зачем он нужен бизнесу</a></li><li><a href="#регистрация-в-личном-кабинете-и-получение-ключей-доступа">Регистрация в личном кабинете и получение ключей доступа</a></li><li><a href="#техническая-интеграция-endpoints-и-методы-запросов">Техническая интеграция: endpoints и методы запросов</a></li><li><a href="#настройка-калькулятора-доставки-и-тарифов">Настройка калькулятора доставки и тарифов</a></li><li><a href="#создание-заказов-и-генерация-сопроводительных-документов">Создание заказов и генерация сопроводительных документов</a></li><li><a href="#отслеживание-статусов-и-работа-с-вебхуками">Отслеживание статусов и работа с вебхуками</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/k/ka/kak-nastroit-sdek-v-tilde.html" class="related-card">Как настроить СДЭК в Тильде: пошаговая инструкция</a></li><li><a href="/articles/k/ka/kak-otkryt-filial-sdek.html" class="related-card">Как открыть филиал СДЭК: пошаговая инструкция для бизнеса</a></li><li><a href="/articles/k/ka/kak-otkryt-punkt-vydachi-zakazov-sdek.html" class="related-card">Как открыть пункт выдачи СДЭК: бизнес-план, требования и франшиза</a></li><li><a href="/articles/a/ap/api-sdek-gde-vzyat.html" class="related-card">API СДЭК: как получить ключи доступа и начать интеграцию</a></li><li><a href="/articles/k/ka/kakie-integrirovat-sdek.html" class="related-card">Какие сервисы интегрировать с СДЭК: полный гайд 2026</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/k/ka/kak-nastroit-sdek-v-tilde.html" class="related-bottom-card"><span class="related-bottom-title">Как настроить СДЭК в Тильде: пошаговая инструкция</span><span class="related-bottom-desc">Полный гайд по настройке виджетов СДЭК в Tilda. Интеграция доставки, тарифов и онлайн-оплаты для инт</span></a><a href="/articles/k/ka/kak-otkryt-filial-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как открыть филиал СДЭК: пошаговая инструкция для бизнеса</span><span class="related-bottom-desc">Полное руководство, как открыть филиал СДЭК. Требования к помещению, условия франшизы, необходимые д</span></a><a href="/articles/k/ka/kak-otkryt-punkt-vydachi-zakazov-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как открыть пункт выдачи СДЭК: бизнес-план, требования и франшиза</span><span class="related-bottom-desc">Пошаговая инструкция для предпринимателей: как открыть пункт выдачи СДЭК, условия франшизы, требован</span></a><a href="/articles/a/ap/api-sdek-gde-vzyat.html" class="related-bottom-card"><span class="related-bottom-title">API СДЭК: как получить ключи доступа и начать интеграцию</span><span class="related-bottom-desc">Где взять API СДЭК? Инструкция по регистрации в личном кабинете, получению ключей Account-Number и S</span></a><a href="/articles/k/ka/kakie-integrirovat-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Какие сервисы интегрировать с СДЭК: полный гайд 2026</span><span class="related-bottom-desc">Обзор всех возможных интеграций с СДЭК: от CRM и маркетплейсов до телеграм-ботов и 1С. Пошаговые инс</span></a><a href="/articles/k/ka/kak-otkryt-sdek-s-nulya.html" class="related-bottom-card"><span class="related-bottom-title">Как открыть СДЭК с нуля: пошаговая инструкция 2026</span><span class="related-bottom-desc">Полное руководство по регистрации в СДЭК для физических и юридических лиц: от выбора тарифа до перво</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

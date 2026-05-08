@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>Разный вес в квитанции и приложении СДЭК: причины и решения — СДЭК Гид</title>
+    <meta name="description" content="Почему данные о весе посылки в бумажной квитанции СДЭК и мобильном приложении не совпадают? Разбираем технические и организационные причины, а также способы исправления ошибок.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/p/po/pochemu-v-sdek-kvitantsii-odin-ves-a-v-prilozhenii-drugoj.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Разный вес в квитанции и приложении СДЭК: причины и решения">
+    <meta property="og:description" content="Почему данные о весе посылки в бумажной квитанции СДЭК и мобильном приложении не совпадают? Разбираем технические и организационные причины, а также способы исправления ошибок.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/problemy-i-vozvrat/">Проблемы и возврат</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Разный вес в квитанции и приложении СДЭК: причины и решения</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Почему в квитанции СДЭК один вес, а в приложении — другой: 7 причин и что делать</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#почему-вес-в-квитанции-и-приложении-может-отличаться-7-ключевых-причин">Почему вес в квитанции и приложении может отличаться: 7 ключевых причин</a></li><li><a href="#технические-причины-погрешности-весов-и-округления">Технические причины: погрешности весов и округления</a></li><li><a href="#честная-ошибка-vs-мошенничество-как-отличить">Честная ошибка vs. мошенничество: как отличить?</a></li><li><a href="#как-вес-влияет-на-стоимость-доставки-тарифные-нюансы">Как вес влияет на стоимость доставки: тарифные нюансы</a></li><li><a href="#что-делать-если-обнаружили-расхождения-пошаговая-инструкция">Что делать, если обнаружили расхождения: пошаговая инструкция</a></li><li><a href="#как-избежать-проблем-с-весом-в-будущем-5-простых-правил">Как избежать проблем с весом в будущем: 5 простых правил</a></li><li><a href="#частые-вопросы-о-весе-посылок-в-сдэк">Частые вопросы о весе посылок в СДЭК</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>Вы отправили посылку через <strong>СДЭК</strong>, получили на руки квитанцию с указанным весом, но при проверке в мобильном приложении или личном кабинете цифры не совпадают. Разница может быть как в несколько граммов, так и в сотни килограммов — и это вызывает закономерные вопросы. Почему так происходит? Кто виноват в расхождениях — курьер, весы, система или вы сами? И главное: как это исправить, чтобы не переплачивать за доставку или не столкнуться с проблемами при получении груза?</p>
+
+<p>Разный вес в документах и цифровых сервисах <em>СДЭК</em> — одна из самых распространённых жалоб клиентов. По данным службы поддержки компании, до <strong>15% обращений</strong> связаны именно с несоответствием весовых данных. Причины кроются как в технических нюансах работы логистической системы, так и в человеческом факторе. В этой статье мы разберём все возможные сценарии, объясним, кто и когда может изменить вес посылки, а также дадим чёткие инструкции, что делать, если вы обнаружили расхождения.</p>
+
+<p>Важно понимать: <mark>вес в квитанции фиксируется на момент приёма груза и является первичным документом для расчёта тарифа, а данные в приложении могут обновляться на этапах сортировки, перевешивания или корректировки информации оператором</mark>. Это не всегда ошибка — иногда это часть стандартного процесса обработки заказов.
+
+<h2 id="почему-вес-в-квитанции-и-приложении-может-отличаться-7-ключевых-причин">Почему вес в квитанции и приложении может отличаться: 7 ключевых причин</h2>
+
+<p>Разберём все возможные причины расхождений — от безобидных до критичных, требующих вмешательства.</p>
+
+<p>Первое, что нужно проверить: <strong>источник данных</strong>. Квитанция печатается курьером или в пункте выдачи на основе взвешивания при приёме груза. В приложении же вес может обновляться автоматически на этапах:
+
+<ul>
+  <li>📦 <strong>Первичное взвешивание</strong> — весы курьера или пункта приёма (фиксируется в квитанции).</li>
+  <li>⚖️ <strong>Контрольное взвешивание</strong> — на сортировочном хабе <em>СДЭК</em> (может отличаться из-за тары, упаковки или ошибки оператора).</li>
+  <li>📱 <strong>Цифровая корректировка</strong> — ручное изменение веса менеджером (например, при обнаружении несоответствия габаритов).</li>
+  <li>🔄 <strong>Обновление статуса</strong> — смена веса после переупаковки или разделения груза.</li>
+</ul>
+
+<p>Если разница минимальна (до <strong>50–100 граммов</strong>), это часто связано с погрешностью весов или округлением. Но когда расхождения исчисляются килограммами — тут уже речь идёт о системной ошибке или мошенничестве.
+
+<div class="poll-widget" id="poll-be07d1dd"><div class="poll-widget-question">📊 Как часто вы сталкиваетесь с расхождениями в весе посылок СДЭК?</div><div class="poll-widget-option" data-poll="be07d1dd" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Никогда</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="be07d1dd" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Резко 1-2 раза</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="be07d1dd" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Часто, почти в каждом заказе</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="be07d1dd" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Не проверял</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="технические-причины-погрешности-весов-и-округления">Технические причины: погрешности весов и округления</h2>
+
+<p>Даже современные электронные весы имеют допустимую погрешность. Согласно ГОСТ Р 53228-2008, для торговли и логистики допускается отклонение до <strong>±0,1%</strong> от массы груза. Для посылки весом 5 кг это означает возможную разницу в <strong>5 граммов</strong>. Однако на практике погрешность может быть выше из-за:
+
+<ul>
+  <li>🔋 <strong>Разряженных батарей</strong> в портативных весах курьера.</li>
+  <li>🌡️ <strong>Температурных условий</strong> (весы калибруются при +20°C, а взвешивание может проходить на морозе или жаре).</li>
+  <li>📏 <strong>Неровной поверхности</strong> (если весы стоят под углом, показания искажаются).</li>
+</ul>
+
+<p>Кроме того, <em>СДЭК</em> использует <strong>автоматическое округление веса</strong> до 10 граммов в большую сторону. Например, если реальный вес — 2,456 кг, в системе отобразится 2,46 кг. В квитанции же может быть указано 2,45 кг, если курьер ввёл данные вручную.
+
+<blockquote>⚠️ <strong>Внимание:</strong> Если разница между квитанцией и приложением составляет ровно 10, 20 или 50 граммов — это почти наверняка следствие округления. Беспокоиться стоит только при расхождениях от 100 граммов и более.</blockquote>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Чтобы минимизировать погрешность, попросите курьера взвесить посылку дважды — до и после упаковки. Сравните показания весов с данными в квитанции непосредственно при оформлении заказа.</p></div>
+
+<h2 id="честная-ошибка-vs-мошенничество-как-отличить">Честная ошибка vs. мошенничество: как отличить?</h2>
+
+<p>Не все расхождения в весе — результат злого умысла. Чаще всего это <strong>честные ошибки</strong>, которые можно исправить. Однако есть признаки, которые должны насторожить:
+
+<table>
+  <thead>
+    <tr>
+      <th>Признак</th>
+      <th>Вероятная причина</th>
+      <th>Что делать</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Разница до 100 г</td>
+      <td>Погрешность весов или округление</td>
+      <td>Ничего — это норма</td>
+    </tr>
+    <tr>
+      <td>Разница 100–500 г</td>
+      <td>Ошибка курьера при взвешивании или вводе данных</td>
+      <td>Связаться с поддержкой для перепроверки</td>
+    </tr>
+    <tr>
+      <td>Разница более 1 кг</td>
+      <td>Перевешивание на хабе или переупаковка</td>
+      <td>Требовать акты взвешивания</td>
+    </tr>
+    <tr>
+      <td>Вес в приложении <strong>значительно выше</strong>, чем в квитанции</td>
+      <td>Попытка навязать доплату за "лишний" вес</td>
+      <td>Оспаривать через претензию</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Особенно опасен случай, когда вес в приложении <strong>увеличился после оплаты</strong>. Это может быть признаком того, что груз был переупакован с добавлением лишнего веса (например, для маскировки повреждений) или кто-то пытается получить дополнительную плату. В таких ситуациях требуйте <strong>фотоакты взвешивания</strong> на каждом этапе.
+
+<details class="faq-item"><summary>Что делать, если подозреваете мошенничество?</summary><div class="faq-answer"><p>
+<p>Если вес в приложении вырос на 30% и более без объективных причин (например, вы отправляли книгу, а в приложении указан вес как у кирпича), действуйте так:</p>
+<p>1. Сфотографируйте квитанцию и упакованный груз на весах (если есть возможность).</p>
+<p>2. Напишите претензию в поддержку <em>СДЭК</em> с требованием предоставить акты взвешивания на всех этапах.</p>
+<p>3. Если ответ неудовлетворительный — обращайтесь в Роспотребнадзор с жалобой на завышение тарифов.</p>
+<p></p></div></details></p>
+
+<h2 id="как-вес-влияет-на-стоимость-доставки-тарифные-нюансы">Как вес влияет на стоимость доставки: тарифные нюансы</h2>
+
+<p>В <em>СДЭК</em> стоимость доставки рассчитывается по формуле:
+<strong>Цена = Базовый тариф + (Вес × Коэффициент) + Габаритные надбавки</strong>.
+<p>При этом используется <strong>максимальный вес</strong> из всех зафиксированных в системе. Например, если в квитанции указано 2,5 кг, а на хабе перевесили и получили 2,8 кг — оплата будет по 2,8 кг.</p>
+
+<p>Критично важно следить за весом, если:
+<ul>
+  <li>📦 Вы отправляете <strong>тяжёлый груз</strong> (от 10 кг) — здесь разница в 100 г может обернуться доплатой в сотни рублей.</li>
+  <li>✈️ Доставка идёт <strong>авиатранспортом</strong> — тарифы за вес выше, чем при наземной перевозке.</li>
+  <li>🌍 Груз международный — вес влияет на таможенные сборы.</li>
+</ul>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Если вес в приложении изменился <strong>после оплаты</strong>, а вам пришло уведомление о доплате — требуйте разъяснений. По правилам <em>СДЭК</em>, клиент оплачивает тариф на момент оформления заказа, а корректировки возможны только при <code>обнаружении несоответствия габаритов</code> или <code>перевешивания с участием клиента</code>.</blockquote>
+
+
+<p>Проверьте историю изменений веса в личном кабинете|Сравните вес в квитанции и акте приёма|Свяжитесь с поддержкой в течение 3 дней с момента обнаружения расхождения|Требуйте пересчёт тарифа, если ошибка подтвердится--></p>
+
+<h2 id="что-делать-если-обнаружили-расхождения-пошаговая-инструкция">Что делать, если обнаружили расхождения: пошаговая инструкция</h2>
+
+<p>Алгоритм действий зависит от того, на каком этапе вы заметили проблему:
+
+<h3>1. <strong>Разница обнаружена сразу при оформлении</strong></h3>
+<p>- Попросите курьера <strong>повторно взвесить</strong> посылку на ваших весах (если есть).</p>
+<p>- Сфотографируйте показания весов и квитанцию.</p>
+<p>- Если курьер отказывается корректировать данные — звоните в поддержку <em>СДЭК</em> по номеру <code>8 800 250-04-05</code> (звонок бесплатный) и требуйте исправить вес до отправки груза.</p>
+
+<h3>2. <strong>Разница обнаружена после отправки (в приложении или личном кабинете)</strong></h3>
+<p>- Перейдите в раздел <code>Мои заказы</code> → выберите отправление → <code>История изменений</code>.</p>
+<p>- Проверьте, когда и кем был изменён вес.</p>
+<p>- Напишите в чат поддержки (в приложении) или отправьте письмо на <code>client@cdek.ru</code> с темой «Расхождение веса в заказе №[номер]».</p>
+
+<h3>3. <strong>Вам начислена доплата из-за изменённого веса</strong></h3>
+<p>- Требуйте <strong>акт контрольного взвешивания</strong> (документ, подтверждающий новый вес).</p>
+<p>- Если акт не предоставлен или вес явно завышен — оспаривайте доплату через претензию.</p>
+
+<p>Срок рассмотрения обращения — до <strong>5 рабочих дней</strong>. Если ответ вас не устроил, можно жаловаться в <strong>Роспотребнадзор</strong> или оставить отрицательный отзыв на сайте <em>СДЭК</em> (это часто ускоряет решение проблемы).
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Главное правило: фиксируйте вес самостоятельно (фото/видео) при передаче груза курьеру. Без доказательств оспорить изменения почти невозможно.</p></div>
+
+<h2 id="как-избежать-проблем-с-весом-в-будущем-5-простых-правил">Как избежать проблем с весом в будущем: 5 простых правил</h2>
+
+<p>Чтобы минимизировать риски расхождений, следуйте этим рекомендациям:
+
+<ul>
+  <li>⚖️ <strong>Взвешивайте груз самостоятельно</strong> до прихода курьера. Используйте кухонные весы с погрешностью не более 1 г.</li>
+  <li>📸 <strong>Фиксируйте процесс</strong>: сфотографируйте посылку на весах курьера и экран с итоговым весом в квитанции.</li>
+  <li>📋 <strong>Проверяйте данные в личном кабинете</strong> в течение суток после отправки — так вы успеете оспорить ошибку до перемещения груза на хаб.</li>
+  <li>🔄 <strong>Избегайте переупаковки</strong>. Если курьер предлагает заменить коробку, требуйте взвесить груз до и после.</li>
+  <li>📑 <strong>Сохраняйте все документы</strong>: квитанцию, акт приёма, чеки об оплате.</li>
+</ul>
+
+<p>Если вы регулярно отправляете грузы через <em>СДЭК</em>, рассмотрите возможность заключения <strong>договора с фиксированными тарифами</strong>. В этом случае вес учитывается один раз — при приёме, и дальнейшие корректировки невозможны без вашего согласия.
+
+<h2 id="частые-вопросы-о-весе-посылок-в-сдэк">Частые вопросы о весе посылок в СДЭК</h2>
+
+<details>
+  <summary><strong>Может ли курьер специально занизить вес, чтобы уменьшить стоимость доставки?</strong></summary>
+  <p>Теоретически да, но это нарушение внутренних регламентов <em>СДЭК</em>. Курьеры проходят проверки, и при выявлении таких случаев их штрафуют или увольняют. Если подозреваете занижение — требуйте контрольного взвешивания на хабе.</p>
+</details>
+
+<details>
+  <summary><strong>Почему в приложении вес обновился через неделю после отправки?</strong></summary>
+  <p>Скорее всего, груз прошёл <strong>контрольное взвешивание</strong> на сортировочном центре или был переупакован (например, из-за повреждения упаковки). В этом случае в историю заказа добавляется запись с новым весом и причиной изменения.</p>
+</details>
+
+<details>
+  <summary><strong>Кто оплачивает разницу, если вес в приложении оказался больше?</strong></summary>
+  <p>По умолчанию — отправитель. Однако если разница возникла по вине <em>СДЭК</em> (например, из-за ошибки оператора), можно потребовать пересчёт тарифа. Для этого нужно написать претензию с приложением фото квитанции и акта взвешивания.</p>
+</details>
+
+<details>
+  <summary><strong>Можно ли вернуть деньги, если из-за ошибки в весе переплатил?</strong></summary>
+  <p>Да, если ошибка подтверждена. Для этого напишите заявление на возврат в поддержку <em>СДЭК</em> с указанием номера заказа и суммы переплаты. Деньги вернут на карту в течение 5–10 рабочих дней.</p>
+</details>
+
+<details>
+  <summary><strong>Как быть, если вес в квитанции и приложении совпадает, но на таможне сказали, что груз тяжелее?</strong></summary>
+  <p>Это типичная ситуация для международных отправлений. Таможня взвешивает груз самостоятельно, и их данные имеют приоритет. В этом случае <em>СДЭК</em> списывает разницу с отправителя или получателя (в зависимости от условий доставки). Оспорить можно только если предоставить акты независимого взвешивания.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#почему-вес-в-квитанции-и-приложении-может-отличаться-7-ключевых-причин">Почему вес в квитанции и приложении может отличаться: 7 ключевых причин</a></li><li><a href="#технические-причины-погрешности-весов-и-округления">Технические причины: погрешности весов и округления</a></li><li><a href="#честная-ошибка-vs-мошенничество-как-отличить">Честная ошибка vs. мошенничество: как отличить?</a></li><li><a href="#как-вес-влияет-на-стоимость-доставки-тарифные-нюансы">Как вес влияет на стоимость доставки: тарифные нюансы</a></li><li><a href="#что-делать-если-обнаружили-расхождения-пошаговая-инструкция">Что делать, если обнаружили расхождения: пошаговая инструкция</a></li><li><a href="#как-избежать-проблем-с-весом-в-будущем-5-простых-правил">Как избежать проблем с весом в будущем: 5 простых правил</a></li><li><a href="#частые-вопросы-о-весе-посылок-в-сдэк">Частые вопросы о весе посылок в СДЭК</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/k/ka/kak-vernut-dengi-za-dostavku-sdek.html" class="related-card">Как вернуть деньги за доставку СДЭК: пошаговая инструкция 2026</a></li><li><a href="/articles/k/ka/kak-vernut-tovar-na-aliekspress-besplatnyj-vozvrat-cherez-sdek.html" class="related-card">Бесплатный возврат на Алиэкспресс через СДЭК: инструкция</a></li><li><a href="/articles/n/ne/neudachnaya-popytka-dostavki-sdek-chto-delat.html" class="related-card">Неудачная доставка СДЭК: что делать в 2026 году — пошаговая инструкция</a></li><li><a href="/articles/k/ka/kak-vernut-tovar-na-aliekspress-za-schet-prodavtsa-cherez-sdek.html" class="related-card">Возврат товара с Алиэкспресс через СДЭК: как вернуть деньги за счёт продавца</a></li><li><a href="/articles/k/ku/kuda-napisat-otzyv-o-kompanii-sdek.html" class="related-card">Куда написать отзыв о компании СДЭК: все платформы</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/k/ka/kak-vernut-dengi-za-dostavku-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как вернуть деньги за доставку СДЭК: пошаговая инструкция 2026</span><span class="related-bottom-desc">Разбираемся, как оформить возврат средств за доставку СДЭК: условия, сроки, документы и пошаговые де</span></a><a href="/articles/k/ka/kak-vernut-tovar-na-aliekspress-besplatnyj-vozvrat-cherez-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Бесплатный возврат на Алиэкспресс через СДЭК: инструкция</span><span class="related-bottom-desc">Пошаговая инструкция, как оформить бесплатный возврат товара на AliExpress через СДЭК. Узнайте сроки</span></a><a href="/articles/n/ne/neudachnaya-popytka-dostavki-sdek-chto-delat.html" class="related-bottom-card"><span class="related-bottom-title">Неудачная доставка СДЭК: что делать в 2026 году — пошаговая инструкция</span><span class="related-bottom-desc">Посылка не дошла до вас? Разбираем причины неудачной попытки доставки СДЭК и даём чёткий алгоритм де</span></a><a href="/articles/k/ka/kak-vernut-tovar-na-aliekspress-za-schet-prodavtsa-cherez-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Возврат товара с Алиэкспресс через СДЭК: как вернуть деньги за счёт продавца</span><span class="related-bottom-desc">Пошаговая инструкция, как оформить возврат товара с AliExpress через СДЭК с возмещением расходов от </span></a><a href="/articles/k/ku/kuda-napisat-otzyv-o-kompanii-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Куда написать отзыв о компании СДЭК: все платформы</span><span class="related-bottom-desc">Где оставить честный отзыв о СДЭК? Полный список сайтов, приложений и горячих линий для жалоб и похв</span></a><a href="/articles/k/ka/kak-otmenit-dostavku-v-sdek-pokupatelyu.html" class="related-bottom-card"><span class="related-bottom-title">Как отменить доставку в СДЭК покупателю — пошаговая инструкция 2026</span><span class="related-bottom-desc">Узнайте, как быстро отменить заказ в СДЭК: через личный кабинет, по телефону или в отделении. Сроки,</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

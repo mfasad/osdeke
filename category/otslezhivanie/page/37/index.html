@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>Отслеживание — страница 37 — СДЭК Гид</title>
+    <meta name="description" content="Инструкции по поиску посылок по трек-номеру, карте и номеру заказа.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+        .cat-hero {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #1e3a5f 100%);
+            border-bottom: none;
+            padding: 48px 0 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .cat-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 40%, rgba(37,99,235,0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 60%, rgba(139,92,246,0.1) 0%, transparent 50%);
+            animation: heroShimmer 8s ease-in-out infinite alternate;
+        }
+        @keyframes heroShimmer {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(3deg); }
+        }
+        .cat-hero .container { position: relative; z-index: 1; }
+        .cat-hero-icon {
+            font-size: 3.5rem; display: block; margin-bottom: 16px;
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+        }
+        .cat-hero h1 {
+            font-size: 2rem; font-weight: 800; color: #f1f5f9;
+            margin-bottom: 10px; letter-spacing: -0.02em;
+        }
+        .cat-hero p {
+            color: #94a3b8; font-size: 1.05rem; max-width: 600px;
+            margin: 0 auto; line-height: 1.6;
+        }
+        .cat-benefits {
+            display: flex; justify-content: center; gap: 12px;
+            margin-top: 24px; flex-wrap: wrap;
+        }
+        .cat-benefit {
+            display: flex; align-items: center; gap: 8px;
+            background: rgba(255,255,255,0.08); backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 10px; padding: 8px 18px;
+            font-size: 0.88rem; color: #e2e8f0; font-weight: 500;
+            transition: all 0.25s;
+        }
+        .cat-benefit:hover {
+            background: rgba(255,255,255,0.15);
+            border-color: rgba(255,255,255,0.25);
+            transform: translateY(-2px);
+        }
+        .benefit-icon { font-size: 1.15em; }
+
+        .cat-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 16px; padding: 32px 0 24px;
+        }
+        .article-home-card {
+            background: #fff; border: 1px solid #e2e8f0; border-radius: 12px;
+            padding: 0; text-decoration: none; color: #1e293b;
+            transition: all 0.25s ease; display: flex; flex-direction: column;
+            overflow: hidden; position: relative;
+        }
+        .article-home-card:hover {
+            border-color: #bfdbfe;
+            box-shadow: 0 8px 24px rgba(37,99,235,0.1);
+            transform: translateY(-4px);
+        }
+        .card-top {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 14px 20px 0;
+        }
+        .card-icon {
+            font-size: 1.4em;
+            background: linear-gradient(135deg, #eff6ff, #e0f2fe);
+            width: 36px; height: 36px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 2px 6px rgba(37,99,235,0.1);
+        }
+        .card-read-time {
+            font-size: 0.78rem; color: #94a3b8; font-weight: 500;
+        }
+        .article-home-title {
+            font-weight: 600; font-size: 0.97rem; line-height: 1.4;
+            padding: 12px 20px 0; transition: color 0.2s;
+        }
+        .article-home-card:hover .article-home-title { color: #2563eb; }
+        .article-home-desc {
+            font-size: 0.84rem; color: #64748b; line-height: 1.5;
+            padding: 6px 20px 0; flex: 1;
+        }
+        .card-footer {
+            display: flex; justify-content: flex-end; align-items: center;
+            padding: 12px 20px; margin-top: auto;
+            border-top: 1px solid #f1f5f9;
+        }
+        .card-read-more {
+            font-size: 0.82rem; font-weight: 600; color: #94a3b8;
+            transition: all 0.2s;
+        }
+        .article-home-card:hover .card-read-more {
+            color: #2563eb; letter-spacing: 0.02em;
+        }
+
+        .pagination {
+            display: flex; justify-content: center; gap: 6px;
+            padding: 8px 0 48px; flex-wrap: wrap; align-items: center;
+        }
+        .pag-link {
+            padding: 10px 16px; border-radius: 10px; border: 1px solid #e2e8f0;
+            color: #64748b; font-size: 0.9rem; text-decoration: none;
+            transition: all 0.2s; font-weight: 500;
+        }
+        .pag-link:hover { border-color: #2563eb; color: #2563eb; background: #eff6ff; }
+        .pag-active {
+            background: linear-gradient(135deg, #2563eb, #3b82f6);
+            color: #fff !important; border-color: #2563eb;
+            box-shadow: 0 3px 10px rgba(37,99,235,0.3);
+        }
+        .pag-edge { font-size: 1rem; font-weight: 700; }
+        .pag-dots { color: #94a3b8; padding: 0 4px; }
+
+        
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+
+        @media (max-width: 640px) {
+            .cat-grid { grid-template-columns: 1fr; }
+            .cat-hero h1 { font-size: 1.5rem; }
+        }
+    </style>
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link active">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container">
+            <a href="/">Главная</a>
+            <span class="breadcrumb-sep">›</span>
+            <span class="breadcrumb-current">Отслеживание</span>
+        </div>
+    </nav>
+
+    <section class="cat-hero">
+        <div class="container">
+            <span class="cat-hero-icon">🔍</span>
+            <h1>Отслеживание</h1>
+            <p>Инструкции по поиску посылок по трек-номеру, карте и номеру заказа. · страница 37 из 67</p>
+            <div class="cat-benefits"><div class="cat-benefit"><span class="benefit-icon">📖</span><span>Понятные инструкции</span></div><div class="cat-benefit"><span class="benefit-icon">✅</span><span>Проверенные решения</span></div><div class="cat-benefit"><span class="benefit-icon">⚡</span><span>Без лишних слов</span></div></div>
+        </div>
+    </section>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="cat-grid">
+            <a href="/articles/k/ka/kak-izmenit-adres-posylki-sdek.html" class="article-home-card">
+                <div class="card-top">
+                    <span class="card-icon">🔍</span>
+                    <span class="card-read-time">⏱ 11 мин</span>
+                </div>
+                <div class="article-home-title">Как изменить адрес доставки СДЭК: инструкция и нюансы</div>
+                <div class="article-home-desc">Узнайте, как изменить адрес посылки СДЭК, если курьер уже в пути или груз в пункте. Пошаговая инструкция, сроки и стоимо</div>
+                <div class="card-footer">
+                    <span class="card-read-more">Читать →</span>
+                </div>
+            </a>
+            <a href="/articles/k/ka/kak-otsledit-sdek-iz-kitaya.html" class="article-home-card">
+                <div class="card-top">
+                    <span class="card-icon">🔍</span>
+                    <span class="card-read-time">⏱ 10 мин</span>
+                </div>
+                <div class="article-home-title">Как отследить СДЭК из Китая: трек-коды, статусы и сроки</div>
+                <div class="article-home-desc">Полная инструкция по отслеживанию посылок СДЭК из Китая. Расшифровка статусов, работа с трек-номером CDEK и решение проб</div>
+                <div class="card-footer">
+                    <span class="card-read-more">Читать →</span>
+                </div>
+            </a>
+            <a href="/articles/k/ka/kak-otslezhivat-posylku-v-sdek-po-nomeru-zakaza.html" class="article-home-card">
+                <div class="card-top">
+                    <span class="card-icon">🔍</span>
+                    <span class="card-read-time">⏱ 11 мин</span>
+                </div>
+                <div class="article-home-title">Как отследить посылку СДЭК по номеру заказа: полная инструкция</div>
+                <div class="article-home-desc">Узнайте, как проверить статус груза СДЭК по номеру заказа или накладной. Подробная инструкция по отслеживанию на сайте, </div>
+                <div class="card-footer">
+                    <span class="card-read-more">Читать →</span>
+                </div>
+            </a>
+            <a href="/articles/k/ka/kak-proverit-dostavku-sdek-po-nomeru-nakladnoj.html" class="article-home-card">
+                <div class="card-top">
+                    <span class="card-icon">🔍</span>
+                    <span class="card-read-time">⏱ 13 мин</span>
+                </div>
+                <div class="article-home-title">Как проверить доставку СДЭК по номеру накладной: инструкция</div>
+                <div class="article-home-desc">Узнайте, как проверить статус доставки СДЭК по номеру накладной. Подробная инструкция по отслеживанию посылок, расшифров</div>
+                <div class="card-footer">
+                    <span class="card-read-more">Читать →</span>
+                </div>
+            </a>
+            <a href="/articles/k/ka/kak-uznat-o-dostavke-sdek.html" class="article-home-card">
+                <div class="card-top">
+                    <span class="card-icon">🔍</span>
+                    <span class="card-read-time">⏱ 9 мин</span>
+                </div>
+                <div class="article-home-title">Как узнать о доставке СДЭК: трек-код, SMS и звонки</div>
+                <div class="article-home-desc">Подробная инструкция: как узнать о доставке СДЭК. Проверка трек-кода, настройка уведомлений, звонки оператору и действия</div>
+                <div class="card-footer">
+                    <span class="card-read-more">Читать →</span>
+                </div>
+            </a>
+            <a href="/articles/o/ot/ot-kogo-posylka-sdek.html" class="article-home-card">
+                <div class="card-top">
+                    <span class="card-icon">🔍</span>
+                    <span class="card-read-time">⏱ 9 мин</span>
+                </div>
+                <div class="article-home-title">От кого посылка СДЭК: как узнать отправителя и номер</div>
+                <div class="article-home-desc">Подробная инструкция, как узнать, от кого пришла посылка СДЭК, если нет трек-номера. Поиск отправителя по фамилии, телеф</div>
+                <div class="card-footer">
+                    <span class="card-read-more">Читать →</span>
+                </div>
+            </a>
+            <a href="/articles/o/ot/otpravlen-v-gorod-poluchatelya-sdek-chto-eto.html" class="article-home-card">
+                <div class="card-top">
+                    <span class="card-icon">🔍</span>
+                    <span class="card-read-time">⏱ 10 мин</span>
+                </div>
+                <div class="article-home-title">Статус отправлен в город получателя СДЭК: что это значит</div>
+                <div class="article-home-desc">Что означает статус отправлен в город получателя СДЭК? Разбор этапов доставки, сроки, расшифровка трек-кодов и действия </div>
+                <div class="card-footer">
+                    <span class="card-read-more">Читать →</span>
+                </div>
+            </a>
+            <a href="/articles/s/sd/sdek-gde-posylka-po-nomeru-zakaza-otslezhivanie.html" class="article-home-card">
+                <div class="card-top">
+                    <span class="card-icon">🔍</span>
+                    <span class="card-read-time">⏱ 12 мин</span>
+                </div>
+                <div class="article-home-title">СДЭК: где посылка по номеру заказа — полное отслеживание</div>
+                <div class="article-home-desc">Узнайте, где находится посылка СДЭК по номеру заказа. Подробная инструкция по отслеживанию, расшифровка статусов и решен</div>
+                <div class="card-footer">
+                    <span class="card-read-more">Читать →</span>
+                </div>
+            </a>
+            <a href="/articles/s/sd/sdek-gde-tovar-po-nomeru.html" class="article-home-card">
+                <div class="card-top">
+                    <span class="card-icon">🔍</span>
+                    <span class="card-read-time">⏱ 10 мин</span>
+                </div>
+                <div class="article-home-title">Где товар СДЭК по номеру: как найти и забрать</div>
+                <div class="article-home-desc">Подробная инструкция: как узнать, где находится груз СДЭК по номеру накладной. Разбор статусов, карты пунктов и действий</div>
+                <div class="card-footer">
+                    <span class="card-read-more">Читать →</span>
+                </div>
+            </a>
+            <a href="/articles/s/sd/sdek-otsledit-gruz-po-familii-poluchatelya-kak-proverit.html" class="article-home-card">
+                <div class="card-top">
+                    <span class="card-icon">🔍</span>
+                    <span class="card-read-time">⏱ 9 мин</span>
+                </div>
+                <div class="article-home-title">СДЭК: отследить груз по фамилии получателя — как проверить</div>
+                <div class="article-home-desc">Инструкция, как отследить груз СДЭК по фамилии получателя. Разбор способов проверки через номер накладной, СДЭК ID и лич</div>
+                <div class="card-footer">
+                    <span class="card-read-more">Читать →</span>
+                </div>
+            </a>
+            <a href="/articles/s/sd/sdek-pishet-sozdana-nakladnaya-ozhidaet-prikhoda-gruza-ot-otpravitelya-chto-eto-znachit.html" class="article-home-card">
+                <div class="card-top">
+                    <span class="card-icon">🔍</span>
+                    <span class="card-read-time">⏱ 11 мин</span>
+                </div>
+                <div class="article-home-title">Статус СДЭК: создана накладная ожидает прихода груза от отправителя</div>
+                <div class="article-home-desc">Что значит статус СДЭК &#x27;создана накладная ожидает прихода груза от отправителя&#x27;? Подробная расшифровка, причины задержек</div>
+                <div class="card-footer">
+                    <span class="card-read-more">Читать →</span>
+                </div>
+            </a>
+            <a href="/articles/g/gd/gde-otslezhivat-trek-nomer-posylki-sdek.html" class="article-home-card">
+                <div class="card-top">
+                    <span class="card-icon">🔍</span>
+                    <span class="card-read-time">⏱ 13 мин</span>
+                </div>
+                <div class="article-home-title">Где отслеживать трек-номер СДЭК: все способы проверки</div>
+                <div class="article-home-desc">Подробный гид: где и как отслеживать трек-номер посылки СДЭК. Официальный сайт, мобильное приложение, виджеты и что дела</div>
+                <div class="card-footer">
+                    <span class="card-read-more">Читать →</span>
+                </div>
+            </a>
+            <a href="/articles/k/ka/kak-otsledit-posylku-otpravlennuyu-kompanii-sdek.html" class="article-home-card">
+                <div class="card-top">
+                    <span class="card-icon">🔍</span>
+                    <span class="card-read-time">⏱ 9 мин</span>
+                </div>
+                <div class="article-home-title">Как отследить посылку СДЭК: полная инструкция по трекингу</div>
+                <div class="article-home-desc">Узнайте, как отследить посылку СДЭК по номеру накладной. Разбор статусов, способы отслеживания и решение проблем с треки</div>
+                <div class="card-footer">
+                    <span class="card-read-more">Читать →</span>
+                </div>
+            </a>
+            <a href="/articles/k/ka/kak-uznat-dostavlena-li-posylka-sdek.html" class="article-home-card">
+                <div class="card-top">
+                    <span class="card-icon">🔍</span>
+                    <span class="card-read-time">⏱ 13 мин</span>
+                </div>
+                <div class="article-home-title">Как узнать, доставлена ли посылка СДЭК: все способы</div>
+                <div class="article-home-desc">Узнайте, как проверить статус доставки СДЭК. Подробные инструкции по отслеживанию через сайт, приложение, смс и телефон.</div>
+                <div class="card-footer">
+                    <span class="card-read-more">Читать →</span>
+                </div>
+            </a>
+            <a href="/articles/k/ka/kak-uznat-gde-nakhoditsya-gruz-sdek-po-nomeru-nakladnoj.html" class="article-home-card">
+                <div class="card-top">
+                    <span class="card-icon">🔍</span>
+                    <span class="card-read-time">⏱ 10 мин</span>
+                </div>
+                <div class="article-home-title">Как узнать где находится груз СДЭК по номеру накладной: инструкция</div>
+                <div class="article-home-desc">Подробная инструкция, как отследить груз СДЭК по номеру накладной. Разбор статусов доставки, причины задержек и что дела</div>
+                <div class="card-footer">
+                    <span class="card-read-more">Читать →</span>
+                </div>
+            </a>
+            <a href="/articles/k/ka/kak-uznat-o-postuplenii-posylki-v-sdek.html" class="article-home-card">
+                <div class="card-top">
+                    <span class="card-icon">🔍</span>
+                    <span class="card-read-time">⏱ 10 мин</span>
+                </div>
+                <div class="article-home-title">Как узнать о поступлении посылки в СДЭК: все способы</div>
+                <div class="article-home-desc">Как узнать о поступлении посылки в СДЭК? Полный гид: смс, email, личный кабинет и статусы. Что делать, если нет уведомле</div>
+                <div class="card-footer">
+                    <span class="card-read-more">Читать →</span>
+                </div>
+            </a>
+            <a href="/articles/k/ku/kuda-sdek-prisylaet-opoveshcheniya.html" class="article-home-card">
+                <div class="card-top">
+                    <span class="card-icon">🔍</span>
+                    <span class="card-read-time">⏱ 10 мин</span>
+                </div>
+                <div class="article-home-title">Куда СДЭК присылает оповещения: SMS, Email и Push</div>
+                <div class="article-home-desc">Узнайте, куда СДЭК отправляет уведомления о статусе заказа. Настройка SMS, Email и Push-уведомлений в приложении для отс</div>
+                <div class="card-footer">
+                    <span class="card-read-more">Читать →</span>
+                </div>
+            </a>
+            <a href="/articles/p/po/pochemu-sdek-ne-otslezhivaetsya.html" class="article-home-card">
+                <div class="card-top">
+                    <span class="card-icon">🔍</span>
+                    <span class="card-read-time">⏱ 7 мин</span>
+                </div>
+                <div class="article-home-title">СДЭК не отслеживается: причины и решение проблем</div>
+                <div class="article-home-desc">Почему трек-номер СДЭК не отслеживается? Полный гид по причинам ошибок, статусам и действиям при проблемах с трекингом п</div>
+                <div class="card-footer">
+                    <span class="card-read-more">Читать →</span>
+                </div>
+            </a>
+            <a href="/articles/s/sd/sdek-skolko-idet-gruz.html" class="article-home-card">
+                <div class="card-top">
+                    <span class="card-icon">🔍</span>
+                    <span class="card-read-time">⏱ 10 мин</span>
+                </div>
+                <div class="article-home-title">СДЭК: сколько идет груз по России и за границу, сроки доставки</div>
+                <div class="article-home-desc">Узнайте точно, сколько дней идет груз СДЭК. Актуальные сроки по России и СНГ, зависимость от тарифа, расстояния и типа г</div>
+                <div class="card-footer">
+                    <span class="card-read-more">Читать →</span>
+                </div>
+            </a>
+            <a href="/articles/t/tr/transportnaya-kompaniya-sdek-kak-otsledit-posylku.html" class="article-home-card">
+                <div class="card-top">
+                    <span class="card-icon">🔍</span>
+                    <span class="card-read-time">⏱ 9 мин</span>
+                </div>
+                <div class="article-home-title">Как отследить посылку СДЭК: полная инструкция по трекингу</div>
+                <div class="article-home-desc">Узнайте, как отследить посылку СДЭК по номеру накладной. Подробный гид по отслеживанию, статусам, проблемам с треком и и</div>
+                <div class="card-footer">
+                    <span class="card-read-more">Читать →</span>
+                </div>
+            </a>
+            <a href="/articles/u/uz/uznat-gde-nakhoditsya-posylka-sdek-po-trek-nomeru.html" class="article-home-card">
+                <div class="card-top">
+                    <span class="card-icon">🔍</span>
+                    <span class="card-read-time">⏱ 9 мин</span>
+                </div>
+                <div class="article-home-title">Узнать где находится посылка СДЭК по трек номеру: гид</div>
+                <div class="article-home-desc">Полная инструкция: как узнать, где находится посылка СДЭК по трек номеру. Разбор статусов, решение проблем с отслеживани</div>
+                <div class="card-footer">
+                    <span class="card-read-more">Читать →</span>
+                </div>
+            </a>
+            <a href="/articles/g/gd/gde-nakhoditsya-nomer-sdek-otslezhivaniya-posylki.html" class="article-home-card">
+                <div class="card-top">
+                    <span class="card-icon">🔍</span>
+                    <span class="card-read-time">⏱ 10 мин</span>
+                </div>
+                <div class="article-home-title">Где находится номер отслеживания СДЭК: полный гид по поиску трек-кода</div>
+                <div class="article-home-desc">Не знаете, где найти трек-номер СДЭК? Узнайте, как найти код отслеживания в личном кабинете, SMS, на чеке или в мобильно</div>
+                <div class="card-footer">
+                    <span class="card-read-more">Читать →</span>
+                </div>
+            </a>
+            <a href="/articles/g/gd/gde-vzyat-nomer-otpravleniya-sdek.html" class="article-home-card">
+                <div class="card-top">
+                    <span class="card-icon">🔍</span>
+                    <span class="card-read-time">⏱ 12 мин</span>
+                </div>
+                <div class="article-home-title">Где взять номер отправления СДЭК: все способы поиска</div>
+                <div class="article-home-desc">Узнайте, где найти номер отправления СДЭК в СМС, приложении, на чеке или в личном кабинете. Инструкция по получению трек</div>
+                <div class="card-footer">
+                    <span class="card-read-more">Читать →</span>
+                </div>
+            </a>
+            <a href="/articles/k/ka/kak-bystro-idet-posylka-sdek-po-rossii.html" class="article-home-card">
+                <div class="card-top">
+                    <span class="card-icon">🔍</span>
+                    <span class="card-read-time">⏱ 10 мин</span>
+                </div>
+                <div class="article-home-title">Скорость доставки СДЭК по России: сроки и тарифы</div>
+                <div class="article-home-desc">Узнайте, как быстро идет посылка СДЭК по России. Актуальные сроки, зависимость от типа доставки и расстояния, а также сп</div>
+                <div class="card-footer">
+                    <span class="card-read-more">Читать →</span>
+                </div>
+            </a>
+            <a href="/articles/k/ka/kak-najti-posylku-u-sdeka.html" class="article-home-card">
+                <div class="card-top">
+                    <span class="card-icon">🔍</span>
+                    <span class="card-read-time">⏱ 10 мин</span>
+                </div>
+                <div class="article-home-title">Как найти посылку у СДЭК: поиск без трека и по номеру</div>
+                <div class="article-home-desc">Подробная инструкция: как найти посылку СДЭК без трек-номера, по фамилии, телефону или номеру заказа. Что делать при пот</div>
+                <div class="card-footer">
+                    <span class="card-read-more">Читать →</span>
+                </div>
+            </a>
+            <a href="/articles/k/ka/kak-otsledit-posylku-po-trek-nomeru-sdek-rossii.html" class="article-home-card">
+                <div class="card-top">
+                    <span class="card-icon">🔍</span>
+                    <span class="card-read-time">⏱ 10 мин</span>
+                </div>
+                <div class="article-home-title">Как отследить посылку по трек-номеру СДЭК: полная инструкция</div>
+                <div class="article-home-desc">Подробный гид по отслеживанию посылок СДЭК. Узнайте, как проверить статус заказа через сайт, приложение или SMS. Решите </div>
+                <div class="card-footer">
+                    <span class="card-read-more">Читать →</span>
+                </div>
+            </a>
+            <a href="/articles/k/ka/kak-otslezhivanie-posylok-po-trek-nomeru-sdek.html" class="article-home-card">
+                <div class="card-top">
+                    <span class="card-icon">🔍</span>
+                    <span class="card-read-time">⏱ 12 мин</span>
+                </div>
+                <div class="article-home-title">Как отслеживать посылку СДЭК по трек-номеру: полная инструкция</div>
+                <div class="article-home-desc">Подробный гид по отслеживанию посылок СДЭК. Где найти трек-номер, как пользоваться картой и приложением, что делать при </div>
+                <div class="card-footer">
+                    <span class="card-read-more">Читать →</span>
+                </div>
+            </a>
+            <a href="/articles/k/ka/kak-ponyat-krajnyaya-data-dostavki-sdek.html" class="article-home-card">
+                <div class="card-top">
+                    <span class="card-icon">🔍</span>
+                    <span class="card-read-time">⏱ 8 мин</span>
+                </div>
+                <div class="article-home-title">Крайняя дата доставки СДЭК: что значит и как продлить</div>
+                <div class="article-home-desc">Узнайте, что такое крайняя дата доставки СДЭК, почему она важна и как продлить срок хранения посылки. Ответы на вопросы </div>
+                <div class="card-footer">
+                    <span class="card-read-more">Читать →</span>
+                </div>
+            </a>
+            <a href="/articles/k/ka/kak-posmotret-otpravlennye-posylki-sdek.html" class="article-home-card">
+                <div class="card-top">
+                    <span class="card-icon">🔍</span>
+                    <span class="card-read-time">⏱ 13 мин</span>
+                </div>
+                <div class="article-home-title">Как посмотреть отправленные посылки СДЭК: инструкция</div>
+                <div class="article-home-desc">Узнайте, как проверить историю отправленных посылок СДЭК в личном кабинете и через виджет. Полный гид по отслеживанию гр</div>
+                <div class="card-footer">
+                    <span class="card-read-more">Читать →</span>
+                </div>
+            </a>
+            <a href="/articles/k/ka/kak-prikhodit-sdek.html" class="article-home-card">
+                <div class="card-top">
+                    <span class="card-icon">🔍</span>
+                    <span class="card-read-time">⏱ 10 мин</span>
+                </div>
+                <div class="article-home-title">Как приходит СДЭК: сроки, уведомления и статусы доставки</div>
+                <div class="article-home-desc">Подробный гид: как приходит СДЭК, что означают статусы, когда ожидать курьера и как действовать при проблемах. Все о лог</div>
+                <div class="card-footer">
+                    <span class="card-read-more">Читать →</span>
+                </div>
+            </a></div>
+            <nav class="pagination" aria-label="Страницы"><a href="/category/otslezhivanie/" class="pag-link pag-edge" title="В начало">«</a><a href="/category/otslezhivanie/page/36/" class="pag-link">← Назад</a><a href="/category/otslezhivanie/" class="pag-link">1</a><span class="pag-dots">…</span><a href="/category/otslezhivanie/page/34/" class="pag-link">34</a><a href="/category/otslezhivanie/page/35/" class="pag-link">35</a><a href="/category/otslezhivanie/page/36/" class="pag-link">36</a><a href="/category/otslezhivanie/page/37/" class="pag-link pag-active">37</a><a href="/category/otslezhivanie/page/38/" class="pag-link">38</a><a href="/category/otslezhivanie/page/39/" class="pag-link">39</a><a href="/category/otslezhivanie/page/40/" class="pag-link">40</a><span class="pag-dots">…</span><a href="/category/otslezhivanie/page/67/" class="pag-link">67</a><a href="/category/otslezhivanie/page/38/" class="pag-link">Далее →</a><a href="/category/otslezhivanie/page/67/" class="pag-link pag-edge" title="В конец">»</a></nav>
+        </div>
+    </main>
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script>
+    document.getElementById('menuBtn')?.addEventListener('click', () => {
+        document.getElementById('mainNav')?.classList.toggle('open');
+    });
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

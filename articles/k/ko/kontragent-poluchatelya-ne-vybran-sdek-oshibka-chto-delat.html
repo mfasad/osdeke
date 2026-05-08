@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>Ошибка СДЭК: Контрагент получателя не выбран — решение — СДЭК Гид</title>
+    <meta name="description" content="Почему в СДЭК не выбирается контрагент получателя? Разбор ошибок в ЛК, настройках API и профиле пользователя. Инструкция по устранению.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/k/ko/kontragent-poluchatelya-ne-vybran-sdek-oshibka-chto-delat.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Ошибка СДЭК: Контрагент получателя не выбран — решение">
+    <meta property="og:description" content="Почему в СДЭК не выбирается контрагент получателя? Разбор ошибок в ЛК, настройках API и профиле пользователя. Инструкция по устранению.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/poluchenie/">Получение</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Ошибка СДЭК: Контрагент получателя не выбран — решение</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Ошибка «Контрагент получателя не выбран» в СДЭК: как исправить</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#причины-возникновения-ошибки-в-личном-кабинете">Причины возникновения ошибки в личном кабинете</a></li><li><a href="#проверка-настроек-профиля-и-договора">Проверка настроек профиля и договора</a></li><li><a href="#особенности-работы-с-api-и-интеграциями">Особенности работы с API и интеграциями</a></li><li><a href="#алгоритм-действий-при-оформлении-возврата">Алгоритм действий при оформлении возврата</a></li><li><a href="#проблемы-с-адресной-базой-и-справочниками">Проблемы с адресной базой и справочниками</a></li><li><a href="#техническая-поддержка-и-альтернативные-решения">Техническая поддержка и альтернативные решения</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>Столкнувшись с уведомлением о том, что в системе логистического оператора <strong>контрагент получателя не выбран</strong>, пользователь часто впадает в ступор, так как интерфейс может не давать очевидных подсказок для исправления ситуации. Данная ошибка, как правило, возникает в момент формирования накладной или попытки оформления возврата, когда программный алгоритм не может идентифицировать конечного адресата в базе данных компании. Это не просто технический сбой, а сигнал о том, что цепочка данных между отправителем, получателем и самой системой <em>СДЭК</em> разорвана на этапе верификации.</p>
+
+<p>Ситуация требует немедленного вмешательства, так как без корректного указания получателя груз не будет принят к перевозке, а в случае возврата товар может зависнуть на складе. <strong>Ошибочные данные</strong> в профиле или некорректные настройки интеграции интернет-магазина с API службы доставки часто становятся корнем проблемы. Понимание механики возникновения сбоя позволит быстро восстановить работоспособность личного кабинета и продолжить работу с отправками без задержек.</p>
+
+<p>В этой статье мы детально разберем причины появления сообщения об отсутствии выбранного контрагента, пройдемся по шагам проверки настроек вашего аккаунта и рассмотрим специфические случаи работы с API. Вы узнаете, как правильно заполнять поля профиля, чтобы система автоматически подхватывала нужные реквизиты, и что делать, если проблема кроется на стороне сервера логистического партнера.</p>
+
+<h2 id="причины-возникновения-ошибки-в-личном-кабинете">Причины возникновения ошибки в личном кабинете</h2>
+
+<p>Первопричиной сбоя чаще всего выступает человеческий фактор или некорректная синхронизация данных между вашей учетной записью и сервером <em>CDEK</em>. Когда система сообщает, что <strong>контрагент получателя не выбран</strong>, это означает, что в запросе на создание заказа отсутствует обязательный идентификатор (ID) получателя, который должен быть привязан к договору или текущей сессии. Алгоритм проверяет наличие этого параметра, и если он пуст или содержит невалидные символы, операция блокируется.</p>
+
+<p>Другой распространенной причиной является попытка использовать функционал, доступный только для определенных типов договоров, без соответствующих прав доступа. Например, опция автоматического выбора контрагента может быть скрыта для физических лиц, работающих по тарифу «Посылочка», но обязательна для юридических лиц с договором <code>Online</code>. Также проблема может крыться в кэше браузера, который хранит устаревшие версии страниц настроек.</p>
+
+<ul>
+<li>🚫 Отсутствует привязка договора доставки в профиле пользователя.</li>
+<li>🚫 Неверно заполнены реквизиты получателя при ручном вводе.</li>
+<li>🚫 Технические работы на стороне серверов логистического оператора.</li>
+<li>🚫 Блокировка аккаунта из-за подозрительной активности или долгов.</li>
+</ul>
+
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> Если вы используете сторонние плагины для CMS (WordPress, Bitrix, OpenCart), ошибка может возникать из-за несовместимости версии плагина с актуальной версией API СДЭК. Проверьте обновления модуля.</p>
+</blockquote>
+
+<div class="poll-widget" id="poll-fea95741"><div class="poll-widget-question">📊 Сталкивались ли вы с ошибками при оформлении возврата в СДЭК?</div><div class="poll-widget-option" data-poll="fea95741" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Да, часто</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="fea95741" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Было пару раз</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="fea95741" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Никогда не пользовался возвратами</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="fea95741" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Пользуюсь только отправками</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="проверка-настроек-профиля-и-договора">Проверка настроек профиля и договора</h2>
+
+<p>Первым шагом для устранения неполадки должна стать тщательная ревизия раздела «Настройки» в вашем личном кабинете. Именно здесь хранятся основные параметры, определяющие, кто выступает <strong>отправителем</strong> и <strong>получателем</strong> по умолчанию. Зайдите в раздел «Профиль» и убедитесь, что ваш текущий договор активен и имеет статус «Действующий». Если договор приостановлен, система не сможет сформировать накладную, выдавая ошибку отсутствия контрагента.</p>
+
+<p>Особое внимание уделите вкладке «Адреса» или «Контрагенты». В некоторых версиях интерфейса необходимо явно указать, какой адрес является основным для возвратов. Если поле «Контрагент получателя» остается пустым, попробуйте сохранить изменения заново, даже если визуально данные заполнены. Иногда требуется принудительно выбрать пункт из выпадающего списка, чтобы система записала внутренний <code>ID</code> адреса.</p>
+
+<p>Для юридических лиц критически важно проверить соответствие ИНН и ОГРН, указанных в профиле, данным в договоре. Малейшее расхождение, например, лишний пробел или опечатка в названии организации, приводит к тому, что <em>интеграционный шлюз</em> не может найти контрагента в базе. Убедитесь, что все поля заполнены кириллицей, если того требует формат, и не содержат скрытых символов.</p>
+
+<div class="checklist-block"><h4>☑️ Диагностика профиля</h4><label class="check-item"><input type="checkbox"><span>Проверка статуса договора</span></label><label class="check-item"><input type="checkbox"><span>Актуальность контактного email</span></label><label class="check-item"><input type="checkbox"><span>Наличие подтвержденного адреса</span></label><label class="check-item"><input type="checkbox"><span>Проверка прав доступа пользователя</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 4</div></div>
+
+<h2 id="особенности-работы-с-api-и-интеграциями">Особенности работы с API и интеграциями</h2>
+
+<p>Если вы являетесь разработчиком или настраиваете интеграцию интернет-магазина, ошибка «контрагент не выбран» часто возвращается в виде кода состояния <code>400 Bad Request</code> или специфического сообщения в теле ответа JSON. В документации API СДЭК это может быть описано как отсутствие обязательного параметра <code>recipient_id</code> или <code>sender_id</code> в теле запроса. При формировании заказа необходимо строго следовать спецификации и передавать идентификаторы, полученные при авторизации.</p>
+
+<p>Частой ошибкой при интеграции является использование тестовых ключей (<code>Account</code> и <code>Secure Password</code>) для работы в продуктивной среде или наоборот. Тестовый контур не содержит реальных данных о ваших контрагентах, поэтому попытка создать заказ с реальным адресом в тестовом режиме приведет к сбою. Убедитесь, что в настройках вашего приложения переключатель среды (Sandbox/Production) установлен корректно.</p>
+
+<p>Также стоит проверить логи запросов. Если в ответе сервера приходит сообщение о том, что <strong>контрагент получателя не выбран</strong>, проанализируйте структуру отправляемого XML или JSON. Возможно, вы передаете данные получателя в неправильном узле или используете устаревший метод создания заказа, который не поддерживает автоматическое определение получателя по умолчанию.</p>
+
+<pre><code>{
+<p>"number":"ORDER_123",</p>
+<p>"recipient": {</p>
+<p>"name":"Иванов Иван",</p>
+<p>"phone":"+79000000000",</p>
+<p>// Ошибка: отсутствует обязательное поле ID контрагента</p>
+<p>}</p>
+<p>}</code></pre></p>
+
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> При работе с API помните о лимитах запросов. Частые попытки отправки некорректных данных могут привести к временной блокировке вашего IP-адреса системой безопасности.</p>
+</blockquote>
+
+<details class="faq-item"><summary>Как получить API-ключи?</summary><div class="faq-answer"><p>Для получения ключей необходимо авторизоваться в личном кабинете СДЭК, перейти в раздел «Настройки» -> «Профиль разработчика» и нажать кнопку «Сгенерировать ключи». Сохраните их в надежном месте, так как повторный просмотр пароля будет невозможен.</p></div></details>
+
+<h2 id="алгоритм-действий-при-оформлении-возврата">Алгоритм действий при оформлении возврата</h2>
+
+<p>Наиболее часто проблема всплывает именно при попытке оформить возврат товара покупателем или продавцом. В этом контексте «контрагент получателя» — это склад отправителя (продавца), куда должен вернуться груз. Если в личном кабинете продавца не настроен профиль возврата, система не знает, куда адресовать посылку, и выдает ошибку.</p>
+
+<p>Чтобы исправить это, необходимо создать «Заявку на возврат» через соответствующее меню. В процессе заполнения формы система попросит выбрать склад, на который приедет груз. Если список складов пуст или выбор не сохраняется, проверьте, активирована ли услуга «Возвраты» в вашем тарифном плане. Без подключенной услуги функционал будет недоступен.</p>
+
+<p>Важно правильно указать тип возврата: «Полный» или «Частичный», так как от этого зависит набор полей для заполнения. Если вы используете готовую наклейку для возврата, полученную ранее, убедитесь, что срок ее действия не истек. Старые наклейки могут содержать устаревшие маршрутные листы, которые система больше не принимает.</p>
+
+<table>
+<thead>
+<tr>
+<th>Тип операции</th>
+<th>Необходимые данные</th>
+<th>Частая ошибка</th>
+<th>Решение</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Оформление возврата</td>
+<td>Номер заказа, причина</td>
+<td>Не выбран склад приема</td>
+<td>Выбрать склад в настройках профиля</td>
+</tr>
+<tr>
+<td>Смена получателя</td>
+<td>Новый адрес, телефон</td>
+<td>Ошибка в формате телефона</td>
+<td>Использовать формат +7...</td>
+</tr>
+<tr>
+<td>Создание накладной</td>
+<td>Вес, габариты, получатель</td>
+<td>Отсутствует ID контрагента</td>
+<td>Обновить страницу, пересохранить адрес</td>
+</tr>
+<tr>
+<td>Работа через API</td>
+<td>Token, JSON запрос</td>
+<td>Неверная среда (Test/Prod)</td>
+<td>Проверить URL эндпоинта</td>
+</tr>
+</tbody>
+</table>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Сохраняйте скриншоты всех этапов оформления возврата, особенно финального экрана с трек-номером. Это поможет доказать факт создания заявки в случае технического сбоя на стороне перевозчика.</p></div>
+
+<h2 id="проблемы-с-адресной-базой-и-справочниками">Проблемы с адресной базой и справочниками</h2>
+
+<p>Система СДЭК использует актуальные справочники адресов (ФИАС/КЛАДР), и если введенный вами адрес получателя не совпадает с данными в базе, система может не суметь определить координаты и, как следствие, назначить ответственного <strong>контрагента</strong> в этом регионе. Это часто случается при работе с новыми жилыми комплексами или удаленными населенными пунктами.</p>
+
+<p>При ручном вводе адреса старайтесь использовать автодополнение, которое предлагает сама форма. Если вы вбиваете адрес вручную, система может не распознать улицу «Ленина» и «ул. Ленина» как одно и то же, если в базе они записаны по-разному. В таких случаях лучше выбрать вариант из подсказок, даже если он кажется менее полным — внутренние ID адресов важнее их текстового отображения.</p>
+
+<p>Если ошибка persists только для определенных городов или регионов, возможно, в этом направлении временно приостановлено обслуживание или изменены логистические схемы. В таком случае контрагент в базе может значиться как «неактивный», что и вызывает ошибку выбора. Проверьте раздел «Тарифы и зоны» на сайте перевозчика.</p>
+
+<h2 id="техническая-поддержка-и-альтернативные-решения">Техническая поддержка и альтернативные решения</h2>
+
+<p>Когда все вышеперечисленные методы не помогли, и вы уверены, что <strong>контрагент получателя не выбран</strong> из-за внутреннего бага системы, остается обратиться в техническую поддержку. Перед обращением подготовьте скриншоты ошибки, номер договора и, если возможно, ID запроса (Request ID), который генерируется при попытке действия. Это значительно ускорит диагностику.</p>
+
+<p>В качестве временного решения можно попробовать создать заказ через альтернативный интерфейс. Например, если ошибка возникает в новом личном кабинете, попробуйте воспользоваться старой версией (если есть доступ) или мобильным приложением для курьеров/партнеров. Иногда мобильная версия имеет упрощенную логику работы и обходит баги десктопного интерфейса.</p>
+
+<p>Также эффективным методом является очистка cookies и кэша браузера, а также попытка входа в режиме «Инкогнито». Это исключит влияние расширений браузера, которые могут блокировать выполнение скриптов формы выбора контрагента. Если в режиме инкогнито все работает, проблема кроется в вашем браузере.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>В 90% случаев ошибка решается пересохранением адреса в профиле или переключением среды API с тестовой на продуктивную.</p></div>
+
+<details>
+<summary>Что делать, если ошибка возникает только у одного пользователя в компании?</summary>
+<p>Это указывает на проблему с правами доступа конкретного аккаунта. Главный администратор должен зайти в настройки пользователей, найти проблемную учетную запись и проверить галочки доступа к разделам «Отгрузки» и «Контрагенты». Часто помогает удаление пользователя и создание его заново с теми же данными.</p>
+</details>
+
+<details>
+<summary>Может ли ошибка быть связана с блокировкой по лимитам?</summary>
+<p>Да, если ваш договор имеет лимиты на количество отправлений или вес, и вы пытаетесь создать заказ, превышающий эти лимиты, система может выдавать-generic ошибку, включая сообщение о не выбранном контрагенте. Проверьте статус лимитов в разделе «Финансы».</p>
+</details>
+
+<details>
+<summary>Как долго устраняют такие ошибки на стороне СДЭК?</summary>
+<p>Технические сбои на стороне сервера обычно устраняются в течение 1-3 часов в рабочее время. Если проблема связана с обновлением справочников адресов, процесс может занять до 24 часов. В выходные дни время реакции может быть увеличено.</p>
+</details>
+
+<details>
+<summary>Влияет ли ошибка на уже созданные накладные?</summary>
+<p>Нет, ошибка «контрагент не выбран» блокирует создание <em>новых</em> заказов. Уже сформированные и принятые в работу накладные обрабатываются штатно, даже если в вашем профиле возникли проблемы с настройками.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#причины-возникновения-ошибки-в-личном-кабинете">Причины возникновения ошибки в личном кабинете</a></li><li><a href="#проверка-настроек-профиля-и-договора">Проверка настроек профиля и договора</a></li><li><a href="#особенности-работы-с-api-и-интеграциями">Особенности работы с API и интеграциями</a></li><li><a href="#алгоритм-действий-при-оформлении-возврата">Алгоритм действий при оформлении возврата</a></li><li><a href="#проблемы-с-адресной-базой-и-справочниками">Проблемы с адресной базой и справочниками</a></li><li><a href="#техническая-поддержка-и-альтернативные-решения">Техническая поддержка и альтернативные решения</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/k/ka/kak-poluchit-zakaz-v-postamate-sdek-esli-net-koda.html" class="related-card">Как получить заказ в постамате СДЭК без кода</a></li><li><a href="/articles/k/ka/kak-izmenit-mesto-dostavki-sdek.html" class="related-card">Как изменить место доставки СДЭК: пошаговая инструкция</a></li><li><a href="/articles/s/sd/sdek-kak-poluchit-posylku-za-drugogo-cheloveka-s-ego.html" class="related-card">Как получить посылку СДЭК за другого: доверенность и правила</a></li><li><a href="/articles/n/no/nomer-kassovogo-cheka-sdek-gde-ukazan.html" class="related-card">Где найти номер чека СДЭК: фото, приложение и детали</a></li><li><a href="/articles/c/ch/chto-budet-esli-ne-oplatit-posylku-v-sdek.html" class="related-card">Не оплатил посылку в СДЭК: что будет и как избежать проблем?</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/k/ka/kak-poluchit-zakaz-v-postamate-sdek-esli-net-koda.html" class="related-bottom-card"><span class="related-bottom-title">Как получить заказ в постамате СДЭК без кода</span><span class="related-bottom-desc">Нет кода для СДЭК? Узнайте, как получить заказ в постамате без смс, по паспорту, через приложение ил</span></a><a href="/articles/k/ka/kak-izmenit-mesto-dostavki-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как изменить место доставки СДЭК: пошаговая инструкция</span><span class="related-bottom-desc">Подробный гайд: как изменить адрес, пункт выдачи или время доставки СДЭК. Инструкции для приложения,</span></a><a href="/articles/s/sd/sdek-kak-poluchit-posylku-za-drugogo-cheloveka-s-ego.html" class="related-bottom-card"><span class="related-bottom-title">Как получить посылку СДЭК за другого: доверенность и правила</span><span class="related-bottom-desc">Полная инструкция: как получить посылку СДЭК за другого человека. Образец доверенности, список докум</span></a><a href="/articles/n/no/nomer-kassovogo-cheka-sdek-gde-ukazan.html" class="related-bottom-card"><span class="related-bottom-title">Где найти номер чека СДЭК: фото, приложение и детали</span><span class="related-bottom-desc">Узнайте, где указан номер кассового чека СДЭК. Инструкция по поиску чека в приложении, на сайте и в </span></a><a href="/articles/c/ch/chto-budet-esli-ne-oplatit-posylku-v-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Не оплатил посылку в СДЭК: что будет и как избежать проблем?</span><span class="related-bottom-desc">Узнайте, какие последствия вас ждут, если не оплатить посылку в СДЭК: сроки хранения, штрафы, возвра</span></a><a href="/articles/p/po/po-kakim-dokumentam-mozhno-poluchit-posylku-v-sdeke.html" class="related-bottom-card"><span class="related-bottom-title">Какие документы нужны для получения посылки в СДЭК в 2026 году</span><span class="related-bottom-desc">Полный список документов для получения посылки в СДЭК: паспорт, доверенность, электронные коды. Прав</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

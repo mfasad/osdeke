@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>Как выглядит код СДЭК: структура, примеры и расшифровка 2026 — СДЭК Гид</title>
+    <meta name="description" content="Разбираем формат трек-номера СДЭК: где найти, как выглядит, что означают цифры и буквы. Примеры кода для посылок, заказов и возвратных отправлений.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/k/ka/kak-vyglyadit-kod-sdek.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Как выглядит код СДЭК: структура, примеры и расшифровка 2026">
+    <meta property="og:description" content="Разбираем формат трек-номера СДЭК: где найти, как выглядит, что означают цифры и буквы. Примеры кода для посылок, заказов и возвратных отправлений.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/otslezhivanie/">Отслеживание</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Как выглядит код СДЭК: структура, примеры и расшифровка 2026</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Код СДЭК: структура, примеры и как отличить от подделки</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#что-такое-код-сдэк-и-зачем-он-нужен">Что такое код СДЭК и зачем он нужен?</a></li><li><a href="#структура-кода-сдэк-расшифровка-символов">Структура кода СДЭК: расшифровка символов</a></li><li><a href="#где-найти-код-сдэк-все-возможные-источники">Где найти код СДЭК: все возможные источники</a></li><li><a href="#примеры-реальных-кодов-сдэк-2024-год">Примеры реальных кодов СДЭК (2024 год)</a></li><li><a href="#как-отличить-код-сдэк-от-трек-номеров-других-служб-доставки">Как отличить код СДЭК от трек-номеров других служб доставки</a></li><li><a href="#что-делать-если-код-сдэк-не-работает-или-потерян">Что делать, если код СДЭК не работает или потерян</a></li><li><a href="#faq-частые-вопросы-о-кодах-сдэк">FAQ: Частые вопросы о кодах СДЭК</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body"><h2 id="что-такое-код-сдэк-и-зачем-он-нужен">Что такое код СДЭК и зачем он нужен?</h2>
+
+<p>Каждой посылке, отправленной через <strong>СДЭК</strong>, присваивается уникальный идентификатор — <em>код отслеживания</em> (или <em>трек-номер</em>). Это не просто набор символов, а ключ к информации о статусе груза, маршруте и сроках доставки. Без этого кода отследить посылку на сайте или в мобильном приложении <strong>невозможно</strong>.</p>
+
+<p>Код формируется автоматически при оформлении заказа в личном кабинете, на пункте выдачи или через API-интеграцию. Его структура зависит от типа отправления: стандартная посылка, <em>СДЭК-Экспресс</em>, возврат или международная доставка. Например, коды для <mark>возвратных отправлений всегда начинаются с буквы "R"</mark>, что помогает быстро идентифицировать их в системе.</p>
+
+<p>Почему это важно для клиента? Во-первых, код подтверждает, что посылка принята в обработку. Во-вторых, с его помощью можно:</p>
+<ul>
+  <li>📍 Отслеживать геолокацию груза в реальном времени (на некоторых тарифах).</li>
+  <li>📅 Узнавать точные сроки доставки с учётом задержек.</li>
+  <li>🔄 Инициировать возврат или перенаправление посылки.</li>
+  <li>📋 Получать уведомления о статусах (привязав код к email или телефону).</li>
+</ul>
+
+<h2 id="структура-кода-сдэк-расшифровка-символов">Структура кода СДЭК: расшифровка символов</h2>
+
+<p>Классический трек-номер СДЭК состоит из <strong>9–14 символов</strong>, где сочетаются <em>латинские буквы</em> и <em>цифры</em>. Формат зависит от года оформления и типа отправления. Рассмотрим основные варианты:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Тип кода</th>
+      <th>Пример</th>
+      <th>Расшифровка</th>
+      <th>Где применяется</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Стандартный (до 2020 г.)</td>
+      <td><code>123456789</code></td>
+      <td>9 цифр без букв</td>
+      <td>Внутренние посылки по России</td>
+    </tr>
+    <tr>
+      <td>Современный (с 2020 г.)</td>
+      <td><code>SD12345678</code></td>
+      <td>2 буквы + 8 цифр</td>
+      <td>Все виды отправлений, включая экспресс</td>
+    </tr>
+    <tr>
+      <td>Возвратное отправление</td>
+      <td><code>R123456789</code></td>
+      <td>Буква "R" + 9 цифр</td>
+      <td>Возвраты от покупателя продавцу</td>
+    </tr>
+    <tr>
+      <td>Международное</td>
+      <td><code>INT1234567</code></td>
+      <td>Префикс "INT" + 7 цифр</td>
+      <td>Посылки за пределы РФ</td>
+    </tr>
+    <tr>
+      <td>API-генерация</td>
+      <td><code>API1234567890</code></td>
+      <td>Префикс "API" + 10 цифр</td>
+      <td>Отправления через интеграцию с маркетплейсами</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Первые <strong>2–3 символа</strong> часто указывают на <em>регион отправки</em> или <em>тип услуги</em>. Например, коды с префиксом <code>MSK</code> или <code>SPB</code> могут обозначать отправления из Москвы или Санкт-Петербурга (хотя это не официальное правило, а внутренняя маркировка некоторых отделений).</p>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Если ваш трек-номер начинается с <code>000</code> или содержит повторяющиеся символы (например, <code>111222333</code>), это может быть <em>тестовый код</em> или подделка. СДЭК никогда не использует такие комбинации для реальных посылок.</blockquote>
+
+<div class="poll-widget" id="poll-729c0222"><div class="poll-widget-question">📊 Как часто вы проверяете статус посылки по коду СДЭК?</div><div class="poll-widget-option" data-poll="729c0222" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Каждый день</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="729c0222" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Раз в 2-3 дня</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="729c0222" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Только если есть задержка</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="729c0222" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Никогда не проверяю</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="где-найти-код-сдэк-все-возможные-источники">Где найти код СДЭК: все возможные источники</h2>
+
+<p>Код отслеживания можно получить из нескольких источников — всё зависит от того, как была оформлена отправка. Вот полный список:</p>
+
+<ul>
+  <li>📄 <strong>Товарный чек или квитанция</strong> — печатается на кассе в пункте выдачи или при курьерской доставке. Ищите строку "Номер отправления" или "Track-number".</li>
+  <li>📧 <strong>Email-уведомление</strong> — если при оформлении указывали электронную почту, код придёт в письме с темой "Ваше отправление принято в СДЭК".</li>
+  <li>📱 <strong>SMS-сообщение</strong> — на номер телефона отправителя (или получателя, если указан в заказе).</li>
+  <li>🌐 <strong>Личный кабинет СДЭК</strong> — в разделе <code>Мои отправления</code> (для зарегистрированных пользователей).</li>
+  <li>🛒 <strong>Маркетплейс</strong> — если заказ оформлялся через Wildberries, Ozon или Яндекс Маркет, код может быть в разделе "Мои заказы" → "Информация о доставке".</li>
+</ul>
+
+<p>Если вы отправили посылку через <em>партнёрскую точку</em> (например, салон связи или почтомат), код могут выдать на отдельном стикере или в виде QR-кода. В этом случае:</p>
+<ol>
+  <li>Сфотографируйте стикер — на нём помимо кода может быть штрихкод для сканирования в отделении.</li>
+  <li>Проверьте, не скрыт ли код под защитной плёнкой (иногда её нужно поцарапать).</li>
+  <li>Если код не читается, попросите оператора продиктовать его или распечатать повторно.</li>
+</ol>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Коды из <em>социальных сетей</em> или мессенджеров (например, если продавец прислал его в Telegram) могут быть поддельными. Всегда сверяйте их с данными из официальных источников — сайта СДЭК или email-уведомления.</blockquote>
+
+<div class="checklist-block"><h4>☑️ Проверка подлинности кода СДЭК</h4><label class="check-item"><input type="checkbox"><span>Код состоит из 9–14 символов</span></label><label class="check-item"><input type="checkbox"><span>Содержит буквы и цифры (кроме старых форматов)</span></label><label class="check-item"><input type="checkbox"><span>Начинается с допустимого префикса (SD, R, INT и т.д.)</span></label><label class="check-item"><input type="checkbox"><span>Отображается в личном кабинете или на чеке</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 4</div></div>
+
+<h2 id="примеры-реальных-кодов-сдэк-2026-год">Примеры реальных кодов СДЭК (2026 год)</h2>
+
+<p>Чтобы вам было проще отличить настоящий трек-номер от подделки, приведем актуальные примеры кодов, сгенерированных системой в 2023–2026 годах:</p>
+
+<pre><code>Стандартная посылка:   SD78345612
+<p>Экспресс-доставка:     EX98765432</p>
+<p>Возврат:               R123456789</p>
+<p>Международное:         INT5678901</p>
+<p>API-интеграция:        API2026567890</code></pre></p>
+
+<p>Обратите внимание на следующие закономерности:</p>
+<ul>
+  <li>🔢 Цифры <strong>никогда не повторяются подряд</strong> (например, <code>11223344</code> — признак фейка).</li>
+  <li>🔤 Буквы всегда <em>заглавные</em> и только латинские (кириллица не используется).</li>
+  <li>📅 В кодах, сгенерированных после 2020 года, <strong>обязательно есть буквенный префикс</strong>.</li>
+</ul>
+
+<p>Если вам попался код вроде <code>СДЭК12345</code> (с кириллицей) или <code>abc123</code> (только буквы), это <strong>100% мошенничество</strong>. Такие комбинации система не выдаёт.</p>
+
+<details class="faq-item"><summary>Как мошенники подделывают коды СДЭК?</summary><div class="faq-answer"><p>Чаще всего они генерируют случайные комбинации из цифр и букв, которые внешне похожи на реальные трек-номера. Затем отправляют их жертвам под видом "номера заказа" и просят оплатить доставку на подставной счёт. Проверить подлинность можно, введя код на официальном сайте СДЭК — если система выдаёт ошибку "Не найдено", это фейк.</p></div></details>
+
+<h2 id="как-отличить-код-сдэк-от-трек-номеров-других-служб-доставки">Как отличить код СДЭК от трек-номеров других служб доставки</h2>
+
+<p>Многие путают коды СДЭК с идентификаторами <em>Почты России</em>, <em>DHL</em> или <em>Boxberry</em>. Чтобы не ошибиться, запомните ключевые различия:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Служба доставки</th>
+      <th>Формат кода</th>
+      <th>Пример</th>
+      <th>Особенности</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>СДЭК</td>
+      <td>2 буквы + 8–10 цифр</td>
+      <td><code>SD12345678</code></td>
+      <td>Префиксы SD, EX, R, INT</td>
+    </tr>
+    <tr>
+      <td>Почта России</td>
+      <td>14 цифр</td>
+      <td><code>12345678901234</code></td>
+      <td>Только цифры, без букв</td>
+    </tr>
+    <tr>
+      <td>DHL</td>
+      <td>10 цифр</td>
+      <td><code>1234567890</code></td>
+      <td>Иногда начинается с страны (например, RU)</td>
+    </tr>
+    <tr>
+      <td>Boxberry</td>
+      <td>13 цифр</td>
+      <td><code>1234567890123</code></td>
+      <td>Часто начинается с 204 или 205</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Если вы видите код длиной <strong>ровно 14 цифр</strong> — это почти наверняка <em>Почта России</em>. Коды <em>СДЭК</em> короче и всегда содержат буквы (кроме устаревших форматов до 2020 года).</p>
+
+<p>Ещё один способ проверки — введите код на сайте <a href="https://track.cdek.ru" target="_blank">track.cdek.ru</a>. Если система выдаёт ошибку, попробуйте проверить его на сайтах других транспортных компаний.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Сохраните код СДЭК в заметках телефона или скриншотом — это ускорит процесс отслеживания, если чек потеряется. Особенно актуально для международных отправлений, где трек-номер может потребоваться для таможни.</p></div>
+
+<h2 id="что-делать-если-код-сдэк-не-работает-или-потерян">Что делать, если код СДЭК не работает или потерян</h2>
+
+<p>Ситуации, когда трек-номер "не находится" в системе, встречаются часто. Вот алгоритм действий:</p>
+
+<ol>
+  <li><strong>Проверьте правильность ввода</strong> — нет ли лишних пробелов, тире или опечаток. Код должен вводиться <em>без пробелов</em> и в <em>верхнем регистре</em>.</li>
+  <li><strong>Подождите 24 часа</strong> — иногда данные о посылке появляются в системе с задержкой (особенно если отправление оформлялось вечером или в выходные).</li>
+  <li><strong>Свяжитесь с отправителем</strong> — если вы получатель, уточните код у продавца или магазина. Возможно, он прислал неверную комбинацию.</li>
+  <li><strong>Обратитесь в поддержку СДЭК</strong> — через чат на сайте или по телефону <code>8 800 250-04-05</code>. Приготовьте данные о дате и пункте отправки.</li>
+</ol>
+
+<p>Если код <strong>утрачен</strong>, восстановить его можно:</p>
+<ul>
+  <li>📧 В письме с подтверждением отправки (ищите в папке "Спам").</li>
+  <li>📄 На чеке или квитанции (проверьте коробку с посылкой — иногда код печатают на наклейке).</li>
+  <li>🏢 В отделении СДЭК по паспорту (если вы отправитель).</li>
+</ul>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Если вам предлагают "восстановить код за плату" через сторонние сервисы — это <em>мошенничество</em>. СДЭК никогда не взимает деньги за повторную выдачу трек-номера.</blockquote>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Код СДЭК — это не просто номер, а ваш "билет" к отслеживанию посылки. Без него вы не сможете доказать факт отправки или инициализировать возврат.</p></div>
+
+<h2 id="faq-частые-вопросы-о-кодах-сдэк">FAQ: Частые вопросы о кодах СДЭК</h2>
+
+<details>
+  <summary>Может ли код СДЭК состоять только из цифр?</summary>
+  <p>Да, но только если посылка была отправлена <strong>до 2020 года</strong>. С 2020 года все новые коды содержат буквенный префикс (например, <code>SD</code>, <code>EX</code>). Если вам попался "чисто цифровой" код в 2026 году — это либо подделка, либо ошибка системы (редко).</p>
+</details>
+
+<details>
+  <summary>Что означает статус "Код не найден" при отслеживании?</summary>
+  <p>Этот статус появляется в трёх случаях:</p>
+  <ol>
+    <li>Код введён неверно (проверьте регистр и символы).</li>
+    <li>Данные о посылке ещё не загрузились в систему (подождите сутки).</li>
+    <li>Код сгенерирован, но посылка ещё не передана в СДЭК (например, продавец только создал заказ).</li>
+  </ol>
+  <p>Если проблема сохраняется более 48 часов — обращайтесь к отправителю или в поддержку.</p>
+</details>
+
+<details>
+  <summary>Можно ли отследить посылку без кода?</summary>
+  <p>Нет, это невозможно. Альтернативные способы (по номеру телефона или адресу) <strong>не работают</strong> — СДЭК не предоставляет таких инструментов. Единственный выход — восстановить код у отправителя или через поддержку.</p>
+</details>
+
+<details>
+  <summary>Почему в коде СДЭК появились новые буквы (например, EX или API)?</summary>
+  <p>Это указывает на <strong>тип отправления</strong>:</p>
+  <ul>
+    <li><code>EX</code> — <em>СДЭК-Экспресс</em> (ускоренная доставка).</li>
+    <li><code>API</code> — заказ через интеграцию с маркетплейсом (Wildberries, Ozon и др.).</li>
+    <li><code>INT</code> — <em>международная посылка</em>.</li>
+  </ul>
+  <p>Такие префиксы помогают сортировочным центрам быстрее обрабатывать грузы.</p>
+</details>
+
+<details>
+  <summary>Что делать, если код СДЭК совпадает с чужим отправлением?</summary>
+  <p>Это крайне маловероятно, но теоретически возможно при сбое в системе. В таком случае:</p>
+  <ol>
+    <li>Свяжитесь с поддержкой СДЭК и сообщите о коллизии.</li>
+    <li>Уточните у отправителя дату и пункт отправки — это поможет идентифицировать вашу посылку.</li>
+    <li>Если ошибка подтвердится, вам выдадут новый трек-номер.</li>
+  </ol>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#что-такое-код-сдэк-и-зачем-он-нужен">Что такое код СДЭК и зачем он нужен?</a></li><li><a href="#структура-кода-сдэк-расшифровка-символов">Структура кода СДЭК: расшифровка символов</a></li><li><a href="#где-найти-код-сдэк-все-возможные-источники">Где найти код СДЭК: все возможные источники</a></li><li><a href="#примеры-реальных-кодов-сдэк-2024-год">Примеры реальных кодов СДЭК (2024 год)</a></li><li><a href="#как-отличить-код-сдэк-от-трек-номеров-других-служб-доставки">Как отличить код СДЭК от трек-номеров других служб доставки</a></li><li><a href="#что-делать-если-код-сдэк-не-работает-или-потерян">Что делать, если код СДЭК не работает или потерян</a></li><li><a href="#faq-частые-вопросы-о-кодах-сдэк">FAQ: Частые вопросы о кодах СДЭК</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/s/sd/sdek-lichnyj-kabinet-chto-za-usluga.html" class="related-card">СДЭК Личный кабинет: что за услуга и как ей пользоваться в 2026 году</a></li><li><a href="/articles/s/sd/sdek-chto-takoe-nomer-upakovki.html" class="related-card">Номер упаковки СДЭК: что это, где найти и как использовать</a></li><li><a href="/articles/c/ch/chto-znachit-pribylo-v-tranzitnyj-gorod-sdek.html" class="related-card">Прибыло в транзитный город СДЭК: что это значит и что делать дальше</a></li><li><a href="/articles/k/ka/kak-otslezhivat-posylku-v-sdek-po-nomeru-zakaza.html" class="related-card">Как отследить посылку СДЭК по номеру заказа: полная инструкция</a></li><li><a href="/articles/s/sd/sdek-posmotret-skolko-budet-idti-posylka.html" class="related-card">Как отследить посылку СДЭК: сроки доставки и трекинг онлайн</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/s/sd/sdek-lichnyj-kabinet-chto-za-usluga.html" class="related-bottom-card"><span class="related-bottom-title">СДЭК Личный кабинет: что за услуга и как ей пользоваться в 2026 году</span><span class="related-bottom-desc">Разбираемся, что такое личный кабинет СДЭК: функции для физических и юридических лиц, как зарегистри</span></a><a href="/articles/s/sd/sdek-chto-takoe-nomer-upakovki.html" class="related-bottom-card"><span class="related-bottom-title">Номер упаковки СДЭК: что это, где найти и как использовать</span><span class="related-bottom-desc">Разбираемся, что такое номер упаковки в СДЭК, чем он отличается от трек-номера, где его искать в кви</span></a><a href="/articles/c/ch/chto-znachit-pribylo-v-tranzitnyj-gorod-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Прибыло в транзитный город СДЭК: что это значит и что делать дальше</span><span class="related-bottom-desc">Разбираем статус «прибыло в транзитный город СДЭК»: почему груз задерживается, сколько ждать доставк</span></a><a href="/articles/k/ka/kak-otslezhivat-posylku-v-sdek-po-nomeru-zakaza.html" class="related-bottom-card"><span class="related-bottom-title">Как отследить посылку СДЭК по номеру заказа: полная инструкция</span><span class="related-bottom-desc">Узнайте, как проверить статус груза СДЭК по номеру заказа или накладной. Подробная инструкция по отс</span></a><a href="/articles/s/sd/sdek-posmotret-skolko-budet-idti-posylka.html" class="related-bottom-card"><span class="related-bottom-title">Как отследить посылку СДЭК: сроки доставки и трекинг онлайн</span><span class="related-bottom-desc">Узнайте, как проверить статус посылки СДЭК, рассчитать сроки доставки и что делать, если трек-номер </span></a><a href="/articles/s/sk/skolko-idet-otpravlenie-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Сколько идет отправление СДЭК: сроки, тарифы и факторы</span><span class="related-bottom-desc">Узнайте точные сроки доставки СДЭК по России и миру. Анализ тарифов, влияющие факторы, таблица време</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>Статус «Посылка на складе»: что это значит в СДЭК? — СДЭК Гид</title>
+    <meta name="description" content="Почему статус «Склад» висит долго? Что значит «Склад СДЭК» при отправке и получении. Разбор причин задержек, действий получателя и продавца.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/p/po/posylka-sklad-sklad-sdek-chto-eto-takoe.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Статус «Посылка на складе»: что это значит в СДЭК?">
+    <meta property="og:description" content="Почему статус «Склад» висит долго? Что значит «Склад СДЭК» при отправке и получении. Разбор причин задержек, действий получателя и продавца.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/otslezhivanie/">Отслеживание</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Статус «Посылка на складе»: что это значит в СДЭК?</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Посылка на складе СДЭК: расшифровка статуса и причины задержки</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#что-означает-статус-склад-в-системе-отслеживания">Что означает статус «Склад» в системе отслеживания</a></li><li><a href="#разница-между-статусами-при-отправке-и-получении">Разница между статусами при отправке и получении</a></li><li><a href="#причины-задержки-груза-на-складе-сдэк">Причины задержки груза на складе СДЭК</a></li><li><a href="#инструкция-что-делать-если-статус-не-меняется">Инструкция: что делать, если статус не меняется</a></li><li><a href="#сроки-хранения-и-платное-хранение">Сроки хранения и платное хранение</a></li><li><a href="#специфика-работы-с-маркетплейсами-и-fby">Специфика работы с маркетплейсами и FBY</a></li><li><a href="#частые-вопросы-и-ответы-faq">Частые вопросы и ответы (FAQ)</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+<p>Ситуация, когда трек-код показывает статус «Посылка на складе» или просто «Склад», часто вызывает недоумение у получателей и отправителей. Кажется, что груз застрял в одной точке, пока другие уже давно доехали до адресатов. Однако в логистической системе <strong>СДЭК</strong> этот статус может иметь совершенно разное значение в зависимости от того, кто является отправителем и на каком этапе пути находится груз.</p>
+<p>Чаще всего пользователи сталкиваются с этим уведомлением при заказе товаров из интернет-магазинов, которые используют услуги фулфилмента или хранения на складах курьерской службы. В этом случае <em>warehouse</em> (склад) становится не просто перевалочным пунктом, а местом ожидания дальнейших инструкций. Понимание контекста позволяет избежать лишней паники и вовремя предпринять необходимые действия.</p>
+<p>В этой статье мы детально разберем, почему ваш груз может находиться на складе, чем отличается статус при отправке от статуса при получении и что делать, если посылка «зависла» слишком надолго. Вы узнаете, как отличить стандартную логистическую процедуру от проблемной ситуации, требующей вмешательства.</p>
+
+<h2 id="что-означает-статус-склад-в-системе-отслеживания">Что означает статус «Склад» в системе отслеживания</h2>
+<p>Когда вы видите в трекинге надпись «Склад», это означает, что физически груз находится в помещении логистического центра, но еще не передан в сортировку для дальнейшей транспортировки или не выдан получателю. Для <strong>СДЭК</strong> это штатная ситуация, которая может длиться от нескольких часов до нескольких дней. Важно понимать, что склад — это не одна точка, а сеть помещений разного назначения.</p>
+<p>Существует несколько типов складских зон, где может находиться ваша посылка. Если товар только что поступил от отправителя, он попадает на зону приемки. Здесь сотрудники проверяют целостность упаковки и соответствие накладной. Только после этого груз получает статус «Принято на складе» и перемещается в зону хранения или сортировки.</p>
+<blockquote>
+<p>⚠️ Внимание: Статус «Склад» может отображаться, даже если груз уже физически покинул помещение, но курьер еще не отсканировал его на выходе или в сортировочном центре.</p>
+</blockquote>
+<p>В случае с интернет-магазинами, работающими по схеме FBY (Fulfillment by CDEK), статус «Склад» означает, что товар лежит на полке и ждет поступления заказа от конечного покупателя. Пока магазин не сформирует задание на отгрузку, посылка будет числиться как складской остаток.</p>
+
+<h2 id="разница-между-статусами-при-отправке-и-получении">Разница между статусами при отправке и получении</h2>
+<p>Интерпретация статуса напрямую зависит от того, являетесь вы отправителем или получателем. Если вы <strong>отправляете</strong> груз, то длительное нахождение на складе может свидетельствовать о том, что упаковка не соответствует требованиям безопасности или отсутствуют необходимые документы. Логисты не могут отправить товар дальше, пока не устранят нарушения.</p>
+<p>Для <strong>получателя</strong>, особенно в схемах маркетплейсов, статус «Склад» часто означает ожидание оплаты или подтверждения готовности к выдаче. Система СДЭК интегрирована с множеством платформ, и синхронизация данных иногда занимает время. Пока магазин не передаст команду «Отгрузить», трек-код будет показывать статичное состояние.</p>
+<div class="poll-widget" id="poll-21a9787e"><div class="poll-widget-question">📊 Как давно у вас висит статус «Склад»?</div><div class="poll-widget-option" data-poll="21a9787e" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Менее 24 часов</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="21a9787e" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">2-3 дня</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="21a9787e" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Более 5 дней</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="21a9787e" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Более недели</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+<p>Также важно различать понятия «Склад отправителя» и «Склад получателя». В первом случае груз еще не начал свой путь по стране, во втором — он уже прибыл в ваш город и ожидает, когда вы заберете его или когда курьер доставит его по адресу. Ошибка в трактовке города назначения часто приводит к ложным выводам о потере груза.</p>
+
+<h2 id="причины-задержки-груза-на-складе-сдэк">Причины задержки груза на складе СДЭК</h2>
+<p>Существует ряд объективных причин, почему посылка может задержаться на складе дольше положенного срока. Чаще всего это связано с человеческим фактором или техническими особенностями обработки больших объемов cargo. Рассмотрим основные из них:</p>
+<ul>
+<li>📦 <strong>Ошибки в маркировке:</strong> Если штрих-код не читается или поврежден, оператор не может отсканировать груз для дальнейшей маршрутизации, и он остается лежать в зоне ожидания.</li>
+<li>📄 <strong>Проблемы с документами:</strong> Отсутствие инвойса, неправильное описание вложения или таможенные вопросы (для международных отправлений) блокируют движение посылки.</li>
+<li>🚚 <strong>Логистическая нагрузка:</strong> В периоды распродаж (Черная пятница, 11.11) склады переполнены, и обработка каждой единицы занимает больше времени из-за нехватки свободных мест и рук.</li>
+</ul>
+<p>Еще одной частой причиной является ожидание доукомплектации. Если вы заказали несколько товаров в одном магазине, но они лежат на разных складах или пришли в разное время, СДЭК может ждать сбора всего заказа перед единой отправкой. Это экономит деньги покупателю, но увеличивает время ожидания.</p>
+<p>Иногда задержка вызвана техническими работами на складе или проверкой безопасности. Служба безопасности СДЭК выборочно проверяет содержимое посылок, если датчики реагирования на запрещенные вещества подали сигнал. В этом случае груз изолируется до выяснения обстоятельств.</p>
+
+<h2 id="инструкция-что-делать-если-статус-не-меняется">Инструкция: что делать, если статус не меняется</h2>
+<p>Если статус «Склад» висит уже несколько дней, алгоритм действий зависит от вашей роли в сделке. Не стоит сразу паниковать, но и игнорировать ситуацию тоже нельзя. Следуйте пошаговой инструкции, чтобы решить проблему.</p>
+<p>Для начала проверьте актуальность контактных данных. Возможно, с вами пытались связаться по поводу уточнения адреса или состава посылки, но не смогли дозвониться. Проверьте SMS и электронную почту, указанную при оформлении.</p>
+<div class="checklist-block"><h4>☑️ План действий при зависшем статусе</h4><label class="check-item"><input type="checkbox"><span>Проверить дату последнего обновления статуса</span></label><label class="check-item"><input type="checkbox"><span>Позвонить в поддержку СДЭК</span></label><label class="check-item"><input type="checkbox"><span>Связаться с продавцом/отправителем</span></label><label class="check-item"><input type="checkbox"><span>Проверить спам-папку почты</span></label><label class="check-item"><input type="checkbox"><span>Подать заявку на розыск</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 5</div></div>
+<p>Если вы получатель товара из интернет-магазина, первым делом свяжитесь с поддержкой магазина, а не СДЭК. Часто именно продавец держит груз на складе, ожидая поступления оплаты или подтверждения заказа. Логистическая компания выполняет только (инструкции) клиента.</p>
+<p>В случае, если отправитель частное лицо, уточните у него, был ли груз фактически передан курьеру или просто оформлен заказ в личном кабинете. Бывают ситуации, когда трек-номер создан, но физически посылка еще не попала в руки логистов, хотя система уже показывает предварительный статус.</p>
+
+<h2 id="сроки-хранения-и-платное-хранение">Сроки хранения и платное хранение</h2>
+<p>Важно помнить о сроках бесплатного хранения. СДЭК предоставляет определенный период, в течение которого посылка может находиться на складе без дополнительной оплаты. Обычно это 3-5 дней для пунктов выдачи и до 14 дней для почтоматов, однако условия могут меняться в зависимости от тарифа и типа услуги.</p>
+<table>
+<thead>
+<tr>
+<th>Тип услуги</th>
+<th>Бесплатное хранение</th>
+<th>Плата за продление</th>
+<th>Максимальный срок</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Пункт выдачи (ПВЗ)</td>
+<td>3 дня</td>
+<td>Да, со 4-го дня</td>
+<td>7 дней</td>
+</tr>
+<tr>
+<td>Доставка до двери</td>
+<td>1 день (попытка)</td>
+<td>За повторный выезд</td>
+<td>14 дней</td>
+</tr>
+<tr>
+<td>Почтомат</td>
+<td>3 дня</td>
+<td>Да, со 4-го дня</td>
+<td>7 дней</td>
+</tr>
+<tr>
+<td>Склад FBY</td>
+<td>Зависит от договора</td>
+<td>По тарифу</td>
+<td>До 60 дней</td>
+</tr>
+</tbody>
+</table>
+<p>Если вы не успеваете забрать груз в срок бесплатного хранения, начнут начисляться пени. <strong>Оплата хранения</strong> производится при получении посылки. Чтобы избежать лишних расходов, можно воспользоваться функцией продления срока хранения в личном кабинете или мобильном приложении, если такая опция доступна для вашего заказа.</p>
+<blockquote>
+<p>⚠️ Внимание: Если посылка не выдана в течение максимального срока хранения (обычно 14-30 дней), она может быть возвращена отправителю за его счет или утилизирована, если отправитель откажется от нее.</p>
+</blockquote>
+
+<h2 id="специфика-работы-с-маркетплейсами-и-fby">Специфика работы с маркетплейсами и FBY</h2>
+<p>Отдельного внимания заслуживает работа с крупными торговыми площадками. Многие продавцы хранят свои товары на складах СДЭК (услуга FBY). В этом случае статус «На складе» может висеть очень долго — с момента поступления партии товара от производителя до момента покупки его конкретным клиентом.</p>
+<p>Для покупателя это означает, что товар физически рядом и будет доставлен очень быстро после оформления заказа. Однако до момента оплаты и формирования заказа в системе магазина трек-код может показывать статичную информацию о нахождении товара на складе.</p>
+<details class="faq-item"><summary>Как отличить FBY от обычной доставки?</summary><div class="faq-answer"><p>При заказе через FBY на сайте магазина часто стоит отметка «Доставка СДЭК» и обещание доставки «завтра» или «в день заказа». Трек-номер присваивается только после оплаты.</p></div></details>
+<p>Если вы продавец, используйте складские услуги СДЭК для ускорения обработки заказов. Это позволяет сократить время между покупкой и отправкой, что повышает лояльность клиентов. Система автоматически уведомит вас о снижении остатков, позволяя вовремя пополнить запасы на складе.</p>
+
+<h2 id="частые-вопросы-и-ответы-faq">Частые вопросы и ответы (FAQ)</h2>
+<details>
+<summary>Можно ли забрать посылку прямо со склада, минуя пункт выдачи?</summary>
+<p>Как правило, нет. Склады СДЭК — это закрытые логистические объекты, не предназначенные для обслуживания физических лиц. Выдача производится только через пункты выдачи заказов (ПВЗ) или курьером. Исключение составляют случаи, когда сам ПВЗ расположен на территории складского комплекса и имеет окно выдачи.</p>
+</details>
+<details>
+<summary>Почему статус «Склад» сменился на «Возврат отправителю»?</summary>
+<p>Это происходит, если получатель не явился за грузом в течение максимального срока хранения, или если отправитель дал команду на возврат. Также возврат может быть инициирован при отказе получателя от товара в пункте выдачи.</p>
+</details>
+<details>
+<summary>Как узнать, на каком именно складе находится посылка?</summary>
+<p>Точный адрес склада (например, «СДЭК Москва-Шереметьево») обычно скрыт в трекинге для безопасности. Вы видите только город. Узнать конкретное здание можно только через обращение в службу поддержки с предоставлением трек-кода.</p>
+</details>
+<details>
+<summary>Что делать, если на складе повредили посылку?</summary>
+<p>Если повреждение обнаружено при получении, обязательно составьте акт в пункте выдачи. Если же вы узнали об этом позже, обратитесь в поддержку с фото- и видеодоказательствами. СДЭК несет ответственность за груз с момента принятия до момента выдачи.</p>
+</details>
+<details>
+<summary>Можно ли изменить адрес доставки, пока посылка на складе?</summary>
+<p>Да, пока статус не сменился на «В пути» или «Готов к выдаче», часто можно изменить город или пункт выдачи через личный кабинет или по заявке. Однако если груз уже сформирован в магистраль, изменение маршрута может быть платным или невозможным.</p>
+</details>
+
+<p>Подводя итог, можно сказать, что статус «Посылка на складе» — это нормальный этап логистического процесса, который требует внимания только при длительном отсутствии изменений. Зная правила игры и свои права, вы сможете эффективно управлять своими отправлениями и получать заказы вовремя.</p>
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Главный вывод: Статус «Склад» чаще всего означает ожидание действий от отправителя (оплаты, документов) или стандартную процедуру сортировки, а не потерю груза.</p></div></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#что-означает-статус-склад-в-системе-отслеживания">Что означает статус «Склад» в системе отслеживания</a></li><li><a href="#разница-между-статусами-при-отправке-и-получении">Разница между статусами при отправке и получении</a></li><li><a href="#причины-задержки-груза-на-складе-сдэк">Причины задержки груза на складе СДЭК</a></li><li><a href="#инструкция-что-делать-если-статус-не-меняется">Инструкция: что делать, если статус не меняется</a></li><li><a href="#сроки-хранения-и-платное-хранение">Сроки хранения и платное хранение</a></li><li><a href="#специфика-работы-с-маркетплейсами-и-fby">Специфика работы с маркетплейсами и FBY</a></li><li><a href="#частые-вопросы-и-ответы-faq">Частые вопросы и ответы (FAQ)</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/k/ka/kak-uznat-dostavku-sdek.html" class="related-card">Как узнать доставку СДЭК: способы отслеживания по номеру</a></li><li><a href="/articles/k/ka/kak-proverit-trek-nomer-sdek.html" class="related-card">Как проверить трек-номер СДЭК: 5 способов отслеживания 2026</a></li><li><a href="/articles/k/ka/kak-uznat-ves-otpravlennoj-posylki-sdek.html" class="related-card">Как узнать вес отправленной посылки СДЭК: все способы</a></li><li><a href="/articles/g/gd/gde-na-kvitantsii-sdek-nomer-dlya-otslezhivaniya-posmotret.html" class="related-card">Где на квитанции СДЭК номер для отслеживания: поиск трек-кода</a></li><li><a href="/articles/k/ka/kak-otsledit-sdek-na-karte.html" class="related-card">Как отследить СДЭК на карте в 2026: пошаговый гайд с фото</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/k/ka/kak-uznat-dostavku-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как узнать доставку СДЭК: способы отслеживания по номеру</span><span class="related-bottom-desc">Узнайте, как проверить статус доставки СДЭК по трек-номеру, телефону или через виджеты. Полное руков</span></a><a href="/articles/k/ka/kak-proverit-trek-nomer-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как проверить трек-номер СДЭК: 5 способов отслеживания 2026</span><span class="related-bottom-desc">Пошаговая инструкция по проверке трек-номера СДЭК: официальный сайт, мобильное приложение, мессендже</span></a><a href="/articles/k/ka/kak-uznat-ves-otpravlennoj-posylki-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как узнать вес отправленной посылки СДЭК: все способы</span><span class="related-bottom-desc">Подробная инструкция: как узнать вес посылки СДЭК после отправки. Проверка через личный кабинет, SMS</span></a><a href="/articles/g/gd/gde-na-kvitantsii-sdek-nomer-dlya-otslezhivaniya-posmotret.html" class="related-bottom-card"><span class="related-bottom-title">Где на квитанции СДЭК номер для отслеживания: поиск трек-кода</span><span class="related-bottom-desc">Подробная инструкция, где найти номер для отслеживания на чеке СДЭК. Разбор всех форматов трек-кодов</span></a><a href="/articles/k/ka/kak-otsledit-sdek-na-karte.html" class="related-bottom-card"><span class="related-bottom-title">Как отследить СДЭК на карте в 2026: пошаговый гайд с фото</span><span class="related-bottom-desc">Узнайте все способы отслеживания посылки СДЭК на интерактивной карте: через сайт, мобильное приложен</span></a><a href="/articles/s/sk/skolko-mozhet-idti-posylka-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Сколько идёт посылка СДЭК: сроки доставки в 2026 году</span><span class="related-bottom-desc">Актуальные сроки доставки СДЭК по России и миру: от 1 дня до 30+ суток. Как проверить статус, ускори</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

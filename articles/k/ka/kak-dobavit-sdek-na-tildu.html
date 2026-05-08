@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>Как добавить СДЭК на Tilda: пошаговая инструкция 2026 — СДЭК Гид</title>
+    <meta name="description" content="Подробное руководство по интеграции калькулятора и виджета СДЭК на сайт Tilda. Настройка доставки, тарифов и отслеживания заказов без кода.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/k/ka/kak-dobavit-sdek-na-tildu.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Как добавить СДЭК на Tilda: пошаговая инструкция 2026">
+    <meta property="og:description" content="Подробное руководство по интеграции калькулятора и виджета СДЭК на сайт Tilda. Настройка доставки, тарифов и отслеживания заказов без кода.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/otpravka-gruzov/">Отправка грузов</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Как добавить СДЭК на Tilda: пошаговая инструкция 2026</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Интеграция СДЭК с Tilda: как подключить доставку за 15 минут</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#1-подготовка-что-нужно-перед-интеграцией">1. Подготовка: что нужно перед интеграцией</a></li><li><a href="#2-способ-1-виджет-калькулятора-сдэк-на-странице">2. Способ 1: Виджет калькулятора СДЭК на странице</a></li><li><a href="#3-способ-2-автоматический-расчёт-в-корзине-tilda-shop">3. Способ 2: Автоматический расчёт в корзине Tilda Shop</a></li><li><a href="#4-способ-3-отслеживание-заказов-через-сдэк">4. Способ 3: Отслеживание заказов через СДЭК</a></li><li><a href="#5-распространённые-ошибки-и-их-решения">5. Распространённые ошибки и их решения</a></li><li><a href="#6-продвинутая-настройка-api-tilda-zero-block">6. Продвинутая настройка: API + Tilda Zero Block</a></li><li><a href="#7-альтернативные-способы-интеграции">7. Альтернативные способы интеграции</a></li><li><a href="#8-оптимизация-для-seo-и-конверсии">8. Оптимизация для SEO и конверсии</a></li><li><a href="#faq-частые-вопросы">FAQ: Частые вопросы</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>Вы создали сайт на <em>Tilda</em>, но клиенты постоянно спрашивают о стоимости доставки <strong>СДЭК</strong>? Хотите автоматизировать расчёт тарифов и отслеживание посылок прямо на лендинге? Эта статья поможет интегрировать сервисы СДЭК с вашим проектом на Тильде — без программистов и сложных настроек.</p>
+
+<p>Многие предприниматели теряют заказы из-за отсутствия прозрачной информации о доставке. По данным <em>Яндекс.Метрики</em>, до <strong>37%</strong> пользователей покидают корзину, если не видят стоимость доставки на этапе оформления. СДЭК предлагает готовые решения для <em>Tilda</em>, которые решают эту проблему: от виджетов калькулятора до автоматизированных уведомлений. Мы разберём все способы — от простого встраивания кода до продвинутой настройки через API.</p>
+
+<p>В этой инструкции вы найдёте:</p>
+<ul>
+ <li>🔧 Пошаговое подключение <strong>калькулятора СДЭК</strong> через HTML-блок</li>
+ <li>📦 Настройку <strong>автоматического расчёта тарифов</strong> в корзине Tilda</li>
+ <li>🔄 Интеграцию с <strong>личным кабинетом СДЭК</strong> для отслеживания заказов</li>
+ <li>⚡ Обход ошибок при связке сервисов</li>
+</ul>
+
+<p>Все методы актуальны для <mark>2026 года</mark> и работают с последними версиями <em>Tilda Publishing</em> (включая <code>Tilda Zero Block</code>). Если вы используете <em>Tilda Shop</em>, отдельный раздел поможет настроить доставку прямо в админке магазина.
+
+<div class="poll-widget" id="poll-accb5145"><div class="poll-widget-question">📊 Какой способ интеграции СДЭК вам интереснее?</div><div class="poll-widget-option" data-poll="accb5145" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Виджет калькулятора на сайте</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="accb5145" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Автоматический расчёт в корзине</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="accb5145" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Отслеживание заказов в ЛК</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="accb5145" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">API для бизнес-решений</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="1-подготовка-что-нужно-перед-интеграцией">1. Подготовка: что нужно перед интеграцией</h2>
+
+<p>Прежде чем добавлять коды и настраивать виджеты, убедитесь, что у вас есть всё необходимое:</p>
+
+<ul>
+ <li>📌 <strong>Договор с СДЭК</strong> (для бизнес-тарифов) или регистрация в <a href="https://lk.cdek.ru/" target="_blank" rel="noopener noreferrer"><em>личном кабинете</em></a> для физических лиц. Без этого API-ключи не выдадут.</li>
+ <li>🔑 <strong>API-ключ</strong> (если планируете автоматизацию). Его можно получить в разделе <code>Настройки → Интеграции → API</code>.</li>
+ <li>🖥️ Доступ к <strong>админке Tilda</strong> с правами редактирования кода (для некоторых методов потребуется <code>Tilda Zero Block</code>).</li>
+ <li>📦 Список <strong>габаритов и веса</strong> ваших товаров — это понадобится для точного расчёта тарифов.</li>
+</ul>
+
+<p>Если вы только тестируете интеграцию, используйте <strong>песочницу СДЭК</strong> (test API). Для этого при регистрации укажите, что вам нужен тестовый доступ. В песочнице все расчёты проводятся с имитацией реальных тарифов, но без оплаты.</p>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Если вы подключаете <em>СДЭК Бизнес</em>, проверьте, что в договоре указано разрешение на использование API. Без этого пункта ключи для интеграции не выдадут, даже если у вас есть доступ к личному кабинету.</blockquote>
+
+<p>Для упрощения работы подготовьте таблицу с данными ваших посылок:</p>
+
+<table>
+ <thead>
+ <tr>
+ <th>Тип товара</th>
+ <th>Вес (кг)</th>
+ <th>Габариты (Д×Ш×В, см)</th>
+ <th>Объявленная ценность (₽)</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr>
+ <td>Книга</td>
+ <td>0.5</td>
+ <td>20×15×2</td>
+ <td>1 200</td>
+ </tr>
+ <tr>
+ <td>Одежда (пакет)</td>
+ <td>1.2</td>
+ <td>30×20×10</td>
+ <td>3 500</td>
+ </tr>
+ <tr>
+ <td>Электроника</td>
+ <td>2.5</td>
+ <td>25×25×15</td>
+ <td>15 000</td>
+ </tr>
+ </tbody>
+</table>
+
+<p>Эти данные пригодятся при настройке калькулятора, чтобы избежать ошибок в расчётах. Если вы продаёте товары разного веса, лучше создать несколько профилей доставки в СДЭК.</p>
+
+<h2 id="2-способ-1-виджет-калькулятора-сдэк-на-странице">2. Способ 1: Виджет калькулятора СДЭК на странице</h2>
+
+<p>Самый простой способ показать клиентам стоимость доставки — встроить <strong>готовый виджет СДЭК</strong> на сайт. Он позволяет рассчитать тариф прямо на странице товара или в корзине.</p>
+
+<p>Инструкция:</p>
+
+<ol>
+ <li>Перейдите в <a href="https://widget.cdek.ru/" target="_blank" rel="noopener noreferrer"><em>конструктор виджетов СДЭК</em></a>.</li>
+ <li>Выберите тип виджета: <code>Калькулятор</code> (для расчёта стоимости) или <code>Отслеживание</code> (для проверки статуса заказа).</li>
+ <li>Настройте внешний вид: цвет кнопок, шрифты, размеры блока. Для <em>Tilda</em> рекомендуем использовать <code>Тёмную тему</code> или <code>Светлую минималистичную</code> — они лучше вписываются в дизайн шаблонов.</li>
+ <li>Скопируйте сгенерированный код виджета (начинается с <code>&lt;script src="https://widget.cdek.ru/...></code>).</li>
+</ol>
+
+<p>Теперь добавьте код на сайт:</p>
+
+<ul>
+ <li>🖱️ В <em>Tilda</em> перейдите в раздел <code>Контент → Добавить блок → HTML</code> (<code>T123</code>).</li>
+ <li>📋 Вставьте скопированный код в поле для HTML.</li>
+ <li>🔄 Опубликуйте изменения. Виджет появится на странице через 1–2 минуты.</li>
+</ul>
+
+<p>Пример кода для вставки (упрощённый):</p>
+<pre><code>&lt;script src="https://widget.cdek.ru/widget.js"&gt;&lt;/script&gt;
+<p>&lt;div</p>
+<p>data-type="calc"</p>
+<p>data-language="ru"</p>
+<p>data-default-city="Москва"</p>
+<p>data-hide-destination="false"&gt;&lt;/div&gt;</code></pre></p>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Если виджет не отображается, проверьте, что в настройках <em>Tilda</em> отключён параметр <code>Запретить внешние скрипты</code> (раздел <code>Настройки сайта → Безопасность</code>).</blockquote>
+
+<p>Где лучше размещать виджет:</p>
+<ul>
+ <li>🛒 На странице <strong>корзины</strong> — чтобы клиент видел стоимость доставки перед оформлением.</li>
+ <li>📦 На странице <strong>доставки</strong> — если у вас отдельный раздел с информацией о логистике.</li>
+ <li>🏷️ На карточках товаров — если габариты и вес сильно варьируются.</li>
+</ul>
+
+
+<p>Виджет отображается на всех устройствах (ПК, мобильные)</p>
+<p>Расчёт тарифа совпадает с данными из ЛК СДЭК</p>
+<p>Кнопки и поля активны (нет ошибок консоли)</p>
+<p>Цвета виджета гармонируют с дизайном сайта--></p>
+
+<h2 id="3-способ-2-автоматический-расчёт-в-корзине-tilda-shop">3. Способ 2: Автоматический расчёт в корзине Tilda Shop</h2>
+
+<p>Если вы используете <em>Tilda Shop</em>, можно настроить автоматический расчёт доставки СДЭК прямо в корзине. Для этого не нужен API — достаточно подключить <strong>готовое решение через Zero Block</strong>.</p>
+
+<p>Пошаговая настройка:</p>
+
+<ol>
+ <li>В <em>Tilda</em> перейдите в <code>Настройки → Интеграции → Доставка</code>.</li>
+ <li>Выберите <code>Добавить способ доставки → СДЭК</code>.</li>
+ <li>Укажите:
+ <ul>
+ <li>📍 Город отправления (должен совпадать с данными в договоре СДЭК).</li>
+ <li>🔑 API-ключ (если есть) или используйте <code>Без API</code> (расчёт будет менее точным).</li>
+ <li>📦 Габариты по умолчанию (если не указаны для конкретных товаров).</li>
+ </ol>
+ </li>
+ <li>Сохраните настройки и опубликуйте сайт.</li>
+</ol>
+
+<p>После настройки клиенты увидят стоимость доставки СДЭК на этапе оформления заказа. Если API не подключён, тариф будет рассчитываться по средним значениям (может отличаться от реальной стоимости на 10–15%).</p>
+
+<p>Для точной интеграции с API:</p>
+<pre><code>// Пример запроса к API СДЭК для расчёта тарифа
+<p>fetch('https://api.cdek.ru/v2/calculator/tariff', {</p>
+<p>method:'POST',</p>
+<p>headers: {</p>
+<p>'Content-Type':'application/json',</p>
+<p>'Authorization':'Token YOUR_API_KEY'</p>
+<p>},</p>
+<p>body: JSON.stringify({</p>
+<p>"tariff_code": 136, // Код тарифа (например, 136 — курьерская доставка)</p>
+<p>"from_location": {</p>
+<p>"code": 44 // Код города отправления (Москва)</p>
+<p>},</p>
+<p>"to_location": {</p>
+<p>"code": 77 // Код города получения (Санкт-Петербург)</p>
+<p>},</p>
+<p>"packages": [{</p>
+<p>"weight": 1000, // Вес в граммах</p>
+<p>"length": 20, // Длина в см</p>
+<p>"width": 15, // Ширина в см</p>
+<p>"height": 10 // Высота в см</p>
+<p>}]</p>
+<p>})</p>
+<p>})</p>
+<p>.then(response => response.json)</p>
+<p>.then(data => console.log(data));</code></pre></p>
+
+<blockquote>⚠️ <strong>Внимание:</strong> При использовании API учитывайте <strong>лимиты запросов</strong> — в бесплатном тарифе СДЭК разрешает до 1 000 запросов в месяц. Для интернет-магазинов с большим трафиком потребуется бизнес-тариф.</blockquote>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Если у вас более 100 заказов в месяц, запросите у СДЭК <strong>индивидуальный тариф на API</strong>. Это дешевле, чем платить за каждый дополнительный запрос по стандартной цене.</p></div>
+
+<h2 id="4-способ-3-отслеживание-заказов-через-сдэк">4. Способ 3: Отслеживание заказов через СДЭК</h2>
+
+<p>Чтобы клиенты могли проверять статус своих посылок прямо на вашем сайте, добавьте виджет <strong>отслеживания СДЭК</strong>. Он показывает историю движения заказа по ПВЗ или курьеру.</p>
+
+<p>Как настроить:</p>
+
+<ol>
+ <li>Сгенерируйте код виджета отслеживания в <a href="https://widget.cdek.ru/" target="_blank" rel="noopener noreferrer"><em>конструкторе СДЭК</em></a> (выберите тип <code>Отслеживание</code>).</li>
+ <li>В <em>Tilda</em> добавьте блок <code>HTML (T123)</code> на страницу, где должен быть виджет (например, в разделе <code>Мой заказ</code>).</li>
+ <li>Вставьте код и опубликуйте изменения.</li>
+</ol>
+
+<p>Пример кода для отслеживания:</p>
+<pre><code>&lt;div
+<p>data-type="track"</p>
+<p>data-language="ru"</p>
+<p>data-default-track="123456789"&gt;&lt;/div&gt;</code></pre></p>
+
+<p>Где <code>123456789</code> — номер трек-номера для примера. Клиенты смогут вводить свои номера прямо в виджете.</p>
+
+<p>Дополнительные настройки виджета:</p>
+<ul>
+ <li>🔄 <code>data-hide-input="true"</code> — скрыть поле ввода (если трек-номер передаётся автоматически).</li>
+ <li>📱 <code>data-mobile="true"</code> — адаптивный дизайн для мобильных устройств.</li>
+ <li>🎨 <code>data-theme="dark"</code> — тёмная тема оформления.</li>
+</ul>
+
+<p>Если вы используете <em>Tilda CRM</em>, можно автоматизировать отправку трек-номеров клиентам. Для этого:</p>
+<ol>
+ <li>В настройках CRM добавьте поле <code>Трек-номер СДЭК</code>.</li>
+ <li>Настройте <strong>триггер</strong>, который будет отправлять email с номером отслеживания после создания заказа в СДЭК.</li>
+</ol>
+
+<details class="faq-item"><summary>Как получить трек-номер из СДЭК автоматически?</summary><div class="faq-answer"><p>
+<p>Чтобы трек-номера подтягивались в Tilda автоматически, настройте вебхук в личном кабинете СДЭК:</p>
+<p>1. Перейдите в <code>Настройки → Вебхуки</code>.</p>
+<p>2. Укажите URL вашего сайта с обработчиком (например, <code>https://ваш-сайт.tilda.ws/cdek-webhook</code>).</p>
+<p>3. Выберите событие <code>Создание заказа</code>.</p>
+<p>4. В <em>Tilda</em> используйте <code>Zero Block</code> с PHP-кодом для обработки данных.</p>
+<strong>Важно:</strong> Для этого потребуются навыки программирования или помощь разработчика.</p></div></details>
+
+<h2 id="5-распространённые-ошибки-и-их-решения">5. Распространённые ошибки и их решения</h2>
+
+<p>При интеграции СДЭК с <em>Tilda</em> пользователи часто сталкиваются с типичными проблемами. Мы собрали самые частые и способы их исправления.</p>
+
+<table>
+ <thead>
+ <tr>
+ <th>Ошибка</th>
+ <th>Причина</th>
+ <th>Решение</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr>
+ <td>Виджет не отображается</td>
+ <td>Блокировка скриптов в Tilda</td>
+ <td>Отключите <code>Запретить внешние скрипты</code> в настройках безопасности</td>
+ </tr>
+ <tr>
+ <td>Неверный расчёт тарифа</td>
+ <td>Не указаны габариты товара</td>
+ <td>Добавьте вес и размеры в настройках доставки или API-запросе</td>
+ </tr>
+ <tr>
+ <td>Ошибка API:"Invalid token"</td>
+ <td>Неверный API-ключ</td>
+ <td>Проверьте ключ в личном кабинете СДЭК и обновите его в настройках Tilda</td>
+ </tr>
+ <tr>
+ <td>Виджет тормозит сайт</td>
+ <td>Конфликт с другими скриптами</td>
+ <td>Перенесите виджет в отдельный блок или используйте асинхронную загрузку</td>
+ </tr>
+ </tbody>
+</table>
+
+<p>Если при расчёте тарифа виджет выдаёт ошибку <code>"Город не найден"</code>, проверьте:</p>
+<ul>
+ <li>🏙️ Правильность написания города (например, <code>"Санкт-Петербург"</code>, а не <code>"Питер"</code>).</li>
+ <li>🔍 Код города в API (можно уточнить через <a href="https://api.cdek.ru/v2/location/cities" target="_blank" rel="noopener noreferrer">справочник СДЭК</a>).</li>
+ <li>🌍 Регион (некоторые населённые пункты требуют указания области, например, <code>"Московская область, Балашиха"</code>).</li>
+</ul>
+
+<p>Для ускорения загрузки виджета используйте <strong>отложенную загрузку</strong> (lazy load). Добавьте в код виджета параметр:</p>
+<pre><code>&lt;script src="https://widget.cdek.ru/widget.js" <strong>defer</strong>&gt;&lt;/script&gt;</code></pre>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Если после всех настроек виджет работает некорректно, проверьте сайт через <a href="https://validator.w3.org/" target="_blank" rel="noopener noreferrer">валидатор W3C</a>. Часто ошибки в вёрстке Tilda ломают работу внешних скриптов.</p></div>
+
+<h2 id="6-продвинутая-настройка-api-tilda-zero-block">6. Продвинутая настройка: API + Tilda Zero Block</h2>
+
+<p>Для полной автоматизации (создание заказов в СДЭК прямо из Tilda, синхронизация статусов) потребуется <strong>настройка через API</strong> и <em>Zero Block</em>. Этот способ подходит для бизнес-проектов с большим количеством заказов.</p>
+
+<p>Что можно автоматизировать:</p>
+<ul>
+ <li>📦 Автоматическое создание заказа в СДЭК после оплаты на сайте.</li>
+ <li>🔄 Синхронизацию статусов (<code>"В обработке"</code>, <code>"Отправлен"</code>, <code>"Доставлен"</code>).</li>
+ <li>📊 Генерацию этикеток для печати прямо из админки Tilda.</li>
+</ul>
+
+<p>Пример кода для создания заказа через API (упрощённая версия):</p>
+<pre><code>// Отправка данных о заказе в СДЭК
+<p>const orderData = {</p>
+<p>"type": 1, // Тип заказа (1 — интернет-магазин)</p>
+<p>"number":"ORD-" + Math.floor(Math.random * 10000), // Номер заказа</p>
+<p>"sender": {</p>
+<p>"name":"Ваш магазин",</p>
+<p>"phone":"+79991234567"</p>
+<p>},</p>
+<p>"recipient": {</p>
+<p>"name":"Иван Иванов",</p>
+<p>"phone":"+79997654321"</p>
+<p>},</p>
+<p>"from_location": {</p>
+<p>"code": 44 // Москва</p>
+<p>},</p>
+<p>"to_location": {</p>
+<p>"code": 77 // Санкт-Петербург</p>
+<p>},</p>
+<p>"packages": [{</p>
+<p>"number":"PKG1",</p>
+<p>"weight": 1500,</p>
+<p>"length": 20,</p>
+<p>"width": 15,</p>
+<p>"height": 10</p>
+<p>}],</p>
+<p>"services": [{</p>
+<p>"code":"INSURANCE", // Страховка</p>
+<p>"parameter":"10000" // Сумма</p>
+<p>}]</p>
+<p>};</p>
+
+<p>fetch('https://api.cdek.ru/v2/orders', {</p>
+<p>method:'POST',</p>
+<p>headers: {</p>
+<p>'Content-Type':'application/json',</p>
+<p>'Authorization':'Token YOUR_API_KEY'</p>
+<p>},</p>
+<p>body: JSON.stringify(orderData)</p>
+<p>})</p>
+<p>.then(response => response.json)</p>
+<p>.then(data => {</p>
+<p>console.log('Заказ создан в СДЭК:', data);</p>
+<p>// Здесь можно сохранить трек-номер в Tilda CRM</p>
+<p>});</code></pre></p>
+
+<p>Для работы этого кода:</p>
+<ol>
+ <li>В <em>Tilda</em> добавьте <code>Zero Block</code> на страницу подтверждения заказа.</li>
+ <li>Вставьте код, заменив <code>YOUR_API_KEY</code> и данные заказа на актуальные.</li>
+ <li>Настройте обработку ответа от СДЭК (сохранение трек-номера, отправка уведомления клиенту).</li>
+</ol>
+
+<blockquote>⚠️ <strong>Внимание:</strong> При использовании API обязательно настройте <strong>обработку ошибок</strong>. Например, если СДЭК вернёт ошибку <code>"Превышен лимит запросов"</code>, заказ не должен"зависать" в статусе <code>"Оплачен"</code> — клиент должен получить уведомление о проблеме.</blockquote>
+
+<p>Для тестирования API используйте <strong>Postman</strong> или <strong>cURL</strong>. Пример запроса для проверки:</p>
+<pre><code>curl -X POST \
+<p>https://api.cdek.ru/v2/calculator/tariff \</p>
+<p>-H'Authorization: Token YOUR_API_KEY' \</p>
+<p>-H'Content-Type: application/json' \</p>
+<p>-d'{</p>
+<p>"tariff_code": 136,</p>
+<p>"from_location": {"code": 44},</p>
+<p>"to_location": {"code": 77},</p>
+<p>"packages": [{"weight": 1000,"length": 20,"width": 15,"height": 10}]</p>
+<p>}'</code></pre></p>
+
+<h2 id="7-альтернативные-способы-интеграции">7. Альтернативные способы интеграции</h2>
+
+<p>Если стандартные методы не подходят, рассмотрите альтернативные варианты:</p>
+
+<ul>
+ <li>🔌 <strong>Плагины для Tilda</strong>: Сервисы вроде <em>Tildalize</em> или <em>TildaTools</em> предлагают готовые модули для СДЭК с расширенными настройками.</li>
+ <li>🤖 <strong>Чат-боты</strong>: Настройте бота в <em>Telegram</em> или <em>ВКонтакте</em>, который будет рассчитывать стоимость доставки через API СДЭК и отправлять клиентам.</li>
+ <li>📧 <strong>Email-интеграция</strong>: Автоматически отправляйте данные о заказах из Tilda в СДЭК через <em>Zapier</em> или <em>Make (ex-Integromat)</em>.</li>
+</ul>
+
+<p>Пример настройки через <em>Zapier</em>:</p>
+<ol>
+ <li>Создайте новый <code>Zap</code> с триггером <code>New Order in Tilda</code>.</li>
+ <li>Добавьте действие <code>Create Order in CDEK</code>.</li>
+ <li>Сопоставьте поля (имя клиента, адрес, вес посылки и т. д.).</li>
+ <li>Активируйте интеграцию.</li>
+</ol>
+
+<p>Стоимость такого решения: от <strong>$20/месяц</strong> за базовый тариф <em>Zapier</em>. Подходит для магазинов с до 100 заказов в месяц.</p>
+
+<p>Если вам нужна <strong>полная кастомизация</strong> (например, уникальный дизайн калькулятора или нестандартная логика расчётов), закажите разработку у <em>Tilda-партнёров</em>. Средняя стоимость такой интеграции — от <strong>15 000 ₽</strong>.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Перед заказом кастомной интеграции уточните у исполнителя, есть ли у него опыт работы с <strong>СДЭК API 2.0</strong>. Старая версия API (1.0) больше не поддерживается и может вызвать ошибки.</p></div>
+
+<h2 id="8-оптимизация-для-seo-и-конверсии">8. Оптимизация для SEO и конверсии</h2>
+
+<p>Добавление СДЭК на сайт не только упрощает логистику, но и повышает <strong>конверсию</strong> и <strong>позиции в поиске</strong>. Вот как это использовать:</p>
+
+<ul>
+ <li>🔍 <strong>SEO-тексты</strong>: Добавьте на страницу доставки ключевые фразы вроде <code>"доставка СДЭК [ваш город]"</code>, <code>"бесплатная доставка СДЭК от [сумма]"</code>.</li>
+ <li>⚡ <strong>Микроразметка</strong>: Используйте <code>Schema.org</code> для разметки информации о доставке. Пример:
+ <pre><code>&lt;script type="application/ld+json"&gt;
+<p>{</p>
+<p>"@context":"https://schema.org",</p>
+<p>"@type":"OfferShippingDetails",</p>
+<p>"shippingRate": {</p>
+<p>"@type":"MonetaryAmount",</p>
+<p>"value":"350",</p>
+<p>"currency":"RUB"</p>
+<p>},</p>
+<p>"shippingDestination": {</p>
+<p>"@type":"DefinedRegion",</p>
+<p>"addressCountry":"RU"</p>
+<p>},</p>
+<p>"deliveryMethod": {</p>
+<p>"@type":"ShippingDeliveryMethod",</p>
+<p>"name":"Доставка СДЭК"</p>
+<p>}</p>
+<p>}</p>
+<p>&lt;/script&gt;</code></pre></p>
+ </li>
+ <li>📈 <strong>A/B-тестирование</strong>: Проверьте, какой вариант размещения калькулятора работает лучше — на странице товара или в корзине.</li>
+</ul>
+
+<p>Примеры текстов для SEO:</p>
+<ul>
+ <li>📌 <strong>Заголовок H2:</strong> <code>"Доставка СДЭК по России: тарифы и сроки для [ваш город]"</code></li>
+ <li>📝 <strong>Описание:</strong> <code>"Узнайте стоимость доставки СДЭК из [ваш город] в любой регион России. Рассчитайте тариф онлайн с помощью нашего калькулятора. Бесплатная доставка при заказе от [сумма] ₽!"</code></li>
+</ul>
+
+<p>Чтобы увеличить конверсию:</p>
+<ul>
+ <li>🎯 Добавьте <strong>таймер доставки</strong> (например, <code>"Закажите до 15:00 — отправим сегодня!"</code>).</li>
+ <li>💳 Укажите <strong>порог бесплатной доставки</strong> (например, <code>"Бесплатно при заказе от 3 000 ₽"</code>).</li>
+ <li>📦 Показывайте <strong>альтернативные способы доставки</strong> (например, самовывоз + СДЭК).</li>
+</ul>
+
+<p>Используйте <strong>тепловую карту</strong> (например, <em>Hotjar</em> или <em>Yandex Webvisor</em>), чтобы увидеть, как пользователи взаимодействуют с виджетом СДЭК. Если они не доскролливают до калькулятора, перенесите его выше на странице.</p>
+
+<h2 id="faq-частые-вопросы">FAQ: Частые вопросы</h2>
+
+<details>
+ <summary>🔹 Можно ли подключить СДЭК к Tilda без API?</summary>
+ <p>Да, для этого используйте <strong>готовый виджет СДЭК</strong> (способ 1 в статье). Он работает без API, но расчёт тарифов будет менее точным (например, не учитываются индивидуальные скидки по договору). Для точного расчёта API обязателен.</p>
+</details>
+
+<details>
+ <summary>🔹 Почему виджет СДЭК не показывает мой город?</summary>
+ <p>Скорее всего, город неверно указан в настройках виджета или отсутствует в базе СДЭК. Проверьте:</p>
+ <ol>
+ <li>Код города через <a href="https://api.cdek.ru/v2/location/cities" target="_blank" rel="noopener noreferrer">API СДЭК</a>.</li>
+ <li>Написание города (должно совпадать с официальным названием в СДЭК).</li>
+ <li>Регион (например, для <code>"Тюмень"</code> может потребоваться указание <code>"Тюменская область"</code>).</li>
+ </ol>
+ <p>Если город новый или небольшой, свяжитесь с поддержкой СДЭК для добавления его в базу.</p>
+</details>
+
+<details>
+ <summary>🔹 Как сделать, чтобы стоимость доставки автоматически добавлялась в заказ?</summary>
+ <p>Для этого:</p>
+ <ol>
+ <li>В <em>Tilda Shop</em> настройте способ доставки <code>СДЭК</code> (раздел <code>Настройки → Доставка</code>).</li>
+ <li>Укажите API-ключ (если есть) или используйте ручной ввод тарифов.</li>
+ <li>В настройках корзины включите опцию <code>"Показывать стоимость доставки"</code>.</li>
+ </ol>
+ <p>Если API не подключён, клиент увидит приблизительную стоимость, а точную сумму вы сможете уточнить при обработке заказа.</p>
+</details>
+
+<details>
+ <summary>🔹 Сколько стоит интеграция СДЭК с Tilda?</summary>
+ <p>Стоимость зависит от способа интеграции:</p>
+ <ul>
+ <li><strong>Бесплатно:</strong> Виджет калькулятора или отслеживания (без API).</li>
+ <li><strong>От 0 ₽/месяц:</strong> API СДЭК (бесплатно до 1 000 запросов, затем от 0.5 ₽ за запрос).</li>
+ <li><strong>От 15 000 ₽:</strong> Кастомная интеграция через <em>Zero Block</em> (разовая оплата разработчику).</li>
+ <li><strong>От $20/месяц:</strong> Автоматизация через <em>Zapier</em> или аналоги.</li>
+ </ul>
+</details>
+
+<details>
+ <summary>🔹 Можно ли отслеживать заказы СДЭК прямо в Tilda CRM?</summary>
+ <p>Да, для этого:</p>
+ <ol>
+ <li>Настройте <strong>вебхук</strong> в личном кабинете СДЭК (раздел <code>Настройки → Вебхуки</code>).</li>
+ <li>Укажите URL вашего сайта с обработчиком (например, <code>https://ваш-сайт.tilda.ws/cdek-webhook</code>).</li>
+ <li>В <em>Tilda</em> используйте <code>Zero Block</code> с PHP-кодом для обработки данных и обновления статусов в CRM.</li>
+ </ol>
+ <p>Для этого потребуются базовые навыки программирования или помощь разработчика.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#1-подготовка-что-нужно-перед-интеграцией">1. Подготовка: что нужно перед интеграцией</a></li><li><a href="#2-способ-1-виджет-калькулятора-сдэк-на-странице">2. Способ 1: Виджет калькулятора СДЭК на странице</a></li><li><a href="#3-способ-2-автоматический-расчёт-в-корзине-tilda-shop">3. Способ 2: Автоматический расчёт в корзине Tilda Shop</a></li><li><a href="#4-способ-3-отслеживание-заказов-через-сдэк">4. Способ 3: Отслеживание заказов через СДЭК</a></li><li><a href="#5-распространённые-ошибки-и-их-решения">5. Распространённые ошибки и их решения</a></li><li><a href="#6-продвинутая-настройка-api-tilda-zero-block">6. Продвинутая настройка: API + Tilda Zero Block</a></li><li><a href="#7-альтернативные-способы-интеграции">7. Альтернативные способы интеграции</a></li><li><a href="#8-оптимизация-для-seo-и-конверсии">8. Оптимизация для SEO и конверсии</a></li><li><a href="#faq-частые-вопросы">FAQ: Частые вопросы</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/k/ka/kak-oformit-avito-dostavku-sdekom.html" class="related-card">Как оформить доставку СДЭК на Авито: пошаговая инструкция 2026</a></li><li><a href="/articles/n/na/na-chem-dostavlyayutsya-posylki-sdek.html" class="related-card">На чём доставляют посылки СДЭК: виды транспорта и особенности</a></li><li><a href="/articles/c/ch/chto-znachit-sdek-magistralnyj.html" class="related-card">СДЭК Магистральный: что это значит и как работает в 2026 году</a></li><li><a href="/articles/k/ka/kak-sdelat-nakladnuyu-sdek-dlya-otpravki.html" class="related-card">Как сделать накладную СДЭК: пошаговая инструкция для отправителя</a></li><li><a href="/articles/s/sd/sdek-chto-znachit-magistralnyj-ekspress-sklad-sklad.html" class="related-card">СДЭК Магистральный Экспресс: что это и как работает складская логистика</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/k/ka/kak-oformit-avito-dostavku-sdekom.html" class="related-bottom-card"><span class="related-bottom-title">Как оформить доставку СДЭК на Авито: пошаговая инструкция 2026</span><span class="related-bottom-desc">Подробное руководство по настройке доставки  через  для продавцов: от подключения до отправки посылк</span></a><a href="/articles/n/na/na-chem-dostavlyayutsya-posylki-sdek.html" class="related-bottom-card"><span class="related-bottom-title">На чём доставляют посылки СДЭК: виды транспорта и особенности</span><span class="related-bottom-desc">Узнайте, какие виды транспорта использует СДЭК для доставки посылок: от грузовиков до электромобилей</span></a><a href="/articles/c/ch/chto-znachit-sdek-magistralnyj.html" class="related-bottom-card"><span class="related-bottom-title">СДЭК Магистральный: что это значит и как работает в 2026 году</span><span class="related-bottom-desc">Разбираемся, что такое магистральные перевозки СДЭК: маршруты, сроки, тарифы и как отличить от регио</span></a><a href="/articles/k/ka/kak-sdelat-nakladnuyu-sdek-dlya-otpravki.html" class="related-bottom-card"><span class="related-bottom-title">Как сделать накладную СДЭК: пошаговая инструкция для отправителя</span><span class="related-bottom-desc">Узнайте, как создать накладную СДЭК онлайн или в отделении. Подробный гид по заполнению, печати и пе</span></a><a href="/articles/s/sd/sdek-chto-znachit-magistralnyj-ekspress-sklad-sklad.html" class="related-bottom-card"><span class="related-bottom-title">СДЭК Магистральный Экспресс: что это и как работает складская логистика</span><span class="related-bottom-desc">Разбираемся в терминах СДЭК: что значит «магистральный экспресс», как устроена работа складов и как </span></a><a href="/articles/k/ka/kak-prodat-tovar-cherez-transportnuyu-kompaniyu-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как продать товар через СДЭК: пошаговая инструкция для продавца</span><span class="related-bottom-desc">Узнайте, как безопасно продать товар через СДЭК. Инструкция по безопасной сделке, упаковке, расчету </span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

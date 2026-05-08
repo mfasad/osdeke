@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>Что значит «частичная выдача не предусмотрена СДЭК»: разбор ошибки 2026 — СДЭК Гид</title>
+    <meta name="description" content="Почему СДЭК отказывает в частичной выдаче посылки? Разбираем причины ошибки, что делать клиенту и как избежать проблем при получении заказа.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/c/ch/chastichnaya-vydacha-ne-predusmotrena-sdek-chto-eto-takoe.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Что значит «частичная выдача не предусмотрена СДЭК»: разбор ошибки 2026">
+    <meta property="og:description" content="Почему СДЭК отказывает в частичной выдаче посылки? Разбираем причины ошибки, что делать клиенту и как избежать проблем при получении заказа.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/poluchenie/">Получение</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Что значит «частичная выдача не предусмотрена СДЭК»: разбор ошибки 2026</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>«Частичная выдача не предусмотрена» в СДЭК: что это значит и как получить заказ</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#что-такое-частичная-выдача-и-почему-сдэк-её-запрещает">Что такое «частичная выдача» и почему СДЭК её запрещает</a></li><li><a href="#когда-ошибка-частичная-выдача-не-предусмотрена-появляется-чаще-всего">Когда ошибка «частичная выдача не предусмотрена» появляется чаще всего</a></li><li><a href="#чем-рискует-клиент-если-настаивает-на-частичной-выдаче">Чем рискует клиент, если настаивает на частичной выдаче</a></li><li><a href="#как-получить-посылку-если-сдэк-не-даёт-её-забрать">Как получить посылку, если СДЭК не даёт её забрать</a></li><li><a href="#частые-вопросы-клиентов-и-ответы-сдэк">Частые вопросы клиентов и ответы СДЭК</a></li><li><a href="#как-избежать-проблемы-в-будущем">Как избежать проблемы в будущем</a></li><li><a href="#заключение-что-делать-прямо-сейчас">Заключение: что делать прямо сейчас</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body"><p>Вы пришли в пункт выдачи <em>СДЭК</em>, чтобы забрать долгожданную посылку, но на экране терминала или в сообщении от оператора появляется загадочная фраза: <strong>«Частичная выдача не предусмотрена»</strong>. Что это значит? Почему нельзя получить только часть заказа, если вам срочно нужна именно она? И главное — как теперь быть с посылкой?</p>
+
+<p>Эта ошибка — одна из самых распространённых при получении грузов через <strong>СДЭК</strong>, но её причины редко объясняют понятным языком. В статье разберём:</p>
+<ul>
+  <li>🔍 <strong>Что такое «частичная выдача»</strong> и почему СДЭК её блокирует</li>
+  <li>📦 <strong>В каких случаях возникает ошибка</strong> (и когда это законно, а когда — нет)</li>
+  <li>⚠️ <strong>Чем рискует клиент</strong>, если настаивает на разделении заказа</li>
+  <li>💡 <strong>Как получить посылку</strong>, если система не даёт её забрать полностью</li>
+</ul>
+
+<p>Споiler: в 90% случаев проблема решается на месте, но есть нюансы, о которых вам не расскажут в пункте выдачи. Читайте дальше, чтобы не потерять деньги или товар.</p>
+
+<div class="poll-widget" id="poll-0352fbbc"><div class="poll-widget-question">📊 Сталкивались ли вы с ошибкой "частичная выдача не предусмотрена" в СДЭК?</div><div class="poll-widget-option" data-poll="0352fbbc" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Да, при получении посылки</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="0352fbbc" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Да, но решил проблему сам</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="0352fbbc" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Нет, но слышал о такой</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="0352fbbc" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Не знаю, что это</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="что-такое-частичная-выдача-и-почему-сдэк-её-запрещает">Что такое «частичная выдача» и почему СДЭК её запрещает</h2>
+
+<p><strong>Частичная выдача</strong> — это ситуация, когда клиент хочет забрать из посылки <strong>не всё содержимое</strong>, а только часть товаров. Например:</p>
+<ul>
+  <li>📱 В заказе лежат смартфон и чехол, но вам нужен только телефон</li>
+  <li>👕 Вы купили 3 футболки, но хотите получить только 2 (третья не подошла по размеру)</li>
+  <li>🎁 В коробке несколько мелких товаров, и вы хотите забрать их по частям</li>
+</ul>
+
+<p><em>СДЭК</em> принципиально <strong>не разрешает</strong> такие операции. Причины кроются в <mark>договоре транспортной компании с интернет-магазинами и логистических правилах</mark>:</p>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Если вы видите сообщение «Частичная выдача не предусмотрена», это означает, что система <em>СДЭК</em> заблокировала возможность разделения заказа на уровне программы. Оператор в пункте выдачи <strong>не имеет права</strong> игнорировать это ограничение — даже если вы готовы подписать отказ от остальных товаров.</blockquote>
+
+<p>Почему так строго? Вот ключевые причины:</p>
+<ol>
+  <li><strong>Ответственность за утерю.</strong> Если вы заберёте часть посылки, а остальное потеряется или испортится — кто будет виноват? <em>СДЭК</em> не хочет разбираться в спорных ситуациях.</li>
+  <li><strong>Контроль целостности.</strong> В некоторых заказах товары упакованы так, что разделить их без повреждения невозможно (например, хрупкая электроника).</li>
+  <li><strong>Договор с продавцом.</strong> Многие интернет-магазины в условиях доставки прописывают запрет на частичную выдачу. <em>СДЭК</em> обязан следить за выполнением этих правил.</li>
+</ol>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Если в заказе лежат товары от разных продавцов (например, с <em>Ozon</em> или <em>Wildberries</em>), шанс получить часть посылки ещё ниже. Каждый продавец может иметь свои ограничения.</p></div>
+
+<h2 id="когда-ошибка-частичная-выдача-не-предусмотрена-появляется-чаще-всего">Когда ошибка «частичная выдача не предусмотрена» появляется чаще всего</h2>
+
+<p>Не всегда запрет на частичную выдачу — это прихоть <em>СДЭК</em>. Иногда проблема кроется в самом заказе или способе его оформления. Рассмотрим типичные сценарии:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ситуация</th>
+      <th>Причина блокировки</th>
+      <th>Можно ли обойти?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Заказ с предоплатой (оплачен полностью)</td>
+      <td>Продавец запретил частичную выдачу в договоре</td>
+      <td>❌ Нет, только полный возврат</td>
+    </tr>
+    <tr>
+      <td>Посылка с наложенным платежом</td>
+      <td>Риск недоплаты за оставшиеся товары</td>
+      <td>⚠️ Иногда — если договориться с оператором</td>
+    </tr>
+    <tr>
+      <td>Товары от разных продавцов в одной коробке</td>
+      <td>Каждый продавец имеет свои правила</td>
+      <td>❌ Нет, требуется согласование со всеми</td>
+    </tr>
+    <tr>
+      <td>Хрупкие или габаритные товары</td>
+      <td>Риск повреждения при распаковке</td>
+      <td>❌ Нет, только полная выдача</td>
+    </tr>
+    <tr>
+      <td>Заказ с акционной упаковкой (например, «2 по цене 1»)</td>
+      <td>Нарушение условий акции</td>
+      <td>❌ Нет, только полный отказ</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Особенно часто проблема возникает с заказами из <em>китайских магазинов</em> (например, <em>AliExpress</em>), где товары отправляют в одной посылке, но от разных продавцов. В этом случае <em>СДЭК</em> не имеет права разделять груз — даже если вы готовы заплатить за хранение оставшихся товаров.</p>
+
+<p>Ещё один «подводный камень» — <strong>несоответствие данных</strong>. Если в накладной указано, что в посылке 3 позиции, а вы хотите забрать только 2, система автоматически блокирует операцию. Это сделано для предотвращения мошенничества (например, когда клиент пытается «забыть» оплатить часть заказа).</p>
+
+<details class="faq-item"><summary>Что делать, если в посылке лежит бракованный товар?</summary><div class="faq-answer"><p>Если один из товаров в заказе повреждён, вы имеете право отказаться от всей посылки или потребовать замену. Но <strong>частичный отказ</strong> (например, забрать исправные товары и вернуть бракованный) возможен только если это разрешено правилами магазина. В противном случае придётся оформлять полный возврат.</p></div></details>
+
+<h2 id="чем-рискует-клиент-если-настаивает-на-частичной-выдаче">Чем рискует клиент, если настаивает на частичной выдаче</h2>
+
+<p>Некоторые клиенты пытаются «обмануть систему»: договариваются с оператором, подписывают фиктивные акты или забирают товар «неофициально». Это <strong>чревато серьёзными последствиями</strong>:</p>
+
+<ul>
+  <li>🚨 <strong>Блокировка аккаунта в СДЭК.</strong> Если система зафиксирует несоответствие данных (например, вы забрали 1 товар из 3, но в базе осталось 2), ваш профиль могут ограничить.</li>
+  <li>💰 <strong>Штрафы за недоплату.</strong> При наложенном платеже <em>СДЭК</em> может потребовать оплатить полную сумму заказа, даже если вы забрали только часть.</li>
+  <li>📦 <strong>Потеря оставшихся товаров.</strong> Если вы не заберёте их в срок, они будут возвращены отправителю, а вам придётся оплачивать обратную доставку.</li>
+  <li>⚖️ <strong>Проблемы с гарантией.</strong> Если товар был частью акционного набора, производитель может отказать в гарантийном обслуживании.</li>
+</ul>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Операторы <em>СДЭК</em> не имеют права идти навстречу клиенту в обход правил компании. Если вас убеждают «просто подписать акт» и забрать часть посылки — это нарушение регламента. В случае проверки ответственность ляжет на вас.</blockquote>
+
+<p>Ещё один риск — <strong>повреждение товаров</strong>. Например, если в заказе лежит ноутбук и наушники, а вы хотите забрать только наушники, оператору придётся вскрывать коробку с ноутбуком. Это может привести к:</p>
+<ul>
+  <li>🔧 Потере гарантии (если упаковка повреждена)</li>
+  <li>💥 Поломке товара (например, при неаккуратном извлечении)</li>
+  <li>📄 Проблемам с возвратом (магазин откажется принимать товар с нарушенной упаковкой)</li>
+</ul>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Никогда не соглашайтесь на «неофициальную» частичную выдачу. Если проблема не решается через оператора, свяжитесь с продавцом — иногда они могут переоформить заказ или разделить его на несколько посылок.</p></div>
+
+<h2 id="как-получить-посылку-если-сдэк-не-даёт-её-забрать">Как получить посылку, если СДЭК не даёт её забрать</h2>
+
+<p>Если вы столкнулись с ошибкой «частичная выдача не предусмотрена», не паникуйте. Есть несколько легальных способов решить проблему:</p>
+
+<h3>1. Связаться с продавцом</h3>
+<p>Самый надёжный вариант — <strong>позвонить или написать продавцу</strong> (если заказ с маркетплейса — в поддержку платформы). Попросите:</p>
+<ul>
+  <li>📋 Переоформить заказ, разделив его на несколько посылок</li>
+  <li>🔄 Отменить часть товаров и дослать оставшиеся отдельно</li>
+  <li>💳 Вернуть деньги за ненужные позиции (если заказ оплачен)</li>
+</ul>
+
+<p>Пример сообщения продавцу:</p>
+<pre><code>
+<p>Здравствуйте! При получении заказа №[номер] в СДЭК система не позволяет забрать часть товаров («частичная выдача не предусмотрена»). Могу ли я отказаться от [название товара] и получить остальное? Или возможен возврат за ненужные позиции?</p>
+</code></pre>
+
+<h3>2. Оформить полный возврат и заказать заново</h3>
+<p>Если продавец не идёт навстречу, можно:</p>
+
+<p>Отказаться от посылки в пункте выдачи СДЭК|</p>
+<p>Получить подтверждение возврата (чек или акт)|</p>
+<p>Связаться с продавцом для возврата денег|</p>
+<p>Заказать нужные товары отдельно (если они ещё доступны)--></p>
+
+<p>Минус этого способа — <strong>дополнительные расходы</strong> на обратную доставку (если она не бесплатная) и время ожидания нового заказа.</p>
+
+<h3>3. Попросить оператора СДЭК связаться с отправителем</h3>
+<p>В некоторых случаях оператор может отправить запрос продавцу на изменение условий выдачи. Для этого:</p>
+<ol>
+  <li>Объясните ситуацию оператору (вежливо и по делу).</li>
+  <li>Предъявите документ, удостоверяющий личность.</li>
+  <li>Напишите заявление на имя начальника пункта выдачи (образец обычно есть на стойке).</li>
+</ol>
+
+<p>Шансы на успех невелики (около 20-30%), но если товар срочно нужен — попробовать стоит.</p>
+
+<h3>4. Забрать посылку полностью и вернуть ненужное</h3>
+<p>Если другие варианты не работают, можно:</p>
+<ul>
+  <li>📦 Забрать всю посылку.</li>
+  <li>📞 Связаться с продавцом и согласовать возврат ненужных товаров (например, через почту или курьера).</li>
+  <li>💵 Получить компенсацию за возвращённые позиции.</li>
+</ul>
+
+<p>Это не всегда удобно (придётся платить за обратную отправку), но иногда — единственный выход.</p>
+
+
+
+<h2 id="частые-вопросы-клиентов-и-ответы-сдэк">Частые вопросы клиентов и ответы СДЭК</h2>
+
+<p>Мы собрали наиболее популярные вопросы, которые клиенты задают при столкновении с ошибкой «частичная выдача не предусмотрена», и официальные ответы <em>СДЭК</em>:</p>
+
+<details>
+  <summary>🔹 Можно ли как-то обойти это ограничение, если очень нужно?</summary>
+  <p>Нет, обойти ограничение легально нельзя. Система <em>СДЭК</em> автоматически блокирует частичную выдачу, если это запрещено правилами отправителя. Единственный вариант — договориться с продавцом о переоформлении заказа.</p>
+</details>
+
+<details>
+  <summary>🔹 Почему в некоторых пунктах выдачи разрешают брать часть посылки, а в других — нет?</summary>
+  <p>Это зависит от <strong>правил конкретного отправителя</strong> и типа заказа. Например, если посылка отправлена физическим лицом (не магазином), иногда операторы идут навстречу. Но это скорее исключение, чем правило.</p>
+</details>
+
+<details>
+  <summary>🔹 Что будет, если я просто не заберу часть посылки?</summary>
+  <p>Оставшиеся товары будут храниться в пункте выдачи <strong>5-7 дней</strong> (срок зависит от тарифа). Если вы не заберёте их, они будут возвращены отправителю, а вам придётся оплатить обратную доставку (если это предусмотрено договором).</p>
+</details>
+
+<details>
+  <summary>🔹 Можно ли забрать часть посылки, если я оплатил наложенный платеж не полностью?</summary>
+  <p>Нет. При наложенном платеже вы обязаны оплатить <strong>полную сумму заказа</strong>, указанную в накладной. Частичная оплата не предусмотрена.</p>
+</details>
+
+<details>
+  <summary>🔹 Куда жаловаться, если оператор отказывается помогать?</summary>
+  <p>Вы можете:</p>
+  <ol>
+    <li>Написать в поддержку <em>СДЭК</em> через сайт или по телефону <code>8 800 250-04-05</code>.</li>
+    <li>Оставить жалобу на сайте <a href="https://www.sdek.ru/feedback" target="_blank">обратной связи</a>.</li>
+    <li>Обратиться в Роспотребнадзор, если ваши права как потребителя нарушены.</li>
+  </ol>
+</details>
+
+<h2 id="как-избежать-проблемы-в-будущем">Как избежать проблемы в будущем</h2>
+
+<p>Чтобы не сталкиваться с ошибкой «частичная выдача не предусмотрена», следуйте этим советам:</p>
+
+<ul>
+  <li>🛒 <strong>Заказывайте товары отдельно.</strong> Если вам могут не подойти некоторые позиции, оформляйте их как разные заказы.</li>
+  <li>📄 <strong>Читайте условия доставки.</strong> На сайте магазина обычно указано, разрешает ли он частичную выдачу.</li>
+  <li>📦 <strong>Проверяйте упаковку.</strong> Если товары хрупкие или габаритные, их не разделят в пункте выдачи.</li>
+  <li>💬 <strong>Спрашивайте у продавца.</strong> перед оформлением уточните, можно ли будет забрать часть заказа.</li>
+</ul>
+
+<p>Особенно внимательно относитесь к заказам с <em>маркетплейсов</em> (<em>Ozon</em>, <em>Wildberries</em>, <em>AliExpress</em>). Там товары часто отправляют в одной посылке, но от разных продавцов — и каждый из них может иметь свои ограничения.</p>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Если вы часто заказываете товары с возможным возвратом (например, одежду на примерку), лучше выбирать доставку <strong>почтой России</strong> или курьером. У них более лояльные правила частичной выдачи.</blockquote>
+
+<p>И последний совет: <strong>не тяните с получением посылки</strong>. Чем дольше она лежит в пункте выдачи, тем сложнее будет решить проблему с частичной выдачей. Оптимальный срок — <code>3-5 дней</code> с момента прибытия.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Перед оформлением заказа проверьте, есть ли в корзине товары с пометкой «не подлежит частичному возврату» или «доставляется только в полном комплекте». Это прямой сигнал, что разделить посылку не получится.</p></div>
+
+<h2 id="заключение-что-делать-прямо-сейчас">Заключение: что делать прямо сейчас</h2>
+
+<p>Если вы читаете эту статью, потому что <strong>прямо сейчас</strong> столкнулись с ошибкой «частичная выдача не предусмотрена» в <em>СДЭК</em>, вот ваш план действий:</p>
+
+<ol>
+  <li><strong>Не спорьте с оператором.</strong> Он не виноват в ограничениях системы.</li>
+  <li><strong>Позвоните продавцу.</strong> Объясните ситуацию и попросите переоформить заказ.</li>
+  <li><strong>Если продавец не идёт навстречу:</strong>
+    <ul>
+      <li>Заберите посылку полностью и верните ненужное.</li>
+      <li>Или оформите полный отказ и закажите товары отдельно.</li>
+    </ol>
+  </li>
+  <li><strong>Не соглашайтесь на «серые» схемы.</strong> Частичная выдача в обход правил может обернуться проблемами.</li>
+</ol>
+
+<p>В большинстве случаев проблема решается за <code>1-2 дня</code>, если действовать быстро и по инструкции. Главное — не тянуть и не надеяться, что «само рассосётся».</p>
+
+<p>Если у вас остались вопросы или ваш случай уникален — опишите его в комментариях. Мы или другие читатели поможем найти решение!</p></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#что-такое-частичная-выдача-и-почему-сдэк-её-запрещает">Что такое «частичная выдача» и почему СДЭК её запрещает</a></li><li><a href="#когда-ошибка-частичная-выдача-не-предусмотрена-появляется-чаще-всего">Когда ошибка «частичная выдача не предусмотрена» появляется чаще всего</a></li><li><a href="#чем-рискует-клиент-если-настаивает-на-частичной-выдаче">Чем рискует клиент, если настаивает на частичной выдаче</a></li><li><a href="#как-получить-посылку-если-сдэк-не-даёт-её-забрать">Как получить посылку, если СДЭК не даёт её забрать</a></li><li><a href="#частые-вопросы-клиентов-и-ответы-сдэк">Частые вопросы клиентов и ответы СДЭК</a></li><li><a href="#как-избежать-проблемы-в-будущем">Как избежать проблемы в будущем</a></li><li><a href="#заключение-что-делать-прямо-сейчас">Заключение: что делать прямо сейчас</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/s/sk/skolko-v-sdek-mozhet-lezhat-posylka.html" class="related-card">Сколько хранится посылка в СДЭК: сроки хранения и правила получения</a></li><li><a href="/articles/s/sk/skolko-khranyatsya-zakaz-v-sdek.html" class="related-card">Сколько хранится заказ в СДЭК: сроки и правила выдачи</a></li><li><a href="/articles/t/ta/tamozhennoe-oformlenie-sdek-chto-eto-znachit.html" class="related-card">Таможенное оформление СДЭК: что это значит и сколько ждать</a></li><li><a href="/articles/p/po/poluchenie-tovara-v-sdek-chto-nuzhno.html" class="related-card">Получение товара в СДЭК: что нужно знать клиенту</a></li><li><a href="/articles/s/sk/skolko-besplatno-khranitsya-zakaz-v-sdek.html" class="related-card">Сколько хранится заказ в СДЭК бесплатно: сроки и условия 2026</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/s/sk/skolko-v-sdek-mozhet-lezhat-posylka.html" class="related-bottom-card"><span class="related-bottom-title">Сколько хранится посылка в СДЭК: сроки хранения и правила получения</span><span class="related-bottom-desc">Узнайте, сколько дней посылка может лежать в пункте выдачи СДЭК, что делать, если срок истёк, и как </span></a><a href="/articles/s/sk/skolko-khranyatsya-zakaz-v-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Сколько хранится заказ в СДЭК: сроки и правила выдачи</span><span class="related-bottom-desc">Узнайте, сколько дней хранится посылка в СДЭК. Сроки хранения в пункте выдачи, продление, штрафы за </span></a><a href="/articles/t/ta/tamozhennoe-oformlenie-sdek-chto-eto-znachit.html" class="related-bottom-card"><span class="related-bottom-title">Таможенное оформление СДЭК: что это значит и сколько ждать</span><span class="related-bottom-desc">Подробно разбираем статус таможенное оформление СДЭК. Узнайте, какие нужны документы, как ускорить п</span></a><a href="/articles/p/po/poluchenie-tovara-v-sdek-chto-nuzhno.html" class="related-bottom-card"><span class="related-bottom-title">Получение товара в СДЭК: что нужно знать клиенту</span><span class="related-bottom-desc">Полный гид по получению посылок в СДЭК: какие документы нужны, сроки хранения, проверка содержимого </span></a><a href="/articles/s/sk/skolko-besplatno-khranitsya-zakaz-v-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Сколько хранится заказ в СДЭК бесплатно: сроки и условия 2026</span><span class="related-bottom-desc">Узнайте, сколько дней СДЭК хранит посылки бесплатно в пунктах выдачи и на складах. Актуальные сроки </span></a><a href="/articles/k/ka/kak-poluchit-pokupku-cherez-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как получить покупку через СДЭК: пошаговая инструкция 2026</span><span class="related-bottom-desc">Подробный гайд по получению посылки в СДЭК: от отслеживания до выдачи. Разбираем все способы, докуме</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>Какие установить СДЭК: выбор модуля для сайта и приложения — СДЭК Гид</title>
+    <meta name="description" content="Какие установить СДЭК модули для e-commerce? Обзор плагинов CMS, виджетов карты и SDK для Android/iOS. Инструкция по интеграции и настройке API.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/k/ka/kakie-ustanovit-sdek.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Какие установить СДЭК: выбор модуля для сайта и приложения">
+    <meta property="og:description" content="Какие установить СДЭК модули для e-commerce? Обзор плагинов CMS, виджетов карты и SDK для Android/iOS. Инструкция по интеграции и настройке API.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/biznes-i-dogovory/">Бизнес и договоры</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Какие установить СДЭК: выбор модуля для сайта и приложения</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Какие установить СДЭК: выбор оптимального модуля для бизнеса и личных нужд</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#модули-для-популярных-систем-управления-сайтом-cms">Модули для популярных систем управления сайтом (CMS)</a></li><li><a href="#виджеты-для-конструкторов-сайтов-и-простых-интеграций">Виджеты для конструкторов сайтов и простых интеграций</a></li><li><a href="#мобильные-приложения-для-клиентов-и-курьеров">Мобильные приложения для клиентов и курьеров</a></li><li><a href="#sdk-и-api-для-разработчиков-глубокая-интеграция">SDK и API для разработчиков: глубокая интеграция</a></li><li><a href="#интеграция-с-системами-учета-и-складскими-программами">Интеграция с системами учета и складскими программами</a></li><li><a href="#настройка-виджета-карты-пошаговая-инструкция">Настройка виджета карты: пошаговая инструкция</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>Вопрос о том, какие установить СДЭК решения для автоматизации процессов, часто встает перед владельцами интернет-магазинов и разработчиками, стремящимися оптимизировать логистику. Выбор конкретного программного обеспечения напрямую зависит от используемой платформы управления сайтом, будь то <em>1С-Битрикс</em>, <em>WordPress</em>, <em>OpenCart</em> или самописное решение на базе фреймворков. Неверно подобранный плагин может привести к некорректному расчету стоимости доставки, что неизбежно скажется на конверсии и лояльности клиентов.</p>
+
+<p>С другой стороны, частные пользователи могут интересоваться тем, какие установить приложения СДЭК на мобильное устройство для комфортного отслеживания посылок и управления заказами. Официальный клиент доступен для всех популярных операционных систем и предоставляет полный функционал личного кабинета. В этой статье мы подробно разберем, какие модули, виджеты и SDK необходимы для полноценной интеграции с сервисами компании, а также рассмотрим нюансы настройки для различных сценариев использования.</p>
+
+<p>Понимание разницы между виджетом калькулятора, полноценным модулем интеграции и API-библиотеками критически важно. <strong>Виджет</strong> — это готовый код, встраиваемый на страницу, <strong>модуль</strong> — это расширение функционала CMS, а <strong>SDK</strong> — набор инструментов для разработчиков. Выбор зависит от ваших технических возможностей и масштаба бизнеса. Мы проанализируем каждый вариант, чтобы вы могли принять взвешенное решение.</p>
+
+<h2 id="модули-для-популярных-систем-управления-сайтом-cms">Модули для популярных систем управления сайтом (CMS)</h2>
+
+<p>Для владельцев интернет-магазинов на базе распространенных CMS вопрос решается установкой специализированных плагинов. Эти модули позволяют автоматически рассчитывать стоимость доставки, формировать накладные и передавать заказы в личный кабинет СДЭК без ручного ввода данных. <mark>Ключевым преимуществом таких модулей является синхронизация статусов заказов в реальном времени.</mark></p>
+
+<p>Наиболее распространенной платформой в русскоязычном сегменте является <em>1С-Битрикс</em>. Для нее существует несколько решений: от бесплатных базовых версий, предоставляемых самой логистической компанией, до платных расширений от сторонних разработчиков с расширенным функционалом. Бесплатный модуль СДЭК для Битрикс позволяет выводить виджет на сайте, печатать накладные и акты, а также отслеживать статусы. Платные аналоги могут предлагать интеграцию с CRM, сложные сценарии распределения заказов по складам и расширенную аналитику.</p>
+
+<p>Если ваш магазин работает на <em>WordPress</em> с использованием плагина <em>WooCommerce</em>, вам потребуется установить соответствующий плагин СДЭК. Официальный плагин поддерживает расчет стоимости по тарифам, печать этикеток и выбор пунктов выдачи на карте. Важно убедиться, что версия плагина совместима с вашей версией WordPress и PHP, чтобы избежать конфликтов скриптов. Для <em>OpenCart</em> и <em>Magento</em> также существуют официальные и сторонние расширения, функционал которых варьируется от простого калькулятора до полной автоматизации документооборота.</p>
+
+<div class="poll-widget" id="poll-103f5af9"><div class="poll-widget-question">📊 Какая CMS используется для вашего магазина?</div><div class="poll-widget-option" data-poll="103f5af9" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">1С-Битрикс</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="103f5af9" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">WordPress/WooCommerce</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="103f5af9" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">OpenCart</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="103f5af9" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Другая (самописная)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="103f5af9" data-idx="4" onclick="pbPollVote(this)"><span class="poll-widget-label">Tilda/Конструктор</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<p>При выборе модуля стоит обращать внимание на частоту обновлений разработчика. Логистические тарифы и API меняются, и устаревший плагин перестанет корректно работать. <strong>Регулярные обновления</strong> — признак того, что модуль поддерживается и будет работать стабильно. Также проверяйте наличие технической поддержки, так как при возникновении ошибок в расчетах доставки время идет на минуты.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Перед установкой любого платного модуля обязательно запросите доступ к демо-версии или тестовому периоду, чтобы проверить совместимость с вашей темой оформления и другими плагинами.</p></div>
+
+<h2 id="виджеты-для-конструкторов-сайтов-и-простых-интеграций">Виджеты для конструкторов сайтов и простых интеграций</h2>
+
+<p>Если ваш сайт создан на конструкторе вроде <em>Tilda</em>, <em>InSales</em> или <em>Wix</em>, или если у вас лендинг на статическом HTML, установка полноценного серверного модуля может быть излишней или технически невозможной. В таких случаях оптимальным решением являются виджеты СДЭК. Виджет — это JavaScript-код, который вставляется в код страницы и отображает интерактивную карту с пунктами выдачи или калькулятор стоимости.</p>
+
+<p>Официальный виджет СДЭК (CDEK Widget) является универсальным инструментом. Он не требует глубоких знаний программирования для базовой настройки. Вам достаточно зарегистрироваться в личном кабинете партнера, создать новый проект интеграции и получить API-ключи. После этого генерируется уникальный код, который необходимо внедрить на страницу оформления заказа. Виджет автоматически подтягивает актуальные тарифы и адреса пунктов выдачи.</p>
+
+<ul>
+<li>📦 <strong>Интерактивная карта:</strong> Клиент видит все доступные пункты выдачи рядом с ним и может выбрать удобный.</li>
+<li>💰 <strong>Динамический расчет:</strong> Стоимость доставки обновляется мгновенно при изменении состава корзины или адреса.</li>
+<li>🖨️ <strong>Печать документов:</strong> Некоторые версии виджетов позволяют сразу сформировать заявку на отправку.</li>
+</ul>
+
+<p>Для сайтов на <em>Tilda</em> существует штатная интеграция. В настройках корзины Tilda можно выбрать службу доставки СДЭК и ввести свои учетные данные (Account ID и Secure Password). Это самый простой способ, не требующий работы с кодом. Однако функционал штатной интеграции может быть ограничен по сравнению с кастомным виджетом, например, в отображении сложных условий доставки или комбинированных тарифов.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Виджет — идеальное решение для лендингов и сайтов на конструкторах, где нет возможности установить серверный модуль CMS.</p></div>
+
+<h2 id="мобильные-приложения-для-клиентов-и-курьеров">Мобильные приложения для клиентов и курьеров</h2>
+
+<p>Пользователи часто спрашивают, какие установить приложения СДЭК на телефон. Официальное приложение «СДЭК» доступно в магазинах <em>App Store</em>, <em>Google Play</em> и <em>RuStore</em>. Это основной инструмент для получателей и отправителей, позволяющий управлять заказами без использования браузера. Приложение поддерживает авторизацию по номеру телефона, что упрощает доступ к истории отправлений.</p>
+
+<p>Функционал клиентского приложения охватывает все основные потребности: отслеживание посылок по трек-номеру, поиск ближайших пунктов выдачи и постаматов, вызов курьера и оплата услуг. <strong>Push-уведомления</strong> мгновенно информируют о смене статуса груза, что особенно важно при ожидании ценных отправлений. Также в приложении реализована функция «СДЭК ID», позволяющая быстро авторизовываться на сайтах партнеров.</p>
+
+<p>Отдельно стоит упомянуть приложение «СДЭК Курьер», предназначенное для сотрудников компании и партнеров, осуществляющих доставку. Обычным пользователям оно не потребуется. Для бизнеса также существует приложение «СДЭК для бизнеса», которое предоставляет упрощенный доступ к созданию накладных и управлению тарифами в мобильном формате. Выбор приложения зависит исключительно от вашей роли в процессе доставки.</p>
+
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> Скачивайте приложения только из официальных магазинов (App Store, Google Play, RuStore). Установка программ из непроверенных источников может привести к краже ваших персональных данных и платежной информации.</p>
+</blockquote>
+
+<h2 id="sdk-и-api-для-разработчиков-глубокая-интеграция">SDK и API для разработчиков: глубокая интеграция</h2>
+
+<p>Для крупных проектов, где стандартные модули не покрывают всех бизнес-процессов, требуется индивидуальная интеграция. В этом случае разработчики используют <strong>API СДЭК</strong> (Application Programming Interface) и готовые <strong>SDK</strong> (Software Development Kit). API позволяет вашей системе напрямую обмениваться данными с серверами логистической компании: создавать заказы, получать расчеты, отслеживать статусы и управлять финансами.</p>
+
+<p>Официальная документация СДЭК описывает REST API, который поддерживает формат данных JSON. Для упрощения работы существуют SDK для популярных языков программирования, таких как <em>PHP</em>, <em>Python</em>, <em>Java</em> и <em>Node.js</em>. Использование SDK ускоряет разработку, так как основные методы уже реализованы в виде удобных классов и функций. Например, для PHP можно найти пакеты в репозитории <em>Composer</em>.</p>
+
+<p>При интеграции через API необходимо обеспечить безопасное хранение учетных данных. <strong>Account ID</strong> и <strong>Secure Password</strong> не должны попадать в клиентский код (JavaScript), так как это позволит злоумышленникам использовать ваш лимит запросов или создавать фейковые заказы. Все запросы к API должны выполняться через ваш сервер (backend).</p>
+
+<details class="faq-item"><summary>Где найти официальную документацию API?</summary><div class="faq-answer"><p>Документация API СДЭК (версии 2.0 и выше) доступна в личном кабинете партнера в разделе "Разработчикам" или на портале api.cdek.ru. Там же можно найти примеры запросов и Swagger-спецификации.</p></div></details>
+
+<h2 id="интеграция-с-системами-учета-и-складскими-программами">Интеграция с системами учета и складскими программами</h2>
+
+<p>Автоматизация бизнеса не ограничивается сайтом. Важным этапом является настройка обмена данными между СДЭК и вашей учетной системой, например, <em>1С:Предприятие</em>, <em>МойСклад</em> или <em>inSales</em>. Это позволяет печатать накладные сразу после оформления заказа менеджером и автоматически передавать трек-номера клиенту.</p>
+
+<p>Для <em>1С</em> существуют официальные обработки и внешние отчеты, которые можно скачать из личного кабинета СДЭК. Они поддерживают различные конфигурации 1С (УТ, КА, Розница). Установка таких обработок требует прав администратора в базе 1С. После подключения необходимо настроить соответствие статусов заказов и справочников товаров, чтобы избежать ошибок при формировании сопроводительных документов.</p>
+
+<p>В системе <em>МойСклад</em> интеграция осуществляется через установку приложения из маркетплейса. Это позволяет видеть статусы доставок прямо в карточке заказа. Синхронизация работает в обе стороны: заказ улетает в СДЭК, а трек-номер возвращается в МойСклад. Это существенно сокращает время обработки заказа и минимизирует человеческий фактор.</p>
+
+<div class="checklist-block"><h4>☑️ Чек-лист подготовки к интеграции</h4><label class="check-item"><input type="checkbox"><span>Получить API-ключи в ЛК</span></label><label class="check-item"><input type="checkbox"><span>Определить необходимые методы API</span></label><label class="check-item"><input type="checkbox"><span>Проверить версии ПО (CMS/1С)</span></label><label class="check-item"><input type="checkbox"><span>Создать тестовый заказ</span></label><label class="check-item"><input type="checkbox"><span>Проверить печать документов</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 5</div></div>
+
+<h2 id="настройка-виджета-карты-пошаговая-инструкция">Настройка виджета карты: пошаговая инструкция</h2>
+
+<p>Рассмотрим процесс настройки виджета карты, так как это наиболее частый сценарий использования. Для начала необходимо авторизоваться в личном кабинете СДЭК и перейти в раздел интеграции. Там создается новый проект, для которого генерируются учетные данные.</p>
+
+<p>После получения кода виджета, его необходимо вставить на страницу оформления заказа вашего сайта. Обычно это делается перед закрывающим тегом <code>&lt;/body&gt;</code> или в специальный блок для скриптов в настройках темы. Код содержит параметры, такие как язык интерфейса, валюта расчета и начальные координаты карты.</p>
+
+<p>Пример структуры вызова виджета может выглядеть следующим образом (упрощенно):</p>
+<pre><code>&lt;script type="text/javascript" charset="utf-8" src="https://widget.cdek.ru/widget/w.js"&gt;&lt;/script&gt;
+<p>&lt;script type="text/javascript"&gt;</p>
+<p>CDEKWidget.callback = function (data) {</p>
+<p>// Обработка выбранного пункта выдачи</p>
+<p>console.log(data);</p>
+<p>};</p>
+<p>&lt;/script&gt;</code></pre></p>
+
+<p>Важно настроить обработчик события выбора пункта выдачи (<code>callback</code>). Именно в эту функцию передается информация о выбранном клиентом пункте: его адрес, код и стоимость доставки. Эти данные нужно сохранить в скрытые поля формы заказа, чтобы они отправились вместе с заказом на сервер.</p>
+
+<table>
+<thead>
+<tr>
+<th>Параметр виджета</th>
+<th>Описание</th>
+<th>Пример значения</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>lang</code></td>
+<td>Язык интерфейса виджета</td>
+<td>rus, eng, chn</td>
+</tr>
+<tr>
+<td><code>link</code></td>
+<td>URL для перехода на оплату или оформление</td>
+<td>https://site.ru/order</td>
+</tr>
+<tr>
+<td><code>service</code></td>
+<td>Список доступных тарифов (через запятую)</td>
+<td>136, 137, 150</td>
+</tr>
+<tr>
+<td><code>callback</code></td>
+<td>Имя функции обработки результата</td>
+<td>myCallbackFunc</td>
+</tr>
+</tbody>
+</table>
+
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> При тестировании виджета обязательно проверяйте его работу в режиме инкогнито браузера и с разных устройств (мобильный телефон, планшет), чтобы убедиться в корректном отображении карты на всех экранах.</p>
+</blockquote>
+
+<h2 id="часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</h2>
+
+<details>
+<summary>Где скачать официальную обработку для 1С?</summary>
+<p>Официальные обработки для 1С:Предприятие доступны в личном кабинете СДЭК в разделе "Интеграция" -> "1С". Также файлы можно найти на портале поддержки СДЭК в разделе документации. Убедитесь, что скачиваете версию, совместимую с вашей конфигурацией 1С.</p>
+</details>
+
+<details>
+<summary>Бесплатно ли использование виджета СДЭК?</summary>
+<p>Использование стандартного виджета СДЭК бесплатно для клиентов, заключивших договор. Однако, если вы используете CMS с платными плагинами или нанимаете разработчика для кастомной интеграции, эти услуги оплачиваются отдельно. Само API имеет лимиты на количество запросов в бесплатном тарифе.</p>
+</details>
+
+<details>
+<summary>Как проверить, работает ли модуль корректно?</summary>
+<p>Для проверки создайте тестовый заказ на сайте. Убедитесь, что калькулятор показывает актуальные цены, карта загружается без ошибок, а после оформления заказа в личном кабинете СДЭК появился новый заказ с правильными данными получателя. Также проверьте приход push-уведомлений или SMS.</p>
+</details>
+
+<details>
+<summary>Можно ли установить СДЭК на сайт без CMS?</summary>
+<p>Да, для сайтов без CMS (HTML-сайты, лендинги) используется JavaScript-виджет. Он не требует серверной части (PHP, Python и т.д.) для отображения карты и расчета стоимости, но для сохранения заказа вам все равно понадобится скрипт-обработчик на бэкенде или интеграция с почтой/CRM.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#модули-для-популярных-систем-управления-сайтом-cms">Модули для популярных систем управления сайтом (CMS)</a></li><li><a href="#виджеты-для-конструкторов-сайтов-и-простых-интеграций">Виджеты для конструкторов сайтов и простых интеграций</a></li><li><a href="#мобильные-приложения-для-клиентов-и-курьеров">Мобильные приложения для клиентов и курьеров</a></li><li><a href="#sdk-и-api-для-разработчиков-глубокая-интеграция">SDK и API для разработчиков: глубокая интеграция</a></li><li><a href="#интеграция-с-системами-учета-и-складскими-программами">Интеграция с системами учета и складскими программами</a></li><li><a href="#настройка-виджета-карты-пошаговая-инструкция">Настройка виджета карты: пошаговая инструкция</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/s/sd/sdek-dogovor-s-samozanyatym-kakie-dokumenty.html" class="related-card">Договор СДЭК с самозанятым: список документов 2026 года</a></li><li><a href="/articles/k/ka/kak-torgovat-na-sdek-market.html" class="related-card">Как торговать на СДЭК Маркет: пошаговое руководство для продавцов</a></li><li><a href="/articles/k/ka/kak-uznat-svoj-nomer-dogovora-sdek.html" class="related-card">Как узнать номер договора СДЭК — 5 способов за 5 минут</a></li><li><a href="/articles/k/ka/kak-otkryt-sdek-v-svoem-gorode-s-nulya-samostoyatelno.html" class="related-card">Как открыть СДЭК в своем городе: пошаговая инструкция</a></li><li><a href="/articles/c/ch/chto-daet-dogovor-s-sdek.html" class="related-card">Договор с СДЭК: 7 ключевых преимуществ для бизнеса в 2026 году</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/s/sd/sdek-dogovor-s-samozanyatym-kakie-dokumenty.html" class="related-bottom-card"><span class="related-bottom-title">Договор СДЭК с самозанятым: список документов 2026 года</span><span class="related-bottom-desc">Какие документы нужны для заключения договора с СДЭК, если вы самозанятый? Пошаговая инструкция, обр</span></a><a href="/articles/k/ka/kak-torgovat-na-sdek-market.html" class="related-bottom-card"><span class="related-bottom-title">Как торговать на СДЭК Маркет: пошаговое руководство для продавцов</span><span class="related-bottom-desc">Инструкция по регистрации, размещению товаров и продажам на маркетплейсе СДЭК Маркет. Узнайте о тари</span></a><a href="/articles/k/ka/kak-uznat-svoj-nomer-dogovora-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как узнать номер договора СДЭК — 5 способов за 5 минут</span><span class="related-bottom-desc">Пошаговая инструкция, как найти номер договора с СДЭК: в личном кабинете, чеках, email и документах.</span></a><a href="/articles/k/ka/kak-otkryt-sdek-v-svoem-gorode-s-nulya-samostoyatelno.html" class="related-bottom-card"><span class="related-bottom-title">Как открыть СДЭК в своем городе: пошаговая инструкция</span><span class="related-bottom-desc">Узнайте, как открыть пункт выдачи СДЭК с нуля: требования, франшиза, расходы и пошаговый план запуск</span></a><a href="/articles/c/ch/chto-daet-dogovor-s-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Договор с СДЭК: 7 ключевых преимуществ для бизнеса в 2026 году</span><span class="related-bottom-desc">Что даёт официальный договор с СДЭК: скидки на доставку, расширенные услуги, юридическую защиту и ав</span></a><a href="/articles/s/sd/sdek-biznes-kak-otpravit-posylku.html" class="related-bottom-card"><span class="related-bottom-title">СДЭК Бизнес: как отправить посылку — пошаговая инструкция 2026</span><span class="related-bottom-desc">Подробное руководство по отправке посылок через СДЭК Бизнес: регистрация, оформление заказа, тарифы,</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

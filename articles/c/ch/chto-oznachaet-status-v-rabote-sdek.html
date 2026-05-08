@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>Статусы СДЭК: расшифровка всех кодов и что делать — СДЭК Гид</title>
+    <meta name="description" content="Полная расшифровка статусов СДЭК: что означает «Сортировка», «Склад», «Отказ» и другие коды. Инструкция, как реагировать на изменения в отслеживании.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/c/ch/chto-oznachaet-status-v-rabote-sdek.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Статусы СДЭК: расшифровка всех кодов и что делать">
+    <meta property="og:description" content="Полная расшифровка статусов СДЭК: что означает «Сортировка», «Склад», «Отказ» и другие коды. Инструкция, как реагировать на изменения в отслеживании.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/otslezhivanie/">Отслеживание</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Статусы СДЭК: расшифровка всех кодов и что делать</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Что означают статусы в работе СДЭК: полная расшифровка и алгоритм действий</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#начало-пути-от-принятия-до-сортировки">Начало пути: от принятия до сортировки</a></li><li><a href="#логистика-в-движении-транзит-и-промежуточные-пункты">Логистика в движении: транзит и промежуточные пункты</a></li><li><a href="#финишная-прямая-склад-и-выдача">Финишная прямая: склад и выдача</a></li><li><a href="#проблемные-статусы-отказ-возврат-и-ошибки">Проблемные статусы: отказ, возврат и ошибки</a></li><li><a href="#таблица-основных-статусов-сдэк">Таблица основных статусов СДЭК</a></li><li><a href="#частые-вопросы-и-технические-нюансы">Частые вопросы и технические нюансы</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>Ситуация, когда долгожданная посылка меняет свое местоположение в системе отслеживания, а статус остается непонятным, может вызвать у отправителя или получателя легкую панику. Вы видите загадочное слово вроде «Сортировка» или «Склад», и сразу возникает вопрос: движется ли груз вообще или он застрял навечно? Понимание внутренней логистики курьерской службы помогает сохранить спокойствие и объективно оценивать ситуацию с доставкой.</p>
+<p>Система <strong>трекинга СДЭК</strong> устроена таким образом, что каждый этап пути груза фиксируется отдельным кодовым словом. Эти статусы не просто информируют о географическом положении, но и указывают на текущее физическое состояние упаковки. Например, разница между «Прибыло» и «Принято» может составлять от нескольких минут до нескольких дней, в зависимости от загруженности логистического центра.</p>
+<p>В этой статье мы детально разберем, что скрывается за каждым этапом маршрутизации, почему груз может стоять на месте и в каких случаях необходимо бить тревогу. Грамотная интерпретация данных в личном кабинете или на сайте позволит вам заранее планировать получение или оперативно реагировать на форс-мажорные обстоятельства.</p>
+
+<h2 id="начало-пути-от-принятия-до-сортировки">Начало пути: от принятия до сортировки</h2>
+<p>Первые этапы движения груза являются наиболее динамичными, так как именно здесь формируется дальнейший маршрут. Когда вы сдали посылку в пункте выдачи или передали курьеру, система присваивает ей начальный статус. Чаще всего первым появляется уведомление <strong>«Принято»</strong>, что означает фактическое нахождение груза у оператора и успешное оформление сопроводительных документов. С этого момента ответственность за сохранность полностью переходит к логистической компании.</p>
+<p>Следующим критически важным этапом является <strong>«Сортировка»</strong>. Этот статус указывает на то, что груз находится в сортировочном центре и ожидает распределения по направлениям. В крупных городах-миллионниках этот процесс может занимать всего пару часов, тогда как в региональных хабах обработка партии посылок иногда затягивается на сутки. Именно на этом этапе определяется, поедет ли ваш груз на прямом рейсе или ему предстоит сложная логистическая цепочка с пересадками.</p>
+<p>Часто пользователи путают статус «Сортировка» с задержкой, однако это штатная рабочая процедура. Если груз пробыл в этом состоянии более 48 часов, имеет смысл уточнить информацию у оператора, так как возможно повреждение штрих-кода или потеря сопроводительной накладной внутри контейнера.</p>
+
+<div class="poll-widget" id="poll-11e72ef9"><div class="poll-widget-question">📊 Как часто вы проверяете статус своей посылки?</div><div class="poll-widget-option" data-poll="11e72ef9" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Несколько раз в день</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="11e72ef9" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Раз в сутки</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="11e72ef9" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Только когда придет смс</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="11e72ef9" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Вообще не проверяю, жду звонка</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<p>Важно отметить, что после успешной сортировки статус сменится на «Отправлено». Это означает, что груз физически покинул пределы сортировочного центра и загружен в транспортное средство. С этого момента трекинг может обновляться реже, так как следующие точки сканирования будут находиться только в городах прибытия или на крупных транзитных узлах.</p>
+
+<h2 id="логистика-в-движении-транзит-и-промежуточные-пункты">Логистика в движении: транзит и промежуточные пункты</h2>
+<p>Когда посылка находится в пути между городами, статусы могут обновляться с различной частотой. Основным индикатором здесь служит код <strong>«В пути»</strong>. Он говорит о том, что груз находится в движении между логистическими узлами. Длительность этого этапа напрямую зависит от расстояния и выбранного тарифа доставки. Для экспресс-тарифов время в пути минимизировано, тогда как эконом-варианты могут подразумевать консолидацию грузов, что увеличивает сроки.</p>
+<p>Особое внимание стоит уделить статусу <strong>«Прибыло»</strong>. Он появляется, когда транспортное средство достигает города назначения или крупного перевалочного пункта. Многие ошибочно полагают, что после этого статуса посылку можно забрать немедленно. На самом деле груз сначала должен пройти внутреннюю приемку на складе получателя, что занимает дополнительное время.</p>
+<p>Иногда в трекинге можно увидеть статус «Встречный рейс» или «Транзит». Это означает, что ваш груз временно находится в промежуточном городе, откуда он будет отправлен дальше по маршрутной карте. Задержки на транзитных узлах часто связаны с ожиданием заполнения кузова транспортного средства или стыковкой рейсов разных перевозчиков.</p>
+
+<blockquote>
+<p>⚠️ Внимание: Если статус «В пути» не меняется более 5-7 дней для междугородней доставки, это может свидетельствовать о потере груза или ошибке в системе сканирования. В такой ситуации необходимо создать обращение в службу поддержки с требованием провести внутреннее расследование.</p>
+</blockquote>
+
+<p>Логистические процессы СДЭК построены на строгой последовательности, и выпадение груза из этой цепочки — редкое, но возможное явление. Чаще всего проблемы возникают при передаче груза между разными транспортными компаниями-партнерами, если доставка осуществляется комбинированным способом.</p>
+
+<details class="faq-item"><summary>Почему статус может не обновляться несколько дней?</summary><div class="faq-answer"><p>Иногда драйверы сканеров не успевают пробивать каждую единицу груза в реальном времени из-за плохой связи на трассе или высокой загрузки терминала. Данные могут загрузиться в систему пакетно только после прибытия машины на базу.</p></div></details>
+
+<h2 id="финишная-прямая-склад-и-выдача">Финишная прямая: склад и выдача</h2>
+<p>Когда груз достигает конечного города, начинается этап подготовки к выдаче. Статус <strong>«Прибыло на склад»</strong> означает, что посылка физически находится в помещении пункта выдачи заказов (ПВЗ) или курьерского отдела. С этого момента начинается отсчет времени хранения. Для разных тарифов и типов отправлений сроки бесплатного хранения могут отличаться, поэтому важно следить за датой прибытия.</p>
+<p>Следующий этап — <strong>«Готово к выдаче»</strong>. Это самый желанный статус для получателя, сигнализирующий о том, что все формальности соблюдены, груз найден на полке и ожидает своего владельца. Именно после появления этого кода приходит SMS-уведомление или push-сообщение в мобильном приложении с приглашением забрать посылку.</p>
+<p>В крупных городах, таких как Москва или Санкт-Петербург, процесс перемещения из статуса «Прибыло» в «Готово к выдаче» может занимать от 2 до 24 часов. В регионах с менее развитой логистической инфраструктурой этот промежуток иногда растягивается на двое суток.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Сохраняйте скриншот трекинга с датой «Прибыло на склад», чтобы в случае спорных ситуаций о платном хранении иметь доказательство фактического времени поступления груза в пункт выдачи.</p></div>
+
+<p>Не стоит забывать, что статус «Готово к выдаче» действует ограниченное время. Если получатель не является за грузом в течение установленного срока (обычно 3-7 дней), посылка может быть отправлена обратно отправителю. Во избежание потери товара рекомендуется забирать его сразу после поступления уведомления.</p>
+
+<h2 id="проблемные-статусы-отказ-возврат-и-ошибки">Проблемные статусы: отказ, возврат и ошибки</h2>
+<p>К сожалению, не всегда доставка проходит гладко. Одним из самых неприятных статусов является <strong>«Отказ»</strong> или «Возврат». Это может означать, что получатель не забрал груз вовремя, адресат не найден, или получатель сам отказался от принятия товара при осмотре. В этом случае запускается обратная логистическая цепочка.</p>
+<p>Статус <strong>«Неудачная попытка вручения»</strong> появляется, если курьер приезжал по адресу, но никого не застал, или доступ в здание был ограничен. В таких случаях операторы обычно пытаются связаться с получателем для согласования новой даты доставки. Игнорирование звонков от курьерской службы часто приводит к автоматическому возврату груза.</p>
+<p>Также существует статус «Ожидается оплата». Он характерен для отправлений с наложенным платежом или тех, где получатель должен доплатить за доставку. Пока финансовая операция не будет завершена, груз не будет передан в руки.</p>
+
+<div class="checklist-block"><h4>☑️ Что делать при статусе "Возврат"</h4><label class="check-item"><input type="checkbox"><span></span></label><label class="check-item"><input type="checkbox"><span>Связаться с отправителем</span></label><label class="check-item"><input type="checkbox"><span>Уточнить причину возврата в поддержке</span></label><label class="check-item"><input type="checkbox"><span>Проверить correctness адреса</span></label><label class="check-item"><input type="checkbox"><span>Ожидать поступления груза обратно</span></label><label class="check-item"><input type="checkbox"><span>Оформить возврат денег у продавца</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 6</div></div>
+
+<p>Важно различать технический отказ и фактический. Иногда система автоматически помечает груз как «Возврат» из-за ошибки в базе данных адресов, хотя физически посылка ждет получателя. Поэтому при появлении тревожных статусов первым делом нужно звонить на горячую линию, а не паниковать.</p>
+
+<h2 id="таблица-основных-статусов-сдэк">Таблица основных статусов СДЭК</h2>
+<p>Для быстрого ориентирования в изменениях состояния вашего отправления мы подготовили сводную таблицу. Она поможет понять, на каком этапе находится процесс и чего ожидать дальше.</p>
+
+<table>
+<thead>
+<tr>
+<th>Статус</th>
+<th>Значение</th>
+<th>Действия получателя</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Принято</td>
+<td>Груз оформлен и передан оператору</td>
+<td>Ожидать updates в трекинге</td>
+</tr>
+<tr>
+<td>Сортировка</td>
+<td>Обработка в логистическом центре</td>
+<td>Ничего, процесс штатный</td>
+</tr>
+<tr>
+<td>В пути</td>
+<td>Транспортировка между городами</td>
+<td>Контролировать движение по карте</td>
+</tr>
+<tr>
+<td>Прибыло на склад</td>
+<td>Груз в городе назначения, идет приемка</td>
+<td>Ждать SMS о готовности</td>
+</tr>
+<tr>
+<td>Вручено</td>
+<td>Посылка получена адресатом</td>
+<td>Проверить целостность упаковки</td>
+</tr>
+</tbody>
+</table>
+
+<p>Данная таблица охватывает базовые сценарии движения груза. Однако в зависимости от типа услуги (например, «Посылочка» или «Экспресс») могут появляться дополнительные уточняющие статусы. Всегда обращайте внимание на детали описания в личном кабинете.</p>
+
+<h2 id="частые-вопросы-и-технические-нюансы">Частые вопросы и технические нюансы</h2>
+<p>Пользователи часто сталкиваются с ситуацией, когда статус в мобильном приложении и на сайте отличается. Это связано с разной скоростью синхронизации баз данных. <mark>Приоритетным источником информации всегда считается официальный сайт компании в полной версии</mark>, так как он обновляется напрямую из центральной базы, в то время как приложения могут использовать кэшированные данные.</p>
+<p>Еще один распространенный вопрос касается статусов, связанных с таможней. Если груз идет из-за границы, вы можете увидеть код «Таможенная очистка». Это означает, что посылка задержана таможенными органами для проверки содержимого и документов. Длительность этого этапа не контролируется курьерской службой и зависит от работы государственных органов.</p>
+<p>Также стоит упомянуть статус «Аннулировано». Он появляется, если отправитель отменил заказ до момента его фактической передачи в службу доставки, или если были выявлены запрещенные к пересылке предметы, несовместимые с правилами безопасности.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Своевременное отслеживание статусов позволяет не только знать местоположение груза, но и быстро реагировать на проблемы, предотвращая возврат или потерю отправления.</p></div>
+
+<details>
+<summary>Что делать, если статус «Готово к выдаче» висит уже 3 дня, но посылку не отдают?</summary>
+<p>В этом случае необходимо взять с собой паспорт и трек-номер и лично обратиться в пункт выдачи. Иногда происходит рассинхронизация: физически посылка может быть утеряна внутри пункта, перепутана с другой или еще не выгружена из контейнера, хотя система уже обновила статус. Сотрудникам потребуется время на поиск, поэтому личное присутствие ускорит процесс.</p>
+</details>
+
+<details>
+<summary>Может ли статус измениться на «Вручено», если я ничего не получал?</summary>
+<p>Да, такие случаи («фейковое вручение») встречаются, когда курьеры хотят закрыть план или избежать штрафов за недоставку. Если вы видите такой статус, но курьер к вам не приходил и не звонил, немедленно пишите претензию в поддержку и требуйте видеозапись вручения или GPS-координаты точки вручения. Это поможет доказать факт нарушения.</p>
+</details>
+
+<details>
+<summary>Почему статус «Сортировка» может длиться несколько дней?</summary>
+<p>Длительная сортировка часто бывает в периоды праздничного ажиотажа (Черная пятница, Новый год), когда объемы грузов превышают пропускную способность центров. Также причина может быть в повреждении штрих-кода, из-за чего груз «осирел» и лежит в зоне разбора до выяснения номера накладной вручную.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#начало-пути-от-принятия-до-сортировки">Начало пути: от принятия до сортировки</a></li><li><a href="#логистика-в-движении-транзит-и-промежуточные-пункты">Логистика в движении: транзит и промежуточные пункты</a></li><li><a href="#финишная-прямая-склад-и-выдача">Финишная прямая: склад и выдача</a></li><li><a href="#проблемные-статусы-отказ-возврат-и-ошибки">Проблемные статусы: отказ, возврат и ошибки</a></li><li><a href="#таблица-основных-статусов-сдэк">Таблица основных статусов СДЭК</a></li><li><a href="#частые-вопросы-и-технические-нюансы">Частые вопросы и технические нюансы</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/z/za/za-skolko-dnej-pridet-posylka-sdek.html" class="related-card">Сколько дней идёт посылка СДЭК: сроки доставки в 2026 году</a></li><li><a href="/articles/t/tr/trek-nomer-sdek-dlya-otslezhivaniya-gde-nakhoditsya.html" class="related-card">Трек-номер СДЭК: как отследить посылку и где находится груз</a></li><li><a href="/articles/k/ka/kak-polzovatsya-trek-nomerom-dlya-otslezhivaniya-posylki-sdek.html" class="related-card">Как отследить посылку СДЭК по трек-номеру: полная инструкция</a></li><li><a href="/articles/p/po/posmotret-gde-posylka-sdek-otsledit-posylku-po-nomeru.html" class="related-card">Где посмотреть посылку СДЭК: отследить трек онлайн</a></li><li><a href="/articles/k/ka/kak-proverit-dostavku-sdek-po-shtrikh-kodu.html" class="related-card">Как проверить доставку СДЭК по штрих-коду — 5 способов 2026</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/z/za/za-skolko-dnej-pridet-posylka-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Сколько дней идёт посылка СДЭК: сроки доставки в 2026 году</span><span class="related-bottom-desc">Точные сроки доставки посылок СДЭК по России и миру: как рассчитать время, от чего зависит скорость,</span></a><a href="/articles/t/tr/trek-nomer-sdek-dlya-otslezhivaniya-gde-nakhoditsya.html" class="related-bottom-card"><span class="related-bottom-title">Трек-номер СДЭК: как отследить посылку и где находится груз</span><span class="related-bottom-desc">Узнайте, как работает трек-номер СДЭК для отслеживания посылок, где искать информацию о местонахожде</span></a><a href="/articles/k/ka/kak-polzovatsya-trek-nomerom-dlya-otslezhivaniya-posylki-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как отследить посылку СДЭК по трек-номеру: полная инструкция</span><span class="related-bottom-desc">Узнайте, как пользоваться трек-номером для отслеживания посылки СДЭК. Подробная инструкция по провер</span></a><a href="/articles/p/po/posmotret-gde-posylka-sdek-otsledit-posylku-po-nomeru.html" class="related-bottom-card"><span class="related-bottom-title">Где посмотреть посылку СДЭК: отследить трек онлайн</span><span class="related-bottom-desc">Узнайте, как и где посмотреть, где находится посылка СДЭК. Полная инструкция по отслеживанию трек-но</span></a><a href="/articles/k/ka/kak-proverit-dostavku-sdek-po-shtrikh-kodu.html" class="related-bottom-card"><span class="related-bottom-title">Как проверить доставку СДЭК по штрих-коду — 5 способов 2026</span><span class="related-bottom-desc">Пошаговая инструкция, как отследить посылку СДЭК по штрих-коду: через сайт, приложение, SMS и другие</span></a><a href="/articles/s/sd/sdek-v-tranzitnom-gorode-skolko-zhdat.html" class="related-bottom-card"><span class="related-bottom-title">СДЭК в транзитном городе: сколько ждать и как отследить груз</span><span class="related-bottom-desc">Узнайте, сколько времени груз СДЭК находится в транзитном городе. Факторы задержки, статусы трекинга</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

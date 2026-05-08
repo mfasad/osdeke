@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>Как подключить Авито к СДЭК: пошаговая инструкция 2026 — СДЭК Гид</title>
+    <meta name="description" content="Подробное руководство по интеграции Авито с СДЭК для автоматизации доставки. Настройка API, тарифы, ошибки и решения для продавцов.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/k/ka/kak-podklyuchit-avito-sdek.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Как подключить Авито к СДЭК: пошаговая инструкция 2026">
+    <meta property="og:description" content="Подробное руководство по интеграции Авито с СДЭК для автоматизации доставки. Настройка API, тарифы, ошибки и решения для продавцов.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/otpravka-gruzov/">Отправка грузов</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Как подключить Авито к СДЭК: пошаговая инструкция 2026</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Интеграция Авито с СДЭК: как подключить и настроить доставку за 15 минут</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#1-способы-подключения-авито-к-сдэк-какой-выбрать">1. Способы подключения Авито к СДЭК: какой выбрать?</a></li><li><a href="#2-пошаговая-настройка-api-сдэк-для-авито">2. Пошаговая настройка API СДЭК для Авито</a></li><li><a href="#3-настройка-тарифов-и-услуг-сдэк-для-заказов-с-авито">3. Настройка тарифов и услуг СДЭК для заказов с Авито</a></li><li><a href="#4-типичные-ошибки-при-подключении-и-их-решения">4. Типичные ошибки при подключении и их решения</a></li><li><a href="#5-автоматизация-уведомлений-клиентов">5. Автоматизация уведомлений клиентов</a></li><li><a href="#6-оптимизация-стоимости-доставки-скидки-и-бонусы">6. Оптимизация стоимости доставки: скидки и бонусы</a></li><li><a href="#7-альтернативные-способы-интеграции-без-api">7. Альтернативные способы интеграции (без API)</a></li><li><a href="#faq-частые-вопросы-по-интеграции-авито-и-сдэк">FAQ: Частые вопросы по интеграции Авито и СДЭК</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body"><p>Продажи на <em>Aviito</em> растут, но ручное оформление заказов через <strong>СДЭК</strong> отнимает часы каждый день? Автоматизация доставки решает эту проблему: заказы из <em>Aviito</em> моментально попадают в личный кабинет <strong>СДЭК</strong>, а клиенты получают трек-номера без вашего участия. Но как настроить эту связку правильно, чтобы избежать ошибок с тарифами, адресами или статусами?</p>
+
+<p>Эта статья — <mark>пошаговая инструкция с актуальными скриншотами 2026 года</mark>, которая поможет подключить <em>Aviito</em> к <strong>СДЭК</strong> через API или готовые модули (например, <em>МойСклад</em> или <em>Битрикс24</em>). Мы разберём:</p>
+<ul>
+  <li>🔹 <strong>3 способа интеграции</strong> (ручная, полуавтоматическая, полная автоматизация)</li>
+  <li>🔹 <strong>Пошаговую настройку API</strong> с примерами кода для разработчиков</li>
+  <li>🔹 <strong>Типичные ошибки</strong> при подключении и как их исправить (коды 403, 500, проблемы с токенами)</li>
+  <li>🔹 <strong>Сравнение тарифов</strong> СДЭК для заказов с <em>Aviito</em> (включая скидки для бизнес-аккаунтов)</li>
+</ul>
+
+<p>Важно: если вы используете <em>Aviito Доставку</em>, часть функций уже интегрирована с <strong>СДЭК</strong> по умолчанию — но кастомизация маршрутов, упаковки или оплаты требует отдельной настройки. Начнём с выбора способа подключения.</p>
+
+<h2 id="1-способы-подключения-авито-к-сдэк-какой-выбрать">1. Способы подключения Авито к СДЭК: какой выбрать?</h2>
+
+<p>Интеграция <em>Aviito</em> и <strong>СДЭК</strong> возможна тремя путями. Выбор зависит от объёма заказов, технических навыков и бюджета:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Способ</th>
+      <th>Сложность</th>
+      <th>Стоимость</th>
+      <th>Подходит для</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Ручной ввод</strong> (копирование заказов в ЛК СДЭК)</td>
+      <td>⭐</td>
+      <td>Бесплатно</td>
+      <td>1–10 заказов/день</td>
+    </tr>
+    <tr>
+      <td><strong>Готовые модули</strong> (<em>МойСклад</em>, <em>Битрикс24</em>, <em>RetailCRM</em>)</td>
+      <td>⭐⭐</td>
+      <td>От 500 ₽/мес</td>
+      <td>10–100 заказов/день</td>
+    </tr>
+    <tr>
+      <td><strong>Прямое API</strong> (самостоятельная разработка)</td>
+      <td>⭐⭐⭐</td>
+      <td>От 10 000 ₽ (разово)</td>
+      <td>100+ заказов/день</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>🔸 <strong>Ручной ввод</strong> подойдёт новичкам: вы экспортируете заказы из <em>Aviito</em> в <code>Excel</code> и загружаете их в <strong>СДЭК</strong> через файл. Минус — высокая вероятность ошибок при копировании адресов или веса.</p>
+
+<p>🔸 <strong>Готовые модули</strong> (например, <em>МойСклад</em>) синхронизируют заказы автоматически, но требуют ежемесячной оплаты. Подходит для среднего бизнеса.</p>
+
+<p>🔸 <strong>Прямое API</strong> — самый гибкий вариант для крупных продавцов. Позволяет настраивать логику упаковки, выбор тарифов и уведомления клиентов. Требует знаний программирования или помощи разработчика.</p>
+
+<div class="poll-widget" id="poll-e08b3a15"><div class="poll-widget-question">📊 Как вы обычно оформляете заказы с Авито?</div><div class="poll-widget-option" data-poll="e08b3a15" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Вручную в ЛК СДЭК</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="e08b3a15" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Через МойСклад/Битрикс24</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="e08b3a15" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Своя CRM с API</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="e08b3a15" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Ещё не подключал</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="2-пошаговая-настройка-api-сдэк-для-авито">2. Пошаговая настройка API СДЭК для Авито</h2>
+
+<p>Если вы выбрали <strong>прямую интеграцию через API</strong>, следуйте этому алгоритму. Для работы понадобится:</p>
+<ul>
+  <li>🔐 <strong>Ключ API СДЭК</strong> (получается в личном кабинете)</li>
+  <li>📝 <strong>Данные для аутентификации</strong> (<code>client_id</code> и <code>client_secret</code>)</li>
+  <li>💻 <strong>Доступ к серверу</strong> (для размещения скрипта синхронизации)</li>
+</ul>
+
+<p>📌 <strong>Шаг 1. Регистрация приложения в СДЭК</strong></p>
+<ol>
+  <li>Перейдите в <a href="https://api.cdek.ru/v2/oauth/authorize" target="_blank"><code>Личный кабинет СДЭК → API → Мои приложения</code></a>.</li>
+  <li>Нажмите «Создать приложение» и укажите:
+    <ul>
+      <li>📌 Название (например, «Интеграция с Авито»)</li>
+      <li>📌 <code>Redirect URI</code> — <code>https://your-domain.ru/cdek/callback</code> (замените на свой домен)</li>
+      <li>📌 Права доступа: <code>orders:read</code>, <code>orders:write</code>, <code>delivery_points:read</code></li>
+    </ol>
+  </li>
+  <li>Скопируйте <code>client_id</code> и <code>client_secret</code> — они понадобятся для авторизации.</li>
+</ol>
+
+<p>📌 <strong>Шаг 2. Получение токена доступа</strong></p>
+<p>Отправьте <code>POST</code>-запрос на эндпоинт авторизации:</p>
+<pre><code>curl -X POST 'https://api.cdek.ru/v2/oauth/token' \
+<p>-H 'Content-Type: application/x-www-form-urlencoded' \</p>
+<p>-d 'grant_type=client_credentials&client_id=ВАШ_CLIENT_ID&client_secret=ВАШ_CLIENT_SECRET'</code></pre></p>
+<p>В ответе вы получите <code>access_token</code> (действует 1 час) и <code>refresh_token</code> (для продления сессии). Сохраните их в безопасном месте.</p>
+
+
+<p>Получить client_id и client_secret в ЛК СДЭК|</p>
+<p>Создать скрипт для обмена токенами|</p>
+<p>Настроить хранение токенов (база данных или файл)|</p>
+<p>Проверить права доступа (orders:read/write)--></p>
+
+<p>📌 <strong>Шаг 3. Настройка вебхуков в Авито</strong></p>
+<p>Чтобы заказы автоматически передавались в <strong>СДЭК</strong>, настройте уведомления в <em>Aviito</em>:</p>
+<ol>
+  <li>Перейдите в <code>Личный кабинет Авито → Настройки → API</code>.</li>
+  <li>Добавьте вебхук с URL вашего сервера (например, <code>https://your-domain.ru/api/avito-order</code>).</li>
+  <li>Укажите события для отслеживания:
+    <ul>
+      <li>📦 <code>order.created</code> — новый заказ</li>
+      <li>📦 <code>order.status_changed</code> — изменение статуса</li>
+    </ol>
+  </li>
+</ol>
+
+<details class="faq-item"><summary>Пример кода для обработки вебхука Авито</summary><div class="faq-answer"><p>
+<?php
+<p>// Пример обработчика вебхука на PHP</p>
+<p>$input = file_get_contents('php://input');</p>
+<p>$data = json_decode($input, true);</p>
+
+<p>if ($data['event'] == 'order.created') {</p>
+<p>$orderId = $data['order']['id'];</p>
+<p>$cdekOrder = prepareOrderForCdek($data['order']); // Ваша функция подготовки</p>
+<p>sendToCdek($cdekOrder); // Отправка в СДЭК</p>
+<p>}</p>
+<p>?></p></div></details></p>
+
+<h2 id="3-настройка-тарифов-и-услуг-сдэк-для-заказов-с-авито">3. Настройка тарифов и услуг СДЭК для заказов с Авито</h2>
+
+<p>Ошибка в выборе тарифа — одна из главных причин переплат или проблем с доставкой. В <strong>СДЭК</strong> для заказов с <em>Aviito</em> доступны специальные условия:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Тариф</th>
+      <th>Срок доставки</th>
+      <th>Стоимость (от)</th>
+      <th>Особенности</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Экономичный</strong></td>
+      <td>3–7 дней</td>
+      <td>250 ₽</td>
+      <td>Для товаров весом до 10 кг</td>
+    </tr>
+    <tr>
+      <td><strong>Стандартный</strong></td>
+      <td>2–5 дней</td>
+      <td>350 ₽</td>
+      <td>Страховка до 50 000 ₽ включена</td>
+    </tr>
+    <tr>
+      <td><strong>Экспресс</strong></td>
+      <td>1–2 дня</td>
+      <td>600 ₽</td>
+      <td>Доставка в день заказа (до 12:00)</td>
+    </tr>
+    <tr>
+      <td><strong>Посылка (почтовая)</strong></td>
+      <td>5–14 дней</td>
+      <td>180 ₽</td>
+      <td>Для удалённых регионов</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>⚠️ <strong>Внимание:</strong> Если вес или габариты товара в заказе с <em>Aviito</em> не совпадают с данными в <strong>СДЭК</strong>, система автоматически пересчитает стоимость доставки. Чтобы избежать доплат:</p>
+<ul>
+  <li>📏 Указывайте <strong>точный вес</strong> (с упаковкой!) в карточке товара на <em>Aviito</em>.</li>
+  <li>📦 Для хрупких товаров выбирайте тариф со <strong>страховкой</strong> (например, «Стандартный»).</li>
+  <li>🚚 Если отправляете <strong>крупногабарит</strong> (длина > 1.5 м), уточните возможность доставки в <a href="https://www.cdek.ru/ru/calculator" target="_blank">калькуляторе СДЭК</a>.</li>
+</ul>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Используйте <strong>шаблоны упаковки</strong> в ЛК СДЭК, чтобы не вводить габариты каждого заказа вручную. Например, создайте шаблон «Коробка 30×20×10 см» для мелких товаров и привяжите его к тарифу «Экономичный».</p></div>
+
+<h2 id="4-типичные-ошибки-при-подключении-и-их-решения">4. Типичные ошибки при подключении и их решения</h2>
+
+<p>Даже при правильной настройке API могут возникать сбои. Вот <mark>5 самых частых ошибок</mark> и способы их исправления:</p>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Если при отправке заказа в <strong>СДЭК</strong> вы получаете ошибку <code>403 Forbidden</code>, проверьте <code>scope</code> вашего токена. Часто проблема в недостаточных правах (нужны <code>orders:write</code>).</blockquote>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ошибка</th>
+      <th>Причина</th>
+      <th>Решение</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>500 Internal Server Error</code></td>
+      <td>Некорректный формат JSON или отсутствует обязательное поле (например, <code>recipient</code>)</td>
+      <td>Проверьте структуру запроса в <a href="https://api.cdek.ru/v2/doc" target="_blank">документации СДЭК</a></td>
+    </tr>
+    <tr>
+      <td><code>400 Bad Request: "tariff_id not found"</code></td>
+      <td>Указан несуществующий тариф или он недоступен для выбранного направления</td>
+      <td>Используйте <code>/v2/delivery/tariff-list</code> для получения актуальных тарифов</td>
+    </tr>
+    <tr>
+      <td><code>401 Unauthorized</code></td>
+      <td>Истёк <code>access_token</code> или неверные <code>client_id/client_secret</code></td>
+      <td>Обновите токен (см. <a href="#шаг-2">Шаг 2</a>) или проверьте ключи в ЛК СДЭК</td>
+    </tr>
+    <tr>
+      <td>Заказ не отображается в ЛК СДЭК</td>
+      <td>Вебхук <em>Aviito</em> не сработал или данные не прошли валидацию</td>
+      <td>Проверьте логи сервера и повторно отправьте запрос с <code>debug: true</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>🔧 <strong>Как проверить корректность запроса?</strong></p>
+<p>Используйте инструменты вроде <em>Postman</em> или <em>cURL</em> для тестирования API. Пример корректного запроса на создание заказа:</p>
+<pre><code>curl -X POST 'https://api.cdek.ru/v2/orders' \
+<p>-H 'Authorization: Bearer ВАШ_ACCESS_TOKEN' \</p>
+<p>-H 'Content-Type: application/json' \</p>
+<p>-d '{</p>
+<p>"type": 1,</p>
+<p>"number": "12345-AVITO",</p>
+<p>"tariff_code": 136, // Код тарифа "Экономичный"</p>
+<p>"from_location": {</p>
+<p>"code": 44 // Код города отправителя (Москва)</p>
+<p>},</p>
+<p>"to_location": {</p>
+<p>"code": 75 // Код города получателя (Екатеринбург)</p>
+<p>},</p>
+<p>"packages": [{</p>
+<p>"number": "1",</p>
+<p>"weight": 500, // Вес в граммах</p>
+<p>"length": 20,</p>
+<p>"width": 10,</p>
+<p>"height": 5</p>
+<p>}],</p>
+<p>"recipient": {</p>
+<p>"name": "Иван Иванов",</p>
+<p>"phones": [{</p>
+<p>"number": "+79991234567"</p>
+<p>}]</p>
+<p>}</p>
+<p>}'</code></pre></p>
+
+<h2 id="5-автоматизация-уведомлений-клиентов">5. Автоматизация уведомлений клиентов</h2>
+
+<p>После создания заказа в <strong>СДЭК</strong> клиент должен получить:</p>
+<ol>
+  <li>📧 <strong>Email</strong> с номером заказа и трек-номером.</li>
+  <li>📱 <strong>SMS</strong> с ссылкой на отслеживание.</li>
+  <li>🔔 <strong>Уведомление в Авито</strong> (через чат).</li>
+</ol>
+
+<p>📌 <strong>Способ 1: Настройка в ЛК СДЭК</strong></p>
+<p>Перейдите в <code>Личный кабинет → Настройки → Уведомления</code> и включите опции:</p>
+<ul>
+  <li>🔘 «Отправлять SMS при создании заказа»</li>
+  <li>🔘 «Отправлять email с трек-номером»</li>
+  <li>🔘 «Интеграция с Авито» (если подключен модуль)</li>
+</ul>
+
+<p>📌 <strong>Способ 2: Кастомизация через API</strong></p>
+<p>Добавьте в запрос создания заказа поле <code>notification</code>:</p>
+<pre><code>"notification": {
+<p>"email": "client@example.com",</p>
+<p>"phone": "+79991234567",</p>
+<p>"send_sms": true,</p>
+<p>"send_email": true</p>
+<p>}</code></pre></p>
+
+
+<p>1) Корректность email/телефона в заказе.</p>
+<p>2) Баланс на счёте СДЭК (SMS платные — ~1.5 ₽ за штуку).</p>
+<p>3) Настройки спам-фильтров (особенно для email с домена @cdek.ru).--></p>
+
+<h2 id="6-оптимизация-стоимости-доставки-скидки-и-бонусы">6. Оптимизация стоимости доставки: скидки и бонусы</h2>
+
+<p>СДЭК предлагает <strong>скидки для продавцов с Авито</strong> при выполнении условий:</p>
+<ul>
+  <li>🎯 <strong>Объём от 50 заказов/мес</strong> — скидка 5% на тарифы.</li>
+  <li>🎯 <strong>Объём от 200 заказов/мес</strong> — скидка 10% + бесплатная упаковка.</li>
+  <li>🎯 <strong>Оплата по безналу</strong> — дополнительные 2% кэшбэка.</li>
+</ul>
+
+<p>📊 <strong>Как получить скидку?</strong></p>
+<ol>
+  <li>Зарегистрируйте <strong>бизнес-аккаунт</strong> в <strong>СДЭК</strong> (через <a href="https://www.cdek.ru/ru/business" target="_blank">форму на сайте</a>).</li>
+  <li>Привяжите свой аккаунт <em>Aviito</em> в разделе «Интеграции».</li>
+  <li>Отправьте не менее 50 заказов за месяц — скидка активируется автоматически.</li>
+</ol>
+
+<p>⚠️ <strong>Внимание:</strong> Скидки не суммируются с акциями (например, «Бесплатная доставка по России»). Если у вас действует промокод от <em>Aviito</em>, уточните приоритет скидок у менеджера <strong>СДЭК</strong>.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Используйте <strong>консолидацию заказов</strong> — отправляйте несколько товаров одному клиенту в одной коробке. Это снизит стоимость доставки на 15–30%.</p></div>
+
+<h2 id="7-альтернативные-способы-интеграции-без-api">7. Альтернативные способы интеграции (без API)</h2>
+
+<p>Если настройка API кажется сложной, воспользуйтесь готовыми сервисами:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Сервис</th>
+      <th>Стоимость</th>
+      <th>Функции</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><em>МойСклад</em></td>
+      <td>От 990 ₽/мес</td>
+      <td>Автоматическая синхронизация заказов, печать этикеток, управление остатками</td>
+    </tr>
+    <tr>
+      <td><em>Битрикс24</em></td>
+      <td>От 1 990 ₽/мес</td>
+      <td>CRM + интеграция с Авито и СДЭК, аналитика продаж</td>
+    </tr>
+    <tr>
+      <td><em>RetailCRM</em></td>
+      <td>От 2 500 ₽/мес</td>
+      <td>Мультиканальные продажи, автоматическое назначение курьеров</td>
+    </tr>
+    <tr>
+      <td><em>Авито Доставка</em></td>
+      <td>Бесплатно (комиссия 5–10%)</td>
+      <td>Встроенная интеграция с СДЭК, но без гибких настроек тарифов</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>🔹 <strong>Как выбрать сервис?</strong></p>
+<ul>
+  <li>🛒 Для <strong>маленького магазина</strong> (до 50 заказов/день) хватит <em>МойСклад</em>.</li>
+  <li>📈 Для <strong>среднего бизнеса</strong> (50–200 заказов) подойдёт <em>Битрикс24</em>.</li>
+  <li>🏭 Для <strong>крупных продавцов</strong> (200+ заказов) лучше <em>RetailCRM</em> или собственное API.</li>
+</ul>
+
+<h2 id="faq-частые-вопросы-по-интеграции-авито-и-сдэк">FAQ: Частые вопросы по интеграции Авито и СДЭК</h2>
+
+<details>
+  <summary>❓ Как проверить, что интеграция работает?</summary>
+  <p>Создайте <strong>тестовый заказ</strong> на <em>Aviito</em> (например, через «Купить в 1 клик»). Если он появился в ЛК <strong>СДЭК</strong> в течение 5 минут — интеграция настроена верно. Также проверьте логи вашего сервера на ошибки.</p>
+</details>
+
+<details>
+  <summary>❓ Можно ли подключить СДЭК к Авито без API?</summary>
+  <p>Да, через сервисы-посредники (<em>МойСклад</em>, <em>Битрикс24</em>) или ручной экспорт заказов в <code>Excel</code>. Однако без API вы не сможете:</p>
+  <ul>
+    <li>🔹 Автоматически обновлять статусы заказов.</li>
+    <li>🔹 Настраивать гибкие тарифы в зависимости от веса/региона.</li>
+    <li>🔹 Отправлять кастомизированные уведомления клиентам.</li>
+  </ul>
+</details>
+
+<details>
+  <summary>❓ Почему СДЭК не принимает заказ из Авито?</summary>
+  <p>Частые причины:</p>
+  <ol>
+    <li>📌 <strong>Неверный адрес</strong> (отсутствует индекс или город).</li>
+    <li>📌 <strong>Превышен лимит веса</strong> (максимум 31.5 кг для стандартных тарифов).</li>
+    <li>📌 <strong>Недостаточно средств</strong> на счёте СДЭК.</li>
+    <li>📌 <strong>Некорректный <code>tariff_code</code></strong> (уточните актуальные коды в <a href="https://api.cdek.ru/v2/doc" target="_blank">документации</a>).</li>
+  </ol>
+  <p>Проверьте ответ API на ошибки — там будет подробное описание проблемы.</p>
+</details>
+
+<details>
+  <summary>❓ Как отменить заказ в СДЭК, если клиент отказался?</summary>
+  <p>Отмена возможна, если заказ ещё не передан курьеру. Для этого:</p>
+  <ol>
+    <li>Перейдите в <code>Личный кабинет СДЭК → Заказы</code>.</li>
+    <li>Найдите заказ и нажмите «Отменить».</li>
+    <li>Укажите причину (например, «Отказ клиента»).</li>
+  </ol>
+  <p>Если заказ уже в пути, свяжитесь с поддержкой <strong>СДЭК</strong> по телефону <code>8 800 250-14-95</code>.</p>
+</details>
+
+<details>
+  <summary>❓ Сколько стоит интеграция Авито с СДЭК?</summary>
+  <p>Стоимость зависит от способа подключения:</p>
+  <ul>
+    <li>🆓 <strong>Ручной ввод</strong> — бесплатно.</li>
+    <li>💰 <strong>Готовые модули</strong> — от 500 ₽/мес (например, <em>МойСклад</em>).</li>
+    <li>💻 <strong>Разработка API</strong> — от 10 000 ₽ (разово) + возможные доработки.</li>
+  </ul>
+  <p>Дополнительно оплачиваются:</p>
+  <ul>
+    <li>📦 Стоимость доставки по тарифам СДЭК.</li>
+    <li>📞 SMS-уведомления (~1.5 ₽ за штуку).</li>
+  </ul>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#1-способы-подключения-авито-к-сдэк-какой-выбрать">1. Способы подключения Авито к СДЭК: какой выбрать?</a></li><li><a href="#2-пошаговая-настройка-api-сдэк-для-авито">2. Пошаговая настройка API СДЭК для Авито</a></li><li><a href="#3-настройка-тарифов-и-услуг-сдэк-для-заказов-с-авито">3. Настройка тарифов и услуг СДЭК для заказов с Авито</a></li><li><a href="#4-типичные-ошибки-при-подключении-и-их-решения">4. Типичные ошибки при подключении и их решения</a></li><li><a href="#5-автоматизация-уведомлений-клиентов">5. Автоматизация уведомлений клиентов</a></li><li><a href="#6-оптимизация-стоимости-доставки-скидки-и-бонусы">6. Оптимизация стоимости доставки: скидки и бонусы</a></li><li><a href="#7-альтернативные-способы-интеграции-без-api">7. Альтернативные способы интеграции (без API)</a></li><li><a href="#faq-частые-вопросы-по-интеграции-авито-и-сдэк">FAQ: Частые вопросы по интеграции Авито и СДЭК</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/k/ka/kak-otpravlyat-dokumenty-sdekom.html" class="related-card">Как отправить документы через СДЭК: пошаговая инструкция 2026</a></li><li><a href="/articles/k/ka/kak-oformit-otpravku-posylki-sdek-cherez-lichnyj-kabinet.html" class="related-card">Отправка СДЭК через ЛК: пошаговая инструкция 2026</a></li><li><a href="/articles/s/sd/sdek-kak-upakovyvat-posylku.html" class="related-card">Как упаковать посылку для СДЭК: правила и советы 2026</a></li><li><a href="/articles/s/sd/sdek-kakoj-maksimalnyj-ves.html" class="related-card">Максимальный вес посылки СДЭК в 2026: тарифы, ограничения, советы</a></li><li><a href="/articles/k/ka/kakie-dannye-nuzhny-dlya-otpravki-posylki-sdek-v-drugoj-gorod.html" class="related-card">Какие данные нужны для отправки посылки СДЭК в другой город 2026</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/k/ka/kak-otpravlyat-dokumenty-sdekom.html" class="related-bottom-card"><span class="related-bottom-title">Как отправить документы через СДЭК: пошаговая инструкция 2026</span><span class="related-bottom-desc">Узнайте, как правильно упаковать, оформить и отправить документы через СДЭК: требования, стоимость, </span></a><a href="/articles/k/ka/kak-oformit-otpravku-posylki-sdek-cherez-lichnyj-kabinet.html" class="related-bottom-card"><span class="related-bottom-title">Отправка СДЭК через ЛК: пошаговая инструкция 2026</span><span class="related-bottom-desc">Как оформить заказ СДЭК в личном кабинете. Подробный гид по созданию накладной, выбору тарифа и опла</span></a><a href="/articles/s/sd/sdek-kak-upakovyvat-posylku.html" class="related-bottom-card"><span class="related-bottom-title">Как упаковать посылку для СДЭК: правила и советы 2026</span><span class="related-bottom-desc">Подробная инструкция по упаковке посылок для СДЭК: требования к коробкам, материалы, защита хрупких </span></a><a href="/articles/s/sd/sdek-kakoj-maksimalnyj-ves.html" class="related-bottom-card"><span class="related-bottom-title">Максимальный вес посылки СДЭК в 2026: тарифы, ограничения, советы</span><span class="related-bottom-desc">Актуальные ограничения по весу для отправок через СДЭК: стандартные, негабаритные и тяжеловесные гру</span></a><a href="/articles/k/ka/kakie-dannye-nuzhny-dlya-otpravki-posylki-sdek-v-drugoj-gorod.html" class="related-bottom-card"><span class="related-bottom-title">Какие данные нужны для отправки посылки СДЭК в другой город 2026</span><span class="related-bottom-desc">Полный список документов и данных для оформления отправки через СДЭК: от ФИО получателя до габаритов</span></a><a href="/articles/k/ka/kakie-dannye-nado-chtoby-otpravit-posylku-v-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Какие данные нужны, чтобы отправить посылку в СДЭК: полный список</span><span class="related-bottom-desc">Узнайте, какие документы и сведения потребуются для оформления отправки в СДЭК. Список данных для от</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

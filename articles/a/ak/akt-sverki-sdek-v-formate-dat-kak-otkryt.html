@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>Акт сверки СДЭК в формате DAT: как открыть и прочитать — СДЭК Гид</title>
+    <meta name="description" content="Полная инструкция по открытию акта сверки СДЭК (.dat). Чем заменить файл, конвертация в Excel, анализ строк и устранение ошибок кодировки.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/a/ak/akt-sverki-sdek-v-formate-dat-kak-otkryt.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Акт сверки СДЭК в формате DAT: как открыть и прочитать">
+    <meta property="og:description" content="Полная инструкция по открытию акта сверки СДЭК (.dat). Чем заменить файл, конвертация в Excel, анализ строк и устранение ошибок кодировки.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/biznes-i-dogovory/">Бизнес и договоры</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Акт сверки СДЭК в формате DAT: как открыть и прочитать</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Акт сверки СДЭК в формате DAT: как открыть и прочитать</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#природа-файла-dat-в-системе-сдэк">Природа файла DAT в системе СДЭК</a></li><li><a href="#способы-открытия-файла-через-excel">Способы открытия файла через Excel</a></li><li><a href="#использование-текстовых-редакторов-для-анализа">Использование текстовых редакторов для анализа</a></li><li><a href="#конвертация-в-csv-для-совместимости">Конвертация в CSV для совместимости</a></li><li><a href="#таблицаных-проблем-при-открытии">Таблицаных проблем при открытии</a></li><li><a href="#работа-с-данными-в-облачных-таблицах">Работа с данными в облачных таблицах</a></li><li><a href="#автоматизация-обработки-актов-сверки">Автоматизация обработки актов сверки</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+<p>Получение финансового документа от логистического оператора — стандартная процедура для бухгалтерии и менеджеров по работе с клиентами. Однако пользователи часто сталкиваются с технической проблемой: файл, присланный службой доставки, имеет расширение <code>.dat</code> вместо привычного <code>.xls</code> или <code>.csv</code>. Это расширение означает <strong>Data</strong> и указывает на то, что перед вами файл данных, но не поясняет, какой именно программой его следует обрабатывать.</p>
+
+<p>В контексте работы со <em>СДЭК</em> такой формат часто используется для автоматической выгрузки реестров платежей и актов из внутренней системы документооборота. Система генерирует файл в текстовом или бинарном виде, чтобы сохранить структуру данных, но операционная система Windows по умолчанию не знает, каким приложением его запускать. Открывать его"наугад" нельзя, так как можно повредить кодировку или неверно интерпретировать разделители столбцов.</p>
+
+<p>Существует несколько проверенных способов преобразовать этот файл в читаемую таблицу. Чаще всего внутри <code>.dat</code> скрывается обычная текстовая структура с разделителями, которую легко импортировать в <em>Microsoft Excel</em> или <em>Google Таблицы</em>. Ниже мы подробно разберем алгоритм действий, который позволит вам быстро получить доступ к финансовым данным без обращения в техническую поддержку.</p>
+
+<h2 id="природа-файла-dat-в-системе-сдэк">Природа файла DAT в системе СДЭК</h2>
+<p>Расширение <strong>DAT</strong> является универсальным контейнером для хранения данных. В случае с актами сверки логистических компаний, это часто текстовый файл, где столбцы разделены табуляцией или запятыми. Система <em>СДЭК Business</em> формирует этот файл для обеспечения совместимости с различными версиями учетного ПО клиентов. Важно понимать, что это не защищенный формат, а просто способ упаковки табличных данных.</p>
+
+<p>Попытка открыть файл двойным кликом обычно приводит к вопросу"Как открыть этот файл?" или запуску"Блокнота" с нечитаемым набором символов. Это происходит потому, что Windows не имеет жесткой привязки расширения к программе по умолчанию для этого типа данных. Для бухгалтера критически важно видеть четкую структуру: номер накладной, сумму, дату и статус оплаты, а не сплошной поток текста.</p>
+
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> Никогда не сохраняйте файл.dat сразу в формате.xls через переименование без предварительного анализа содержимого. Это может привести к тому, что Excel некорректно разобьет данные по ячейкам, и суммы"поедут" в соседние колонки, что вызовет ошибки в сверке.</p>
+</blockquote>
+
+<p>Файлы такого типа могут быть кодированы в различных стандартах, чаще всего это <code>UTF-8</code> или <code>Windows-1251</code>. Если при открытии в текстовом редакторе вы видите кракозябры вместо русских букв, значит, выбрана неверная кодировка. Правильное определение кодировки — первый шаг к успешному импорту данных в табличный редактор.</p>
+
+<h2 id="способы-открытия-файла-через-excel">Способы открытия файла через Excel</h2>
+<p>Самый надежный метод работы с актом сверки — использование функции импорта данных в <em>Excel</em>. Это позволяет вручную задать параметры разделения столбцов и кодировку, гарантируя правильное отображение информации. Не пытайтесь просто перетащить файл на иконку программы, лучше воспользоваться встроенным мастером.</p>
+
+<p>Для начала откройте пустой лист в Excel. Перейдите на вкладку <code>Данные</code> (Data) в верхнем меню. Найдите кнопку <code>Получить данные</code> или <code>Из текста/CSV</code>. В открывшемся окне проводника выберите ваш файл акта сверки с расширением <code>.dat</code>. Если файл не виден, измените тип отображаемых файлов на"Все файлы" или"Текстовые файлы".</p>
+
+<p>После выбора файла запустится мастер текстов. На первом этапе выберите формат данных"с разделителями". На следующем шаге мастер предложит выбрать символ-разделитель. Для актов <em>СДЭК</em> это обычно табуляция или точка с запятой. В окне предпросмотра вы сразу увидите, как данные разобьются на аккуратные колонки.</p>
+
+<div class="checklist-block"><h4>☑️ Проверка импорта акта</h4><label class="check-item"><input type="checkbox"><span>Выбрать файл.dat в мастере импорта</span></label><label class="check-item"><input type="checkbox"><span>Указать кодировку (UTF-8 или Windows-1251)</span></label><label class="check-item"><input type="checkbox"><span>Выбрать разделитель (табуляция/запятая)</span></label><label class="check-item"><input type="checkbox"><span>Проверить предпросмотр столбцов</span></label><label class="check-item"><input type="checkbox"><span>Нажать"Загрузить"</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 5</div></div>
+
+<p>Финальный этап — выбор формата данных для столбцов. Для столбца с номерами накладных рекомендуется выбрать"Текстовый" формат, чтобы Excel не обрезал ведущие нули и не переводил длинные числа в экспоненциальный вид (например, 1.23E+10). После нажатия кнопки"ОК" данные загрузятся в таблицу, и вы сможете сохранить файл уже в нативном формате <code>.xlsx</code>.</p>
+
+<h2 id="использование-текстовых-редакторов-для-анализа">Использование текстовых редакторов для анализа</h2>
+<p>Если под рукой нет Excel или нужно быстро проверить содержимое файла, подойдут продвинутые текстовые редакторы. Стандартный"Блокнот" Windows часто не справляется с большими файлами и не показывает структуру clearly. Рекомендуется использовать <em>Notepad++</em>, <em>Sublime Text</code> или <em>VS Code</em>.</p>
+
+<p>Эти программы автоматически подсвечивают синтаксис и позволяют увидеть скрытые символы. Открыв файл в <em>Notepad++</em>, вы сможете оценить, является ли он читаемым текстом или бинарным кодом. Если вы видите структурированный текст, разделенный пробелами или спецсимволами, файл исправен.</p>
+
+<ul>
+<li> 📝 Откройте файл в редакторе и скопируйте весь текст (<code>Ctrl+A</code>, затем <code>Ctrl+C</code>).
+<li> 📊 Вставьте скопированное в пустую ячейку Excel или Google Таблиц.
+<li> 🔧 Используйте функцию"Текст по столбцам" в Excel, чтобы разделить слипшиеся данные.
+</ul>
+
+<p>Преимущество текстовых редакторов в их скорости и отсутствии лишних надстроек. Вы можете быстро найти конкретный номер накладной через поиск (<code>Ctrl+F</code>) и убедиться, что нужная транзакция присутствует в файле. Это особенно полезно при работе с актами, содержащими тысячи строк, где Excel может работать медленнее.</p>
+
+<h2 id="конвертация-в-csv-для-совместимости">Конвертация в CSV для совместимости</h2>
+<p>Для интеграции данных акта сверки в другие системы (1С, МойСклад, CRM) часто требуется формат <strong>CSV</strong>. Файл <code>.dat</code> можно легко конвертировать в CSV, сохранив при этом всю структуру. Это делает данные универсальными для передачи между разными платформами.</p>
+
+<p>Проще всего это сделать через тот же Excel. После успешного импорта данных из <code>.dat</code> (как описано во втором разделе), выберите <code>Файл → Сохранить как</code>. В списке типов файлов укажите <code>CSV (разделитель запятая)</code> или <code>CSV (разделитель точка с запятой)</code>.</p>
+
+<pre><code>Имя файла;Дата;Сумма;Статус
+<p>12345678;01.10.2023;500.00;Оплачено</p>
+<p>87654321;02.10.2023;1200.50;В пути</code></pre></p>
+
+<p>При сохранении в CSV программа может предупредить о потере некоторых функций форматирования. Соглашайтесь, так как для акта сверки важны только raw-данные. Полученный файл <code>.csv</code> откроется на любом компьютере без необходимости заново проходить через мастер импорта.</p>
+
+<details class="faq-item"><summary>Почему Excel меняет формат чисел при открытии?</summary><div class="faq-answer"><p>Excel автоматически определяет тип данных. Если в ячейке только цифры, он считает это числом и может убрать ведущие нули или округлить длинные значения. Чтобы этого избежать, при импорте из.dat всегда принудительно выбирайте текстовый формат для столбцов с номерами треков или счетов.</p></div></details>
+
+<h2 id="таблицаных-проблем-при-открытии">Таблицаных проблем при открытии</h2>
+<p>В процессе работы с файлами данных пользователи часто сталкиваются с типовыми ошибками. Ниже приведена таблица, которая поможет быстро диагностировать проблему и найти решение. Большинство ошибок связано с настройками локали или повреждением файла при скачивании.</p>
+
+<table>
+<thead>
+<tr>
+<th>Проблема</th>
+<th>Вероятная причина</th>
+<th>Решение</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Вместо текста"кракозябры"</td>
+<td>Неверная кодировка (ANSI вместо UTF-8)</td>
+<td>При импорте сменить кодировку на UTF-8 или Windows-1251</td>
+</tr>
+<tr>
+<td>Все данные в одном столбце</td>
+<td>Не выбран разделитель</td>
+<td>В мастере импорта табуляцию или запятую</td>
+</tr>
+<tr>
+<td>Файл не открывается</td>
+<td>Файл поврежден или пуст</td>
+<td>Скачать акт заново из личного кабинета СДЭК</td>
+</tr>
+<tr>
+<td>Даты отображаются как числа (44562)</td>
+<td>Формат ячейки"Общий"</td>
+<td>Выделить столбец и задать формат"Дата"</td>
+</tr>
+</tbody>
+</table>
+
+<p>Если файл поврежден при скачивании (например, оборвалось соединение), Excel выдаст ошибку о невозможности прочитать файл. В этом случае не стоит пытаться"лечить" файл программно. Проще всего вернуться в личный кабинет <em>СДЭК</em> и сформировать выгрузку заново, убедившись в стабильности интернет-соединения.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Сохраняйте оригиналы файлов.dat в отдельной папке в течение налогового периода. В случае аудита или спорной ситуации с логистом исходный файл, полученный от оператора, является юридически значимым доказательством состава данных на момент выгрузки.</p></div>
+
+<h2 id="работа-с-данными-в-облачных-таблицах">Работа с данными в облачных таблицах</h2>
+<p>Современный подход к бухгалтерии предполагает работу в облаке. <em>Google Таблицы</em> и <em>Яндекс.Таблицы</em> также умеют импортировать данные из текстовых файлов, хотя интерфейс может отличаться. Это удобно для совместной работы отдела логистики и бухгалтерии.</p>
+
+<p>В Google Таблицах выберите <code>Файл → Импорт → Загрузка</code>. Выберите ваш <code>.dat</code> файл. Система предложит варианты разделения. Часто облачные сервисы автоматически определяют разделители лучше, чем десктопный Excel. После импорта данные можно сразу отправлять коллегам по ссылке.</p>
+
+<ul>
+<li> ☁️ Удобство доступа с любого устройства без установки ПО.
+<li> 🔄 Автоматическое сохранение истории изменений (версионность).
+<li> 👥 Возможность комментировать конкретные строки акта сверки.
+</ul>
+
+<p>Однако стоит помнить о безопасности. Акты сверки содержат коммерческую информацию: объемы отгрузок, суммы расходов, контрагентов. Загружая файл <code>.dat</code> в облако, убедитесь, что доступ к документу ограничен только доверенными сотрудниками вашей организации.</p>
+
+<div class="poll-widget" id="poll-703ce334"><div class="poll-widget-question">📊 Где вы предпочитаете вести учет актов сверки?</div><div class="poll-widget-option" data-poll="703ce334" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">В Excel на компьютере</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="703ce334" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">В Google Таблицах</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="703ce334" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">В 1С Предприятие</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="703ce334" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">В специализированном CRM</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="703ce334" data-idx="4" onclick="pbPollVote(this)"><span class="poll-widget-label">На бумаге</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="автоматизация-обработки-актов-сверки">Автоматизация обработки актов сверки</h2>
+<p>Для компаний с большим документооборотом ручное открытие каждого файла <code>.dat</code> становится неэффективным. Существуют скрипты и макросы, которые автоматизируют этот процесс. Например, в Excel можно записать макрос, который будет открывать папку с выгрузками, применять настройки импорта и сохранять результат.</p>
+
+<p>Более продвинутый вариант — использование Python или PowerShell. Скрипт может автоматически парсить файлы из папки"Загрузки", проверять суммы на соответствие лимитам и формировать сводный отчет. Это требует навыков программирования, но экономит часы работы менеджера.</p>
+
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> При использовании сторонних скриптов и макросов всегда проверяйте их код. Скрипт не должен отправлять ваши финансовые данные на посторонние сервера. Безопаснее всего запускать код локально на компьютере внутри корпоративной сети.</p>
+</blockquote>
+
+<p>Если вы используете <em>1С:Предприятие</em>, для импорта актов из <em>СДЭК</em> часто требуются специальные обработки или обмен через API. Файлы <code>.dat</code> в данном случае выступают промежуточным звеном. Настройте в системе путь для автоматической загрузки таких файлов, чтобы сверка происходила в фоновом режиме.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Формат.dat — это не препятствие, а стандартный способ передачи структурированных данных. Правильный импорт через мастер текстов Excel занимает менее 30 секунд и гарантирует точность финансовых отчетов.</p></div>
+
+<h2 id="часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</h2>
+
+<details>
+<summary>Можно ли просто переименовать файл.dat в.xls?</summary>
+<p>Нет, простое переименование расширения не изменит внутреннюю структуру файла. Excel попытается открыть его как бинарный файл Excel и выдаст ошибку или покажет нечитаемый текст. Необходимо именно импортировать данные через меню"Данные".</p>
+</details>
+
+<details>
+<summary>Почему в файле акта сверки нет сумм, только нули?</summary>
+<p>Скорее всего, вы скачали пустой шаблон или файл, сформированный за период, когда не было движений. Также проверьте, правильно ли выбрана кодировка: в некоторых кодировках цифры могут отображаться некорректно. Сверьте сумму в файле с данными в личном кабинете СДЭК.</p>
+</details>
+
+<details>
+<summary>Чем открыть файл.dat на телефоне (Android/iOS)?</summary>
+<p>На мобильных устройствах лучше всего использовать приложения офисных пакетов, такие как Microsoft Excel или Google Таблицы. При открытии выберите опцию"Импорт данных" или"Открыть в...", чтобы приложение попыталось распознать текст. Для сложного форматирования лучше использовать ПК.</p>
+</details>
+
+<details>
+<summary>Безопасно ли открывать файлы.dat от СДЭК?</summary>
+<p>Да, если файл получен официально из личного кабинета или от вашего персонального менеджера. Формат.dat сам по себе не является вирусом. Однако, как и с любыми исполняемыми или скриптовыми файлами, рекомендуется проверять скачанные документы антивирусом, особенно если они пришли по почте от неизвестных отправителей.</p>
+</details>
+
+<details>
+<summary>Как разделить слипшиеся столбцы после открытия?</summary>
+<p>Выделите столбец с данными, перейдите на вкладку"Данные" и нажмите"Текст по столбцам". Выберите формат"с разделителями", укажите нужный символ (запятая, табуляция, пробел) и завершите мастер. Данные распределятся по соседним ячейкам.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#природа-файла-dat-в-системе-сдэк">Природа файла DAT в системе СДЭК</a></li><li><a href="#способы-открытия-файла-через-excel">Способы открытия файла через Excel</a></li><li><a href="#использование-текстовых-редакторов-для-анализа">Использование текстовых редакторов для анализа</a></li><li><a href="#конвертация-в-csv-для-совместимости">Конвертация в CSV для совместимости</a></li><li><a href="#таблицаных-проблем-при-открытии">Таблицаных проблем при открытии</a></li><li><a href="#работа-с-данными-в-облачных-таблицах">Работа с данными в облачных таблицах</a></li><li><a href="#автоматизация-обработки-актов-сверки">Автоматизация обработки актов сверки</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/i/in/integratsiya-1s-i-sdek-kak-nastroit.html" class="related-card">Интеграция 1С и СДЭК: пошаговая настройка для бизнеса 2026</a></li><li><a href="/articles/o/os/osnovaniya-dejstvij-direktora-ip-sdek-chto-pisat.html" class="related-card">Основания действий директора ИП СДЭК: что писать в документах</a></li><li><a href="/articles/k/ka/kak-rastorgnut-dogovor-so-sdek.html" class="related-card">Как расторгнуть договор с СДЭК: пошаговая инструкция 2026</a></li><li><a href="/articles/k/ka/kakie-instrumenty-pozitivno-vliyayushchie-na-sobesednika-sdek.html" class="related-card">Инструменты СДЭК, позитивно влияющие на клиента: как улучшить опыт</a></li><li><a href="/articles/m/me/menedzher-klientskogo-otdela-sdek-chem-zanimaetsya.html" class="related-card">Менеджер клиентского отдела СДЭК: обязанности, задачи и карьера</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/i/in/integratsiya-1s-i-sdek-kak-nastroit.html" class="related-bottom-card"><span class="related-bottom-title">Интеграция 1С и СДЭК: пошаговая настройка для бизнеса 2026</span><span class="related-bottom-desc">Как настроить интеграцию 1С с СДЭК для автоматической отправки заказов и отслеживания грузов. Инстру</span></a><a href="/articles/o/os/osnovaniya-dejstvij-direktora-ip-sdek-chto-pisat.html" class="related-bottom-card"><span class="related-bottom-title">Основания действий директора ИП СДЭК: что писать в документах</span><span class="related-bottom-desc">Разбираем юридические основания действий директора ИП СДЭК. Что указывать в договорах и доверенностя</span></a><a href="/articles/k/ka/kak-rastorgnut-dogovor-so-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как расторгнуть договор с СДЭК: пошаговая инструкция 2026</span><span class="related-bottom-desc">Полное руководство по расторжению договора с СДЭК: сроки, документы, порядок действий и возможные сл</span></a><a href="/articles/k/ka/kakie-instrumenty-pozitivno-vliyayushchie-na-sobesednika-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Инструменты СДЭК, позитивно влияющие на клиента: как улучшить опыт</span><span class="related-bottom-desc">Разбор инструментов СДЭК, повышающих лояльность: уведомления, гибкость доставки и сервисы для бизнес</span></a><a href="/articles/m/me/menedzher-klientskogo-otdela-sdek-chem-zanimaetsya.html" class="related-bottom-card"><span class="related-bottom-title">Менеджер клиентского отдела СДЭК: обязанности, задачи и карьера</span><span class="related-bottom-desc">Чем занимается менеджер клиентского отдела СДЭК? Подробный разбор обязанностей, требований к специал</span></a><a href="/articles/k/ka/kak-vzyat-franshizu-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как взять франшизу СДЭК: условия, инвестиции и пошаговый план</span><span class="related-bottom-desc">Узнайте, как открыть франшизу СДЭК в 2026 году. Подробный разбор условий, требований к партнерам, не</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

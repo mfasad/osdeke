@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>Экспорт заказов в СДЭК: как выгрузить данные для отправки грузов — СДЭК Гид</title>
+    <meta name="description" content="Пошаговая инструкция по экспорту заказов в СДЭК: форматы файлов, настройки интеграции, типичные ошибки и решения для бизнеса. Оптимизируйте логистику с СДЭК!">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/c/ch/chto-takoe-eksport-zakazov-v-sdek.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Экспорт заказов в СДЭК: как выгрузить данные для отправки грузов">
+    <meta property="og:description" content="Пошаговая инструкция по экспорту заказов в СДЭК: форматы файлов, настройки интеграции, типичные ошибки и решения для бизнеса. Оптимизируйте логистику с СДЭК!">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/otpravka-gruzov/">Отправка грузов</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Экспорт заказов в СДЭК: как выгрузить данные для отправки грузов</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Экспорт заказов в СДЭК: полное руководство для интернет-магазинов и логистов</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#что-такое-экспорт-заказов-в-сдэк-и-зачем-он-нужен">Что такое экспорт заказов в СДЭК и зачем он нужен</a></li><li><a href="#способы-экспорта-заказов-в-сдэк-сравнение-методов">Способы экспорта заказов в СДЭК: сравнение методов</a></li><li><a href="#пошаговая-инструкция-как-экспортировать-заказы-через-excelcsv">Пошаговая инструкция: как экспортировать заказы через Excel/CSV</a></li><li><a href="#типичные-ошибки-при-экспорте-заказов-и-как-их-избежать">Типичные ошибки при экспорте заказов и как их избежать</a></li><li><a href="#экспорт-через-api-сдэк-для-кого-подходит-и-как-настроить">Экспорт через API СДЭК: для кого подходит и как настроить</a></li><li><a href="#интеграция-с-1с-bitrix24-и-другими-системами">Интеграция с 1С, Bitrix24 и другими системами</a></li><li><a href="#как-проверить-статус-экспортированных-заказов">Как проверить статус экспортированных заказов</a></li><li><a href="#faq-частые-вопросы-об-экспорте-заказов-в-сдэк">FAQ: Частые вопросы об экспорте заказов в СДЭК</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body"><p>Если ваш бизнес связан с регулярной отправкой товаров через <strong>СДЭК</strong>, ручной ввод каждого заказа в личном кабинете отнимает часы рабочего времени. <em>Экспорт заказов</em> — это автоматизированный способ передачи данных о грузах из вашей системы (1С, CRM, маркетплейса или Excel) непосредственно в СДЭК, что сокращает ошибки и ускоряет обработку до <code>80%</code>. Но как правильно настроить выгрузку, какие форматы поддерживаются, и какие подводные камни ждут новичков? В этом руководстве разберём процесс от А до Я — от подготовки файла до проверки статуса отправки.</p>
+
+<p>СДЭК предлагает несколько способов экспорта: через <strong>API</strong>, загрузку <code>.xlsx</code>/<code>.csv</code>-файлов в личном кабинете, или интеграцию с популярными платформами вроде <em>1С:Предприятие</em>, <em>Bitrix24</em> или <em>MoySklad</em>. Выбор метода зависит от объёма заказов, технических возможностей вашей компании и требуемой скорости обработки. Например, для 10-20 отправок в день хватит ручной выгрузки Excel, а для 500+ заказов понадобится настройка <strong>EDI-обмена</strong> или прямого API-подключения.</p>
+
+<p>Важно понимать: <mark>СДЭК жёстко контролирует формат экспортируемых данных — ошибка в одной ячейке (например, неверный индекс пункта выдачи или отсутствие веса груза) приведёт к отказу в обработке всего файла</mark>. Поэтому перед первой выгрузкой рекомендуем тестировать данные на небольшом пакете заказов.</p>
+
+<h2 id="что-такое-экспорт-заказов-в-сдэк-и-зачем-он-нужен">Что такое экспорт заказов в СДЭК и зачем он нужен</h2>
+
+<p>Экспорт заказов — это передача информации о грузах из вашей внутренней системы (сайт, CRM, ERP) в транспортную компанию <strong>СДЭК</strong> в структурированном виде. Вместо ручного заполнения полей в личном кабинете вы один раз настраиваете шаблон, а затем автоматически генерируете файлы с данными: адреса получателей, вес, габариты, стоимость объявленной ценности и т.д.</p>
+
+<p>Основные преимущества экспорта:</p>
+<ul>
+  <li>⏱️ <strong>Экономия времени</strong>: обработка 100 заказов занимает 10 минут вместо 2-3 часов при ручном вводе.</li>
+  <li>📦 <strong>Снижение ошибок</strong>: исключены опечатки в адресах или параметрах груза (например, вес <code>5 кг</code> вместо <code>500 г</code>).</li>
+  <li>🔄 <strong>Автоматизация логистики</strong>: интеграция с <em>1С</em> или <em>Ozon</em> позволяет отправлять заказы в СДЭК сразу после оплаты клиентом.</li>
+  <li>💰 <strong>Оптимизация стоимости</strong>: массовая выгрузка часто даёт скидки на тарифы (например, при заключении договора на EDI-обмен).</li>
+</ul>
+
+<p>Без экспорта компании сталкиваются с задержками отправок, переплатами за неверно указанные параметры груза (например, если вручную указали меньший вес) и потерянными заказами из-за человеческого фактора. Например, интернет-магазин одежды, обрабатывающий 200 заказов в день, может сэкономить до <code>40 часов в месяц</code> только на вводе данных, если перейдёт на автоматический экспорт.</p>
+
+<div class="poll-widget" id="poll-cf6eea3c"><div class="poll-widget-question">📊 Как вы сейчас отправляете заказы через СДЭК?</div><div class="poll-widget-option" data-poll="cf6eea3c" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Ввожу данные вручную в личном кабинете</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="cf6eea3c" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Использую выгрузку Excel/CSV</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="cf6eea3c" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Настроено API или EDI-обмен</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="cf6eea3c" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Пользуюсь интеграцией с 1С/MoySklad</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="способы-экспорта-заказов-в-сдэк-сравнение-методов">Способы экспорта заказов в СДЭК: сравнение методов</h2>
+
+<p>СДЭК поддерживает четыре основных способа экспорта заказов. Каждый из них подходит для разных объёмов и технических возможностей бизнеса. Ниже — сравнительная таблица с ключевыми параметрами:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Способ</th>
+      <th>Подходит для</th>
+      <th>Сложность настройки</th>
+      <th>Скорость обработки</th>
+      <th>Требуемые навыки</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Ручной ввод</strong> в личном кабинете</td>
+      <td>1-10 заказов/день</td>
+      <td>Нет</td>
+      <td>Мгновенно</td>
+      <td>Нет</td>
+    </tr>
+    <tr>
+      <td><strong>Выгрузка Excel/CSV</strong></td>
+      <td>10-200 заказов/день</td>
+      <td>Низкая</td>
+      <td>До 1 часа</td>
+      <td>Знание формата файла</td>
+    </tr>
+    <tr>
+      <td><strong>API СДЭК</strong></td>
+      <td>200+ заказов/день</td>
+      <td>Средняя</td>
+      <td>Реальное время</td>
+      <td>Программист или тех. специалист</td>
+    </tr>
+    <tr>
+      <td><strong>EDI/Интеграция</strong> (1С, MoySklad)</td>
+      <td>500+ заказов/день</td>
+      <td>Высокая</td>
+      <td>Реальное время</td>
+      <td>Разработчик + согласование с СДЭК</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Для большинства малого и среднего бизнеса оптимальным решением становится выгрузка через <code>.xlsx</code> или <code>.csv</code>. Этот метод не требует программирования, но позволяет обрабатывать сотни заказов в день. Например, магазин электроники может выгружать данные из <em>Excel</em> ежедневно в 18:00, чтобы курьеры забрали посылки утром следующего дня.</p>
+
+<p>API и EDI подходят для крупных компаний с высокими объёмами. Например, сетевой ритейлер с 1000+ заказов в день может настроить автоматическую передачу данных из <em>1С:Управление торговлей</em> в СДЭК через <strong>EDI</strong>, что исключает участие оператора в процессе.</p>
+
+<blockquote>⚠️ <strong>Внимание:</strong> При выборе метода учитывайте <strong>лимиты СДЭК на массовую загрузку</strong>. Через личный кабинет можно выгрузить не более <code>500 заказов за раз</code>. Для больших партий потребуется API или разбивка на несколько файлов.</blockquote>
+
+<h2 id="пошаговая-инструкция-как-экспортировать-заказы-через-excelcsv">Пошаговая инструкция: как экспортировать заказы через Excel/CSV</h2>
+
+<p>Этот способ подходит для компаний, которые обрабатывают от 10 до 200 заказов в день и не имеют технической возможности для API-интеграции. Ниже — детальная инструкция по подготовке и загрузке файла.</p>
+
+<h3>Шаг 1. Скачайте шаблон файла</h3>
+<p>СДЭК предоставляет готовые шаблоны для экспорта в форматах <code>.xlsx</code> и <code>.csv</code>. Скачать их можно:</p>
+<ul>
+  <li>📥 В личном кабинете СДЭК: перейдите в раздел <code>Заказы → Импорт/Экспорт → Шаблоны</code>.</li>
+  <li>🔗 На <a href="https://help.cdek.ru/" target="_blank">официальном сайте поддержки</a> (раздел "Документация для клиентов").</li>
+</ul>
+<p>Важно: используйте <strong>актуальную версию шаблона</strong> (СДЭК обновляет их 1-2 раза в год). Старая версия может содержать устаревшие поля, из-за чего файлы не пройдут валидацию.</p>
+
+<h3>Шаг 2. Заполните обязательные поля</h3>
+<p>Минимальный набор данных для успешного экспорта:</p>
+<ul>
+  <li>📌 <code>Номер заказа</code> (уникальный идентификатор в вашей системе).</li>
+  <li>📦 <code>Вес</code> (в граммах! Например, <code>1500</code> для 1.5 кг).</li>
+  <li>📏 <code>Габариты</code> (длина × ширина × высота в см, через точку с запятой: <code>30;20;10</code>).</li>
+  <li>🏠 <code>Адрес получателя</code> (полный, с индексом).</li>
+  <li>💰 <code>Объявленная ценность</code> (если требуется страховка).</li>
+  <li>🔑 <code>Тип доставки</code> (например, <code>door-door</code> для "от двери до двери").</li>
+</ul>
+
+<p>Пример заполненной строки в Excel:</p>
+<pre><code>Номер заказа;Вес;Габариты;Адрес получателя;Объявленная ценность;Тип доставки
+<p>ORD-12345;1200;25;15;5;г. Москва, ул. Ленина, д. 10, кв. 5;5000;door-door</code></pre></p>
+
+
+<p>Указан вес в граммах (не в килограммах!)</p>
+<p>Адрес содержит индекс и полный путь (не только город)</p>
+<p>Габариты разделены точкой с запятой без пробелов</p>
+<p>Номера заказов уникальны (нет повторов)</p>
+<p>Файл сохранён в кодировке UTF-8 (для CSV)</p>
+<p>--></p>
+
+<h3>Шаг 3. Проверьте данные на ошибки</h3>
+<p>Самые частые причины отклонения файлов:</p>
+<ul>
+  <li>❌ <strong>Неверный формат веса</strong> (указано <code>1.5</code> вместо <code>1500</code>).</li>
+  <li>❌ <strong>Отсутствует индекс</strong> в адресе получателя.</li>
+  <li>❌ <strong>Пустые ячейки</strong> в обязательных полях (например, не указан тип доставки).</li>
+  <li>❌ <strong>Недопустимые символы</strong> (например, кавычки в адресе: <code>ул. "Ленина"</code>).</li>
+</ul>
+
+<p>Для проверки используйте встроенную валидацию в Excel:
+<ol>
+  <li>Выделите все ячейки с данными.</li>
+  <li>Перейдите на вкладку <code>Данные → Проверка данных</code>.</li>
+  <li>Установите правила: вес — целое число, габариты — текст в формате <code>число;число;число</code>.</li>
+</ol>
+
+<h3>Шаг 4. Загрузите файл в личный кабинет СДЭК</h3>
+<p>Инструкция по загрузке:</p>
+<ol>
+  <li>Авторизуйтесь в <a href="https://lk.cdek.ru/" target="_blank">личном кабинете СДЭК</a>.</li>
+  <li>Перейдите в раздел <code>Заказы → Импорт заказов</code>.</li>
+  <li>Нажмите <code>Выбрать файл</code> и загрузите подготовленный <code>.xlsx</code> или <code>.csv</code>.</li>
+  <li>Дождитесь обработки (обычно занимает 1-5 минут).</li>
+  <li>Проверьте отчёт об ошибках (если они есть, скачайте файл с пометками и исправьте данные).</li>
+</ol>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Если заказов много, разбивайте их на партии по 200-300 штук. Это ускорит обработку и упростит поиск ошибок.</p></div>
+
+<h2 id="типичные-ошибки-при-экспорте-заказов-и-как-их-избежать">Типичные ошибки при экспорте заказов и как их избежать</h2>
+
+<p>Даже опытные логисты сталкиваются с проблемами при выгрузке данных в СДЭК. Ниже — топ-5 ошибок и способы их решения, основанные на анализе обращений в поддержку.</p>
+
+<h3>1. Ошибка: "Недопустимый формат веса"</h3>
+<p><strong>Причина:</strong> Вес указан в килограммах (например, <code>1.5</code>) вместо граммов (<code>1500</code>). СДЭК принимает <strong>только целые числа в граммах</strong>.</p>
+<p><strong>Решение:</strong>
+<ul>
+  <li>Умножьте все значения веса на 1000 (например, <code>0.8 кг → 800</code>).</li>
+  <li>Используйте формулу в Excel: <code>=A2*1000</code>, где <code>A2</code> — ячейка с весом в кг.</li>
+</ul>
+
+<h3>2. Ошибка: "Не найден пункт выдачи"</h3>
+<p><strong>Причина:</strong> В файле указан несуществующий код пункта выдачи (PVZ) или опечатка в адресе. Например, вместо <code>MSK123</code> написано <code>MSK12</code>.</p>
+<p><strong>Решение:</strong>
+<ul>
+  <li>Проверьте актуальный список PVZ на <a href="https://www.cdek.ru/offices" target="_blank">карте СДЭК</a>.</li>
+  <li>Используйте только официальные коды пунктов (например, <code>MSK178</code> для ПВЗ на Ленинском проспекте в Москве).</li>
+</ul>
+
+<h3>3. Ошибка: "Превышен лимит габаритов"</h3>
+<p><strong>Причина:</strong> Сумма длины, ширины и высоты груза превышает <code>300 см</code> (максимально допустимый размер для стандартной доставки). Например, <code>100;120;90</code> (сумма = 310 см).</p>
+<p><strong>Решение:</strong>
+<ul>
+  <li>Разбейте груз на несколько посылок.</li>
+  <li>Закажите <strong>негабаритную доставку</strong> (требуется предварительное согласование с СДЭК).</li>
+</ul>
+
+<h3>4. Ошибка: "Не указан тип доставки"</h3>
+<p><strong>Причина:</strong> Поле <code>Тип доставки</code> пустое или содержит недопустимое значение. Допустимые варианты:
+<ul>
+  <li><code>door-door</code> — от двери до двери;</li>
+  <li><code>door-pvz</code> — от двери до пункта выдачи;</li>
+  <li><code>pvz-door</code> — от пункта выдачи до двери;</li>
+  <li><code>pvz-pvz</code> — между пунктами выдачи.</li>
+</ul>
+<p><strong>Решение:</strong> Проверьте написание (регистр не важен, но опечатки недопустимы).
+
+<h3>5. Ошибка: "Невалидный адрес получателя"</h3>
+<p><strong>Причина:</strong> Отсутствует индекс, неверный формат улицы или дома (например, <code>ул. Ленина д10</code> вместо <code>ул. Ленина, д. 10</code>).</p>
+<p><strong>Решение:</strong>
+<ul>
+  <li>Используйте шаблон: <code>гор. Москва, ул. Ленина, д. 10, кв. 5, индекс 119000</code>.</li>
+  <li>Проверьте адрес через сервис <a href="https://kladr-api.ru/" target="_blank">КЛАДР</a>.</li>
+</ul>
+
+<blockquote>⚠️ <strong>Внимание:</strong> Если файл отклонён из-за ошибок, СДЭК присылает отчёт с указанием строк и полей, где обнаружены проблемы. <strong>Не игнорируйте этот отчёт</strong> — повторная загрузка неисправленного файла заблокирует обработку на 24 часа!</blockquote>
+
+<details class="faq-item"><summary>Пример отчёта об ошибках от СДЭК</summary><div class="faq-answer"><p>
+<p>Строка 5: [Ошибка] Недопустимый вес (указано "1,5", ожидается целое число)</p>
+<p>Строка 12: [Ошибка] Не найден пункт выдачи "SPB999"</p>
+<p>Строка 18: [Ошибка] Превышен лимит габаритов (100+120+90=310 см)</p>
+<p></p></div></details></p>
+
+<h2 id="экспорт-через-api-сдэк-для-кого-подходит-и-как-настроить">Экспорт через API СДЭК: для кого подходит и как настроить</h2>
+
+<p>API (Application Programming Interface) — это протокол для автоматического обмена данными между вашей системой и СДЭК. Этот метод подходит компаниям с объёмом от <code>200 заказов в день</code>, так как требует технической настройки, но обеспечивает:</p>
+<ul>
+  <li>⚡ <strong>Мгновенную передачу</strong> заказов (без задержек на ручную выгрузку).</li>
+  <li>🔄 <strong>Обратную связь</strong>: СДЭК отправляет статус обработки каждого заказа в реальном времени.</li>
+  <li>📊 <strong>Интеграцию с CRM</strong>: данные о трек-номерах и статусах доставки автоматически попадают в вашу систему.</li>
+</ul>
+
+<p>Для настройки API потребуется:</p>
+<ol>
+  <li><strong>Ключ API</strong> (получается в личном кабинете СДЭК в разделе <code>Настройки → Интеграции</code>).</li>
+  <li><strong>Техническая документация</strong> (доступна по <a href="https://api-docs.cdek.ru/" target="_blank">ссылке</a>).</li>
+  <li><strong>Разработчик</strong> (или знание основ программирования для самостоятельной настройки).</li>
+</ol>
+
+<p>Пример запроса на создание заказа через API:</p>
+<pre><code>POST https://api.cdek.ru/v2/orders
+<p>Headers:</p>
+<p>Authorization: Bearer {ваш_API_ключ}</p>
+<p>Content-Type: application/json</p>
+
+<p>Body:</p>
+<p>{</p>
+<p>"type": "door-door",</p>
+<p>"number": "ORD-12345",</p>
+<p>"recipient": {</p>
+<p>"name": "Иванов Иван Иванович",</p>
+<p>"phones": [{"number": "+79001234567"}]</p>
+<p>},</p>
+<p>"from_location": {</p>
+<p>"address": "г. Москва, ул. Тверская, д. 1"</p>
+<p>},</p>
+<p>"to_location": {</p>
+<p>"address": "г. Санкт-Петербург, Невский пр., д. 10",</p>
+<p>"code": "SPB178" // код ПВЗ, если доставка до пункта</p>
+<p>},</p>
+<p>"packages": [{</p>
+<p>"weight": 1500,</p>
+<p>"length": 20,</p>
+<p>"width": 15,</p>
+<p>"height": 10</p>
+<p>}]</p>
+<p>}</code></pre></p>
+
+<p>После отправки запроса СДЭК вернёт ответ с данными о заказе, включая <strong>трек-номер</strong> и расчётную стоимость доставки. Этот трек-номер можно сразу передать клиенту или сохранить в CRM.</p>
+
+<blockquote>⚠️ <strong>Внимание:</strong> При использовании API СДЭК устанавливает лимит на количество запросов — <code>60 запросов в минуту</code>. Превышение лимита приведёт к блокировке на 1 час. Чтобы избежать этого, настройте <strong>пакетную отправку</strong> заказов (например, по 50 штук каждые 10 минут).</blockquote>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>API СДЭК позволяет не только создавать заказы, но и отслеживать их статус, печатать этикетки, управлять возвратами — всё в автоматическом режиме.</p></div>
+
+<h2 id="интеграция-с-1с-bitrix24-и-другими-системами">Интеграция с 1С, Bitrix24 и другими системами</h2>
+
+<p>Для компаний, использующих <em>1С:Предприятие</em>, <em>Bitrix24</em>, <em>MoySklad</em> или <em>Ozon</em>, СДЭК предлагает готовые модули интеграции. Они позволяют:</p>
+<ul>
+  <li>🔗 <strong>Автоматически передавать</strong> заказы из вашей системы в СДЭК.</li>
+  <li>📤 <strong>Получать трек-номера</strong> и статусы доставки обратно в CRM.</li>
+  <li>📄 <strong>Печатать этикетки</strong> и документы (накладные, акты) без ручного ввода.</li>
+</ul>
+
+<p>Ниже — сравнение популярных интеграций:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Система</th>
+      <th>Способ подключения</th>
+      <th>Стоимость</th>
+      <th>Особенности</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><em>1С:Предприятие</em></td>
+      <td>Модуль "СДЭК: Интеграция" (размещён на <a href="https://infostart.ru/" target="_blank">Инфостарт</a>)</td>
+      <td>От 5 000 ₽ (одноразовая покупка)</td>
+      <td>Поддерживает 1С 8.3, УТ 11, ERP. Требует доработки под специфику бизнеса.</td>
+    </tr>
+    <tr>
+      <td><em>Bitrix24</em></td>
+      <td>Приложение "СДЭК: Доставка" из Маркетплейса Bitrix</td>
+      <td>Бесплатно (базовая версия)</td>
+      <td>Автоматическая выгрузка заказов из сделок. Ограничение: до 100 заказов/день.</td>
+    </tr>
+    <tr>
+      <td><em>MoySklad</em></td>
+      <td>Встроенная интеграция (раздел "Доставка → СДЭК")</td>
+      <td>Бесплатно для тарифа "Профи"</td>
+      <td>Синхронизация заказов, остатков на складах, печать этикеток.</td>
+    </tr>
+    <tr>
+      <td><em>Ozon/Wildberries</em></td>
+      <td>Через партнёрские сервисы (например, <em>Мультизаказ</em>)</td>
+      <td>От 1 000 ₽/месяц</td>
+      <td>Автоматическая передача заказов с маркетплейсов в СДЭК.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Для подключения интеграции с <em>1С</em> следуйте алгоритму:</p>
+<ol>
+  <li>Скачайте модуль интеграции с <a href="https://infostart.ru/" target="_blank">Инфостарт</a> или <a href="https://solutions.1c.ru/" target="_blank">каталога 1С</a>.</li>
+  <li>Установите его в вашу конфигурацию 1С (требуются права администратора).</li>
+  <li>Введите данные доступа к API СДЭК (ключ и логин из личного кабинета).</li>
+  <li>Настройте правила выгрузки: какие заказы передавать (например, только оплаченные), в какое время суток.</li>
+  <li>Протестируйте на 2-3 заказах перед массовой выгрузкой.</li>
+</ol>
+
+<p>Для <em>Bitrix24</em> и <em>MoySklad</em> процесс проще:</p>
+<ol>
+  <li>Установите приложение из маркетплейса системы.</li>
+  <li>Авторизуйтесь в своём аккаунте СДЭК через интерфейс приложения.</li>
+  <li>Выберите, какие данные синхронизировать (заказы, трек-номера, статусы).</li>
+</ol>
+
+<blockquote>⚠️ <strong>Внимание:</strong> При настройке интеграции с <em>1С</em> убедитесь, что версии конфигураций совпадают. Например, модуль для <em>1С:УТ 11.4</em> не будет работать в <em>1С:ERP 2.5</em>. Перед покупкой модуля проверьте совместимость у разработчика!</blockquote>
+
+<h2 id="как-проверить-статус-экспортированных-заказов">Как проверить статус экспортированных заказов</h2>
+
+<p>После экспорта заказов в СДЭК важно отслеживать их статус, чтобы оперативно реагировать на проблемы (например, если груз задержан на сортировочном центре). Сделать это можно несколькими способами:</p>
+
+<h3>1. В личном кабинете СДЭК</h3>
+<p>Инструкция:</p>
+<ol>
+  <li>Перейдите в раздел <code>Заказы → Мои заказы</code>.</li>
+  <li>Отфильтруйте список по дате экспорта или номеру заказа.</li>
+  <li>Проверьте столбец <code>Статус</code>. Возможные значения:
+    <ul>
+      <li><code>Принят</code> — заказ успешно обработан;</li>
+      <li><code>На доставке</code> — груз в пути;</li>
+      <li><code>Проблема с адресом</code> — требуется уточнение;</li>
+      <li><code>Отменён</code> — заказ не прошёл валидацию.</li>
+    </ol>
+  </li>
+</ol>
+
+<h3>2. Через API</h3>
+<p>Отправьте запрос на получение статуса заказа:</p>
+<pre><code>GET https://api.cdek.ru/v2/orders/{номер_заказа}
+<p>Headers:</p>
+<p>Authorization: Bearer {ваш_API_ключ}</code></pre></p>
+<p>Пример ответа:</p>
+<pre><code>{
+<p>"entity": {</p>
+<p>"uuid": "123e4567-e89b-12d3-a456-426614174000",</p>
+<p>"number": "ORD-12345",</p>
+<p>"status": "DELIVERED", // статус доставки</p>
+<p>"delivery_date": "2026-05-20"</p>
+<p>}</p>
+<p>}</code></pre></p>
+
+<h3>3. В интегрированной системе (1С, Bitrix24)</h3>
+<p>Если вы настроили синхронизацию, статусы будут автоматически обновляться в вашей CRM. Например, в <em>Bitrix24</em> информация отображается в карточке сделки:</p>
+<img src="https://via.placeholder.com/600x300?text=Пример+отображения+статуса+в+Bitrix24" alt="Статус заказа СДЭК в Bitrix24">
+
+<h3>4. По трек-номеру на сайте СДЭК</h3>
+<p>Клиенты могут самостоятельно отслеживать посылки по <a href="https://www.cdek.ru/ru/tracking" target="_blank">трек-номеру</a>. Вы можете отправлять им этот номер в SMS или email после экспорта заказа.</p>
+
+<p>Если статус заказа долго не обновляется (более 24 часов на этапе "Принят"), свяжитесь с поддержкой СДЭК:</p>
+<ul>
+  <li>📞 Телефон: <code>8 800 250-04-05</code> (звонок по России бесплатный).</li>
+  <li>✉️ Email: <code>support@cdek.ru</code> (ответ в течение 1 рабочего дня).</li>
+  <li>💬 Чат в личном кабинете (самый быстрый способ).</li>
+</ul>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Настройте уведомления о смене статуса в личном кабинете СДЭК (раздел <code>Настройки → Уведомления</code>). Это поможет оперативно реагировать на задержки или проблемы с доставкой.</p></div>
+
+<h2 id="faq-частые-вопросы-об-экспорте-заказов-в-сдэк">FAQ: Частые вопросы об экспорте заказов в СДЭК</h2>
+
+<details>
+  <summary>Можно ли экспортировать заказы из Excel в СДЭК с мобильного телефона?</summary>
+  <p>Технически да, но это неудобно. Личный кабинет СДЭК не оптимизирован для мобильных устройств, а редактирование <code>.xlsx</code>-файлов на телефоне чревато ошибками (например, случайное изменение формата ячеек). Рекомендуем использовать ноутбук или ПК. Если другой возможности нет, используйте приложение <em>Microsoft Excel</em> для Android/iOS и проверяйте файл на ошибки особенно внимательно.</p>
+</details>
+
+<details>
+  <summary>Сколько стоит экспорт заказов через API?</summary>
+  <p>Сам экспорт через API бесплатный, но СДЭК может взимать плату за <strong>EDI-обмен</strong> (если объём заказов превышает 1000 в месяц). Уточните тарифы у вашего менеджера. Также учитывайте стоимость разработки интеграции (от 10 000 ₽ для 1С) или покупки готового модуля (от 5 000 ₽).</p>
+</details>
+
+<details>
+  <summary>Что делать, если СДЭК отклонил файл с заказами из-за ошибок?</summary>
+  <p>СДЭК присылает отчёт с указанием строк и полей, где обнаружены ошибки. Исправьте их и загрузите файл повторно. Если не понимаете, в чём проблема, обратитесь в поддержку с прикреплённым отчётом. Частые ошибки:
+  <ul>
+    <li>Вес указан в килограммах (нужно перевести в граммы).</li>
+    <li>В адресе отсутствует индекс.</li>
+    <li>Код пункта выдачи (PVZ) не существует.</li>
+  </ul>
+  </p>
+</details>
+
+<details>
+  <summary>Можно ли экспортировать заказы из Wildberries или Ozon напрямую в СДЭК?</summary>
+  <p>Прямой экспорт с маркетплейсов в СДЭК не поддерживается, но есть обходные пути:
+  <ol>
+    <li>Используйте сервисы-посредники вроде <em>Мультизаказ</em> или <em>МойСклад</em>.</li>
+    <</div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#что-такое-экспорт-заказов-в-сдэк-и-зачем-он-нужен">Что такое экспорт заказов в СДЭК и зачем он нужен</a></li><li><a href="#способы-экспорта-заказов-в-сдэк-сравнение-методов">Способы экспорта заказов в СДЭК: сравнение методов</a></li><li><a href="#пошаговая-инструкция-как-экспортировать-заказы-через-excelcsv">Пошаговая инструкция: как экспортировать заказы через Excel/CSV</a></li><li><a href="#типичные-ошибки-при-экспорте-заказов-и-как-их-избежать">Типичные ошибки при экспорте заказов и как их избежать</a></li><li><a href="#экспорт-через-api-сдэк-для-кого-подходит-и-как-настроить">Экспорт через API СДЭК: для кого подходит и как настроить</a></li><li><a href="#интеграция-с-1с-bitrix24-и-другими-системами">Интеграция с 1С, Bitrix24 и другими системами</a></li><li><a href="#как-проверить-статус-экспортированных-заказов">Как проверить статус экспортированных заказов</a></li><li><a href="#faq-частые-вопросы-об-экспорте-заказов-в-сдэк">FAQ: Частые вопросы об экспорте заказов в СДЭК</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/c/ch/chto-nuzhno-ukazat-pri-otpravke-posylki-sdek.html" class="related-card">Что указать при отправке посылки СДЭК в 2026 году: полный чек-лист</a></li><li><a href="/articles/s/sd/sdek-iz-kazakhstana-v-rossiyu-skolko-dnej.html" class="related-card">СДЭК из Казахстана в Россию: сроки доставки 2026 и как ускорить</a></li><li><a href="/articles/s/sd/sdek-iz-khabarovska-v-moskvu-skolko-idet.html" class="related-card">СДЭК из Хабаровска в Москву: сроки доставки и тарифы</a></li><li><a href="/articles/k/kt/kto-upakovyvaet-tovar-v-sdek.html" class="related-card">Кто упаковывает товар в СДЭК: правила, ответственность и советы</a></li><li><a href="/articles/k/ka/kak-sozdavat-nakladnye-v-sdek.html" class="related-card">Как создавать накладные в СДЭК: пошаговая инструкция</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/c/ch/chto-nuzhno-ukazat-pri-otpravke-posylki-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Что указать при отправке посылки СДЭК в 2026 году: полный чек-лист</span><span class="related-bottom-desc">Подробная инструкция по заполнению данных для отправки посылки через СДЭК: документы, габариты, вес,</span></a><a href="/articles/s/sd/sdek-iz-kazakhstana-v-rossiyu-skolko-dnej.html" class="related-bottom-card"><span class="related-bottom-title">СДЭК из Казахстана в Россию: сроки доставки 2026 и как ускорить</span><span class="related-bottom-desc">Актуальные сроки доставки посылок СДЭК из Казахстана в Россию: от 3 до 14 дней. Факторы задержек, та</span></a><a href="/articles/s/sd/sdek-iz-khabarovska-v-moskvu-skolko-idet.html" class="related-bottom-card"><span class="related-bottom-title">СДЭК из Хабаровска в Москву: сроки доставки и тарифы</span><span class="related-bottom-desc">Сколько идет СДЭК из Хабаровска в Москву? Актуальные сроки, тарифы, способы отправки и нюансы логист</span></a><a href="/articles/k/kt/kto-upakovyvaet-tovar-v-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Кто упаковывает товар в СДЭК: правила, ответственность и советы</span><span class="related-bottom-desc">Узнайте, кто обязан упаковывать посылку при отправке через СДЭК — отправитель или курьер, как правил</span></a><a href="/articles/k/ka/kak-sozdavat-nakladnye-v-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как создавать накладные в СДЭК: пошаговая инструкция</span><span class="related-bottom-desc">Узнайте, как создавать накладные в СДЭК через Личный кабинет. Подробная инструкция по оформлению, пе</span></a><a href="/articles/k/ka/kak-otpravit-tovar-sdekom-s-avito.html" class="related-bottom-card"><span class="related-bottom-title">Как отправить товар СДЭК с Авито: пошаговая инструкция 2026</span><span class="related-bottom-desc">Полная инструкция: как отправить товар СДЭК с Авито. Тарифы, правила упаковки, создание заказа и отс</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

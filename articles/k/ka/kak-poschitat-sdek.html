@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>Как посчитать СДЭК: калькулятор тарифов и доставки — СДЭК Гид</title>
+    <meta name="description" content="Узнайте, как посчитать стоимость доставки СДЭК онлайн. Точный калькулятор, тарифы, зависимость цены от веса и объема, а также скрытые платежи.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/k/ka/kak-poschitat-sdek.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Как посчитать СДЭК: калькулятор тарифов и доставки">
+    <meta property="og:description" content="Узнайте, как посчитать стоимость доставки СДЭК онлайн. Точный калькулятор, тарифы, зависимость цены от веса и объема, а также скрытые платежи.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/oplata-i-tarify/">Оплата и тарифы</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Как посчитать СДЭК: калькулятор тарифов и доставки</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Как посчитать стоимость доставки СДЭК: полный гид</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#факторы-влияющие-на-итоговую-стоимость">Факторы, влияющие на итоговую стоимость</a></li><li><a href="#использование-онлайн-калькулятора-на-сайте">Использование онлайн-калькулятора на сайте</a></li><li><a href="#тарифы-для-физических-и-юридических-лиц">Тарифы для физических и юридических лиц</a></li><li><a href="#скрытые-платежи-и-дополнительные-услуги">Скрытые платежи и дополнительные услуги</a></li><li><a href="#специфика-расчета-для-крупногабаритных-грузов">Специфика расчета для крупногабаритных грузов</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>Планирование бюджета при заказе товаров или организации логистики для бизнеса требует точных цифр. Часто клиенты сталкиваются с ситуацией, когда итоговая сумма при получении отличается от той, что они ожидали увидеть в корзине интернет-магазина. <strong>Калькулятор СДЭК</strong> помогает избежать неприятных сюрпризов, позволяя заранее узнать примерную стоимость услуг курьерской службы. Однако простой ввод цифр не всегда дает полную картину, так как в расчетах участвует множество переменных.</p>
+
+<p>Понимание принципов формирования цены позволяет не просто экономить, но и выбирать наиболее оптимальный способ доставки для конкретного груза. Например, для легких документов выгоднее одни тарифы, а для крупногабаритных товаров — совершенно другие. В этой статье мы разберем, <em>как посчитать СДЭК</em> максимально точно, какие факторы влияют на итоговую сумму и где искать актуальные данные, чтобы не переплачивать за сервис.</p>
+
+<p>Стоит отметить, что алгоритмы расчета постоянно совершенствуются, учитываю удаленность населенных пунктов и текущую загрузку логистических центров. <strong>Тарифная сетка</strong> может меняться в зависимости от сезона, акций или изменения цен на ГСМ, поэтому важно опираться на свежие данные. Мы рассмотрим как автоматизированные способы расчета через сайт, так и ручные методы прикидки стоимости.</p>
+
+<h2 id="факторы-влияющие-на-итоговую-стоимость">Факторы, влияющие на итоговую стоимость</h2>
+
+<p>Первое, что нужно учитывать — это вес и объем отправляемой посылки. Логистическая компания использует понятие "объемный вес", который рассчитывается по формуле: длина × ширина × высота / 5000 (или 7000 в зависимости от тарифа). <mark>Оплата взимается за большую из двух величин: фактический вес или объемный.</mark> Это означает, что легкая, но габаритная коробка (например, с подушками) может стоить дороже, чем тяжелая, но компактная металлическая деталь.</p>
+
+<p>География также играет решающую роль. Доставка внутри одного города (экспресс-доставка) будет стоить значительно дешевле, чем межгород. <strong>Расстояние между пунктами</strong> приема и выдачи груза напрямую влияет на базовый тариф. Кроме того, удаленные регионы и труднодоступные населенные пункты могут иметь специальные надбавки, которые автоматически учитываются системой при расчете.</p>
+
+<p>Дополнительные услуги способны существенно изменить финальную сумму. Страховка, упаковка в фирменные материалы, примерка, проверка вложения или доставка до двери — все это опции, которые нужно выбирать осознанно. Если вам не нужна <em>примерка</em>, откажитесь от нее, чтобы не переплачивать лишние проценты от стоимости товара.</p>
+
+<blockquote>
+<p>⚠️ Внимание: При заказе услуги "доставка до двери" убедитесь, что адресат будет дома в указанное временное окно. Повторный вызов курьера или ожидание в расширенном интервале могут тарифицироваться отдельно.</p>
+</blockquote>
+
+<p>Важно также учитывать сезонность и спрос. В периоды распродаж, таких как "Черная пятница" или перед Новым годом, логистические компании могут корректировать тарифы или вводить временные коэффициенты за срочность. Заранее спланировав отправку, можно зафиксировать более выгодную цену.</p>
+
+<div class="poll-widget" id="poll-7c2f3d49"><div class="poll-widget-question">📊 Что для вас важнее при выборе доставки?</div><div class="poll-widget-option" data-poll="7c2f3d49" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Скорость</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="7c2f3d49" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Низкая цена</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="7c2f3d49" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Возможность отслеживания</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="7c2f3d49" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Доставка до двери</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="использование-онлайн-калькулятора-на-сайте">Использование онлайн-калькулятора на сайте</h2>
+
+<p>Самый быстрый и надежный способ <strong>посчитать доставку СДЭК</strong> — воспользоваться официальным калькулятором на сайте компании. Этот инструмент доступен круглосуточно и не требует регистрации. Интерфейс интуитивно понятен: вам нужно заполнить поля с адресами отправителя и получателя, а также параметрами груза.</p>
+
+<p>При вводе данных система автоматически предложит доступные тарифы. Например, тариф <em>«Посылочка»</em> подойдет для частных лиц, отправляющих небольшие грузы, а «Экспресс» обеспечит максимальную скорость. Калькулятор сразу покажет разницу в цене и сроках, позволяя выбрать оптимальный вариант.</p>
+
+<ul>
+<li>📦 Укажите точные габариты коробки — это критически важно для корректного расчета объемного веса.</li>
+<li>💰 Введите объявленную ценность груза, если планируете оформлять страховку.</li>
+<li>📍 Выберите тип доставки: до пункта выдачи (ПВЗ) обычно дешевле, чем до двери.</li>
+<li>📅 Обратите внимание на дату планируемой отправки, так как в выходные и праздники сроки могут сдвигаться.</li>
+</ul>
+
+<p>Особое внимание стоит уделить полю "Объявленная ценность". Многие пользователи ошибочно думают, что это цена доставки, но на самом деле это сумма, которую компания выплатит в случае утери или порчи груза. Страховой взнос составляет процент от этой суммы и добавляется к общей стоимости.</p>
+
+<div class="checklist-block"><h4>☑️ Проверка перед расчетом</h4><label class="check-item"><input type="checkbox"><span>Узнать вес груза</span></label><label class="check-item"><input type="checkbox"><span>Замерить длину, ширину, высоту</span></label><label class="check-item"><input type="checkbox"><span>Определить город отправления</span></label><label class="check-item"><input type="checkbox"><span>Определить город назначения</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 4</div></div>
+
+<h2 id="тарифы-для-физических-и-юридических-лиц">Тарифы для физических и юридических лиц</h2>
+
+<p>Структура ценообразования для частных клиентов и бизнеса существенно различается. Физические лица чаще всего пользуются стандартными тарифами, которые уже включают в себя базовый набор услуг. Для них важна прозрачность: увидел цену — оплатил. Основные направления, такие как <strong>«Супер-экспресс»</strong> или «Экспресс», ориентированы на скорость и удобство.</p>
+
+<p>Юридические лица и индивидуальные предприниматели работают по договору. Это дает доступ к индивидуальным скидкам, которые могут достигать 60% от базового тарифа. Кроме того, для бизнеса важен документооборот и возможность интеграции API, что позволяет автоматически <em>считать стоимость</em> доставки прямо в корзине интернет-магазина.</p>
+
+<table>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>Физические лица</th>
+<th>Юридические лица</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Базовый тариф</td>
+<td>Стандартный (полный)</td>
+<td>Скидочный (по договору)</td>
+</tr>
+<tr>
+<td>Оплата</td>
+<td>Картой или наличными</td>
+<td>Безналичный расчет с НДС</td>
+</tr>
+<tr>
+<td>Документы</td>
+<td>Квитанция</td>
+<td>Полный пакет закрывающих документов</td>
+</tr>
+<tr>
+<td>Лимиты</td>
+<p>td>Стандартные ограничения</td></p>
+<td>Гибкие условия по весу</td>
+</tr>
+</tbody>
+</table>
+
+<p>Если вы планируете регулярные отправки, имеет смысл рассмотреть заключение договора даже при небольших объемах. Это позволит не только сэкономить, но и получить персонального менеджера, который поможет решить любые спорные вопросы быстрее, чем стандартная поддержка.</p>
+
+<details class="faq-item"><summary>Как получить скидку без договора?</summary><div class="faq-answer"><p>Часто СДЭК проводит акции для новых клиентов или дает промокоды в мобильном приложении. Также скидки могут предоставляться при отправке крупных партий грузов единоразово.</p></div></details>
+
+<h2 id="скрытые-платежи-и-дополнительные-услуги">Скрытые платежи и дополнительные услуги</h2>
+
+<p>При расчете стоимости часто забывают про нюансы, которые могут увеличить чек. Например, упаковка. Если у вас нет своей коробки, курьер или оператор в пункте выдачи предложит фирменную упаковку СДЭК. Она надежная, но платная. Стоимость зависит от размера коробки или пакета.</p>
+
+<p>Еще один важный момент — наложенный платеж. Если получатель должен оплатить товар при получении, с него взимается комиссия за перевод денежных средств отправителю. Этот процент нужно закладывать в итоговую стоимость товара, чтобы не уйти в минус. <strong>Комиссия за наложенный платеж</strong> варьируется в зависимости от суммы и тарифа.</p>
+
+<ul>
+<li>📦 Упаковка: коробки, пакеты, скотч, пузырчатая пленка.</li>
+<li>📝 Опись вложения: платная услуга, подтверждающая содержимое посылки.</li>
+<li>🔔 SMS-уведомления: информирование получателя о статусе доставки.</li>
+<li>⏳ Хранение: после истечения бесплатного срока хранения в ПВЗ взимается плата за каждый день.</li>
+</ul>
+
+<blockquote>
+<p>⚠️ Внимание: Бесплатное хранение в пунктах выдачи обычно составляет 3-7 дней (зависит от тарифа). После этого начинается начисление пени, которая может превысить стоимость самой доставки при длительном простое.</p>
+</blockquote>
+
+<p>Также стоит помнить про услугу "примерка". Она позволяет примерить одежду перед оплатой, но стоит дороже обычной доставки. Если вы точно знаете свой размер, лучше выбрать тариф без примерки, чтобы сэкономить.</p>
+
+<h2 id="специфика-расчета-для-крупногабаритных-грузов">Специфика расчета для крупногабаритных грузов</h2>
+
+<p>Отправка больших вещей, таких как мебель, бытовая техника или строительные материалы, требует отдельного подхода. Здесь на первый план выходит именно объемный вес. Даже если дивен весит немного, его габариты могут сделать доставку очень дорогой. В таких случаях часто выгоднее использовать тарифы для <strong>крупногабаритных грузов</strong>, которые имеют другую шкалу расчета.</p>
+
+<p>Для таких отправлений критически важна правильная упаковка. Неправильльно упакованный крупный груз могут не принять или потребовать дополнительную обрешетку, что повлечет дополнительные расходы. Обрешетка — это деревянный каркас, который защищает товар от повреждений при перегрузке.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Для крупногабаритных грузов всегда уточняйте возможность доставки в конкретный пункт выдачи. Не все ПВЗ оборудованы для приема габаритных посылок, иногда требуется доставка только до двери или на склад.</p></div>
+
+<p>При расчете стоимости обязательно указывайте реальные размеры. Если габариты будут превышены при фактическом взвешивании в сортировочном центре, компания досчетывает разницу и выставляет счет отправителю или получателю. Избежать этого можно, если заранее замерить груз с учетом упаковки.</p>
+
+<h2 id="часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</h2>
+
+<details>
+<summary>Можно ли оплатить доставку при получении?</summary>
+<p>Да, такая возможность есть. Отправитель может выбрать опцию оплаты получателем. В этом случае курьер или оператор ПВЗ возьмет деньги с получателя. Однако, если получатель откажется от оплаты, расходы на доставку и обратную пересылку лягут на отправителя.</p>
+</details>
+
+<details>
+<summary>Как рассчитывается страховка и обязательна ли она?</summary>
+<p>Страховка не обязательна, но крайне рекомендована для ценных грузов. Она рассчитывается как процент (обычно около 3-4%) от объявленной ценности. Минимальная стоимость страховки может быть фиксированной, даже для дешевых товаров.</p>
+</details>
+
+<details>
+<summary>Почему калькулятор показывает одну цену, а в чеке другая?</summary>
+<p>Разница может возникнуть из-за изменения габаритов или веса при фактическом взвешивании в сортировочном центре. Также цена меняется, если вы добавили дополнительные услуги (упаковку, опись) уже в пункте приема, не рассчитав их в онлайн-калькуляторе.</p>
+</details>
+
+<details>
+<summary>Есть ли разница в цене доставки в выходные?</summary>
+<p>Базовые тарифы не меняются от дня недели. Однако, если вы заказываете курьера на выходной день или в ночное время, может применяться коэффициент за работу в нерабочее время. Доставка до ПВЗ в выходные обычно стоит стандартно.</p>
+</details>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Точный расчет стоимости СДЭК возможен только при учете реальных габаритов, веса и всех дополнительных опций. Всегда оставляйте небольшой запас в бюджете на случай изменения параметров груза.</p></div></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#факторы-влияющие-на-итоговую-стоимость">Факторы, влияющие на итоговую стоимость</a></li><li><a href="#использование-онлайн-калькулятора-на-сайте">Использование онлайн-калькулятора на сайте</a></li><li><a href="#тарифы-для-физических-и-юридических-лиц">Тарифы для физических и юридических лиц</a></li><li><a href="#скрытые-платежи-и-дополнительные-услуги">Скрытые платежи и дополнительные услуги</a></li><li><a href="#специфика-расчета-для-крупногабаритных-грузов">Специфика расчета для крупногабаритных грузов</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/k/ka/kak-rasschitat-tsenu-posylki-sdek.html" class="related-card">Как рассчитать цену посылки СДЭК: актуальные тарифы</a></li><li><a href="/articles/k/ka/kak-otpravit-gruz-sdekom-nalozhennym-platezhom.html" class="related-card">Отправка груза СДЭК наложенным платежом: пошаговая инструкция 2026</a></li><li><a href="/articles/s/sd/sdek-iz-minska-v-moskvu-skolko.html" class="related-card">СДЭК из Минска в Москву: цены, сроки и условия 2026</a></li><li><a href="/articles/n/na/nalozhennym-platezhom-eto-sdek-kak-oplata.html" class="related-card">Наложенный платеж СДЭК: как оплачивать и получать</a></li><li><a href="/articles/s/sd/sdek-kak-oplachivaetsya-tovar.html" class="related-card">Как оплатить товар СДЭК: способы, лимиты и комиссии</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/k/ka/kak-rasschitat-tsenu-posylki-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как рассчитать цену посылки СДЭК: актуальные тарифы</span><span class="related-bottom-desc">Узнайте, как правильно рассчитать стоимость доставки СДЭК. Формулы расчета, зависимость цены от веса</span></a><a href="/articles/k/ka/kak-otpravit-gruz-sdekom-nalozhennym-platezhom.html" class="related-bottom-card"><span class="related-bottom-title">Отправка груза СДЭК наложенным платежом: пошаговая инструкция 2026</span><span class="related-bottom-desc">Как отправить посылку через СДЭК с наложенным платежом: условия, стоимость, ограничения и пошаговый </span></a><a href="/articles/s/sd/sdek-iz-minska-v-moskvu-skolko.html" class="related-bottom-card"><span class="related-bottom-title">СДЭК из Минска в Москву: цены, сроки и условия 2026</span><span class="related-bottom-desc">Актуальные тарифы СДЭК из Минска в Москву на 2026 год. Сроки доставки, расчет стоимости, правила там</span></a><a href="/articles/n/na/nalozhennym-platezhom-eto-sdek-kak-oplata.html" class="related-bottom-card"><span class="related-bottom-title">Наложенный платеж СДЭК: как оплачивать и получать</span><span class="related-bottom-desc">Полный гид по наложенному платежу в СДЭК: как оформить, где и чем оплатить, лимиты и комиссии. Инстр</span></a><a href="/articles/s/sd/sdek-kak-oplachivaetsya-tovar.html" class="related-bottom-card"><span class="related-bottom-title">Как оплатить товар СДЭК: способы, лимиты и комиссии</span><span class="related-bottom-desc">Полный гид по оплате товаров через СДЭК. Лимиты наложенного платежа, комиссии, способы внесения сред</span></a><a href="/articles/k/ka/kak-oplachivaetsya-kompaniya-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как оплачивается компания СДЭК: способы, лимиты и тарифы</span><span class="related-bottom-desc">Подробный гид по оплате услуг СДЭК. Как оплатить доставку, таможню и наложенный платеж. Лимиты карт,</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

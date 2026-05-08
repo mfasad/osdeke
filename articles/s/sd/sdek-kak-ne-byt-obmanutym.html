@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>Как не быть обманутым СДЭК: защита от мошенников — СДЭК Гид</title>
+    <meta name="description" content="Полный гид по безопасности СДЭК: как отличить фейковые смс, проверить трек-номер и избежать кражи данных при получении посылок.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/s/sd/sdek-kak-ne-byt-obmanutym.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Как не быть обманутым СДЭК: защита от мошенников">
+    <meta property="og:description" content="Полный гид по безопасности СДЭК: как отличить фейковые смс, проверить трек-номер и избежать кражи данных при получении посылок.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/bezopasnost/">Безопасность</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Как не быть обманутым СДЭК: защита от мошенников</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>СДЭК: как не быть обманутым мошенниками и сохранить груз</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#распознавание-фишинговых-смс-и-звонков">Распознавание фишинговых СМС и звонков</a></li><li><a href="#проверка-трек-номеров-и-отслеживание-груза">Проверка трек-номеров и отслеживание груза</a></li><li><a href="#безопасность-при-получении-и-оплате-доставки">Безопасность при получении и оплате доставки</a></li><li><a href="#защита-личного-кабинета-и-данных">Защита личного кабинета и данных</a></li><li><a href="#психология-мошенников-как-не-стать-жертвой">Психология мошенников: как не стать жертвой</a></li><li><a href="#алгоритм-действий-при-подозрении-на-обман">Алгоритм действий при подозрении на обман</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>В эпоху бурного развития логистических услуг мошенники все чаще используют брендирование известных компаний для кражи персональных данных и денежных средств. <strong>СДЭК</strong>, являясь одним из лидеров рынка, регулярно сталкивается с волной фишинговых атак, направленных на доверчивых клиентов. Злоумышленники имитируют официальные рассылки, создавая иллюзию срочности, чтобы заставить человека перейти по вредоносной ссылке или перезвонить на поддельный номер.</p>
+
+<p>Опасность кроется в том, что современные схемы обмана становятся все более изощренными и трудно отличимыми от реальных уведомлений службы доставки. <em>Социальная инженерия</em> позволяет преступникам манипулировать эмоциями получателя, играя на страхе потерять долгожданный заказ или получить штраф. Именно поэтому знание основных признаков мошенничества становится критически важным навыком для каждого пользователя.</p>
+
+<p>В этой статье мы детально разберем механизмы защиты, которые внедряет компания, и научимся распознавать подделку за считанные секунды. Вы узнаете, какие данные никогда нельзя сообщать операторам, как проверить подлинность уведомления и что делать, если вы все-таки стали жертвой атаки. <strong>Бдительность</strong> — это ваш главный щит в цифровом пространстве.</p>
+
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> Официальные сотрудники СДЭК никогда не запрашивают полные реквизиты банковских карт, CVV-коды или пароли из смс-сообщений для оформления доставки.</p>
+</blockquote>
+
+<h2 id="распознавание-фишинговых-смс-и-звонков">Распознавание фишинговых СМС и звонков</h2>
+
+<p>Наиболее распространенным инструментом в руках мошенников остаются <strong>SMS-сообщения</strong>, содержащие короткие ссылки. Текст таких сообщений часто содержит грамматические ошибки, странные сокращения или вызывает необоснованное чувство тревоги, например, сообщение о «неоплаченной пошлине» или «неверном адресе». Ссылка в таких сообщениях ведет на сайт-клон, который визуально копирует интерфейс личного кабинета СДЭК, но его адрес (URL) всегда будет отличаться от официального домена.</p>
+
+<p>Голосовой фишинг или <em>vishing</em> также набирает обороты: мошенники представляются операторами колл-центра и сообщают о проблемах с грузом. Они могут утверждать, что посылка повреждена, потеряна или требует дополнительной оплаты за таможенное оформление. Главная цель звонка — заставить человека продиктовать код подтверждения из смс или перейти по ссылке в мессенджер под предлогом «решения вопроса в чате».</p>
+
+<ul>
+<li>📱 <strong>Проверка отправителя:</strong> Официальные СМС приходят с короткого номера или имени отправителя «CDEK», а не с обычного мобильного номера.</li>
+<li>🔗 <strong>Анализ ссылки:</strong> Наведите курсор на ссылку (не открывая её), чтобы увидеть реальный адрес; домен должен оканчиваться на <code>cdek.ru</code>.</li>
+<li>📞 <strong>Обратный звонок:</strong> Если вам позвонили, положите трубку и перезвоните на официальный номер горячей линии, указанный на сайте.</li>
+</ul>
+
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> Ссылки в сообщениях от СДЭК всегда ведут на защищенные протоколы https, однако наличие замка в браузере не гарантирует, что сайт не является подделкой.</p>
+</blockquote>
+
+<p>Особое внимание следует уделить сообщениям о якобы поступившем денежном переводе. Мошенники часто рассылают фейковые уведомления о том, что вам кто-то отправил деньги через СДЭК, и для получения нужно оплатить «комиссию» или «страховку». <strong>Логистическая компания</strong> не является финансовым учреждением и не занимается переводами денежных средств между физическими лицами в таком формате.</p>
+
+<div class="poll-widget" id="poll-1097d223"><div class="poll-widget-question">📊 Как вы чаще всего получаете уведомления от СДЭК?</div><div class="poll-widget-option" data-poll="1097d223" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">SMS-сообщение</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="1097d223" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Звонок оператора</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="1097d223" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Уведомление в приложении</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="1097d223" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Email рассылка</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="проверка-трек-номеров-и-отслеживание-груза">Проверка трек-номеров и отслеживание груза</h2>
+
+<p>Один из самых надежных способов обезопасить себя — это самостоятельная проверка статуса груза через официальные каналы. Мошенники часто присылают скриншоты с «успешным» отслеживанием или поддельные трек-номера, которые ничего не значат в реальной системе. Настоящий <strong>трек-номер</strong> СДЭК имеет определенный формат и позволяет отследить весь путь посылки от момента приема до вручения.</p>
+
+<p>Для проверки используйте только официальный сайт или мобильное приложение. Ввод данных на сторонних ресурсах может привести к утечке информации о ваших покупках и адресе проживания. Если система пишет, что номер не найден, это может означать, что отправитель еще не передал груз в службу доставки, или же номер был сфабрикован мошенниками.</p>
+
+<p>Существуют специальные алгоритмы валидации, которые помогают определить подлинность номера. Например, трек-номер обычно состоит из цифр, иногда с буквенными префиксами, указывающими на тип услуги. <em>Фальшивые номера</em> часто имеют нестандартную длину или содержат символы, не используемые в номенклатуре компании.</p>
+
+<details class="faq-item"><summary>Что делать, если трек-номер не пробивается?</summary><div class="faq-answer"><p>Если трек-номер не отображается в системе более 24 часов после якобы отправки, свяжитесь с отправителем. Возможно, товар еще не передан в службу доставки, или продавец использует схему дропшиппинга с задержкой, что часто встречается в мошеннических схемах.</p></div></details>
+
+<p>Важно понимать разницу между статусами «Принято» и «В пути». Мошенники могут утверждать, что груз уже в вашем городе, чтобы поторопить с оплатой «дополнительных услуг». Реальное местоположение посылки всегда отображается в детальном отчете отслеживания с указанием городов и пунктов выдачи.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Используйте функцию «Мои заказы» в личном кабинете СДЭК для автоматического добавления посылок — это исключит риск перехода по ссылкам из подозр-рительных смс.</p></div>
+
+<h2 id="безопасность-при-получении-и-оплате-доставки">Безопасность при получении и оплате доставки</h2>
+
+<p>Процесс получения груза — критический момент, когда риск столкнуться с недобросовестными действиями остается высоким. Особенно это касается схемы <strong>наложенного платежа</strong>, когда получатель оплачивает товар при получении. Мошенники могут подменять содержимое коробки на дешевый аналог или кирпич, рассчитывая на то, что клиент не вскроет упаковку в пункте выдачи.</p>
+
+<p>Согласно правилам СДЭК, получатель имеет полное право осмотреть вложение перед оплатой (если это не противоречит правилам упаковки отправителя для определенных категорий товаров). <strong>Вскрывать упаковку</strong> необходимо в присутствии сотрудника пункта выдачи. Если содержимое не соответствует заказу или вызывает подозрения, от получения лучше отказаться и составить акт о расхождении.</p>
+
+<p>Оплата картой через терминал в пункте выдачи безопасна, так как устройство подключено к защищенному каналу банка. Однако следует остерегаться ситуаций, когда сотрудник просит перевести деньги на личную карту или через приложение банка по QR-коду. Все финансовые операции должны проходить исключительно через кассу или официальный терминал с выдачей чека.</p>
+
+<table>
+<thead>
+<tr>
+<th>Ситуация</th>
+<th>Действия мошенника</th>
+<th>Правильная реакция</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Оплата доставки</td>
+<td>Просят перевести на карту сотрудника</td>
+<td>Оплачивать только через терминал или кассу с чеком</td>
+</tr>
+<tr>
+<td>Проверка вложения</td>
+<td>Утверждают, что вскрывать нельзя</td>
+<td>Настаивать на осмотре или отказываться от получения</td>
+</tr>
+<tr>
+<td>Недовес/перевес</td>
+<td>Требуют доплату на месте без документов</td>
+<td>Требовать официальное уведомление об изменении веса</td>
+</tr>
+<tr>
+<td>Задержка груза</td>
+<td>Предлагают «ускорить» за взятку</td>
+<td>Игнорировать и обращаться в официальную поддержку</td>
+</tr>
+</tbody>
+</table>
+
+<p>Если вам предлагают «ускорить» доставку за отдельную плату наличными курьеру или сотруднику пункта, знайте — это коррупционная схема. <em>Официальные тарифы</em> фиксированы и зависят только от веса, габаритов и выбранной тарифной линейки, а любые изменения в статусе доставки вносятся в систему централизованно.</p>
+
+<div class="checklist-block"><h4>☑️ Проверка при получении</h4><label class="check-item"><input type="checkbox"><span>Сверить ФИО получателя</span></label><label class="check-item"><input type="checkbox"><span>Проверить целостность упаковки</span></label><label class="check-item"><input type="checkbox"><span>Вскрить и осмотреть товар (если возможно)</span></label><label class="check-item"><input type="checkbox"><span>Проверить комплектацию по накладной</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 4</div></div>
+
+<h2 id="защита-личного-кабинета-и-данных">Защита личного кабинета и данных</h2>
+
+<p>Цифровой профиль пользователя СДЭК содержит sensitive data: адреса проживания, телефоны и историю заказов. Компрометация аккаунта может привести не только к краже посылок, но и к использованию ваших данных для совершения других преступлений. <strong>Парольная защита</strong> должна быть надежной: используйте комбинации из букв разного регистра, цифр и спецсимволов.</p>
+
+<p>Никогда не вводите данные для входа в личный кабинет, переходя по ссылкам из писем или сообщений. Всегда открывайте браузер и вводите адрес сайта вручную или используйте сохраненную закладку. Двухфакторная аутентификация (2FA) — это обязательный элемент безопасности, который значительно усложняет доступ злоумышленников даже при утечке пароля.</p>
+
+<p>Обратите внимание на устройства, с которых выполнен вход в аккаунт. В настройках профиля можно посмотреть историю активности и завершить все подозрительные сеансы. Если вы заметили вход с незнакомого устройства или города, немедленно смените пароль и обратитесь в службу технической поддержки.</p>
+
+<ul>
+<li>🔐 <strong>Уникальность паролей:</strong> Не используйте один и тот же пароль для СДЭК, почты и социальных сетей.</li>
+<li>📧 <strong>Фильтрация писем:</strong> Настройте фильтры в почте, чтобы помечать письма с доменов, похожих на cdek.ru, но не являющихся ими.</li>
+<li>📱 <strong>Обновление приложения:</strong> Регулярно обновляйте мобильное приложение СДЭК через официальные сторы (AppStore, Google Play).</li>
+</ul>
+
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> СДЭК никогда не рассылает формы авторизации или оплаты через мессенджеры (WhatsApp, Telegram, Viber). Все операции проводятся только на сайте или в приложении.</p>
+</blockquote>
+
+<h2 id="психология-мошенников-как-не-стать-жертвой">Психология мошенников: как не стать жертвой</h2>
+
+<p>Понимание психологических приемов, используемых аферистами, помогает сохранять хладнокровие. Основной рычаг давления — это создание искусственной <strong>срочности</strong>. Фразы вроде «оплатите в течение 15 минут, иначе груз уйдет обратно» или «ваш аккаунт будет заблокирован» предназначены для того, чтобы отключить критическое мышление и заставить действовать рефлекторно.</p>
+
+<p>Еще один прием — авторитетность. Мошенники могут называть номера внутренних отделов, имена руководителей или ссылаться на несуществующие статьи закона. Они говорят быстро, перебивают и не дают времени на осмысление. В такой ситуации необходимо взять паузу, положить трубку и самостоятельно проверить информацию через официальные каналы связи.</p>
+
+<p>Чувство жадности или, наоборот, страха потери также активно эксплуатируется. Обещание вернуть «лишние» деньги за доставку или угрозаного штрафа за «неправильно оформленные документы» — это классические крючки. Помните, что логистическая компания заинтересована в клиенте и не будет создавать ему искусственные препятствия.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Главный принцип безопасности: чем больше спешки и давления требует собеседник, тем выше вероятность мошенничества.</p></div>
+
+<p>Социальная инженерия постоянно эволюционирует, и сценарии становятся все более реалистичными. Мошенники могут знать ваше имя, номер заказа и даже примерное содержимое посылки, если данные были утеплены от продавца товара. Однако это не дает им права требовать конфиденциальную финансовую информацию.</p>
+
+<h2 id="алгоритм-действий-при-подозрении-на-обман">Алгоритм действий при подозрении на обман</h2>
+
+<p>Если вы поняли, что стали жертвой мошенников или заметили подозрительную активность, действовать нужно быстро и последовательно. Первым шагом всегда должна быть блокировка любых финансовых операций. Если вы сообщили данные карты, немедленно позвоните в банк для блокировки счета и выпуска новой карты.</p>
+
+<p>Второй шаг — информирование СДЭК. Напишите в службу поддержки через официальный чат на сайте или позвоните на горячую линию. Предоставьте скриншоты переписки, номера телефонов и тексты сообщений. Это поможет компании заблокировать фишинговые ресурсы и предупредить других клиентов.</p>
+
+<p>Третий шаг — обращение в правоохранительные органы. Сохраните все доказательства: записи разговоров (если есть), скриншоты, чеки об оплате. Напишите заявление в полицию о факте мошенничества. Хотя вернуть деньги удается не всегда, сбор статистики помогает правоохранительным органам выявлять преступные группы.</p>
+
+<p>Не стоит игнорировать инцидент, даже если сумма ущерба кажется незначительной. Каждый зафиксированный случай помогает сделать систему безопасности лучше и защитить других людей от podobных схем. <strong>Гражданская ответственность</strong> в цифровую эпоху играет важную роль в борьбе с киберпреступностью.</p>
+
+<details>
+<summary>Что делать, если я уже перешел по ссылке и ввел данные?</summary>
+<p>Немедленно смените пароли во всех важных сервисах, где использовался этот же пароль. Проверьте компьютер антивирусом. Если вводили данные карты — блокируйте её через банк. Сообщите о фишинговом сайте в СДЭК для включения в черный список.</p>
+</details>
+
+<details>
+<summary>Можно ли вернуть деньги, если оплатил доставку мошенникам?</summary>
+<p>Если оплата прошла через официальный терминал СДЭК по ошибке сотрудника, деньги возвращаются по заявлению. Если вы сами перевели деньги мошенникам на карту или через СБП, банк не сможет вернуть средства без решения суда или полиции, так как операция была авторизована вами.</p>
+</details>
+
+<details>
+<summary>Как отличить реального курьера СДЭК от поддельного?</summary>
+<p>Настоящий курьер всегда опрятен, имеет при себе бейдж, фирменную одежду и терминал для оплаты. Он не будет просить перевести деньги на личную карту. Вы можете сверить его имя и номер телефона с данными в треке доставки в приложении.</p>
+</details>
+
+<details>
+<summary>Опасно ли указывать СДЭК свой паспорт для получения груза?</summary>
+<p>Нет, это стандартная процедура для ценных отправлений и международных перевозок. Однако курьер или сотрудник пункта выдачи должен только визуально сверить данные или снять копию для отчетности. Забирать паспорт себе или фотографировать его на личный телефон сотрудник не имеет права.</p>
+</details>
+
+<details>
+<summary>Куда жаловаться на действия сотрудников СДЭК?</summary>
+<p>Жалобу можно оставить в личном кабинете, через форму обратной связи на сайте или позвонив на горячую линию. Для escalated cases (серьезных нарушений) существует служба контроля качества, контакты которой есть на официальном сайте в разделе «О компании».</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#распознавание-фишинговых-смс-и-звонков">Распознавание фишинговых СМС и звонков</a></li><li><a href="#проверка-трек-номеров-и-отслеживание-груза">Проверка трек-номеров и отслеживание груза</a></li><li><a href="#безопасность-при-получении-и-оплате-доставки">Безопасность при получении и оплате доставки</a></li><li><a href="#защита-личного-кабинета-и-данных">Защита личного кабинета и данных</a></li><li><a href="#психология-мошенников-как-не-стать-жертвой">Психология мошенников: как не стать жертвой</a></li><li><a href="#алгоритм-действий-при-подозрении-на-обман">Алгоритм действий при подозрении на обман</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/b/be/bezopasnaya-sdelka-sdek-avito-kak-rabotaet.html" class="related-card">Безопасная сделка СДЭК и Авито: как работает и комиссия</a></li><li><a href="/articles/k/ka/kak-sdelat-fejk-trek-nomer-sdek.html" class="related-card">Фейк трек-номер СДЭК: как проверить и не стать жертвой мошенников</a></li><li><a href="/articles/z/za/zachem-nuzhen-pasport-v-sdek.html" class="related-card">Зачем нужен паспорт при отправке посылок СДЭК в 2026 году: правила и исключения</a></li><li><a href="/articles/k/ka/kak-otpravit-posylku-sdek-anonimno.html" class="related-card">Как отправить посылку через СДЭК анонимно: пошаговая инструкция 2026</a></li><li><a href="/articles/k/ka/kak-obmanyvayut-dostavkoj-sdek.html" class="related-card">Как обманывают доставкой СДЭК: схемы мошенников и защита</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/b/be/bezopasnaya-sdelka-sdek-avito-kak-rabotaet.html" class="related-bottom-card"><span class="related-bottom-title">Безопасная сделка СДЭК и Авито: как работает и комиссия</span><span class="related-bottom-desc">Полный гид по безопасной сделке СДЭК и Авито. Как работает доставка, кто платит комиссию, лимиты и п</span></a><a href="/articles/k/ka/kak-sdelat-fejk-trek-nomer-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Фейк трек-номер СДЭК: как проверить и не стать жертвой мошенников</span><span class="related-bottom-desc">Узнайте, как мошенники создают фейк трек-номер СДЭК. Полная инструкция по проверке подлинности отпра</span></a><a href="/articles/z/za/zachem-nuzhen-pasport-v-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Зачем нужен паспорт при отправке посылок СДЭК в 2026 году: правила и исключения</span><span class="related-bottom-desc">Разбираемся, когда СДЭК требует паспорт при отправке и получении посылок: обязательные случаи, альте</span></a><a href="/articles/k/ka/kak-otpravit-posylku-sdek-anonimno.html" class="related-bottom-card"><span class="related-bottom-title">Как отправить посылку через СДЭК анонимно: пошаговая инструкция 2026</span><span class="related-bottom-desc">Можно ли отправить посылку в СДЭК без паспортных данных? Разбираем легальные способы анонимной отпра</span></a><a href="/articles/k/ka/kak-obmanyvayut-dostavkoj-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как обманывают доставкой СДЭК: схемы мошенников и защита</span><span class="related-bottom-desc">Разбор схем мошенничества с доставкой СДЭК. Узнайте, как отличить поддельные СМС, фишинговые сайты и</span></a><a href="/articles/k/ka/kak-proverit-sertifikat-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как проверить сертификат СДЭК — официальные способы 2026</span><span class="related-bottom-desc">Пошаговая инструкция: как проверить подлинность сертификата СДЭК онлайн, через мобильное приложение </span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

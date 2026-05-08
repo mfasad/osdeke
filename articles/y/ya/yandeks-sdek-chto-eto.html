@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>Яндекс и СДЭК: как отслеживать посылки и отправлять грузы — СДЭК Гид</title>
+    <meta name="description" content="Полный разбор интеграции Яндекс и СДЭК. Как отследить трек-код, оформить доставку через Яндекс Маркет и сравнить тарифы служб.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/y/ya/yandeks-sdek-chto-eto.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Яндекс и СДЭК: как отслеживать посылки и отправлять грузы">
+    <meta property="og:description" content="Полный разбор интеграции Яндекс и СДЭК. Как отследить трек-код, оформить доставку через Яндекс Маркет и сравнить тарифы служб.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/otslezhivanie/">Отслеживание</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Яндекс и СДЭК: как отслеживать посылки и отправлять грузы</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Яндекс и СДЭК: что это и как пользоваться сервисами</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#суть-партнерства-и-экосистема-доставки">Суть партнерства и экосистема доставки</a></li><li><a href="#как-отследить-посылку-все-доступные-способы">Как отследить посылку: все доступные способы</a></li><li><a href="#оформление-доставки-через-яндекс-и-сдэк">Оформление доставки через Яндекс и СДЭК</a></li><li><a href="#сравнение-тарифов-и-условий-обслуживания">Сравнение тарифов и условий обслуживания</a></li><li><a href="#решение-проблем-возвраты-и-претензии">Решение проблем: возвраты и претензии</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+<p>Многие пользователи, впервые сталкиваясь с логистическими сервисами, часто путают понятия или ищут несуществующую услугу под названием «Яндекс СДЭК». На самом деле, это не единая организация, а результат тесного партнерства двух гигантов: технологической компании <strong>Яндекс</strong> и логистического оператора <strong>СДЭК</strong>. Интеграция этих систем позволяет клиентам заказывать товары в интернет-магазинах экосистемы Яндекса и получать их через сеть пунктов выдачи СДЭК, что значительно упрощает процесс покупки.</p>
+
+<p>Понимание различий между этими брендами критически важно для тех, кто регулярно отправляет или получает грузы. <em>Яндекс</em> выступает в роли агрегатора и платформы для электронной коммерции, предоставляя интерфейс для заказа, оплаты и первичного отслеживания. В свою очередь, <em>СДЭК</em> берет на себя физическую транспортировку, сортировку и хранение посылок в своих складах. Именно поэтому статусы в трек-кодах могут обновляться с задержкой или отображаться по-разному в зависимости от того, где вы смотрите информацию.</p>
+
+<p>В этой статье мы детально разберем, как взаимодействуют эти системы, какие существуют способы отслеживания и почему важно знать особенности каждой платформы. Вы узнаете, как избежать распространенных ошибок при заполнении накладных и где искать актуальную информацию о местонахождении вашего груза. <strong>Грамотное использование</strong> инструментов обоих сервисов сэкономит вам время и нервы.</p>
+
+<h2 id="суть-партнерства-и-экосистема-доставки">Суть партнерства и экосистема доставки</h2>
+<p>Альянс между IT-гигантом и логистической компанией возник из потребности рынка в быстрой и предсказуемой доставке. Когда вы оформляете заказ на <em>Яндекс Маркете</em> или в другом сервисе группы, система автоматически выбирает оптимального перевозчика. Часто этим перевозчиком становится СДЭК благодаря своей разветвленной сети пунктов выдачи заказов (ПВЗ). Для конечного пользователя это выглядит как единый процесс, но «под капотом» происходит сложный обмен данными.</p>
+
+<p>Ключевым элементом взаимодействия является единое информационное пространство. Трек-номер, который вы получаете от продавца, генерируется в системе СДЭК, но транслируется на витрину Яндекса через API-шлюзы. Это означает, что <strong>актуальность данных</strong> зависит от скорости синхронизации баз данных. Иногда случается так, что курьер уже вручил посылку, но в приложении маркетплейса статус еще не обновился.</p>
+
+<details class="faq-item"><summary>Почему statuses differ?</summary><div class="faq-answer"><p>В некоторых случаях статусы в Яндекс.Go и личном кабинете СДЭК могут отличаться. Это происходит из-за того, что Яндекс отображает упрощенную версию трекинга для покупателя, тогда как СДЭК ведет полную логистическую цепочку для отправителя и получателя.</p></div></details>
+
+<p>Стоит отметить, что не все услуги СДЭК доступны через интерфейс Яндекса. Например, сложные таможенные процедуры или отправка негабаритных грузов чаще требуют прямого обращения в логистическую компанию. <mark>Прямая интеграция в основном заточена под стандартные parcel-перевозки весом до 30 кг.</mark> Понимание этой границы поможет вам быстрее решать возникающие вопросы.</p>
+
+<h2 id="как-отследить-посылку-все-доступные-способы">Как отследить посылку: все доступные способы</h2>
+<p>Отслеживание груза — самая востребованная функция для пользователей. Существует несколько проверенных методов, позволяющих контролировать путь вашей коробки от склада отправителя до двери квартиры. Выбор конкретного способа зависит от того, какой информацией вы уже обладаете и где был совершен заказ.</p>
+
+<p>Первый и самый очевидный вариант — использование трек-номера на официальном сайте СДЭК. Этот метод дает наиболее <strong>детализированную информацию</strong> о перемещении груза. Вы увидите не просто «в пути», а конкретные города и сортировочные центры, через которые прошла посылка. Это особенно полезно, если груз задержался в пути.</p>
+
+<ul>
+<li>📦 Ввод трек-кода в поле на главной странице сайта СДЭК для мгновенного результата.</li>
+<li>📱 Использование мобильного приложения «Мой СДЭК» с push-уведомлениями о смене статусов.</li>
+<li>🔍 Поиск по номеру заказа в разделе «Мои покупки» на Яндексе, если заказ оформлялся там.</li>
+<li>📞 Звонок в службу поддержки с указанием номера накладной для уточнения деталей.</li>
+</ul>
+
+<p>Если вы заказывали товар через Яндекс Маркет, удобнее всего следить за доставкой в личном кабинете пользователя. Там отображается упрощенный трек-лист, который понятен большинству покупателей. Однако для <strong>глубокого анализа</strong> проблем с доставкой лучше использовать инструменты логистического оператора.</p>
+
+<div class="poll-widget" id="poll-194cc31a"><div class="poll-widget-question">📊 Где вы чаще всего отслеживаете посылки?</div><div class="poll-widget-option" data-poll="194cc31a" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">В приложении Яндекс Go/Маркет</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="194cc31a" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">На сайте СДЭК</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="194cc31a" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Через универсальные трекеры</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="194cc31a" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">По звонку курьеру</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="оформление-доставки-через-яндекс-и-сдэк">Оформление доставки через Яндекс и СДЭК</h2>
+<p>Процесс оформления заказа может кардинально отличаться в зависимости от того, выступаете ли вы как покупатель на маркетплейсе или как отправитель, желающий передать груз через службу доставки. В первом случае система максимально автоматизирована: вы выбираете товар, указываете адрес и способ доставки, а алгоритм сам формирует задание для курьера или ПВЗ.</p>
+
+<p>Если же вам нужно отправить вещь самостоятельно, используя мощности СДЭК через партнерские каналы или напрямую, потребуется заполнить электронную накладную. В ней указываются габариты, вес и declared value (объявленная ценность) груза. <strong>Точность данных</strong> на этом этапе критична, так как расхождение в весе даже на 100 грамм может привести к пересчету стоимости доставки после приемки.</p>
+
+<div class="checklist-block"><h4>☑️ Проверка перед отправкой</h4><label class="check-item"><input type="checkbox"><span>Упаковать товар в прочную коробку</span></label><label class="check-item"><input type="checkbox"><span>Замерить габариты в сантиметрах</span></label><label class="check-item"><input type="checkbox"><span>Взвесить груз на точных весах</span></label><label class="check-item"><input type="checkbox"><span>Проверить запретные товары</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 4</div></div>
+
+<p>При оформлении важно правильно выбрать тип доставки. СДЭК предлагает курьерскую доставку «до двери» или самовывоз из пункта выдачи. Яндекс часто предлагает гибридные варианты, например, доставку в постаматы или партнерские точки. Убедитесь, что выбранный пункт <strong>принимает грузы</strong> такого типа, особенно если речь идет о технике с литиевыми батареями или хрупких предметах.</p>
+
+<h2 id="сравнение-тарифов-и-условий-обслуживания">Сравнение тарифов и условий обслуживания</h2>
+<p>Вопрос стоимости всегда стоит остро. Тарифная сетка СДЭК и условия доставки через Яндекс могут существенно различаться. Яндекс часто субсидирует доставку для своих подписчиков (Yandex Plus), делая её бесплатной при определенном чеке. СДЭК же работает по классической тарифной модели, где цена зависит от расстояния, веса и скорости.</p>
+
+<p>Для наглядности сравним основные параметры работы с грузом в двух системах. Это поможет понять, где выгоднее отправлять тяжелые грузы, а где проще получить мелкую посылку.</p>
+
+<table>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>Через Яндекс (Маркет/Лавка)</th>
+<th>Напрямую через СДЭК</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Оформление</td>
+<td>Автоматическое, в один клик</td>
+<td>Требует заполнения накладной</td>
+</tr>
+<tr>
+<td>Стоимость для клиента</td>
+<td>Часто бесплатно или со скидкой</td>
+<td>Полный тариф по прайсу</td>
+</tr>
+<tr>
+<td>Скорость доставки</td>
+<td>Стандартная (1-5 дней)</td>
+<td>Есть экспресс-тарифы (до 24 ч)</td>
+</tr>
+<tr>
+<td>Габариты груза</td>
+<td>Ограничены складом маркетплейса</td>
+<td>Возможна отправка до 1000 кг</td>
+</tr>
+<tr>
+<td>Страхование</td>
+<td>Включено в стоимость товара</td>
+<td>Оплачивается отдельно (опция)</td>
+</tr>
+</tbody>
+</table>
+
+<p>Как видно из таблицы, для обычных покупок интеграция с Яндексом выигрывает по удобству и цене. Однако для <strong>коммерческих отправок</strong> или перевозки нестандартных грузов прямой контракт со СДЭК будет более гибким решением. Также стоит учитывать, что тарифы СДЭК могут меняться в зависимости от сезона и загруженности направлений.</p>
+
+<h2 id="решение-проблем-возвраты-и-претензии">Решение проблем: возвраты и претензии</h2>
+<p>К сожалению, логистика не всегда проходит идеально. Товары могут повреждаться, теряться или приходить с опозданием. В связке Яндекс-СДЭК процедура решения проблем имеет свои особенности. Если товар куплен на маркетплейсе, все претензии по качеству или комплектации адресуются продавцу или службе поддержки Яндекса, а не курьерам СДЭК.</p>
+
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> Если вы обнаружили повреждение упаковки при получении, не подписывайте акт приема-передачи без отметки о дефектах. Сфотографируйте состояние коробки и содержимого в пункте выдачи СДЭК — это будет главным доказательством при возврате денег.</p>
+</blockquote>
+
+<p>Процесс возврата также автоматизирован. В личном кабинете Яндекса вы создаете заявку на возврат, после чего система генерирует новый трек-код или QR-код для бесплатной сдачи товара обратно в пункт СДЭК. Вам не нужно самостоятельно оплачивать обратную пересылку, если возврат осуществляется по причине брака или ошибки продавца. <strong>Сохраняйте чек</strong> о сдаче товара до момента зачисления средств на карту.</p>
+
+<p>В случае, если посылка потерялась в пути, инициировать поиск (розыск) должен отправитель. Если отправитель — это магазин Яндекса, то и искать груз будут их специалисты. Клиенту остается лишь отслеживать статусы и ожидать решения. Обычно на процедуру поиска отводится до 30 дней, после чего принимается решение о компенсации.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Сохраняйте скриншоты всех статусов доставки и переписки с поддержкой. В спорных ситуациях это поможет быстрее доказать свою правоту и ускорить выплату компенсации.</p></div>
+
+<h2 id="часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</h2>
+<p>Ниже собраны ответы на наиболее популярные вопросы, которые возникают у пользователей при взаимодействии с сервисами доставки.</p>
+
+<details>
+<summary>Можно ли изменить адрес доставки после оформления заказа?</summary>
+<p>Если заказ еще не передан курьеру или не отправлен в сортировочный центр, изменить адрес можно через личный кабинет или службу поддержки. После отправки в путь изменение адреса возможно только платно и не во всех случаях.</p>
+</details>
+
+<details>
+<summary>Что делать, если трек-номер не отслеживается?</summary>
+<p>Отсутствие информации по трек-номеру в первые 24 часа после оформления — нормальная ситуация. Данные появляются после физической приемки груза оператором СДЭК и сканирования штрих-кода.</p>
+</details>
+
+<details>
+<summary>Как получить посылку, если я не дома?</summary>
+<p>Вы можете оформить переадресацию в удобный пункт выдачи СДЭК (ПВЗ) или оставить заказ в безопасном месте, если выбрана курьерская доставка и это позволяет сервис в вашем регионе.</p>
+</details>
+
+<details>
+<summary>Работает ли доставка СДЭК в выходные дни?</summary>
+<p>Большинство пунктов выдачи СДЭК работают без выходных, однако график может отличаться. Курьерская доставка также осуществляется по субботам и воскресеньям, но время прибытия курьера может быть сдвинуто.</p>
+</details>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Главный вывод: Интеграция Яндекс и СДЭК создает удобный гибридный сервис, где технологии IT-платформы сочетаются с физической логистической инфраструктурой, обеспечивая баланс между скоростью, ценой и комфортом для пользователя.</p></div></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#суть-партнерства-и-экосистема-доставки">Суть партнерства и экосистема доставки</a></li><li><a href="#как-отследить-посылку-все-доступные-способы">Как отследить посылку: все доступные способы</a></li><li><a href="#оформление-доставки-через-яндекс-и-сдэк">Оформление доставки через Яндекс и СДЭК</a></li><li><a href="#сравнение-тарифов-и-условий-обслуживания">Сравнение тарифов и условий обслуживания</a></li><li><a href="#решение-проблем-возвраты-и-претензии">Решение проблем: возвраты и претензии</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/k/ka/kak-proverit-gde-nakhoditsya-posylka-sdek-po-nomeru.html" class="related-card">Как отследить посылку СДЭК по номеру: 7 способов 2026</a></li><li><a href="/articles/m/mr/mrks-sdek-chto-eto.html" class="related-card">МРКС СДЭК: что это такое и как расшифровать статус</a></li><li><a href="/articles/c/ch/chto-znachit-zakaz-otgruzhen-sdek.html" class="related-card">Заказ отгружен СДЭК — что это значит и что делать дальше?</a></li><li><a href="/articles/n/no/nomer-dlya-otslezhivaniya-sdek-gde-v-nakladnoj.html" class="related-card">Где номер для отслеживания СДЭК в накладной: поиск и расшифровка</a></li><li><a href="/articles/s/sk/skolko-vremeni-idet-posylka-sdek-po-spb.html" class="related-card">Сколько идет посылка СДЭК по Санкт-Петербургу в 2026 году: сроки и нюансы</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/k/ka/kak-proverit-gde-nakhoditsya-posylka-sdek-po-nomeru.html" class="related-bottom-card"><span class="related-bottom-title">Как отследить посылку СДЭК по номеру: 7 способов 2026</span><span class="related-bottom-desc">Пошаговая инструкция, как проверить где находится посылка СДЭК по трек-номеру онлайн. Все способы: с</span></a><a href="/articles/m/mr/mrks-sdek-chto-eto.html" class="related-bottom-card"><span class="related-bottom-title">МРКС СДЭК: что это такое и как расшифровать статус</span><span class="related-bottom-desc">Подробно объясняем, что означает статус МРКС СДЭК, почему он появляется при отслеживании посылок и с</span></a><a href="/articles/c/ch/chto-znachit-zakaz-otgruzhen-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Заказ отгружен СДЭК — что это значит и что делать дальше?</span><span class="related-bottom-desc">Разбираем статус «отгружен» в СДЭК: что он означает для отправителя и получателя, сколько ждать дост</span></a><a href="/articles/n/no/nomer-dlya-otslezhivaniya-sdek-gde-v-nakladnoj.html" class="related-bottom-card"><span class="related-bottom-title">Где номер для отслеживания СДЭК в накладной: поиск и расшифровка</span><span class="related-bottom-desc">Подробный гид по поиску трек-номера СДЭК. Узнайте, где найти номер накладной на бланке, в СМС, на эт</span></a><a href="/articles/s/sk/skolko-vremeni-idet-posylka-sdek-po-spb.html" class="related-bottom-card"><span class="related-bottom-title">Сколько идет посылка СДЭК по Санкт-Петербургу в 2026 году: сроки и нюансы</span><span class="related-bottom-desc">Актуальные сроки доставки СДЭК в СПб: экспресс, стандарт, экономичные тарифы. Как ускорить доставку,</span></a><a href="/articles/k/ka/kak-smotret-posylku-po-trek-nomeru-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как отследить посылку СДЭК по трек-номеру: пошаговая инструкция 2026</span><span class="related-bottom-desc">Узнайте, как проверить статус посылки СДЭК по трек-номеру: официальный сайт, мобильное приложение, S</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

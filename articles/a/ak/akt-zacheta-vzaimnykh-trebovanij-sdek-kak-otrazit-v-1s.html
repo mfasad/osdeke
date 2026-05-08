@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>Зачет взаимных требований СДЭК в 1С: проводки и документы — СДЭК Гид</title>
+    <meta name="description" content="Как правильно отразить акт зачета взаимных требований СДЭК в 1С. Проводки, создание документа, закрытие задолженности и типовые ошибки бухгалтеров.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/a/ak/akt-zacheta-vzaimnykh-trebovanij-sdek-kak-otrazit-v-1s.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Зачет взаимных требований СДЭК в 1С: проводки и документы">
+    <meta property="og:description" content="Как правильно отразить акт зачета взаимных требований СДЭК в 1С. Проводки, создание документа, закрытие задолженности и типовые ошибки бухгалтеров.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/biznes-i-dogovory/">Бизнес и договоры</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Зачет взаимных требований СДЭК в 1С: проводки и документы</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Акт зачета взаимных требований СДЭК: как отразить в 1С</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#основания-для-проведения-зачета-с-сдэк">Основания для проведения зачета с СДЭК</a></li><li><a href="#подготовка-документов-и-проверка-контрагента">Подготовка документов и проверка контрагента</a></li><li><a href="#создание-документа-зачета-в-1с-пошаговая-инструкция">Создание документа зачета в 1С: пошаговая инструкция</a></li><li><a href="#типовые-проводки-и-счета-расчетов">Типовые проводки и счета расчетов</a></li><li><a href="#типичные-ошибки-и-способы-их-устранения">Типичные ошибки и способы их устранения</a></li><li><a href="#завершение-операции-и-архивация">Завершение операции и архивация</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>Работа с логистическими операторами часто предполагает формирование двусторонней задолженности, когда вы платите за доставку, а они могут быть должны вам за возвраты, переплаты или компенсацию брака. В таких ситуациях <strong>акт зачета взаимных требований</strong> становится основным документом, позволяющим юридически и бухгалтерски закрыть часть обязательств без реального движения денег. Для бухгалтера важно понимать, что проведение такой операции в 1С требует внимательности к деталям договора и правильному выбору счета расчетов.</p>
+
+<p>Корректное отражение операции позволяет избежать расхождений в актах сверки и путаницы с контрагентами. Система 1С предлагает несколько механизмов для закрытия долгов, но именно зачет взаимных требований СДЭК часто вызывает вопросы из-за специфики услуг экспресс-доставки. В этой статье мы разберем пошаговый алгоритм действий, необходимые первичные документы и типичные проводки.</p>
+
+<h2 id="основания-для-проведения-зачета-с-сдэк">Основания для проведения зачета с СДЭК</h2>
+
+<p>Прежде чем приступать к работе в программе, необходимо убедиться в наличии юридической базы. Зачет возможен только тогда, когда обязательства являются встречными, однородными и срок их исполнения уже наступил. В контексте работы со СДЭК это означает, что вы должны им за доставку, а они вам — за возврат товара или ошибочно списанные суммы.</p>
+
+<p>Ключевым документом здесь выступает именно <strong>акт сверки</strong>, подписанный обеими сторонами. Без согласованного акта сверки проведение зачета в 1С может привести к ошибка в будущем, так как бухгалтерия логистической компании может не увидеть у себя погашения долга. Также основанием может служить дополнительное соглашение к договору, если зачет производится в особом порядке.</p>
+
+<ul>
+<li>📄 Подписанный обеими сторонами акт сверки расчетов.</li>
+<li>📄 Дополнительное соглашение о порядке взаиморасчетов (если предусмотрено).</li>
+<li>📄 Письмо о согласии на зачет (иногда требуется для внутренней отчетности).</li>
+<li>📄 Акт выполненных работ или накладная на возврат товара.</li>
+</ul>
+
+<blockquote>
+<p>⚠️ Внимание: Не проводите зачет, если сроки оплаты по вашим обязательствам еще не наступили, даже если СДЭК уже должен вам. Это может быть расценено налоговыми органами как нарушение правил учета.</p>
+</blockquote>
+
+<p>Важно различать зачет взаимных требований и просто корректировку долга. Если СДЭК ошибся в тарифе, правильнее сделать корректировочный акт, а не зачет. <mark>Зачет применяется строго для погашения встречных однородных требований, возникших из разных оснований</mark>.</p>
+
+<h2 id="подготовка-документов-и-проверка-контрагента">Подготовка документов и проверка контрагента</h2>
+
+<p>На этапе подготовки необходимо убедиться, что в базе 1С корректно заполнена карточка контрагента. Проверьте, не разбит ли СДЭК на несколько юридических лиц в вашей базе. Часто бывает, что доставки идут через ООО "СДЭК-Глобал", а возвраты приходят от ООО "СДЭК-Логистика". В таком случае прямой зачет провести не получится.</p>
+
+<p>Соберите все первичные документы за период, который будет охвачен актом. Это могут быть накладные на отправку, акты об оказании услуг и документы на возврат денежных средств. Все суммы должны быть сведены в единый реестр для сверки с данными логистического оператора.</p>
+
+<div class="poll-widget" id="poll-ba21c30b"><div class="poll-widget-question">📊 Как часто вы проводите сверку со СДЭК?</div><div class="poll-widget-option" data-poll="ba21c30b" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Ежемесячно</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="ba21c30b" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Ежеквартально</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="ba21c30b" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Только при возникновении проблем</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="ba21c30b" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Никогда не проводим</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<p>Используйте стандартные отчеты 1С для предварительной проверки. Запустите <code>Анализ состояния расчетов с контрагентами</code>, чтобы увидеть текущий сальдовый разрыв. Это поможет понять, какую именно сумму нужно закрыть актом.</p>
+
+<h2 id="создание-документа-зачета-в-1с-пошаговая-инструкция">Создание документа зачета в 1С: пошаговая инструкция</h2>
+
+<p>Процесс отражения операции в системе зависит от версии конфигурации, но логика остается единой. Обычно используется документ "Зачет задолженности" или "Корректировка долга". Рассмотрим классический вариант через меню взаиморасчетов.</p>
+
+<p>Сначала необходимо перейти в раздел расчетов с контрагентами. В меню выберите пункт <code>Покупки</code> или <code>Продажи</code>, затем найдите группу операций с контрагентами. Именно там создается новый документ, фиксирующий ваше решение закрыть долги.</p>
+
+<div class="checklist-block"><h4>☑️ Алгоритм создания зачета</h4><label class="check-item"><input type="checkbox"><span>Открыть раздел "Покупки" или "Продажи"</span></label><label class="check-item"><input type="checkbox"><span>Выбрать "Все документы"</span></label><label class="check-item"><input type="checkbox"><span>Найти кнопку "Создать"</span></label><label class="check-item"><input type="checkbox"><span>Выбрать тип "Зачет задолженности"</span></label><label class="check-item"><input type="checkbox"><span>Заполнить контрагента и сумму</span></label><label class="check-item"><input type="checkbox"><span>Провести документ</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 6</div></div>
+
+<p>В открывшемся окне документа укажите контрагента — СДЭК. Система автоматически подтянет договор, но его лучше перепроверить. В табличной части документа необходимо добавить строки с дебиторской и кредиторской задолженностью, которую вы планируете перекрыть.</p>
+
+<p>После заполнения всех полей нажмите кнопку "Провести и закрыть". Система сформирует необходимые <strong>бухгалтерские проводки</strong>, которые уменьшат долг по одному счету и погасят задолженность по другому. Важно сохранить печатную форму акта, если она генерируется в вашей версии 1С, или прикрепить скан бумажного акта от СДЭК.</p>
+
+<h2 id="типовые-проводки-и-счета-расчетов">Типовые проводки и счета расчетов</h2>
+
+<p>Бухгалтерская суть операции зачета взаимных требований заключается в том, что одна задолженность гасится за счет другой. В 1С это отражается стандартными проводками, но важно понимать их экономический смысл. Обычно задействуются счета 60 (расчеты с поставщиками) и 62 (расчеты с покупателями).</p>
+
+<p>Если вы отражаете зачет, где СДЭК выступает как поставщик услуг (вы ему должны) и как получатель возвратов (он должен вам), проводки могут выглядеть следующим образом. Дебетуется счет 60, кредитуется счет 62, либо наоборот, в зависимости от того, какой долг мы гасим.</p>
+
+<table>
+<thead>
+<tr>
+<th>Операция</th>
+<th>Дебет</th>
+<th>Кредит</th>
+<th>Содержание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Зачет долга за доставку</td>
+<td>60.01</td>
+<td>62.01</td>
+<td>Погашение долга перед СДЭК за счет их долга нам</td>
+</tr>
+<tr>
+<td>Зачет возвратов</td>
+<td>62.01</td>
+<td>60.01</td>
+<td>Уменьшение нашей дебиторки за счет кредиторки</td>
+</tr>
+<tr>
+<td>НДС (если применимо)</td>
+<td>19.03</td>
+<td>60.01</td>
+<td>Выделение НДС при зачете (редко, зависит от схемы)</td>
+</tr>
+</tbody>
+</table>
+
+<p>Обратите внимание, что при использовании субконто "Договоры" важно правильно указать вид договора. Для СДЭК это часто договор поставки или договор оказания услуг. Ошибка в виде договора может привести к неверному формированию отчетов для налоговых органов.</p>
+
+<details class="faq-item"><summary>Что делать, если суммы не совпадают?</summary><div class="faq-answer"><p>Если сумма долга перед СДЭК больше, чем их долг перед вами, зачет производится только в размере меньшей суммы. Остаток долга остается висеть на счете и подлежит оплате денежными средствами или зачету в будущем периоде. Дробить акт на части не нужно, просто указывайте сумму зачета равной минимальному значению из двух долгов.</p></div></details>
+
+<h2 id="типичные-ошибки-и-способы-их-устранения">Типичные ошибки и способы их устранения</h2>
+
+<p>При работе с крупными логистическими операторами бухгалтеры часто сталкиваются с техническими и методологическими ошибками. Одна из самых распространенных — попытка зачесть "висящие" суммы без предварительно оформленного акта сверки. Это создает хаос в аналитике.</p>
+
+<p>Еще одна частая ошибка связана с валютой долга. Если договор со СДЭК заключен в рублях, но были операции в другой валюте (что редко, но возможно при международных отправках), курсовые разницы должны быть рассчитаны и отражены до момента зачета. Иначе сумма проводок не сойдется с суммой акта.</p>
+
+<ul>
+<li>❌ Зачет без подписанного акта сверки.</li>
+<li>❌ Использование разных договоров в карточке контрагента.</li>
+<li>❌ Игнорирование НДС в суммах зачета.</li>
+<li>❌ Попытка зачесть задолженность с истекшим сроком исковой давности.</li>
+</ul>
+
+<blockquote>
+<p>⚠️ Внимание: Если в 1С при проведении документа возникает ошибка "Не хватает данных для заполнения", проверьте, заполнен ли вид договора в карточке контрагента и установлен ли флаг "Зачет" в настройках расчетов.</p>
+</blockquote>
+
+<p>Для исправления ошибок используйте отчет <code>Анализ субконто</code>. Он покажет, по каким именно документам образовался остаток, который мешает сделать зачет. Часто проблема решается ручной корректировкой или перепроведением старых документов поступления.</p>
+
+<h2 id="завершение-операции-и-архивация">Завершение операции и архивация</h2>
+
+<p>После успешного проведения документа "Зачет задолженности" в 1С, операция считается завершенной с точки зрения системы. Однако для полноценного закрытия периода необходимо убедиться, что бумажный или электронный оригинал акта подписан и подшит. Это требование архивного хранения первичной документации.</p>
+
+<p>Проверьте отчетность после проведения. Сальдо по счету расчетов со СДЭК должно уменьшиться на сумму зачета. Если вы используете систему электронного документооборота (ЭДО), убедитесь, что статус документа в 1С синхронизирован со статусом в ЭДО.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Сохраняйте скан-копии актов сверки и зачетов в прикрепленных файлах к документу в 1С. Это сэкономит часы поиска при будущих проверках или аудитах, так как доступ к документу будет у любого авторизованного сотрудника.</p></div>
+
+<p>Регулярное проведение таких операций, например, раз в квартал, позволит держать взаиморасчеты с СДЭК в чистоте и избежать накопления сложных, запутанных долгов, которые трудно разобрать в конце года.</p>
+
+<h2 id="часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</h2>
+
+<details>
+<summary>Нужно ли создавать отдельный договор в 1С для зачета?</summary>
+<p>Нет, отдельный договор создавать не нужно. Зачет проводится в рамках существующего договора с контрагентом. Главное, чтобы в карточке договора были корректно настроены счета расчетов (60 и 62 счета), если система требует выбора конкретного счета для операции.</p>
+</details>
+
+<details>
+<summary>Можно ли сделать зачет, если акт сверки подписан только с нашей стороны?</summary>
+<p>Юридически зачет без подписи второй стороны (СДЭК) рискован. Бухгалтерски провести документ в 1С можно, но при налоговой проверке такой зачет могут не принять, так как не доказано согласие контрагента. Лучше дождаться подписанного экземпляра.</p>
+</details>
+
+<details>
+<summary>Как отразить зачет, если СДЭК сменил юридическое лицо?</summary>
+<p>В этом случае необходим документ цессии (переуступки права требования) или трехстороннее соглашение. Просто так перекинуть долг с одного юрлица на другое в 1С без оснований нельзя. Сначала делается перевод долга, затем зачет.</p>
+</details>
+
+<details>
+<summary>Влияет ли зачет на налоговую базу по НДС?</summary>
+<p>Сам по себе зачет взаимных требований не является реализацией и не создает нового объекта налогообложения НДС. Однако, если зачет касается авансов или специфических операций, может потребоваться восстановление НДС. В стандартной ситуации с услугами доставки налоговая база не меняется.</p>
+</details>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Главный вывод: Корректный зачет взаимных требований с СДЭК в 1С возможен только при наличии подписанного акта сверки и правильном выборе счетов расчетов (60 и 62) в документе "Зачет задолженности".</p></div></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#основания-для-проведения-зачета-с-сдэк">Основания для проведения зачета с СДЭК</a></li><li><a href="#подготовка-документов-и-проверка-контрагента">Подготовка документов и проверка контрагента</a></li><li><a href="#создание-документа-зачета-в-1с-пошаговая-инструкция">Создание документа зачета в 1С: пошаговая инструкция</a></li><li><a href="#типовые-проводки-и-счета-расчетов">Типовые проводки и счета расчетов</a></li><li><a href="#типичные-ошибки-и-способы-их-устранения">Типичные ошибки и способы их устранения</a></li><li><a href="#завершение-операции-и-архивация">Завершение операции и архивация</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/s/sd/sdek-kak-poluchit-akt-vypolnennykh-rabot.html" class="related-card">Как получить акт выполненных работ СДЭК: инструкция для ИП и ООО</a></li><li><a href="/articles/c/ch/chto-takoe-omni-sdek.html" class="related-card">Омни СДЭК: что это и как работает в 2026 году</a></li><li><a href="/articles/k/ka/kak-otkryt-punkt-vydachi-sdek-v-svoem-gorode-poshagovaya-instruktsiya.html" class="related-card">Как открыть пункт выдачи СДЭК: пошаговая инструкция 2026</a></li><li><a href="/articles/k/ka/kakie-tsennosti-u-kompanii-sdek.html" class="related-card">Ценности компании СДЭК: миссия, принципы и стандарты</a></li><li><a href="/articles/d/do/dogovor-sdek-dlya-fizicheskikh-lits-skolko.html" class="related-card">Договор СДЭК для физических лиц 2026: стоимость и условия</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/s/sd/sdek-kak-poluchit-akt-vypolnennykh-rabot.html" class="related-bottom-card"><span class="related-bottom-title">Как получить акт выполненных работ СДЭК: инструкция для ИП и ООО</span><span class="related-bottom-desc">Подробная инструкция: как получить акт выполненных работ СДЭК. Электронный и бумажный документооборо</span></a><a href="/articles/c/ch/chto-takoe-omni-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Омни СДЭК: что это и как работает в 2026 году</span><span class="related-bottom-desc">Разбираемся, что такое омни СДЭК — сервис для комплексного управления доставкой, возвратами и логист</span></a><a href="/articles/k/ka/kak-otkryt-punkt-vydachi-sdek-v-svoem-gorode-poshagovaya-instruktsiya.html" class="related-bottom-card"><span class="related-bottom-title">Как открыть пункт выдачи СДЭК: пошаговая инструкция 2026</span><span class="related-bottom-desc">Полный гид по франшизе СДЭК: требования к помещению, стоимость открытия, документы и пошаговый план </span></a><a href="/articles/k/ka/kakie-tsennosti-u-kompanii-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Ценности компании СДЭК: миссия, принципы и стандарты</span><span class="related-bottom-desc">Узнайте, какие ценности у компании СДЭК. Разбор миссии, ключевых принципов логистического оператора </span></a><a href="/articles/d/do/dogovor-sdek-dlya-fizicheskikh-lits-skolko.html" class="related-bottom-card"><span class="related-bottom-title">Договор СДЭК для физических лиц 2026: стоимость и условия</span><span class="related-bottom-desc">Сколько стоит оформить договор с СДЭК для физлиц? Тарифы, условия, пошаговая инструкция и нюансы зак</span></a><a href="/articles/k/ka/kak-podklyuchit-sdek-k-tilda.html" class="related-bottom-card"><span class="related-bottom-title">Как подключить СДЭК к Tilda: пошаговая инструкция 2026</span><span class="related-bottom-desc">Детальное руководство по интеграции калькулятора и виджета СДЭК на сайт Tilda: от регистрации в ЛК д</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

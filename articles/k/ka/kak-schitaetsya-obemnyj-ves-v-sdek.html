@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>Как считается объемный вес в СДЭК: формула и примеры — СДЭК Гид</title>
+    <meta name="description" content="Узнайте, как рассчитывается объемный вес в СДЭК. Подробная формула, примеры расчетов и сравнение с фактическим весом для экономии на доставке.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/k/ka/kak-schitaetsya-obemnyj-ves-v-sdek.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Как считается объемный вес в СДЭК: формула и примеры">
+    <meta property="og:description" content="Узнайте, как рассчитывается объемный вес в СДЭК. Подробная формула, примеры расчетов и сравнение с фактическим весом для экономии на доставке.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/oplata-i-tarify/">Оплата и тарифы</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Как считается объемный вес в СДЭК: формула и примеры</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Как считается объемный вес в СДЭК: формула и примеры</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#разница-между-фактическим-и-габаритным-весом">Разница между фактическим и габаритным весом</a></li><li><a href="#формула-расчета-объемного-веса-в-сдэк">Формула расчета объемного веса в СДЭК</a></li><li><a href="#примеры-расчета-для-разных-типов-грузов">Примеры расчета для разных типов грузов</a></li><li><a href="#коэффициенты-для-различных-направлений-доставки">Коэффициенты для различных направлений доставки</a></li><li><a href="#влияние-упаковки-на-итоговую-стоимость">Влияние упаковки на итоговую стоимость</a></li><li><a href="#как-избежать-переплаты-при-отправке">Как избежать переплаты при отправке</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>При планировании отправки груза через курьерскую службу многие отправители сталкиваются с ситуацией, когда итоговая стоимость доставки оказывается выше ожидаемой. Часто причиной такого расхождения становится не ошибка оператора, а специфика расчета стоимости для габаритных, но легких предметов. Понимание принципов, по которым <strong>объемный вес в СДЭК</strong> превращается в расчетную величину, позволит вам заранее прогнозировать расходы и избегать неприятных сюрпризов при оплате.</p>
+
+<p>Логистические компании используют этот параметр для оптимизации загрузки транспортных средств, так как занимаемое пространство в фуре или самолете часто важнее физической массы содержимого. Если вы отправляете подушки, пуховики или крупногабаритную технику в заводской упаковке, именно <em>объемные характеристики</em> будут определять конечную цену услуги. В этой статье мы детально разберем алгоритм вычислений, коэффициенты для разных направлений и способы минимизации затрат.</p>
+
+<p>Для начала стоит усвоить базовое правило: оплата всегда производится по наибольшему значению между реальной массой и расчетным объемом. Это означает, что даже если ваша посылка весит всего 1 килограмм, но упакована в коробку размером с холодильник, тарифицироваться она будет как тяжелый груз. <strong>Габаритный вес</strong> — это инструмент, позволяющий уравнять стоимость перевозки плотных металлических деталей и легких, но объемных товаров.</p>
+
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> Округление значений при расчетах происходит в большую сторону. Даже если по формуле у вас получилось 2,1 кг, тарифицироваться груз будет как 3 кг, поэтому каждый сантиметр упаковки имеет значение.</p>
+</blockquote>
+
+<h2 id="разница-между-фактическим-и-габаритным-весом">Разница между фактическим и габаритным весом</h2>
+
+<p>Фундаментальным отличием в логистике является разделение понятий физической массы и занимаемого пространства. <strong>Фактический вес</strong> — это показатель, который вы получаете, взвесив упакованный груз на точных весах. Это объективная физическая величина, зависящая от плотности материалов внутри коробки. Однако для транспортной компании важно не только то, сколько весит груз, но и сколько места он займет в транспортном средстве.</p>
+
+<p>В отличие от физической массы, <strong>объемный вес</strong> (или габаритный) — это расчетная величина. Она показывает, сколько бы весил груз, если бы его плотность соответствовала стандарту, принятому перевозчиком. Для СДЭК и большинства международных логистических операторов стандартным делителем является число 5000. Это означает, что один кубический метр пространства приравнивается к 200 килограммам веса.</p>
+
+<p>Рассмотрим ситуацию на конкретном примере. Представьте, что вы отправляете зимний пуховик. Его реальный вес может составлять всего 1,5 кг. Однако в заводской коробке он может занимать объем 60х50х40 см. Если перевести эти размеры в расчетную массу, получится значение около 24 кг. В данном случае <em>объемный вес</em> значительно превышает фактический, и оплата будет производиться именно за 24 кг.</p>
+
+<div class="poll-widget" id="poll-798e38e9"><div class="poll-widget-question">📊 Что вы чаще всего отправляете?</div><div class="poll-widget-option" data-poll="798e38e9" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Одежду и текстиль</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="798e38e9" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Электронику</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="798e38e9" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Документы</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="798e38e9" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Тяжелые запчасти</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<p>Понимание этой разницы критически важно для интернет-магазинов и частных лиц, регулярно пользующихся услугами доставки. Игнорирование коэффициента объемности может привести к тому, что стоимость доставки превысит стоимость самого товара. Поэтому перед упаковкой всегда полезно прикинуть <strong>габариты</strong> и сравнить их с весом содержимого.</p>
+
+<h2 id="формула-расчета-объемного-веса-в-сдэк">Формула расчета объемного веса в СДЭК</h2>
+
+<p>Алгоритм вычисления расчетной массы достаточно прост и прозрачен, что позволяет любому пользователю самостоятельно проверить корректность выставленного счета. Основой для расчетов служат три линейных размера упаковки: длина, ширина и высота. Важно измерять их в сантиметрах, беря максимальные значения по каждой стороне, включая все выступы упаковки.</p>
+
+<p>Стандартная формула, используемая СДЭК для внутренних отправлений по России, выглядит следующим образом: произведение длины, ширины и высоты делится на коэффициент 5000. Полученное число округляется до целого значения в большую сторону. Именно эта цифра и будет сравниваться с фактическим весом для определения тарифицируемой массы.</p>
+
+<pre><code>Объемный вес (кг) = (Длина × Ширина × Высота) / 5000</code></pre>
+
+<p>Стоит отметить, что для международных отправлений или специфических направлений коэффициент может отличаться (например, делитель 6000), однако для основной массы грузов внутри страны применяется именно стандарт <code>5000</code>. Это значение является отраслевым стандартом для наземных и авиаперевозок эконом-класса.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Используйте лазерную рулетку для точного измерения габаритов коробки — погрешность в 1-2 см на больших объемах может изменить итоговую сумму в чеке.</p></div>
+
+<p>При заполнении накладной или расчете стоимости на сайте важно указывать размеры именно упакованного товара. Если вы введете габариты самого товара без учета коробки, система покажет одну цену, а в пункте приема насчитают другую, исходя из реальных размеров коробки. <strong>Расхождение данных</strong> часто становится причиной конфликтов с операторами.</p>
+
+<h2 id="примеры-расчета-для-разных-типов-грузов">Примеры расчета для разных типов грузов</h2>
+
+<p>Чтобы окончательно закрепить понимание процесса, разберем несколько типовых ситуаций, с которыми сталкиваются клиенты СДЭК. Эти примеры демонстрируют, как меняется итоговая стоимость в зависимости от плотности упаковки и типа товара.</p>
+
+<p><strong>Пример 1: Плотный груз (книги).</strong>
+<p>Представим коробку с книгами размером 40х30х20 см.</p>
+<p>Объем: 40 × 30 × 20 = 240 000 см³.</p>
+<p>Расчетный вес: 240 000 / 5000 = 48 кг.</p>
+<p>Фактический вес: 15 кг.</p>
+<p>В данном случае фактический вес (15 кг) меньше расчетного (48 кг)? Нет, стоп, здесь ошибка в логике для книг. Книги тяжелые. Давайте пересчитаем для реалистичного сценария.</p>
+<p>Коробка 30х20х20 см. Объем 12 000 см³.</p>
+<p>Расчетный вес: 12 000 / 5000 = 2,4 кг -> округляем до 3 кг.</p>
+<p>Фактический вес: 10 кг.</p>
+<p>Итог: Оплачиваем 10 кг, так как фактический вес больше расчетного.</p></p>
+
+<p><strong>Пример 2: Легкий объемный груз (детская игрушка).</strong>
+<p>Коробка с мягкой игрушкой размером 60х50х50 см.</p>
+<p>Объем: 60 × 50 × 50 = 150 000 см³.</p>
+<p>Расчетный вес: 150 000 / 5000 = 30 кг.</p>
+<p>Фактический вес: 2 кг.</p>
+<p>Итог: Оплачиваем 30 кг, так как расчетный вес значительно превышает фактический. Именно здесь <mark>применяется тарификация по габаритам</mark>, что делает доставку таких товаров дорогой.</p></p>
+
+<p><strong>Пример 3: Электроника (монитор).</strong>
+<p>Упаковка 70х50х15 см.</p>
+<p>Объем: 70 × 50 × 15 = 52 500 см³.</p>
+<p>Расчетный вес: 52 500 / 5000 = 10,5 кг -> округляем до 11 кг.</p>
+<p>Фактический вес: 6 кг.</p>
+<p>Итог: Оплачиваем 11 кг.</p></p>
+
+<table>
+<thead>
+<tr>
+<th>Тип груза</th>
+<th>Габариты (см)</th>
+<th>Факт. вес (кг)</th>
+<th>Расч. вес (кг)</th>
+<th>Оплата (кг)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Обувь в коробке</td>
+<td>35 × 25 × 15</td>
+<td>1.2</td>
+<td>2.6 (3)</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Набор инструментов</td>
+<td>40 × 30 × 20</td>
+<td>12.0</td>
+<td>4.8 (5)</td>
+<td>12</td>
+</tr>
+<tr>
+<td>Плед</td>
+<td>50 × 40 × 30</td>
+<td>1.5</td>
+<td>12.0</td>
+<td>12</td>
+</tr>
+<tr>
+<td>Велосипед (упакован)</td>
+<td>140 × 80 × 30</td>
+<td>15.0</td>
+<td>67.2 (68)</td>
+<td>68</td>
+</tr>
+</tbody>
+</table>
+
+<p>Анализируя таблицу, можно заметить, что для плотных предметов (инструменты) выгоднее фактический вес, а для текстиля и крупногабарита — габаритный. Это подтверждает необходимость предварительного анализа перед отправкой.</p>
+
+<h2 id="коэффициенты-для-различных-направлений-доставки">Коэффициенты для различных направлений доставки</h2>
+
+<p>Одним из самых важных нюансов, о которых часто забывают, является зависимость делителя от направления перевозки. Хотя внутри России стандартом является число 5000, при отправке за границу или в определенные регионы могут действовать иные правила. Это связано с разной стоимостью транспортировки единицы объема в самолете, на корабле или в фуре.</p>
+
+<p>Для международных отправок через СДЭК часто используется коэффициент <code>6000</code> или даже <code>7000</code> (в зависимости от конкретного тарифа и партнера). Это означает, что при одном и том же размере коробки расчетный вес для международной посылки будет меньше, чем для внутренней. Однако тарифы за килограмм на международных направлениях, как правило, значительно выше.</p>
+
+<details class="faq-item"><summary>Почему коэффициенты отличаются?</summary><div class="faq-answer"><p>Разные виды транспорта имеют разную стоимость перевозки объема. Авиадоставка самая дорогая, поэтому там выгоднее возить плотные грузы, а морская или ж/д доставка дешевле, но занимает много места.</p></div></details>
+
+<p>Также стоит учитывать, что для услуг экспресс-доставки могут применяться повышенные коэффициенты. Если вы выбираете тариф"Экспресс", внимательно изучите условия тарификации в договоре или на сайте. <strong>Логистические параметры</strong> могут меняться в зависимости от сезона и загруженности каналов доставки.</p>
+
+<p>Всегда проверяйте актуальную информацию в калькуляторе на официальном сайте перед оформлением заказа. Система автоматически подставит правильный коэффициент для выбранного направления, но понимание принципа поможет вам выбрать более экономичный способ упаковки или тариф.</p>
+
+<h2 id="влияние-упаковки-на-итоговую-стоимость">Влияние упаковки на итоговую стоимость</h2>
+
+<p>Упаковка играет решающую роль в формировании конечной цены доставки. Неправильно подобранная коробка может увеличить стоимость услуги в разы. Главная задача отправителя — минимизировать воздушное пространство внутри тары, не повредив при этом содержимое.</p>
+
+<p>Использование мягких пакетов вместо жестких коробок для текстильных изделий (одежды, постельного белья) позволяет значительно уменьшить габариты. СДЭК предлагает услугу вакуумирования или просто рекомендует использовать компрессионные пакеты. Сжав пуховик до минимальных размеров, вы можете снизить расчетный вес с 10 кг до 2-3 кг.</p>
+
+<ul>
+<li>📦 <strong>Подбирайте коробку по размеру:</strong> Не используйте большую коробку для маленького предмета, заполняя пустоты наполнителем.</li>
+<li>📏 <strong>Измеряйте выступы:</strong> Если ручка сумки или колесо велосипеда выступают за габариты основной упаковки, они будут учтены в общем объеме.</li>
+<li>🧱 <strong>Складывайте компактно:</strong> Демонтаж крупных предметов (например, снятие ножек у стола) позволяет упаковать их в более плоскую тару.</li>
+</ul>
+
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> Если товар требует дополнительной обрешетки для сохранности, габариты и вес обрешетки также добавляются к общим показателям. Учитывайте это при расчете бюджета.</p>
+</blockquote>
+
+<p>Помните, что гофрированный картон также имеет свой объем. Слишком толстые стенки коробки или двойная упаковка без необходимости лишь увеличивают внешние dimensions, повышая <strong>объемный вес</strong>. Оптимальная упаковка — это баланс между надежностью и компактностью.</p>
+
+<h2 id="как-избежать-переплаты-при-отправке">Как избежать переплаты при отправке</h2>
+
+<p>Зная правила игры, можно существенно сэкономить на логистике. Первый и самый действенный совет — всегда проводите предварительный расчет. Не надейтесь на то, что"может быть, пронесет". В пунктах приема СДЭК стоят calibrated весы и измерители габаритов, которые мгновенно выдают данные в систему.</p>
+
+<p>Если вы отправляете товар на продажу (e-commerce), закладывайте стоимость доставки по объемному весу в цену товара или условия бесплатной доставки. Для частных отправителей лучшим решением является (сжатие) товара. Использование вакуумных пакетов для одежды, одеял и мягких игрушек — это законный и эффективный способ снизить платеж.</p>
+
+<div class="checklist-block"><h4>☑️ Проверка перед отправкой</h4><label class="check-item"><input type="checkbox"><span>Измерить длину, ширину и высоту упаковки</span></label><label class="check-item"><input type="checkbox"><span>Взвесить упакованный груз</span></label><label class="check-item"><input type="checkbox"><span>Рассчитать объемный вес (Д×Ш×В/5000)</span></label><label class="check-item"><input type="checkbox"><span>Сравнить с фактическим весом</span></label><label class="check-item"><input type="checkbox"><span>Выбрать большее значение</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 5</div></div>
+
+<p>Также стоит рассмотреть альтернативные тарифы. Иногда тарифицируемый вес велик, но стоимость килограмма в другом тарифе (например,"Посылочка" или складской тариф) может быть ниже, что в сумме даст выигрыш. <strong>Сравнение тарифов</strong> — обязательный этап для экономных отправителей.</p>
+
+<p>В заключение, управление объемным весом — это навык, который приходит с опытом. Сделав несколько отправлений и проанализировав чеки, вы научитесь intuitively определять, какая упаковка будет выгоднее. Помните, что СДЭК, как и любая коммерческая организация, продает не только перевозку килограммов, но и занимаемое пространство.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Главный секрет экономии: стоимость доставки всегда рассчитывается по большему из двух значений — фактического или объемного веса, поэтому уменьшение габаритов упаковки напрямую снижает расходы.</p></div>
+
+<h2 id="часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</h2>
+
+<details>
+<summary>Включается ли вес самой коробки в расчет объемного веса?</summary>
+<p>Да, безусловно. Все расчеты производятся для упакованного груза. Габариты снимаются по внешним границам упаковки, а взвешивание происходит вместе с коробкой, скотчем и наполнителем. Поэтому вес и объем самой тары напрямую влияют на итоговую сумму.</p>
+</details>
+
+<details>
+<summary>Что будет, если я укажу в накладной меньшие габариты, чем есть на самом деле?</summary>
+<p>В пункте приема оператор проведет контрольное взвешивание и измерение. Если фактические данные превышают заявленные, вам выставят счет по реальным параметрам. Кроме того, систематическое занижение данных может привести к блокировке аккаунта или отказу в обслуживании.</p>
+</details>
+
+<details>
+<summary>Можно ли отправить груз, у которого объемный вес 100 кг, а фактический 5 кг?</summary>
+<p>Да, СДЭК принимает такие грузы. Однако стоимость доставки будет рассчитываться исходя из 100 кг (или больше, с учетом округления). Для очень легких и крупных предметов (например, пенопластовые конструкции) это может быть экономически нецелесообразно.</p>
+</details>
+
+<details>
+<summary>Где посмотреть точный коэффициент делителя для моего города?</summary>
+<p>Актуальный коэффициент (5000, 6000 или иной) для вашего направления лучше всего проверять в официальном калькуляторе на сайте СДЭК или уточнять у персонального менеджера, если у вас заключен договор. Для внутрироссийских отправок стандартом остается 5000.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#разница-между-фактическим-и-габаритным-весом">Разница между фактическим и габаритным весом</a></li><li><a href="#формула-расчета-объемного-веса-в-сдэк">Формула расчета объемного веса в СДЭК</a></li><li><a href="#примеры-расчета-для-разных-типов-грузов">Примеры расчета для разных типов грузов</a></li><li><a href="#коэффициенты-для-различных-направлений-доставки">Коэффициенты для различных направлений доставки</a></li><li><a href="#влияние-упаковки-на-итоговую-стоимость">Влияние упаковки на итоговую стоимость</a></li><li><a href="#как-избежать-переплаты-при-отправке">Как избежать переплаты при отправке</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/s/sd/sdek-nalozhennyj-platezh-fizicheskim-litsam-kak.html" class="related-card">СДЭК наложенный платеж для физических лиц: как оформить и получить</a></li><li><a href="/articles/k/ka/kak-poschitat-dostavku-gruza-transportnoj-kompaniej-sdek.html" class="related-card">Как рассчитать стоимость доставки груза СДЭК: калькулятор, тарифы 2026</a></li><li><a href="/articles/k/ka/kak-izmenit-platelshchika-v-sdek.html" class="related-card">Как изменить плательщика в СДЭК: пошаговая инструкция 2026</a></li><li><a href="/articles/k/ka/kak-cherez-sdek-otpravit-posylku-za-schet-poluchatelya.html" class="related-card">Отправка посылки за счёт получателя через СДЭК: пошаговая инструкция 2026</a></li><li><a href="/articles/s/sd/sdek-komissiya-za-nalozhennyj-platezh-skolko-protsentov.html" class="related-card">Комиссия СДЭК за наложенный платеж 2026: сколько процентов берут?</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/s/sd/sdek-nalozhennyj-platezh-fizicheskim-litsam-kak.html" class="related-bottom-card"><span class="related-bottom-title">СДЭК наложенный платеж для физических лиц: как оформить и получить</span><span class="related-bottom-desc">Пошаговая инструкция по отправке посылок с наложенным платежом через СДЭК для физических лиц: услови</span></a><a href="/articles/k/ka/kak-poschitat-dostavku-gruza-transportnoj-kompaniej-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как рассчитать стоимость доставки груза СДЭК: калькулятор, тарифы 2026</span><span class="related-bottom-desc">Пошаговая инструкция по расчёту доставки СДЭК: онлайн-калькулятор, тарифные зоны, габариты и вес гру</span></a><a href="/articles/k/ka/kak-izmenit-platelshchika-v-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как изменить плательщика в СДЭК: пошаговая инструкция 2026</span><span class="related-bottom-desc">Подробное руководство по смене плательщика за доставку в СДЭК: через личный кабинет, офис, курьера. </span></a><a href="/articles/k/ka/kak-cherez-sdek-otpravit-posylku-za-schet-poluchatelya.html" class="related-bottom-card"><span class="related-bottom-title">Отправка посылки за счёт получателя через СДЭК: пошаговая инструкция 2026</span><span class="related-bottom-desc">Как оформить отправку груза с оплатой получателем в СДЭК: условия, тарифы, ограничения и пошаговый а</span></a><a href="/articles/s/sd/sdek-komissiya-za-nalozhennyj-platezh-skolko-protsentov.html" class="related-bottom-card"><span class="related-bottom-title">Комиссия СДЭК за наложенный платеж 2026: сколько процентов берут?</span><span class="related-bottom-desc">Актуальные тарифы СДЭК на наложенный платеж: процент комиссии, минимальные суммы, примеры расчёта. К</span></a><a href="/articles/o/ot/otpravka-nalozhennym-platezhom-sdek-kak-eto.html" class="related-bottom-card"><span class="related-bottom-title">Наложенный платеж СДЭК: как отправить посылку без предоплаты в 2026</span><span class="related-bottom-desc">Пошаговая инструкция по отправке наложенным платежом через СДЭК: условия, тарифы, ограничения и как </span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

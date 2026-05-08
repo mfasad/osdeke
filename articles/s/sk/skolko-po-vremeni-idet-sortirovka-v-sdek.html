@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>Сколько идет сортировка в СДЭК: сроки, статусы и причины задержек — СДЭК Гид</title>
+    <meta name="description" content="Узнайте, сколько времени занимает сортировка в СДЭК. Разбор статусов, причины задержек на складе и алгоритм действий при зависании посылки.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/s/sk/skolko-po-vremeni-idet-sortirovka-v-sdek.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Сколько идет сортировка в СДЭК: сроки, статусы и причины задержек">
+    <meta property="og:description" content="Узнайте, сколько времени занимает сортировка в СДЭК. Разбор статусов, причины задержек на складе и алгоритм действий при зависании посылки.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/otslezhivanie/">Отслеживание</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Сколько идет сортировка в СДЭК: сроки, статусы и причины задержек</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Сколько времени идет сортировка в СДЭК: полный разбор процесса</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#что-означает-статус-сортировка-в-системе-отслеживания">Что означает статус «Сортировка» в системе отслеживания</a></li><li><a href="#нормативные-сроки-обработки-грузов-в-сдэк">Нормативные сроки обработки грузов в СДЭК</a></li><li><a href="#факторы-влияющие-на-скорость-сортировки">Факторы, влияющие на скорость сортировки</a></li><li><a href="#почему-посылка-долго-находится-в-статусе-сортировки">Почему посылка долго находится в статусе сортировки</a></li><li><a href="#отличия-сортировки-для-разных-типов-отправлений">Отличия сортировки для разных типов отправлений</a></li><li><a href="#алгоритм-действий-при-задержке-сортировки">Алгоритм действий при задержке сортировки</a></li><li><a href="#как-отслеживать-движение-груза-в-реальном-времени">Как отслеживать движение груза в реальном времени</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+<p>Получение уведомления о том, что ваша посылка находится на этапе сортировки, часто вызывает у отправителей и получателей смешанные чувства: с одной стороны, груз уже в системе, с другой — он никуда не движется визуально. <strong>Сортировка в СДЭК</strong> — это ключевой логистический процесс, который предшествует отправке груза на следующий узел или непосредственно курьеру. Понимание того, как именно работает этот механизм, помогает избежать лишней паники и правильно оценить ситуацию.</p>
+<p>Время нахождения товара в статусе сортировки напрямую зависит от типа услуги, загруженности конкретного <em>складского терминала</em> и времени суток, когда была произведена сдача груза. В стандартных условиях процесс занимает от нескольких часов до одних суток, однако в периоды пиковых нагрузок, таких как распродажи или праздники, эти сроки могут быть пересмотрены логистическими алгоритмами компании. Важно учитывать, что статус «Сортировка» означает, что посылка физически принята сотрудником и проходит обработку в автоматизированной системе.</p>
+<p>В данной статье мы подробно разберем, от чего зависит скорость обработки грузов, какие существуют нормативы для разных направлений и что делать, если ваш трек-номер «застрял» на этом этапе дольше положенного. Вы узнаете о внутренних процессах компании, которые скрыты от глаз клиента, но напрямую влияют на скорость доставки.</p>
+
+<h2 id="что-означает-статус-сортировка-в-системе-отслеживания">Что означает статус «Сортировка» в системе отслеживания</h2>
+<p>Когда вы видите в приложении или на сайте статус «Сортировка», это свидетельствует о том, что грузовой отсек уже сформирован или находится в процессе формирования. <strong>Логистический центр</strong> принимает тысячи отправлений ежедневно, и каждое из них должно быть отсканировано, взвешено и распределено по соответствующим направлениям. Это не просто ожидание в очереди, а активная фаза подготовки к транспортировке.</p>
+<p>На этом этапе система проверяет соответствие адреса получателя доступным маршрутам. Если груз отправляется по тарифу <em>«Экспресс»</em>, он будет обработан в приоритетном порядке и отправлен на ближайший рейс. Для стандартных доставок процесс может занять больше времени, так как система ожидает наполнения контейнера или автомобиля для оптимизации затрат на перевозку. Именно поэтому время ожидания может варьироваться.</p>
+<p>Часто пользователи путают сортировку с хранением на складе, но это разные процессы. Сортировка — это динамичное состояние, предшествующее движению. Если груз находится в этом статусе слишком долго, это может указывать на технические проблемы с сканером штрих-кода или повреждение упаковки, требующее вмешательства оператора.</p>
+<p><mark>Критически важным моментом является то, что пока идет сортировка, груз физически находится в безопасной зоне склада под видеонаблюдением, что минимизирует риск кражи или потери.</mark></p>
+
+<h2 id="нормативные-сроки-обработки-грузов-в-сдэк">Нормативные сроки обработки грузов в СДЭК</h2>
+<p>Официальные регламенты транспортной компании устанавливают различные временные рамки для обработки посылок в зависимости от выбранного тарифа и направления. Для внутренних отправлений по крупным городам стандартным временем считается период от 4 до 12 часов. Однако, если вы отправили груз в удаленный регион, время на <strong>логистическую обработку</strong> может быть увеличено до 24-48 часов.</p>
+<p>Существует прямая зависимость от времени сдачи груза. Посылки, сданные в первой половине дня, как правило, успевают пройти сортировку и уехать в тот же день. Грузы, принятые вечером или в выходные дни, часто остаются на складе до следующего рабочего дня. Это нормальная практика, позволяющая оптимизировать работу курьерских служб и транспортных линий.</p>
+<p>Ниже приведена таблица с ориентировочными сроками сортировки для различных типов отправлений:</p>
+<table>
+<thead>
+<tr>
+<th>Тип отправления</th>
+<th>Направление</th>
+<th>Ожидаемое время сортировки</th>
+<th>Приоритет</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Экспресс-доставка</td>
+<td>Город-миллионник</td>
+<td>2-6 часов</td>
+<td>Высокий</td>
+</tr>
+<tr>
+<td>Магистральная доставка</td>
+<td>Межрегиональное</td>
+<td>12-24 часа</td>
+<td>Средний</td>
+</tr>
+<tr>
+<td>Супермаркет (СДЭК Маркет)</td>
+<td>Любое</td>
+<td>24-48 часов</td>
+<td>Низкий</td>
+</tr>
+<tr>
+<td>Крупногабаритный груз</td>
+<td>Любое</td>
+<td>24-72 часа</td>
+<td>Специальный</td>
+</tr>
+</tbody>
+</table>
+<p>Стоит отметить, что в периоды сезонного ажиотажа, например, перед Новым годом или во время проведения глобальных распродаж электроники, указанные сроки могут быть увеличены в полтора-два раза. Компания заранее предупреждает о таких ситуациях, но лучше закладывать дополнительное время на обработку заказа.</p>
+
+<h2 id="факторы-влияющие-на-скорость-сортировки">Факторы, влияющие на скорость сортировки</h2>
+<p>Скорость прохождения этапа сортировки зависит от множества переменных, которые не всегда очевидны для конечного пользователя. Одним из главных факторов является техническое состояние оборудования на складе. Автоматические сортировочные линии требуют регулярного обслуживания, и любой сбой в работе сканеров или конвейерной ленты может привести к локальным задержкам.</p>
+<p>Другой важный аспект — это комплектность документов и правильность оформления накладной. Если в системе возникнет конфликт данных, например, несовпадение веса, указанного отправителем, с фактическим весом на складе, груз будет отправлен на <strong>ручную перепроверку</strong>. Это автоматически выводит посылку из общего потока и увеличивает время обработки.</p>
+<ul>
+<li>📦 <strong>Объем потока:</strong> Чем больше посылок поступает в конкретный центр сортировки, тем выше вероятность очередей на сканирование.</li>
+<li>🚛 <strong>Логистическое плечо:</strong> Для удаленных населенных пунктов сортировка может затягиваться до момента формирования полной загрузки транспортного средства.</li>
+<li>📄 <strong>Таможенные процедуры:</strong> Для международных отправлений сортировка невозможна без прохождения таможенного контроля, что добавляет дополнительные дни к процессу.</li>
+</ul>
+<blockquote>
+<p>⚠️ Внимание: Если ваша посылка содержит литиевые батареи или другие потенциально опасные вещества, она может быть направлена на дополнительную проверку службы безопасности, что существенно увеличит время сортировки.</p>
+</blockquote>
+<p>Также стоит учитывать человеческий фактор и график работы персонала. В ночное время скорость обработки может снижаться из-за уменьшения количества операторов, несмотря на работу автоматических линий. Поэтому ожидание в 20-30 часов для ночных отправлений является вполне штатной ситуацией.</p>
+
+<div class="poll-widget" id="poll-4d79d6ee"><div class="poll-widget-question">📊 Как часто вы сталкиваетесь с задержками сортировки в СДЭК?</div><div class="poll-widget-option" data-poll="4d79d6ee" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Никогда, все всегда быстро</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="4d79d6ee" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Иногда, 1-2 раза в год</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="4d79d6ee" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Постоянно, почти каждая посылка задерживается</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="4d79d6ee" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Затрудняюсь ответить, не слежу за статусами</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="почему-посылка-долго-находится-в-статусе-сортировки">Почему посылка долго находится в статусе сортировки</h2>
+<p>Ситуация, когда трек-номер «висит» на статусе сортировки более двух суток, требует внимания. Чаще всего причина кроется в повреждении упаковки. Если в процессе автоматической сортировки система или оператор обнаруживают, что коробка деформирована или имеет признаки вскрытия, груз изолируется для проведения <strong>контрольной пересборки</strong>. В это время статус не обновляется, так как идет выяснение обстоятельств.</p>
+<p>Еще одна распространенная причина — ошибки в адресных данных. Если адрес получателя указан некорректно или нечитабельно, а связаться с отправителем оперативно не удалось, посылка остается в зоне ожидания. Логистическая система не может присвоить ей маршрут следования без точных координат доставки.</p>
+<p>В редких случаях задержка вызвана техническими сбоями в базе данных. Информация о сканировании может просто не обновиться на сервере, хотя физически груз уже уехал. Это создает иллюзию застоя, которая resolves сама собой при следующем сканировании в пункте выдачи.</p>
+<details class="faq-item"><summary>Что делать, если груз повредили на сортировке?</summary><div class="faq-answer"><p>Если повреждение выявлено на этапе сортировки, сотрудники СДЭК обязаны упаковать груз заново за свой счет. Однако, если повреждение серьезное и содержимое могло пострадать, составляется акт. В этом случае груз могут вернуть отправителю для принятия решения о дальнейшей судьбе отправления. Отслеживайте статус «Повреждена упаковка» или «Требуется упаковка».»</p></div></details>
+<p>Не стоит забывать и о форс-мажорных обстоятельствах, таких как погодные условия, которые могут парализовать работу транспортного хаба. В таких случаях сортировка приостанавливается до нормализации обстановки, и повлиять на этот процесс neither отправитель, ни получатель не могут.</p>
+
+<h2 id="отличия-сортировки-для-разных-типов-отправлений">Отличия сортировки для разных типов отправлений</h2>
+<p>Процесс обработки грузов значительно различается в зависимости от того, что именно вы отправляете. Для стандартных коробок и документов процедура максимально автоматизирована. Конвейерные системы считывают штрих-код и направляют объект в нужный отсек. Для таких отправлений <strong>время сортировки</strong> минимально.</p>
+<p>Крупногабаритные грузы, такие как бытовая техника или мебель, требуют ручного вмешательства. Их невозможно прогнать через стандартные туннели сканеров, поэтому они обрабатываются на отдельных участках склада. Это всегда занимает больше времени и часто требует согласования с транспортной службой для подбора подходящего автомобиля.</p>
+<p>Отдельного внимания заслуживают товары из интернет-магазинов, работающие по системе <em>СДЭК Маркет</em>. Здесь сортировка может быть объединена с процессом комплектации заказа. Если товар приходит от разных поставщиков на один склад, система ждет поступления всех частей заказа, прежде чем запустить процесс финальной сортировки для отправки клиенту.</p>
+<ul>
+<li>📄 <strong>Документы:</strong> Обрабатываются в отдельных защищенных контейнерах, приоритетший, сортировка занимает минимум времени.</li>
+<li>📦 <strong>Посылки до 10 кг:</strong> Стандартный поток, высокая степень автоматизации, среднее время обработки.</li>
+<li>📦 <strong>Грузы свыше 30 кг:</strong> Требуют паллетирования или специальной маркировки, сортировка вручную, максимальное время ожидания.</li>
+</ul>
+<p>Понимание этих различий помогает реалистично оценивать сроки. Ожидать, что холодильник будет отсортирован за 2 часа, как конверт с документами, не стоит — логистика крупных грузов построена на других принципах.</p>
+
+<div class="checklist-block"><h4>☑️ Что проверить, если сортировка затянулась</h4><label class="check-item"><input type="checkbox"><span>Убедиться в правильности адреса получателя</span></label><label class="check-item"><input type="checkbox"><span>Проверить смс и почту на наличие запросов от СДЭК</span></label><label class="check-item"><input type="checkbox"><span>Сверить вес и габариты в накладной</span></label><label class="check-item"><input type="checkbox"><span>Убедиться, что нет запрета на ввоз/вывоз товаров</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 4</div></div>
+
+<h2 id="алгоритм-действий-при-задержке-сортировки">Алгоритм действий при задержке сортировки</h2>
+<p>Если вы видите, что статус не меняется уже несколько дней, необходимо переходить к активным действиям. Первым шагом всегда должна быть попытка связаться с поддержкой через чат или горячую линию. Операторы имеют доступ к внутренней системе, где видят комментарии кладовщиков, недоступные для клиентов.</p>
+<p>При обращении важно предоставить трек-номер и четко сформулировать проблему: «Груз находится на сортировке более 48 часов». Это позволит быстро идентифицировать тип задержки. Если проблема в документах, вам сразу же сообщат, каких именно бумаг не хватает.</p>
+<p>В некоторых случаях требуется личное присутствие в пункте приема или на складе. Если груз признан «негабаритным» или «опасным» после приемки, система может потребовать переоформления накладной. Игнорирование таких запросов приведет к возврату груза отправителю.</p>
+<blockquote>
+<p>⚠️ Внимание: Никогда не ждите более 5 рабочих дней без реакции. После этого срока груз может быть автоматически классифицирован как невостребованный и отправлен в архив или на утилизацию, если упаковка не позволяет его хранить.</p>
+</blockquote>
+<p>Также эффективным методом является обращение к отправителю (если вы получатель). Часто именно отправитель имеет более расширенные права в личном кабинете и может инициировать розыск груза или уточнение статуса быстрее, чем получатель.</p>
+
+<h2 id="как-отслеживать-движение-груза-в-реальном-времени">Как отслеживать движение груза в реальном времени</h2>
+<p>Для контроля за процессом сортировки и доставки лучше всего использовать официальные каналы компании. Мобильное приложение СДЭК предоставляет наиболее актуальную информацию и часто обновляется быстрее, чем веб-версия сайта. Push-уведомления позволяют мгновенно реагировать на изменение статуса.</p>
+<p>При отслеживании обращайте внимание не только на текст статуса, но и на время последней операции. Если время обновления совпадает с рабочим временем склада, значит, процесс идет штатно. Если же последнее обновление было в глубокой ночи или в выходной, скорее всего, груз просто ждет начала рабочей смены.</p>
+<p>Используйте функцию «Предполагаемая дата доставки». Алгоритмы компании постоянно пересчитывают этот параметр, учитывая текущую загрузку сортировочных центров. Если дата сдвигается, это верный признак того, что на этапе сортировки возникли сложности.</p>
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Включите уведомления в приложении СДЭК и добавьте трек-номер в «Избранное». Это позволит видеть любые изменения статуса мгновенно, даже если вы не заходите в приложение специально.</p></div>
+<p>Помните, что система отслеживания — это зеркало реальных процессов. Задержка обновления информации на сайте на 1-2 часа является нормой и связана с синхронизацией баз данных между локальным терминалом и центральным сервером.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Среднее время сортировки в СДЭК составляет 12-24 часа. Задержка более 48 часов требует обращения в поддержку для уточнения причин.</p></div>
+
+<h2 id="часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</h2>
+<details>
+<summary>Может ли сортировка длиться больше 3 дней?</summary>
+<p>Да, такая ситуация возможна в период пиковых нагрузок (Черная пятница, Новый год) или при возникновении проблем с документами и упаковкой груза. В обычное время это считается нарушением регламента.</p>
+</details>
+<details>
+<summary>Что значит статус «Сортировка» в ночное время?</summary>
+<p>Это означает, что ваш груз принят и находится на складе. Ночью активная сортировка может не вестись, поэтому статус не меняется до начала утренней смены логистов.</p>
+</details>
+<details>
+<summary>Влияет ли вес посылки на время сортировки?</summary>
+<p>Да, тяжелые и крупногабаритные грузы обрабатываются вручную и требуют отдельного транспорта, что увеличивает время их подготовки к отправке по сравнению с мелкими пакетами.</p>
+</details>
+<details>
+<summary>Где физически находится посылка во время сортировки?</summary>
+<p>Груз находится в зоне приема и обработки конкретного логистического центра СДЭК, указанного в последнем статусе отслеживания. Он надежно закреплен и ожидает распределения по маршруту.</p>
+</details>
+<details>
+<summary>Нужно ли что-то делать во время сортировки?</summary>
+<p>В большинстве случаев — нет. Действия требуются только если с вами свяжется оператор для уточнения данных или если статус не меняется более 3-5 рабочих дней.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#что-означает-статус-сортировка-в-системе-отслеживания">Что означает статус «Сортировка» в системе отслеживания</a></li><li><a href="#нормативные-сроки-обработки-грузов-в-сдэк">Нормативные сроки обработки грузов в СДЭК</a></li><li><a href="#факторы-влияющие-на-скорость-сортировки">Факторы, влияющие на скорость сортировки</a></li><li><a href="#почему-посылка-долго-находится-в-статусе-сортировки">Почему посылка долго находится в статусе сортировки</a></li><li><a href="#отличия-сортировки-для-разных-типов-отправлений">Отличия сортировки для разных типов отправлений</a></li><li><a href="#алгоритм-действий-при-задержке-сортировки">Алгоритм действий при задержке сортировки</a></li><li><a href="#как-отслеживать-движение-груза-в-реальном-времени">Как отслеживать движение груза в реальном времени</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/g/gd/gde-v-kvitantsii-sdek-ukazan-nomer-zakaza.html" class="related-card">Номер заказа СДЭК в квитанции: где искать и как расшифровать</a></li><li><a href="/articles/k/ka/kak-otsledit-posylku-sdek-po-shtrikh-kodu-besplatno-s-mobilnogo.html" class="related-card">Отследить посылку СДЭК по штрих-коду с телефона бесплатно 2026</a></li><li><a href="/articles/s/sk/skolko-posylka-budet-idti-sdek-rasschitat.html" class="related-card">Сколько идёт посылка СДЭК: точный расчёт сроков доставки 2026</a></li><li><a href="/articles/s/sd/sdek-uznat-gde-gruz-po-familii-poluchatelya.html" class="related-card">Как узнать где груз СДЭК по фамилии получателя: способы</a></li><li><a href="/articles/k/ka/kak-ponyat-v-tranzitnom-gorode-sdek-posylka.html" class="related-card">Как понять статус «в транзитном городе» СДЭК: расшифровка</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/g/gd/gde-v-kvitantsii-sdek-ukazan-nomer-zakaza.html" class="related-bottom-card"><span class="related-bottom-title">Номер заказа СДЭК в квитанции: где искать и как расшифровать</span><span class="related-bottom-desc">Пошаговая инструкция, где в квитанции СДЭК указан номер заказа: фото, примеры и советы по поиску. Уз</span></a><a href="/articles/k/ka/kak-otsledit-posylku-sdek-po-shtrikh-kodu-besplatno-s-mobilnogo.html" class="related-bottom-card"><span class="related-bottom-title">Отследить посылку СДЭК по штрих-коду с телефона бесплатно 2026</span><span class="related-bottom-desc">Пошаговая инструкция, как проверить статус посылки СДЭК через штрих-код на мобильном. Все способы: с</span></a><a href="/articles/s/sk/skolko-posylka-budet-idti-sdek-rasschitat.html" class="related-bottom-card"><span class="related-bottom-title">Сколько идёт посылка СДЭК: точный расчёт сроков доставки 2026</span><span class="related-bottom-desc">Как узнать, сколько будет идти посылка через СДЭК? Рассчитываем сроки доставки по России и миру с уч</span></a><a href="/articles/s/sd/sdek-uznat-gde-gruz-po-familii-poluchatelya.html" class="related-bottom-card"><span class="related-bottom-title">Как узнать где груз СДЭК по фамилии получателя: способы</span><span class="related-bottom-desc">Инструкция, как отследить посылку СДЭК по фамилии получателя. Разбор всех доступных методов поиска г</span></a><a href="/articles/k/ka/kak-ponyat-v-tranzitnom-gorode-sdek-posylka.html" class="related-bottom-card"><span class="related-bottom-title">Как понять статус «в транзитном городе» СДЭК: расшифровка</span><span class="related-bottom-desc">Что значит статус посылки «в транзитном городе» СДЭК? Узнайте, почему трек не обновляется, сколько ж</span></a><a href="/articles/c/ch/chto-znachit-sklad-sklad-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Что значит склад СДЭК: расшифровка статусов и адресов</span><span class="related-bottom-desc">Узнайте, что означает статус&#x27;Склад СДЭК&#x27; при отслеживании посылки. Разбор типов складов, сроки хране</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

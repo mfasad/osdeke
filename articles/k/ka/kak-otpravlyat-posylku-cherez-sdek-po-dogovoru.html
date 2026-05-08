@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>Отправка по договору СДЭК: как подключить и пользоваться — СДЭК Гид</title>
+    <meta name="description" content="Подробная инструкция по отправке посылок через СДЭК по договору. Тарифы, интеграция API, документы и личный кабинет для юридических лиц.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/k/ka/kak-otpravlyat-posylku-cherez-sdek-po-dogovoru.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Отправка по договору СДЭК: как подключить и пользоваться">
+    <meta property="og:description" content="Подробная инструкция по отправке посылок через СДЭК по договору. Тарифы, интеграция API, документы и личный кабинет для юридических лиц.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/biznes-i-dogovory/">Бизнес и договоры</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Отправка по договору СДЭК: как подключить и пользоваться</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Как отправлять посылки через СДЭК по договору: полное руководство</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#преимущества-заключения-договора-для-бизнеса">Преимущества заключения договора для бизнеса</a></li><li><a href="#необходимые-документы-и-процедура-подключения">Необходимые документы и процедура подключения</a></li><li><a href="#работа-в-личном-кабинете-создание-и-печать-накладных">Работа в личном кабинете: создание и печать накладных</a></li><li><a href="#тарификация-и-расчет-стоимости-доставки">Тарификация и расчет стоимости доставки</a></li><li><a href="#интеграция-с-сайтом-и-api-для-автоматизации">Интеграция с сайтом и API для автоматизации</a></li><li><a href="#забор-грузов-и-сдача-в-пункты-приема">Забор грузов и сдача в пункты приема</a></li><li><a href="#документооборот-и-работа-с-возвратами">Документооборот и работа с возвратами</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+<p>Работа с логистическими операторами на регулярной основе требует не только надежных партнеров, но и оптимизированных процессов, которые невозможны при разовых визитах в пункты выдачи. Заключение <strong>договора с СДЭК</strong> открывает для бизнеса доступ к расширенному функционалу, позволяя управлять тысячами отправлений через единый интерфейс без очередей и бумажной волокиты. Это решение идеально подходит для интернет-магазинов, маркетплейсов и компаний, осуществляющих регулярную рассылку товаров или документов клиентам.</p>
+<p>Основное преимущество работы по договору заключается в персонализации условий сотрудничества, где тарификация и график забора грузов адаптируются под конкретные нужды вашего бизнеса. В отличие от розничных отправлений, здесь действует система постоплаты, что значительно упрощает бухгалтерский учет и кассовые разрывы. <mark>Юридическое лицо получает доступ к закрытым тарифам, которые могут быть ниже розничных ставок на 20-30% в зависимости от объемов.</mark></p>
+<p>В этой статье мы детально разберем процедуру подключения, необходимые документы и технические нюансы интеграции, чтобы вы могли максимально эффективно использовать ресурсы курьерской службы. Вы узнаете, как настроить автоматическую выгрузку накладных и почему личный кабинет клиента является центральным элементом в цепочке поставок.</p>
+
+<h2 id="преимущества-заключения-договора-для-бизнеса">Преимущества заключения договора для бизнеса</h2>
+<p>Переход на обслуживание по договору кардинально меняет логистическую модель компании, переводя ее из режима ручной работы в автоматизированный поток. Первым и наиболее заметным плюсом становится возможность <strong>отложенного платежа</strong>, когда за услуги производится по факту оказания услуг в конце отчетного периода, обычно раз в две недели или месяц. Это освобождает оборотные средства и избавляет от необходимости держать наличность в кассе для оплаты каждой накладной.</p>
+<p>Кроме финансовых выгод, бизнес получает доступ к приоритетному обслуживанию, где персональный менеджер курирует все вопросы, связанные с доставкой, возвратами и претензиями. Скорость обработки заказов также возрастает благодаря отсутствию необходимости заполнять бланки вручную — все данные формируются автоматически на основе вашей выгрузки.</p>
+<ul>
+<li>📦 <strong>Снижение стоимости</strong>: Индивидуальные тарифы, зависящие от объемов отправлений и направлений.</li>
+<li>🚀 <strong>Автоматизация</strong>: Возможность массовой печати накладных и интеграция с CMS магазина.</li>
+<li>📊 <strong>Аналитика</strong>: Доступ к расширенной статистике доставок и финансовой отчетности в личном кабинете.</li>
+<li>🤝 <strong>Гибкость</strong>: Персональный график забора грузов курьером или выделенное время в пункте приема.</li>
+</ul>
+<p>Важно отметить, что договорные отношения подразумевают более высокий уровень ответственности со стороны оператора, так как речь идет о B2B-сегменте. Любые сбои в доставке отслеживаются в режиме реального времени, а система уведомлений позволяет мгновенно реагировать на изменения статуса груза.</p>
+
+<h2 id="необходимые-документы-и-процедура-подключения">Необходимые документы и процедура подключения</h2>
+<p>Процедура оформления партнерства с логистическим оператором максимально упрощена и занимает минимальное количество времени, особенно если у вас уже есть зарегистрированный бизнес. Для начала сотрудничества необходимо предоставить пакет документов, подтверждающий легальность вашей деятельности и полномочия представителя.</p>
+<p>Существует два основных пути оформления: посещение офиса продаж или подача заявки онлайн через официальный сайт. Второй вариант часто бывает быстрее, так как позволяет сразу загрузить скан-копии и получить доступ в личный кабинет еще до подписания бумажного оригинала.</p>
+<p>Базовый пакет документов включает в себя:</p>
+<ul>
+<li>📄 Копию устава организации или выписку из ЕГРЮЛ/ЕГРИП.</li>
+<li>🆔 Паспортные данные руководителя или доверенного лица.</li>
+<li>🖋 Заполненную анкету клиента (форма предоставляется менеджером).</li>
+<li>💳 Карточку предприятия с реквизитами для выставления счетов.</li>
+</ul>
+<p>После проверки службой безопасности и юридическим отделом, с вами свяжется менеджер для согласования индивидуальных условий тарификации. Только после подписания договора вам будут предоставлены <strong>логин и пароль</strong> для доступа в систему управления отправками.</p>
+<blockquote>
+<p>⚠️ Внимание: Убедитесь, что в карточке предприятия указаны корректные юридические адреса и ИНН, так как ошибки в этих данных могут привести к проблемам с бухгалтерскими документами и актами сверки в будущем.</p>
+</blockquote>
+
+<div class="poll-widget" id="poll-2166b461"><div class="poll-widget-question">📊 Какой у вас объем отправлений в месяц?</div><div class="poll-widget-option" data-poll="2166b461" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Менее 50 штук</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="2166b461" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">50-200 штук</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="2166b461" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">200-1000 штук</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="2166b461" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Более 1000 штук</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="работа-в-личном-кабинете-создание-и-печать-накладных">Работа в личном кабинете: создание и печать накладных</h2>
+<p>Центральным элементом вашей работы станет <strong>Личный кабинет клиента</strong> (ЛК), веб-интерфейс, через который осуществляется 99% всех операций. Именно здесь вы создаете новые отправления, формируете реестры на забор груза и отслеживаете движение посылок. Интерфейс системы интуитивно понятен, но требует внимательного заполнения полей для избежания ошибок при сортировке.</p>
+<p>Для создания новой накладной необходимо выбрать тип услуги, например, <em>«Посылочка»</em> или <em>«Экспресс»</em>, и ввести данные получателя. Система автоматически рассчитает стоимость доставки и предложит дополнительные опции, такие как опись вложения или проверка комплектности. При массовых отправлениях используется функция импорта файла или работа через API.</p>
+<p>Ключевые этапы работы с накладной:</p>
+<ol>
+<li>Выбор услуги и заполнение адресных данных отправителя и получателя.</li>
+<li>Указание параметров груза: вес, габариты и declared value (объявленная ценность).</li>
+<li>Печать этикетки в формате <code>A4</code> или на термопринтере <code>58x40</code>.</li>
+<li>Передача груза курьеру или сдача в пункт приема СДЭК.</li>
+</ol>
+<p>После печати накладной она прикрепляется к грузу, а в системе статус заказа меняется на «Готов к отправке». Важно следить за тем, чтобы штрих-код на этикетке былным и читаемым, так как именно он используется для сканирования на всех этапах пути.</p>
+
+<div class="checklist-block"><h4>☑️ Подготовка к первой отгрузке</h4><label class="check-item"><input type="checkbox"><span>Проверить доступ в ЛК:Заполнить данные получателя:Распечатать этикетку:Упаковать товар по стандартам:Вызвать курьера</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 1</div></div>
+
+<p>Особое внимание стоит уделить правильному выбору типа упаковки, так как от этого зависит итоговая стоимость доставки и сохранность товара. Если габариты упаковки превышают фактические размеры товара, система может пересчитать вес в объемный, что увеличит расходы.</p>
+
+<h2 id="тарификация-и-расчет-стоимости-доставки">Тарификация и расчет стоимости доставки</h2>
+<p>Финансовая модель для договорных клиентов строится на индивидуальном тарифном плане, который фиксируется в приложении к договору. В отличие от розничных тарифов, здесь цена может зависеть не только от веса и расстояния, но и от суммарного объема отправлений за месяц.</p>
+<p>Стоимость складывается из базовой ставки за килограмм, надбавки за удаленность региона и стоимости дополнительных услуг. Например, доставка в отдаленные населенные пункты может стоить дороже, а использование услуги <em>«Наложный платеж»</em> добавляет процент от суммы к оплате.</p>
+<p>Ниже приведена таблица с примерами влияния параметров на стоимость (цифры условные для демонстрации структуры):</p>
+<table>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>Влияние на стоимость</th>
+<th>Примечание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Вес до 1 кг</td>
+<td>Базовая ставка</td>
+<td>Минимальный тариф</td>
+</tr>
+<tr>
+<td>Объемный вес</td>
+<td>Расчет по формуле</td>
+<td>Если объем > веса</td>
+</tr>
+<tr>
+<td>Дальность (км)</td>
+<td>Зональность</td>
+<td>Тарификация по зонам</td>
+</tr>
+<tr>
+<td>Объявленная ценность</td>
+<td>% от суммы</td>
+<td>Страховка груза</td>
+</tr>
+</tbody>
+</table>
+<p>Система в личном кабинете автоматически применяет ваш персональный дисконт к базовым тарифам, поэтому при создании накладной вы сразу видите итоговую сумму к оплате. Это исключает необходимость самостоятельных расчетов и снижает риск ошибок в бухгалтерии.</p>
+<blockquote>
+<p>⚠️ Внимание: При работе с объемными, но легкими грузами (пуховики, игрушки) всегда проверяйте расчет объемного веса, так как оплата может производиться именно за занимаемое пространство, а не за фактическую массу.</p>
+</blockquote>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Регулярно анализируйте отчеты в ЛК: если вы стабильно превысили определенный объем отправлений, имеет смысл запросить у менеджера пересмотр тарифа в сторону уменьшения.</p></div>
+
+<h2 id="интеграция-с-сайтом-и-api-для-автоматизации">Интеграция с сайтом и API для автоматизации</h2>
+<p>Для интернет-магазинов с большим потоком заказов ручное создание накладных становится неэффективным, и здесь на помощь приходят технические решения для интеграции. СДЭК предоставляет мощный <strong>API</strong> (Application Programming Interface), который позволяет связать сайт магазина напрямую с логистической системой оператора.</p>
+<p>Интеграция позволяет в автоматическом режиме передавать данные о новом заказе, получать трек-номер и статусы доставки, а также формировать печатные формы без участия оператора. Это сокращает время обработки заказа с момента его поступления на сайте до момента передачи курьеру.</p>
+<p>Основные возможности API:</p>
+<ul>
+<li>🔗 Автоматический расчет стоимости доставки для покупателя в корзине.</li>
+<li>📦 Массовое создание накладных по выгрузке из CMS.</li>
+<li>🔄 Синхронизация статусов: изменение статуса в СДЭК меняет статус в заказе магазина.</li>
+<li>📍 Трекинг: отображение пути следования груза на сайте магазина.</li>
+</ul>
+<p>Для подключения вам потребуется технический специалист, который сможет реализовать обмен данными согласно документации на портале разработчиков. Также существуют готовые плагины для популярных CMS, таких как <em>1С-Битрикс</em>, <em>WordPress (WooCommerce)</em> и <em>OpenCart</em>, которые значительно упрощают процесс настройки.</p>
+
+<details class="faq-item"><summary>Что такое webhook в контексте интеграции?</summary><div class="faq-answer"><p>Webhook — это метод, позволяющий системе СДЭК мгновенно отправлять уведомление на ваш сервер об изменении статуса заказа, не дожидаясь вашего запроса. Это обеспечивает реальное время обновления информации.</p></div></details>
+
+<h2 id="забор-грузов-и-сдача-в-пункты-приема">Забор грузов и сдача в пункты приема</h2>
+<p>После формирования накладных встает вопрос физической передачи груза оператору. Договор предусматривает два основных сценария: самостоятельная сдача в пункт выдачи или заказ курьера для забора партии товаров.</p>
+<p>При самостоятельной сдаче вы формируете реестр в личном кабинете, печатаете его вместе с накладными и привозите груз в ближайший пункт приема СДЭК. Преимуществом является возможность сдать груз в любое время работы пункта, что удобно для срочных отправок.</p>
+<p>Забор груза курьером — это более удобный вариант для регулярных отправок. Вы создаете заявку в ЛК с указанием времени и адреса, и курьер приезжает в назначенный слот. Количество мест и общий вес должны соответствовать данным в реестре, иначе могут возникнуть задержки.</p>
+<p>Рекомендации по упаковке:</p>
+<ol>
+<li>Используйте прочные картонные коробки или фирменные пакеты СДЭК.</li>
+<li>Хрупкие предметы обязательно маркируйте знаком <code>«Осторожно»</code>.</li>
+<li>Внутри вложения не должно быть пустот, используйте наполнитель.</li>
+<li>Надежно заклеивайте швы упаковочным скотчем.</li>
+</ol>
+<blockquote>
+<p>⚠️ Внимание: Курьер имеет право отказаться от забора груза, если упаковка повреждена или не соответствует требованиям безопасности, поэтому проверяйте целостность коробок перед его приездом.</p>
+</blockquote>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Регулярный забор груза курьером по расписанию — самый эффективный способ логистики для магазина, позволяющий освободить складские площади и время сотрудников.</p></div>
+
+<h2 id="документооборот-и-работа-с-возвратами">Документооборот и работа с возвратами</h2>
+<p>Работа по договору подразумевает строгий документооборот, который необходим для бухгалтерского учета и подтверждения расходов. Все закрывающие документы, такие как акты выполненных работ и счета-фактуры, формируются автоматически в личном кабинете и доступны для скачивания.</p>
+<p>Важным аспектом является работа с возвратами, так как в e-commerce процент отказа от товара может быть значительным. При работе по договору возвраты обрабатываются по упрощенной схеме: вы создаете заявку на возврат в ЛК, и груз возвращается на ваш склад или в пункт выдачи.</p>
+<p>Стоимость обратной логистики также тарифицируется согласно договору, но часто для возвратов действуют специальные, более низкие ставки. Важно своевременно отслеживать статусы возвратов, чтобы не потерять товар и оперативно связываться с клиентом.</p>
+<p>Сроки хранения документов и порядок их предоставления прописаны в договоре, однако рекомендуется самостоятельно архивировать все акты и накладные в цифровом виде для предотвращения спорных ситуаций.</p>
+
+<h2 id="часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</h2>
+<details>
+<summary>Можно ли заключить договор, если я работаю как самозанятый?</summary>
+<p>Да, СДЭК работает с индивидуальными предпринимателями и самозанятыми. Для этого при регистрации необходимо выбрать соответствующий тип клиента и предоставить свидетельство о регистрации или справку о постановке на учет в качестве плательщика налога на профессиональный доход.</p>
+</details>
+<details>
+<summary>Как быстро происходит зачисление средств на счет после оплаты?</summary>
+<p>При работе по договору действует постоплатная система, поэтому средства не требуются заранее. Если же вы вносите аванс для обеспечения бесперебойной работы, зачисление обычно происходит в течение одного рабочего дня после поступления платежа на расчетный счет компании.</p>
+</details>
+<details>
+<summary>Что делать, если клиент не забрал посылку и она возвращается?</summary>
+<p>В личном кабинете вы увидите статус «Готов к выдаче», а затем «Возврат». Вам не нужно инициировать процесс вручную, если в настройках профиля не указано иное. Груз автоматически начнет движение обратно, а стоимость доставки туда и обратно будет включена в итоговый акт.</p>
+</details>
+<details>
+<summary>Можно ли изменить тарифный план после подписания договора?</summary>
+<p>Да, условия договора могут быть пересмотрены по mutual agreement сторон. Если ваши объемы выросли или изменилась география отправок, обратитесь к персональному менеджеру для актуализации тарифов.</p>
+</details>
+<details>
+<summary>Нужно ли каждый раз подписывать бумажные накладные?</summary>
+<p>Нет, при работе через личный кабинет и использовании электронного документооборота (ЭДО) или простой электронной подписи, бумажный документооборот сводится к минимуму. Накладные формируются в электронном виде, а акт закрывается цифровым способом.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#преимущества-заключения-договора-для-бизнеса">Преимущества заключения договора для бизнеса</a></li><li><a href="#необходимые-документы-и-процедура-подключения">Необходимые документы и процедура подключения</a></li><li><a href="#работа-в-личном-кабинете-создание-и-печать-накладных">Работа в личном кабинете: создание и печать накладных</a></li><li><a href="#тарификация-и-расчет-стоимости-доставки">Тарификация и расчет стоимости доставки</a></li><li><a href="#интеграция-с-сайтом-и-api-для-автоматизации">Интеграция с сайтом и API для автоматизации</a></li><li><a href="#забор-грузов-и-сдача-в-пункты-приема">Забор грузов и сдача в пункты приема</a></li><li><a href="#документооборот-и-работа-с-возвратами">Документооборот и работа с возвратами</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/k/ka/kak-otpravlyat-sdek-po-dogovoru.html" class="related-card">Как отправить посылку СДЭК по договору: пошаговая инструкция 2026</a></li><li><a href="/articles/z/za/zaregistrirovatsya-na-sdek-market-kak-prodavets.html" class="related-card">Как зарегистрироваться на СДЭК Маркет как продавец в 2026 году: пошаговая инструкция</a></li><li><a href="/articles/s/sd/sdek-dogovor-s-samozanyatym-kakie-dokumenty.html" class="related-card">Договор СДЭК с самозанятым: список документов 2026 года</a></li><li><a href="/articles/k/ka/kakie-nastrojka-sdek.html" class="related-card">Настройка СДЭК: личный кабинет, виджет и API</a></li><li><a href="/articles/d/de/delovye-linii-ili-sdek-chto-luchshe.html" class="related-card">Деловые Линии или СДЭК: что лучше выбрать для бизнеса и ЛП?</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/k/ka/kak-otpravlyat-sdek-po-dogovoru.html" class="related-bottom-card"><span class="related-bottom-title">Как отправить посылку СДЭК по договору: пошаговая инструкция 2026</span><span class="related-bottom-desc">Полное руководство по отправке грузов через СДЭК по корпоративному договору: оформление, тарифы, док</span></a><a href="/articles/z/za/zaregistrirovatsya-na-sdek-market-kak-prodavets.html" class="related-bottom-card"><span class="related-bottom-title">Как зарегистрироваться на СДЭК Маркет как продавец в 2026 году: пошаговая инструкция</span><span class="related-bottom-desc">Детальное руководство по регистрации на торговой площадке СДЭК Маркет для продавцов: требования, док</span></a><a href="/articles/s/sd/sdek-dogovor-s-samozanyatym-kakie-dokumenty.html" class="related-bottom-card"><span class="related-bottom-title">Договор СДЭК с самозанятым: список документов 2026 года</span><span class="related-bottom-desc">Какие документы нужны для заключения договора с СДЭК, если вы самозанятый? Пошаговая инструкция, обр</span></a><a href="/articles/k/ka/kakie-nastrojka-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Настройка СДЭК: личный кабинет, виджет и API</span><span class="related-bottom-desc">Полная инструкция по настройке СДЭК. Как настроить виджет, личный кабинет и API. Решите проблемы с и</span></a><a href="/articles/d/de/delovye-linii-ili-sdek-chto-luchshe.html" class="related-bottom-card"><span class="related-bottom-title">Деловые Линии или СДЭК: что лучше выбрать для бизнеса и ЛП?</span><span class="related-bottom-desc">Сравнение СДЭК и Деловых Линий 2026: тарифы, сроки, габариты. Анализ для ИП и физлиц. Что выгоднее д</span></a><a href="/articles/s/sd/sdek-market-vojti-kak-prodavets.html" class="related-bottom-card"><span class="related-bottom-title">СДЭК Маркет: вход для продавцов и регистрация</span><span class="related-bottom-desc">Как войти в личный кабинет продавца СДЭК Маркет. Пошаговая инструкция, способы авторизации через СДЭ</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>Как настроить СДЭК в WordPress: пошаговая инструкция — СДЭК Гид</title>
+    <meta name="description" content="Подробная настройка СДЭК для WordPress. Интеграция виджетов, расчет доставки и печать накладных в WooCommerce для интернет-магазинов.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/w/wo/wordpress-kak-nastroit-sdek.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Как настроить СДЭК в WordPress: пошаговая инструкция">
+    <meta property="og:description" content="Подробная настройка СДЭК для WordPress. Интеграция виджетов, расчет доставки и печать накладных в WooCommerce для интернет-магазинов.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/biznes-i-dogovory/">Бизнес и договоры</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Как настроить СДЭК в WordPress: пошаговая инструкция</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Как настроить СДЭК в WordPress: полная инструкция</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#подготовка-аккаунта-и-получение-ключей-api">Подготовка аккаунта и получение ключей API</a></li><li><a href="#установка-и-базовая-конфигурация-плагина">Установка и базовая конфигурация плагина</a></li><li><a href="#настройка-методов-доставки-и-тарифов">Настройка методов доставки и тарифов</a></li><li><a href="#интеграция-виджета-карты-и-калькулятора">Интеграция виджета карты и калькулятора</a></li><li><a href="#автоматическое-создание-накладных-и-печать">Автоматическое создание накладных и печать</a></li><li><a href="#отслеживание-статусов-и-уведомления-клиентов">Отслеживание статусов и уведомления клиентов</a></li><li><a href="#решение-частых-проблем-и-ошибок-подключения">Решение частых проблем и ошибок подключения</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>Интеграция логистических сервисов в CMS WordPress является критически важным этапом для любого интернет-магазина, стремящегося автоматизировать продажи. <p>Владельцы сайтов на базе WordPress часто выбирают платформу WooCommerce для управления торговлей, и подключение надежного перевозчика становится приоритетом.</p> <p>Настройка СДЭК в WordPress позволяет клиентам видеть актуальные сроки и стоимость доставки прямо в корзине, что значительно повышает конверсию.</p></p>
+
+<p>Процесс внедрения модуля требует внимательности к деталям, так как от корректности API-ключей зависит работоспособность всего функционала.</p> <p>В этой статье мы разберем все этапы подключения, от получения учетных данных до тестирования виджета на реальном заказе.</p> <p>Грамотная настройка избавит менеджеров от ручного расчета стоимости и минимизирует количество ошибок при оформлении.</p>
+
+<h2 id="подготовка-аккаунта-и-получение-ключей-api">Подготовка аккаунта и получение ключей API</h2>
+
+<p>Первым шагом для успешной интеграции является наличие действующего договора с логистической компанией или регистрация в тестовом режиме.</p> <p>Без авторизационных данных плагин не сможет отправлять запросы к серверу для расчета тарифов.</p> <p>Необходимо войти в личный кабинет на официальном портале и перейти в раздел разработчика.</p>
+
+<p>Здесь генерируются два уникальных параметра: <strong>Account</strong> и <strong>Secure Password</strong>.</p> <p>Именно эти строки будут использоваться плагином для шифрования передаваемых данных.</p> <p>Важно не перепутать их с логином и паролем от личного кабинета, так как это разные сущности.</p>
+
+<blockquote>⚠️ Внимание: Никогда не публикуйте свои API-ключи в открытом доступе или в коде шаблона, так как это может привести к утечке данных или хищению средств со счета.</blockquote>
+
+<p>Для работы модуля также потребуется указать тип интеграции, обычно это <em>Standard</em> или <em>HTTPS</em>.</p> <p>В тестовом режиме используются специальные ключи, которые не позволяют создавать реальные накладные.</p> <p>После получения всех цифр и букв можно переходить к установке программного обеспечения на сайт.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Сохраните скриншот страницы с ключами API или скопируйте их в текстовый файл перед установкой плагина, чтобы не потерять данные при переключении вкладок браузера.</p></div>
+
+<h2 id="установка-и-базовая-конфигурация-плагина">Установка и базовая конфигурация плагина</h2>
+
+<p>Существует несколько решений для связки WordPress и СДЭК, но наиболее популярным является официальный плагин CDEK for WooCommerce.</p> <p>Его можно найти в репозитории WordPress или скачать архивом с сайта разработчика.</p> <p>После активации расширения в административной панели появится новая вкладка с настройками доставки.</p>
+
+<p>В открывшемся меню необходимо ввести ранее полученные <strong>Account</strong> и <strong>Secure Password</strong>.</p> <p>Также следует выбрать режим работы: <em>Тестовый</em> для проверки или <em>Рабочий</em> для реальных заказов.</p> <p>Не забудьте сохранить изменения, нажав соответствующую кнопку внизу страницы.</p>
+
+<div class="checklist-block"><h4>☑️ Проверка установки плагина</h4><label class="check-item"><input type="checkbox"><span>Плагин активирован в списке расширений</span></label><label class="check-item"><input type="checkbox"><span>Ключи API введены в поля настроек</span></label><label class="check-item"><input type="checkbox"><span>Выбран правильный режим работы (Тест/Работа)</span></label><label class="check-item"><input type="checkbox"><span>Настройки сохранены кнопкой "Сохранить изменения"</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 4</div></div>
+
+<p>Далее следует настроить географические ограничения, если доставка осуществляется не по всей стране.</p> <p>Можно указать конкретные регионы или города, где будет доступен расчет стоимости.</p> <p>Это поможет избежать ситуаций, когда клиент видит цену, но оформить заказ в его город технически невозможно.</p>
+
+<h2 id="настройка-методов-доставки-и-тарифов">Настройка методов доставки и тарифов</h2>
+
+<p>Одной из главных возможностей модуля является гибкое управление тарифами, которые видит покупатель.</p> <p>Вы можете разрешить отображение всех доступных вариантов или выбрать только приоритетные направления.</p> <p>В настройках плагина есть список с галочками напротив каждого типа услуги.</p>
+
+<ul>
+<li>🚚 Курьерская доставка до двери — самый удобный вариант для клиентов, ценящих время.</li>
+<li>🏢 Доставка до пункта выдачи заказов (ПВЗ) — популярный экономичный способ получения.</li>
+<li>✈️ Экспресс-доставка — опция для срочных отправлений за повышенную плату.</li>
+<li>📦 Посылочка — специальный тариф для легких отправлений весом до 2 кг.</li>
+</ul>
+
+<p>Важно правильно настроить правило округления цен, чтобы итоговая сумма выглядела презентабельно.</p> <p>Например, можно округлять стоимость до ближайших 10 или 100 рублей в большую сторону.</p> <p>Это упростит восприятие цены покупателем и избавит от копеечных значений в чеке.</p>
+
+<div class="poll-widget" id="poll-26e24443"><div class="poll-widget-question">📊 Какой способ доставки чаще выбирают ваши клиенты?</div><div class="poll-widget-option" data-poll="26e24443" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Курьером до двери</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="26e24443" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">До пункта выдачи</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="26e24443" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Почтой России</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="26e24443" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Самовывоз из магазина</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<p>Для каждого метода можно установить собственное название, которое будет отображаться в корзине.</p> <p>Вместо сухого кода тарифа лучше написать понятное описание, например "СДЭК Курьер (1-3 дня)".</p> <p>Это повышает доверие пользователя и делает процесс покупки более прозрачным.</p>
+
+<h2 id="интеграция-виджета-карты-и-калькулятора">Интеграция виджета карты и калькулятора</h2>
+
+<p>Для максимального удобства пользователей рекомендуется вывести интерактивную карту пунктов выдачи прямо на страницу товара или в корзину.</p> <p>Виджет позволяет покупателю самостоятельно выбрать ближайший офис на карте и увидеть его график работы.</p> <p>Настройка виджета осуществляется через виджеты WordPress или шорткоды, предоставляемые плагином.</p>
+
+<p>Необходимо выбрать область отображения, где будет появляться карта.</p> <p>Обычно это страница оформления заказа (Checkout) или отдельная страница с контактами.</p> <p>В коде виджета можно задать начальные координаты карты, чтобы она открывалась на нужном городе.</p>
+
+<table>
+<thead>
+<tr>
+<th>Параметр виджета</th>
+<th>Описание функции</th>
+<th>Рекомендуемое значение</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>width</code></td>
+<td>Ширина блока карты в пикселях</td>
+<td>100% (адаптивно)</td>
+</tr>
+<tr>
+<td><code>height</code></td>
+<td>Высота блока в пикселях</td>
+<td>400-500 px</td>
+</tr>
+<tr>
+<td><code>lang</code></td>
+<td>Язык интерфейса виджета</td>
+<td>rus</td>
+</tr>
+<tr>
+<td><code>showdel</code></td>
+<td>Отображать сроки доставки</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+
+<p>Корректное отображение карты зависит от темы вашего сайта и установленных скриптов.</p> <p>Если карта не грузится, проверьте консоль браузера на наличие конфликтов JavaScript.</p> <p>Часто проблема решается очисткой кэша или обновлением версии плагина.</p>
+
+<details class="faq-item"><summary>Что делать, если карта не отображается?</summary><div class="faq-answer"><p>Если виджет не виден, проверьте, не блокирует ли его плагин безопасности или кэширования. Также убедитесь, что на странице оформления заказа загружаются скрипты jQuery.</p></div></details>
+
+<h2 id="автоматическое-создание-накладных-и-печать">Автоматическое создание накладных и печать</h2>
+
+<p>После того как клиент оплатил заказ, менеджеру необходимо сформировать транспортную накладную.</p> <p>Модуль СДЭК для WordPress позволяет делать это в один клик прямо из админки WooCommerce.</p> <p>В списке заказов появляется кнопка для генерации документов.</p>
+
+<p>Система автоматически подтягивает вес, габариты и адрес получателя из карточки заказа.</p> <p>Это исключает человеческий фактор и ошибки при ручном вводе данных.</p> <p>После формирования накладной заказу присваивается трек-номер, который отправляется клиенту.</p>
+
+<blockquote>⚠️ Внимание: Перед массовой печатью накладных обязательно проверьте габариты товаров в карточках, так как от них зависит итоговая стоимость доставки.</blockquote>
+
+<p>Для работы функции печати на сервере должны быть установлены необходимые библиотеки PDF.</p> <p>Обычно хостинг-провайдеры предоставляют их по умолчанию, но на некоторых конфигурациях может потребоваться установка модуля <em>GD</em> или <em>DomPDF</em>.</p> <p>Проверить наличие библиотек можно в разделе "Состояние системы" плагина.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Автоматическая генерация накладных сокращает время обработки заказа менеджером до 1 минуты и гарантирует 100% точность адресных данных.</p></div>
+
+<h2 id="отслеживание-статусов-и-уведомления-клиентов">Отслеживание статусов и уведомления клиентов</h2>
+
+<p>Ключевым элементом сервиса является информирование клиента о движении груза.</p> <p>Плагин умеет автоматически обновлять статус заказа в WordPress на основе данных от СДЭК.</p> <p>Как только груз поступает на склад или выдается курьеру, покупатель получает email.</p>
+
+<p>Для настройки уведомлений необходимо активировать cron-задачи на сервере.</p> <p>Это фоновые процессы, которые периодически опрашивают сервер логиста на предмет изменений.</p> <p>Без работающего cron статусы будут обновляться только при ручном входе администратора в панель.</p>
+
+<ul>
+<li>📩 Принято в СДЭК — заказ забран курьером или сдан в пункте.</li>
+<li>🚛 В пути — груз находится в дороге между городами.</li>
+<li>🏁 Прибыло в пункт выдачи — можно забирать посылку.</li>
+<li>✅ Вручен — заказ успешно завершен.</li>
+</ul>
+
+<p>Клиент может отслеживать свой заказ не только через email, но и в личном кабинете на сайте.</p> <p>История статусов отображается в разделе "Мои заказы" после авторизации.</p> <p>Это снижает нагрузку на службу поддержки, так как вопросы "где моя посылка" отпадают.</p>
+
+<h2 id="решение-частых-проблем-и-ошибок-подключения">Решение частых проблем и ошибок подключения</h2>
+
+<p>В процессе эксплуатации могут возникать технические сложности, требующие вмешательства.</p> <p>Одной из распространенных проблем является ошибка соединения с API.</p> <p>Она может быть вызвана блокировкой сервера хостинг-провайдером или истечением срока действия SSL-сертификата.</p>
+
+<p>Если расчет доставки показывает нулевую стоимость или ошибку, проверьте вес товара.</p> <p>При нулевом весе система не может рассчитать тариф.</p> <p>Убедитесь, что в настройках WooCommerce включена функция расчета доставки и указан вес.</p>
+
+<blockquote>⚠️ Внимание: Если вы сменили тарифный план или условия договора, обязательно перепроверьте актуальность ключей API, так как старые могут быть заблокированы.</blockquote>
+
+<p>Также стоит обратить внимание на логирование ошибок в самом плагине.</p> <p>Вcluded файл лога обычно содержит подробное описание запроса и ответа сервера.</p> <p>Анализ этого файла помогает быстро выявить причину сбоя, будь то неверный формат адреса или отсутствие тарифа.</p>
+
+<details class="faq-item"><summary>Где найти логи ошибок?</summary><div class="faq-answer"><p>Логи обычно находятся в папке wp-content/uploads/cdek/ или в разделе WooCommerce -> Статус -> Логи. Ищите файлы с префиксом cdek_.</p></div></details>
+
+<details>
+<summary>Нужно ли платить за использование плагина СДЭК?</summary>
+<p>Официальный плагин часто предоставляется бесплатно, но за транзакции и доставку вы платите по договору с транспортной компанией. Некоторые сторонние разработчики могут брать плату за расширенный функционал.</p>
+</details>
+
+<details>
+<summary>Можно ли настроить СДЭК для WordPress без WooCommerce?</summary>
+<p>Да, существуют универсальные виджеты и API-решения, которые можно внедрить в любой сайт на WordPress, но функционал будет ограничен только расчетом и картой без управления заказами.</p>
+</details>
+
+<details>
+<summary>Как изменить адрес отправителя в настройках?</summary>
+<p>Адрес отправителя (склада) задается в личном кабинете СДЭК в разделе настроек профиля или договоров. В плагине WordPress этот адрес обычно подтягивается автоматически или задается как основной адрес магазина.</p>
+</details>
+
+<details>
+<summary>Работает ли виджет на мобильных устройствах?</summary>
+<p>Современные виджеты СДЭК полностью адаптивны и корректно отображаются на смартфонах и планшетах, занимая всю ширину экрана для удобства пользователя.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#подготовка-аккаунта-и-получение-ключей-api">Подготовка аккаунта и получение ключей API</a></li><li><a href="#установка-и-базовая-конфигурация-плагина">Установка и базовая конфигурация плагина</a></li><li><a href="#настройка-методов-доставки-и-тарифов">Настройка методов доставки и тарифов</a></li><li><a href="#интеграция-виджета-карты-и-калькулятора">Интеграция виджета карты и калькулятора</a></li><li><a href="#автоматическое-создание-накладных-и-печать">Автоматическое создание накладных и печать</a></li><li><a href="#отслеживание-статусов-и-уведомления-клиентов">Отслеживание статусов и уведомления клиентов</a></li><li><a href="#решение-частых-проблем-и-ошибок-подключения">Решение частых проблем и ошибок подключения</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/k/ka/kak-otkryt-sdek-v-turtsii.html" class="related-card">Как открыть СДЭК в Турции: пошаговая инструкция 2026 года</a></li><li><a href="/articles/g/gd/gde-posmotret-nomer-dogovora-sdek.html" class="related-card">Где посмотреть номер договора СДЭК: поиск в ЛК и приложении</a></li><li><a href="/articles/c/ch/chto-daet-zaklyuchenie-dogovora-so-sdek.html" class="related-card">Что даёт договор с СДЭК: 7 ключевых преимуществ для бизнеса в 2026</a></li><li><a href="/articles/k/ka/kakie-podklyuchenie-sdek.html" class="related-card">Как подключиться к СДЭК: все способы для физических и юридических лиц</a></li><li><a href="/articles/i/in/integratsiya-1s-i-sdek-kak-nastroit.html" class="related-card">Интеграция 1С и СДЭК: пошаговая настройка для бизнеса 2026</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/k/ka/kak-otkryt-sdek-v-turtsii.html" class="related-bottom-card"><span class="related-bottom-title">Как открыть СДЭК в Турции: пошаговая инструкция 2026 года</span><span class="related-bottom-desc">Полное руководство по регистрации и открытию пункта выдачи СДЭК в Турции: требования, документы, сто</span></a><a href="/articles/g/gd/gde-posmotret-nomer-dogovora-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Где посмотреть номер договора СДЭК: поиск в ЛК и приложении</span><span class="related-bottom-desc">Подробная инструкция, где найти номер договора СДЭК в личном кабинете и приложении. Решаем проблемы </span></a><a href="/articles/c/ch/chto-daet-zaklyuchenie-dogovora-so-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Что даёт договор с СДЭК: 7 ключевых преимуществ для бизнеса в 2026</span><span class="related-bottom-desc">Заключение договора с СДЭК открывает доступ к корпоративным тарифам, гибким условиям доставки и экск</span></a><a href="/articles/k/ka/kakie-podklyuchenie-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как подключиться к СДЭК: все способы для физических и юридических лиц</span><span class="related-bottom-desc">Пошаговые инструкции по подключению к СДЭК: личный кабинет, API, корпоративный доступ, мобильное при</span></a><a href="/articles/i/in/integratsiya-1s-i-sdek-kak-nastroit.html" class="related-bottom-card"><span class="related-bottom-title">Интеграция 1С и СДЭК: пошаговая настройка для бизнеса 2026</span><span class="related-bottom-desc">Как настроить интеграцию 1С с СДЭК для автоматической отправки заказов и отслеживания грузов. Инстру</span></a><a href="/articles/s/sk/skolko-zarabatyvayut-na-franshize-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Сколько можно заработать на франшизе СДЭК в 2026 году: реальные цифры и расчёты</span><span class="related-bottom-desc">Разбираем доходы, расходы и окупаемость франшизы СДЭК: сколько зарабатывают партнёры, какие инвестиц</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

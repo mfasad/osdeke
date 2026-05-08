@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>СДЭК: что такое код маркировки и где его найти — СДЭК Гид</title>
+    <meta name="description" content="Подробный гид по коду маркировки СДЭК. Узнайте, чем он отличается от трек-номера, где его искать в приложении и как проверить статус груза.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/s/sd/sdek-chto-takoe-kod-markirovki.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="СДЭК: что такое код маркировки и где его найти">
+    <meta property="og:description" content="Подробный гид по коду маркировки СДЭК. Узнайте, чем он отличается от трек-номера, где его искать в приложении и как проверить статус груза.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/otslezhivanie/">Отслеживание</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">СДЭК: что такое код маркировки и где его найти</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>СДЭК: что такое код маркировки и как его использовать</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#разница-между-трек-номером-и-кодом-маркировки">Разница между трек-номером и кодом маркировки</a></li><li><a href="#система-честный-знак-и-логистика-сдэк">Система «Честный ЗНАК» и логистика СДЭК</a></li><li><a href="#где-найти-код-маркировки-в-личном-кабинете-и-приложении">Где найти код маркировки в личном кабинете и приложении</a></li><li><a href="#как-проверить-подлинность-и-статус-груза">Как проверить подлинность и статус груза</a></li><li><a href="#правила-упаковки-и-приемки-маркированных-товаров">Правила упаковки и приемки маркированных товаров</a></li><li><a href="#частые-проблемы-и-их-решения">Частые проблемы и их решения</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>В процессе взаимодействия с логистическими операторами клиенты часто сталкиваются с множеством цифровых идентификаторов, которые могут сбить с толку неопытного пользователя. Одним из таких идентификаторов является <strong>код маркировки</strong>, который в системе СДЭК выполняет функцию уникального цифрового штриха, позволяющего системе распознавать конкретную единицу товара или упаковки. В отличие от привычного трек-номера, который привязан к отправлению как к юридическому факту договора перевозки, этот код часто используется для внутренней автоматизации сортировки или в рамках системы «Честный ЗНАК» для прослеживаемости товарной группы.</p>
+
+<p>Понимание разницы между этими цифровыми значениями критически важно для тех, кто занимается электронной коммерцией или регулярно получает <em>маркированные товары</em> вроде обуви, лекарств или одежды. Если вы просто отслеживаете посылку, вам, скорее всего, нужен трек-номер, но если вы продавец или получатель специфического груза, знание о том, <strong>где найти код маркировки</strong>, становится обязательным требованием для успешного завершения сделки. В этой статье мы детально разберем технические нюансы, способы генерации и проверки этих данных.</p>
+
+<h2 id="разница-между-трек-номером-и-кодом-маркировки">Разница между трек-номером и кодом маркировки</h2>
+
+<p>Многие пользователи ошибочно полагают, что трек-номер и код маркировки — это одно и то же, просто названное по-разному. На самом деле, это два совершенно разных механизма идентификации, работающих на разных уровнях логистической цепочки. <strong>Трек-номер</strong> (или номер накладной) — это идентификатор вашего заказа, по которому вы отслеживаете путь груза от пункта приема до пункта выдачи. Он нужен клиенту и менеджеру для коммуникации.</p>
+
+<p>В свою очередь, <strong>код маркировки</strong> — это уникальный идентификатор, который наносится непосредственно на товар или его потребительскую упаковку. Он предназначен в первую очередь для фискальных органов и автоматизированных систем учета, чтобы подтвердить легальность происхождения продукции. В контексте СДЭК этот код считывается при приемке, если отправитель заявил груз как маркированный, и проверяется на соответствие данным в государственной системе.</p>
+
+<p>Для наглядности рассмотрим ключевые отличия в таблице ниже:</p>
+
+<table>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>Трек-номер (Накладная)</th>
+<th>Код маркировки (Data Matrix)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Назначение</td>
+<td>Отслеживание перемещения груза</td>
+<td>Идентификация конкретной единицы товара</td>
+</tr>
+<tr>
+<td>Уникальность</td>
+<td>Уникален для всей партии в одной накладной</td>
+<td>Уникален для каждой единицы товара (пара обуви, упаковка лекарства)</td>
+</tr>
+<tr>
+<td>Где используется</td>
+<td>Сайт СДЭК, приложение, звонок оператору</td>
+<td>Сканеры на сортировке, приложение «Честный ЗНАК»</td>
+</tr>
+<tr>
+<td>Формат</td>
+<td>Набор цифр (обычно 10-14 знаков)</td>
+<td>Длинная строка символов, часто в виде QR-кода</td>
+</tr>
+</tbody>
+</table>
+
+<p>Важно не путать эти понятия при заполнении документации, так как ошибка в коде маркировки может привести к штрафам со стороны контролирующих органов. <em>Логистическая компания</em> выступает лишь оператором, перевозящим уже промаркированный товар, и несет ответственность за целостность упаковки, но не за содержание кода.</p>
+
+<blockquote>
+<p>⚠️ Внимание: Если вы отправляете товары, подлежащие обязательной маркировке, но не укажете коды правильно в накладной, груз может быть задержан на сортировочном центре для дополнительной проверки.</p>
+</blockquote>
+
+<h2 id="система-честный-знак-и-логистика-сдэк">Система «Честный ЗНАК» и логистика СДЭК</h2>
+
+<p>Интеграция логистических операторов с государственной системой прослеживаемости «Честный ЗНАК» стала необходимостью для легального бизнеса в России. <strong>Код маркировки</strong> в виде двумерного символа Data Matrix содержит зашифрованную информацию о производителе, дате выпуска и других параметрах. СДЭК, как крупный игрок рынка, обеспечивает возможность работы с такими грузами, предоставляя инструменты для их приема и доставки.</p>
+
+<p>Когда продавец формирует отправку, он обязан передать в систему СДЭК список кодов маркировки, содержащихся в коробке. Это делается через личный кабинет или API-интеграцию. При сканировании на входе в сортировочный центр система автоматически сверяет физический код на товаре с данными в электронной накладной. Если данные совпадают, статус груза обновляется, и он движется дальше по маршруту.</p>
+
+<div class="poll-widget" id="poll-544eaa39"><div class="poll-widget-question">📊 Сталкивались ли вы с обязательной маркировкой товаров?</div><div class="poll-widget-option" data-poll="544eaa39" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Да, я продавец</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="544eaa39" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Да, я покупатель</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="544eaa39" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Нет, не знаю что это</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="544eaa39" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Только планирую бизнес</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<p>Для получателей это означает, что при получении товара, особенно дорогостоящего (электроника, брендовая одежда), они имеют право потребовать проверку кода. <em>Мобильное приложение</em> «Честный ЗНАК» позволяет любому гражданину отсканировать код и убедиться, что товар не является контрафактом. СДЭК со своей стороны гарантирует, что цепочка поставок не была нарушена, и товар не был подменен в пути.</p>
+
+<p>Однако стоит помнить, что логистический оператор не является эмитентом кодов. <strong>Генерация кодов</strong> происходит в личном кабинете участника оборота на сайте crpt.ru. СДЭК лишь считывает и транспортирует. Ошибки в самих кодах (например, нечитаемая печать) решаются между производителем и получателем, хотя курьер СДЭК может зафиксировать повреждение упаковки при приемке.</p>
+
+<h2 id="где-найти-код-маркировки-в-личном-кабинете-и-приложении">Где найти код маркировки в личном кабинете и приложении</h2>
+
+<p>Пользователей часто интересует практический вопрос: где именно в интерфейсе СДЭК можно увидеть этот загадочный код. Ответ зависит от вашей роли в процессе перевозки. Если вы <strong>отправитель</strong> и оформляете заказ через личный кабинет на сайте, список кодов маркировки загружается на этапе создания накладной. Вам нужно выбрать опцию «Маркированный товар» и загрузить файл со списком кодов или ввести их вручную.</p>
+
+<p>В мобильном приложении СДЭК для получателей отображение кода маркировки ограничено. Вы увидите трек-номер, статусы и фото груза. Сам код Data Matrix физически находится на товаре или ярлыке, прикрепленном к упаковке. В цифровом виде в приложении он может отображаться только в разделе «Документы» или в деталях заказа, если отправитель передал эти данные в расширенном формате.</p>
+
+<div class="checklist-block"><h4>☑️ Проверка маркированного товара</h4><label class="check-item"><input type="checkbox"><span>Проверить целостность упаковки</span></label><label class="check-item"><input type="checkbox"><span>Считать код Data Matrix</span></label><label class="check-item"><input type="checkbox"><span>Сверить код с накладной</span></label><label class="check-item"><input type="checkbox"><span>Проверить через приложение «Честный ЗНАК»</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 4</div></div>
+
+<p>Для бизнес-клиентов, использующих <em>API СДЭК</em>, все коды передаются в теле запроса при создании заказа. В ответе системы вы получите подтверждение принятия кодов. В разделе «История заказов» в личном кабинете предпринимателя можно выгрузить отчет, где будут указаны все переданные коды маркировки для конкретной накладной. Это необходимо для сверки с остатками на складе.</p>
+
+<p>Если вы не можете найти код в интерфейсе, возможно, отправитель не передал эти данные в систему СДЭК, что является нарушением правил перевозки маркированных товаров. В таком случае рекомендуется связаться с отправителем для уточнения деталей. <strong>Цифровой след</strong> должен быть полным от момента производства до момента покупки.</p>
+
+<h2 id="как-проверить-подлинность-и-статус-груза">Как проверить подлинность и статус груза</h2>
+
+<p>Проверка подлинности товара и статуса его доставки — два разных процесса, которые часто объединяют в один запрос. Для проверки статуса доставки используйте трек-номер на сайте СДЭК или в виджете отслеживания. Для проверки подлинности товара необходим именно <strong>код маркировки</strong>. Проверку можно осуществить несколькими способами, не выходя из дома.</p>
+
+<p>Первый и самый надежный способ — использование официального приложения «Честный ЗНАК». После установки приложения на смартфон, выберите функцию сканирования и наведите камеру на код Data Matrix. Система мгновенно выдаст информацию о товаре: название, производитель, дата выпуска. Если код не читается или система пишет «код не найден», это тревожный сигнал.</p>
+
+<details class="faq-item"><summary>Что делать, если код не читается?</summary><div class="faq-answer"><p>Если сканер не считывает код, попробуйте улучшить освещение или протереть поверхность кода. Если код поврежден физически (царапины, разрывы), свяжитесь с продавцом. В СДЭК вы можете оформить акт о повреждении упаковки при получении, зафиксировав состояние кода маркировки.</p></div></details>
+
+<p>Также проверку можно выполнить вручную на портале «Честный ЗНАК», введя код в соответствующее поле. СДЭК не предоставляет собственной услуги проверки подлинности товаров, так как это функция государственной системы. Логистическая компания лишь обеспечивает физическую доставку. Однако, если при приемке на сортировочном центре СДЭК код не считывается, оператор может приостановить отправку и запросить clarification у отправителя.</p>
+
+<p>Для бизнеса важна сверка кодов при приемке. Курьер, принимающий груз, может выборочно проверить соответствие кодов на товаре и в накладной. <em>Автоматизированные линии</em> сортировки делают это сплошным методом, прогоняя каждую коробку через сканер. Это минимизирует риск человеческой ошибки и потери товара.</p>
+
+<blockquote>
+<p>⚠️ Внимание: Никогда не соглашайтесь получать маркированный товар, если код на упаковке поврежден, заклеен или отсутствует, даже если курьер СДЭК настаивает на подписании документов.</p>
+</blockquote>
+
+<h2 id="правила-упаковки-и-приемки-маркированных-товаров">Правила упаковки и приемки маркированных товаров</h2>
+
+<p>Соблюдение правил упаковки маркированных товаров — залог их быстрой и безопасной доставки. <strong>Код маркировки</strong> должен быть доступен для сканирования без необходимости вскрытия потребительской упаковки, если это возможно, или четко читаться на ярлыке. При передаче груза в СДЭК убедитесь, что коды не закрыты слоем упаковочной ленты, пузырчатой пленки или других материалов, искажающих изображение.</p>
+
+<p>При приемке груза курьером или в пункте выдачи СДЭК происходит первичный контроль. Если вы сдаете партию товаров, подготовьте список кодов заранее. Для крупных партий рекомендуется использовать групповую упаковку (короба), на которые также наносится агрегационный код, связывающий все единицы внутри. Это значительно ускоряет процесс приемки и снижает время ожидания.</p>
+
+<p>В случае, если товар поврежден в пути и код маркировки стал нечитаемым, СДЭК составляет акт. Этот документ необходим для страховых случаев и возврата средств. <em>Фотофиксация</em> повреждения кода маркировки является обязательным этапом при оформлении претензии. Без этого доказать, что товар был поврежден именно при транспортировке, а не до нее, будет крайне сложно.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Используйте прозрачные наклейки поверх кода маркировки при упаковке, чтобы защитить его от влаги и механических повреждений, сохранив возможность сканирования.</p></div>
+
+<p>Помните, что ответственность за правильную маркировку лежит на производителе или импортере. СДЭК выполняет функцию перевозчика. Однако, грамотная упаковка со стороны клиента помогает избежать задержек на сортировке. <strong>Логистическая цепочка</strong> становится эффективнее, когда все участники соблюдают технические стандарты работы с данными.</p>
+
+<h2 id="частые-проблемы-и-их-решения">Частые проблемы и их решения</h2>
+
+<p>При работе с маркированными товарами пользователи могут столкнуться с рядом типичных проблем. Одна из самых распространенных — расхождение количества кодов в накладной и фактически вложенных товаров. В этом случае система СДЭК может заблокировать отправку до выяснения обстоятельств. Решение одно: пересчитать товар и обновить данные в накладной через личный кабинет.</p>
+
+<p>Другая проблема — технические сбои при сканировании на стороне оператора. Если вы видите, что статус груза не обновляется долгое время, возможно, код маркировки не прошел автоматическую обработку и ждет ручной проверки. В такой ситуации не стоит паниковать, процесс может занять до 24 часов. <strong>Автоматизация</strong> процессов не исключает человеческого фактора полностью.</p>
+
+<p>Также встречаются случаи, когда покупатель получает товар с кодом, который уже был ранее активирован (помечен как проданный). Это может указывать на возврат товара в оборот или на мошеннические действия. СДЭК не может отследить историю кода до момента приемки, поэтому такие вопросы решаются через поддержку «Честного ЗНАК» и продавца.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Своевременное обновление информации о кодах маркировки в накладной СДЭК предотвращает 90% проблем с задержкой груза на сортировке.</p></div>
+
+<p>Для решения сложных ситуаций всегда сохраняйте чеки, скриншоты статусов и фото упаковки. <em>Техническая поддержка</em> СДЭК сможет помочь быстрее, если вы предоставите номер накладной и конкретное описание проблемы с кодами. Взаимодействие всех сторон позволяет поддерживать высокий стандарт качества.</p>
+
+<details>
+<summary>Можно ли отправить товар без кода маркировки, если он подлежит обязательной маркировке?</summary>
+<p>Нет, отправлять товары, подлежащие обязательной маркировке, без указания кодов в накладной запрещено законодательством РФ. СДЭК вправе отказать в приеме такого груза. Отсутствие кодов может привести к конфискации товара и штрафам для отправителя.</p>
+</details>
+
+<details>
+<summary>Что делать, если код маркировки в приложении СДЭК не совпадает с кодом на товаре?</summary>
+<p>Необходимо сразу зафиксировать несоответствие. Сделайте фото товара, кода на нем и накладной. Откажите в подписании акта приема-передачи (или подпишите с замечаниями) и обратитесь в поддержку СДЭК и к отправителю. Это может быть признаком подмены товара или ошибки при упаковке.</p>
+</details>
+
+<details>
+<summary>Где генерировать коды маркировки для отправки через СДЭК?</summary>
+<p>Коды маркировки генерируются исключительно в государственной системе «Честный ЗНАК» (crpt.ru). СДЭК не выдает коды, а только использует предоставленные вами данные для оформления транспортной накладной и прохождения контроля.</p>
+</details>
+
+<details>
+<summary>Влияет ли код маркировки на стоимость доставки в СДЭК?</summary>
+<p>Сам по себе код маркировки не влияет на тариф. Однако, если для проверки кодов требуется дополнительная обработка, ручная сортировка или специальная упаковка для сохранения читаемости кода, это может повлиять на итоговую стоимость услуги или весогабаритные характеристики.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#разница-между-трек-номером-и-кодом-маркировки">Разница между трек-номером и кодом маркировки</a></li><li><a href="#система-честный-знак-и-логистика-сдэк">Система «Честный ЗНАК» и логистика СДЭК</a></li><li><a href="#где-найти-код-маркировки-в-личном-кабинете-и-приложении">Где найти код маркировки в личном кабинете и приложении</a></li><li><a href="#как-проверить-подлинность-и-статус-груза">Как проверить подлинность и статус груза</a></li><li><a href="#правила-упаковки-и-приемки-маркированных-товаров">Правила упаковки и приемки маркированных товаров</a></li><li><a href="#частые-проблемы-и-их-решения">Частые проблемы и их решения</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/s/sk/skolko-idet-posylka-sdek-po-spb.html" class="related-card">Сколько идет посылка СДЭК по Санкт-Петербургу в 2026 году</a></li><li><a href="/articles/s/sd/sdek-chto-takoe-na-dostavke-u-kurera.html" class="related-card">Статус СДЭК «На доставке у курьера»: что значит и как быть</a></li><li><a href="/articles/k/ka/kak-posmotret-posylku-v-sdek-po-familii-poluchatelya.html" class="related-card">Как отследить посылку СДЭК по фамилии получателя: актуальные способы</a></li><li><a href="/articles/s/sd/sdek-kak-najti-posylku-po-familii-poluchatelya.html" class="related-card">Как найти посылку СДЭК по фамилии получателя — 3 рабочих способа</a></li><li><a href="/articles/s/sd/sdek-cherez-skolko-mozhno-otsledit-zakaz.html" class="related-card">Через сколько можно отследить заказ СДЭК: время и нюансы</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/s/sk/skolko-idet-posylka-sdek-po-spb.html" class="related-bottom-card"><span class="related-bottom-title">Сколько идет посылка СДЭК по Санкт-Петербургу в 2026 году</span><span class="related-bottom-desc">Точные сроки доставки СДЭК в СПб: от 1 дня до недели. Как ускорить, отследить и избежать задержек — </span></a><a href="/articles/s/sd/sdek-chto-takoe-na-dostavke-u-kurera.html" class="related-bottom-card"><span class="related-bottom-title">Статус СДЭК «На доставке у курьера»: что значит и как быть</span><span class="related-bottom-desc">Подробно объясняем, что означает статус «На доставке у курьера» в СДЭК. Узнайте, как связаться с кур</span></a><a href="/articles/k/ka/kak-posmotret-posylku-v-sdek-po-familii-poluchatelya.html" class="related-bottom-card"><span class="related-bottom-title">Как отследить посылку СДЭК по фамилии получателя: актуальные способы</span><span class="related-bottom-desc">Узнайте, как найти посылку СДЭК по фамилии получателя без трек-номера. Рабочие методы поиска через п</span></a><a href="/articles/s/sd/sdek-kak-najti-posylku-po-familii-poluchatelya.html" class="related-bottom-card"><span class="related-bottom-title">Как найти посылку СДЭК по фамилии получателя — 3 рабочих способа</span><span class="related-bottom-desc">Пошаговая инструкция, как отследить посылку СДЭК, если известна только фамилия получателя. Официальн</span></a><a href="/articles/s/sd/sdek-cherez-skolko-mozhno-otsledit-zakaz.html" class="related-bottom-card"><span class="related-bottom-title">Через сколько можно отследить заказ СДЭК: время и нюансы</span><span class="related-bottom-desc">Узнайте, через сколько времени трек-код СДЭК становится активным. Разбор причин задержек, статусов и</span></a><a href="/articles/k/ka/kak-prosledit-trek-posylki-po-nomeru-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как отследить посылку СДЭК по трек-номеру: полная инструкция</span><span class="related-bottom-desc">Подробный гид по отслеживанию грузов СДЭК. Узнайте, как найти посылку по номеру накладной, телефону </span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

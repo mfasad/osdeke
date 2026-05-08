@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>Как приходят СМС от СДЭК: коды, уведомления и форматы — СДЭК Гид</title>
+    <meta name="description" content="Подробный разбор СМС-сообщений от СДЭК. Узнайте, как выглядят коды для получения, уведомления о статусе и почему не приходят сообщения.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/k/ka/kak-prikhodyat-sms-ot-sdek.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Как приходят СМС от СДЭК: коды, уведомления и форматы">
+    <meta property="og:description" content="Подробный разбор СМС-сообщений от СДЭК. Узнайте, как выглядят коды для получения, уведомления о статусе и почему не приходят сообщения.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/poluchenie/">Получение</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Как приходят СМС от СДЭК: коды, уведомления и форматы</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Как приходят СМС от СДЭК: форматы, коды и статусы</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#основные-типы-уведомлений-от-службы-доставки">Основные типы уведомлений от службы доставки</a></li><li><a href="#структура-и-содержание-смс-с-кодом-получения">Структура и содержание СМС с кодом получения</a></li><li><a href="#уведомления-о-статусе-и-движении-груза">Уведомления о статусе и движении груза</a></li><li><a href="#технические-аспекты-и-форматирование-сообщений">Технические аспекты и форматирование сообщений</a></li><li><a href="#проблемы-с-доставкой-смс-и-их-решение">Проблемы с доставкой СМС и их решение</a></li><li><a href="#безопасность-и-защита-от-фишинга">Безопасность и защита от фишинга</a></li><li><a href="#альтернативные-способы-получения-кодов">Альтернативные способы получения кодов</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>В эпоху стремительного развития логистики цифровые коммуникации становятся главным мостом между отправителем и получателем груза. Когда вы ожидаете важную посылку, именно <strong>СМС-уведомление</strong> часто служит первым сигналом о том, что заказ прибыл в пункт выдачи или уже передан курьеру. Понимание того, как именно приходят эти сообщения, позволяет отличить официальную информацию от мошеннических попыток и вовремя среагировать на изменения в маршруте следования.</p>
+
+<p>Пользователи часто сталкиваются с разными форматами текстовых сообщений, которые могут сбивать с толку своей краткостью или, наоборот, избыточностью деталей. <em>СДЭК</em> использует несколько типов оповещений, зависящих от текущего статуса груза и выбранного способа доставки. В одних случаях это просто сухой код из четырех цифр, в других — развернутое описание местоположения терминала.</p>
+
+<p>Разберем детально структуру, содержание и технические особенности входящих сообщений от логистического оператора. Это знание поможет вам быстрее ориентироваться в процессе получения товаров и избегать распространенных ошибок при вводе данных в терминалах самообслуживания.</p>
+
+<h2 id="основные-типы-уведомлений-от-службы-доставки">Основные типы уведомлений от службы доставки</h2>
+
+<p>Первое, с чем сталкивается клиент, — это классификация входящих сообщений по их функциональному назначению. Система автоматически генерирует алерты на ключевых этапах движения посылки. Чаще всего пользователи получают уведомления о <strong>прибытии груза</strong> в город назначения или о том, что заказ готов к выдаче в пункте.</p>
+
+<p>Важно различать информационные сообщения и те, что требуют немедленных действий. Например, если курьер не может дозвониться, вам может прийти СМС с просьбой подтвердить адрес или время повторной доставки. Игнорирование таких запросов может привести к возврату товара отправителю.</p>
+
+<p>Отдельную категорию составляют сообщения о финансовых операциях. Если при доставке возникла необходимость доплаты за вес, габариты или страховку, вы получите соответствующее уведомление с суммой и инструкцией по оплате. <em>Технология СДЭК</em> позволяет проводить эти операции удаленно, не требуя наличных денег.</p>
+
+<div class="poll-widget" id="poll-93f1bd00"><div class="poll-widget-question">📊 Как вы предпочитаете получать уведомления от СДЭК?</div><div class="poll-widget-option" data-poll="93f1bd00" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">СМС на телефон</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="93f1bd00" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Push-уведомления в приложении</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="93f1bd00" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Сообщения в мессенджерах</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="93f1bd00" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Только по электронной почте</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="структура-и-содержание-смс-с-кодом-получения">Структура и содержание СМС с кодом получения</h2>
+
+<p>Самое важное сообщение для получателя — это СМС с кодом выдачи. Именно этот набор символов необходим для идентификации личности в пункте выдачи заказов (ПВЗ) или при встрече с курьером. Стандартный формат сообщения содержит <strong>уникальный код</strong>, который обычно состоит из 4-х цифр, хотя в некоторых случаях система может генерировать более сложные комбинации.</p>
+
+<p>Текст сообщения, как правило, лаконичен и содержит номер вашего заказа для сверки. Это сделано для того, чтобы вы могли быстро сопоставить пришедший код с конкретной покупкой, если ожидаете несколько посылок одновременно. В некоторых регионах или при интеграции с маркетплейсами формат может быть дополнен буквенными символами.</p>
+
+<details class="faq-item"><summary>Почему код может быть разным?</summary><div class="faq-answer"><p>В стандартных ситуациях используется 4-значный цифровой код. Однако, если доставка осуществляется через постаматы или специализированные терминалы партнеров, система может сгенерировать QR-код или длинный алфавитно-цифровой пароль для повышения безопасности.</p></div></details>
+
+<p>Обратите внимание на отправителя сообщения. Официальные рассылки приходят с короткого номера или имени <code>CDEK</code>, <code>SDEK</code> или <code>СДЭК</code>. Если сообщение пришло с обычного мобильного номера, это повод для осторожности и перепроверки информации через личный кабинет.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Сохраняйте СМС с кодом до момента получения груза. Даже после выдачи код может понадобиться для подтверждения операции в спорных ситуациях или для оформления возврата, если товар не устроит вас по качеству.</p></div>
+
+<h2 id="уведомления-о-статусе-и-движении-груза">Уведомления о статусе и движении груза</h2>
+
+<p>Помимо финального кода, система отслеживания активно информирует клиента о промежуточных этапах. Вы можете получать СМС о том, что груз <strong>принят курьером</strong>, прибыл в сортировочный центр или отправлен в другой город. Такие сообщения помогают контролировать сроки и планировать свое время.</p>
+
+<p>Особое внимание стоит уделять сообщениям о задержках. Если возникают форс-мажорные обстоятельства, логистический оператор обязан уведомить об этом получателя. В тексте будет указана новая предполагаемая дата доставки или причина изменения маршрута.</p>
+
+<p>Для бизнес-клиентов и пользователей с подключенной опцией расширенного информирования доступны более детальные отчеты. Они могут содержать информацию о точном времени доставки «до часа» или данные о водителе, который везет груз. Это повышает прозрачность процесса и снижает тревожность клиентов.</p>
+
+<p>В таблице ниже приведены примеры типичных статусов и их смысловое значение:</p>
+
+<table>
+<thead>
+<tr>
+<th>Статус в СМС</th>
+<th>Значение</th>
+<th>Действия клиента</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Груз принят</td>
+<td>Отправитель передал посылку в офис</td>
+<td>Ожидать движения</td>
+</tr>
+<tr>
+<td>В пути</td>
+<td>Груз в транспорте между городами</td>
+<td>Контролировать трекинг</td>
+</tr>
+<tr>
+<td>Прибыло в ПВЗ</td>
+<td>Заказ готов к выдаче</td>
+<td>Получить код и забрать</td>
+</tr>
+<tr>
+<td>Вручено</td>
+<td>Посылка получена адресатом</td>
+<td>Проверить содержимое</td>
+</tr>
+</tbody>
+</table>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Статус «В пути» может обновляться не мгновенно. Иногда СМС приходит с задержкой в несколько часов из-за синхронизации баз данных между региональными центрами.</p></div>
+
+<h2 id="технические-аспекты-и-форматирование-сообщений">Технические аспекты и форматирование сообщений</h2>
+
+<p>С технической точки зрения, СМС от СДЭК представляют собой текстовые сообщения в кодировке GSM 03.38 или Unicode, если используются кириллические символы. Длина одного сообщения ограничена 160 символами для латиницы и 70 символами для кириллицы. Если текст длиннее, он разбивается на несколько частей, что может повлиять на скорость доставки и стоимость для отправителя.</p>
+
+<p>Именно поэтому сообщения от службы доставки часто выглядят сжато и используют сокращения. Адреса пунктов могут быть указаны не полностью, а только название улицы и номер дома. Для получения полной информации система всегда предлагает перейти по ссылке или обратиться в приложение.</p>
+
+<p>Важным элементом является <strong>время жизни</strong> кода в СМС. Для стандартных посылок код действует в течение срока хранения груза (обычно 7 дней). После истечения этого периода код становится невалидным, и для получения потребуется повторная идентификация через паспорт или новые данные.</p>
+
+<blockquote>
+<p>⚠️ Внимание: СМС с кодом получения является конфиденциальной информацией. Никогда не сообщайте этот код посторонним лицам, даже если звонящий представляется сотрудником службы поддержки. Настоящие сотрудники СДЭК уже имеют доступ к базе данных и не нуждаются в коде от клиента.</p>
+</blockquote>
+
+<h2 id="проблемы-с-доставкой-смс-и-их-решение">Проблемы с доставкой СМС и их решение</h2>
+
+<p>Нередко пользователи сталкиваются с ситуацией, когда статус в трекинге обновился, а СМС не пришло. Это может быть связано с техническими сбоями на стороне мобильного оператора, переполнением памяти телефона или блокировкой коротких номеров настройками смартфона.</p>
+
+<p>В первую очередь необходимо проверить папку «Спам» или «Заблокированные». Современные смартфоны агрессивно фильтруют входящие сообщения, и автоматические рассылки от логистических компаний часто попадают туда ошибочно. Также стоит убедиться, что в личном кабинете указан корректный номер телефона.</p>
+
+<p>Если номер изменен или утерян, получить доступ к коду можно через альтернативные каналы связи. <em>Мобильное приложение СДЭК</em> дублирует все СМС-уведомления в виде Push-сообщений, которые приходят через интернет и не зависят от сотовой сети. Это надежный резервный канал коммуникации.</p>
+
+<div class="checklist-block"><h4>☑️ Что делать, если нет СМС с кодом?</h4><label class="check-item"><input type="checkbox"><span>Проверить папку Спам</span></label><label class="check-item"><input type="checkbox"><span>Проверить баланс сим-карты</span></label><label class="check-item"><input type="checkbox"><span>Зайти в личный кабинет СДЭК</span></label><label class="check-item"><input type="checkbox"><span>Позвонить в контактный центр</span></label><label class="check-item"><input type="checkbox"><span>Обратиться в пункт выдачи с паспортом</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 5</div></div>
+
+<h2 id="безопасность-и-защита-от-фишинга">Безопасность и защита от фишинга</h2>
+
+<p>Мошенники часто используют бренд известных логистических компаний для рассылки поддельных сообщений. Цель таких атак — заставить пользователя перейти по ссылке и ввести данные банковской карты якобы для оплаты небольшой комиссии за доставку. Официальные СМС от СДЭК <strong>никогда не содержат прямых ссылок</strong> на платежные шлюзы в текстовом виде без предварительного заказа услуги.</p>
+
+<p>Внимательно изучайте текст сообщения. Поддельные СМС часто содержат грамматические ошибки, используют неофициальные сокращения или приходят с подозрительных длинных номеров, не похожих на сервисные. Официальный отправитель всегда идентифицируется именем компании.</p>
+
+<p>Если вы получили странное сообщение с требованием срочно оплатить штраф или пошлину, не спешите переходить по ссылкам. Лучший способ проверки — открыть официальное приложение или сайт компании и ввести трек-номер вручную. Система сама покажет реальное состояние дел и наличие задолженностей.</p>
+
+<blockquote>
+<p>⚠️ Внимание: СДЭК не запрашивает полные данные банковских карт (CVV-код, пин-код) через СМС или в ответ на СМС. Любые финансовые операции проводятся только через защищенные страницы официального сайта или терминалы.</p>
+</blockquote>
+
+<details class="faq-item"><summary>Как проверить подлинность номера?</summary><div class="faq-answer"><p>Официальные короткие номера СДЭК могут меняться в зависимости от региона и оператора связи. Однако имя отправителя (Alphanumeric Sender ID) остается неизменым. Если СМС пришло с обычного мобильного номера (+7...), это гарантированно не официальный канал связи компании.</p></div></details>
+
+<h2 id="альтернативные-способы-получения-кодов">Альтернативные способы получения кодов</h2>
+
+<p>Современная логистика предлагает гибкость в коммуникации. Если СМС не являются для вас удобным форматом, вы можете настроить получение кодов через мессенджеры. СДЭК активно интегрирован с популярными платформами, позволяя получать уведомления в привычном интерфейсе чата.</p>
+
+<p>Также доступен вариант получения кода непосредственно в момент обращения в пункт выдачи. При предъявлении паспорта оператор может продиктовать код или выдать чек с напечатанным шифром. Однако этот способ менее оперативен и требует личного присутствия, тогда как СМС позволяет спланировать визит заранее.</p>
+
+<p>Для корпоративных клиентов существует возможность интеграции через API, когда уведомления о доставке приходят сразу в CRM-систему компании. Это позволяет менеджерам по работе с клиентами информировать конечных получателей, используя собственные каналы связи, что повышает уровень сервиса.</p>
+
+<details>
+<summary>Что делать, если код в СМС не подходит в терминале?</summary>
+<p>Если вы ввели код из СМС, но терминал его не принимает, не паникуйте. Сначала проверьте, тот ли это заказ (сравните последние цифры трека). Если все верно, возможно, терминал временно не синхронизирован с сервером. Обратитесь к сотруднику пункта — он может пробить заказ по номеру телефона или паспорту и выдать посылку вручную.</p>
+</details>
+
+<details>
+<summary>Можно ли получить посылку без СМС?</summary>
+<p>Да, основным документом для получения является паспорт. Код из СМС — это дополнительный инструмент ускорения процесса. Если у вас нет телефона под рукой или СМС не пришло, просто подойдите к стойке выдачи с документом, удостоверяющим личность. Сотрудник найдет заказ по базе данных.</p>
+</details>
+
+<details>
+<summary>Сколько времени хранится код в СМС?</summary>
+<p>Технически СМС хранится на вашем телефоне до тех пор, пока вы сами его не удалите или не переполнится память сим-карты. Однако актуальность самого кода ограничена сроком хранения груза в пункте выдачи (обычно 7 дней). После этого заказ уезжает на склад, и код становится недействительным.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#основные-типы-уведомлений-от-службы-доставки">Основные типы уведомлений от службы доставки</a></li><li><a href="#структура-и-содержание-смс-с-кодом-получения">Структура и содержание СМС с кодом получения</a></li><li><a href="#уведомления-о-статусе-и-движении-груза">Уведомления о статусе и движении груза</a></li><li><a href="#технические-аспекты-и-форматирование-сообщений">Технические аспекты и форматирование сообщений</a></li><li><a href="#проблемы-с-доставкой-смс-и-их-решение">Проблемы с доставкой СМС и их решение</a></li><li><a href="#безопасность-и-защита-от-фишинга">Безопасность и защита от фишинга</a></li><li><a href="#альтернативные-способы-получения-кодов">Альтернативные способы получения кодов</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/c/ch/chto-delat-esli-kurer-sdek-ne-smog-dostavit-zakaz.html" class="related-card">Курьер СДЭК не доставил заказ: алгоритм действий, причины и сроки</a></li><li><a href="/articles/k/ka/kak-poluchatel-uznaet-o-posylke-sdek.html" class="related-card">Как получатель узнает о посылке СДЭК: все способы</a></li><li><a href="/articles/k/ka/kak-na-sdeke-poluchit-posylku-bez-pasporta.html" class="related-card">Как получить посылку в СДЭК без паспорта: 5 легальных способов 2026</a></li><li><a href="/articles/k/ku/kupit-hm-cherez-sdek-kak.html" class="related-card">Как купить H&amp;M через СДЭК: инструкция 2026 с пошаговым гидом</a></li><li><a href="/articles/s/sk/skolko-khranyatsya-veshchi-v-sdek.html" class="related-card">Сколько хранятся вещи в СДЭК: сроки, тарифы и правила 2026</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/c/ch/chto-delat-esli-kurer-sdek-ne-smog-dostavit-zakaz.html" class="related-bottom-card"><span class="related-bottom-title">Курьер СДЭК не доставил заказ: алгоритм действий, причины и сроки</span><span class="related-bottom-desc">Что делать, если курьер СДЭК не привез посылку? Разбираем причины задержек, правила повторной достав</span></a><a href="/articles/k/ka/kak-poluchatel-uznaet-o-posylke-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как получатель узнает о посылке СДЭК: все способы</span><span class="related-bottom-desc">Узнайте, как уведомляют о прибытии посылки СДЭК. SMS, email, звонок, статусы в трекинге. Что делать,</span></a><a href="/articles/k/ka/kak-na-sdeke-poluchit-posylku-bez-pasporta.html" class="related-bottom-card"><span class="related-bottom-title">Как получить посылку в СДЭК без паспорта: 5 легальных способов 2026</span><span class="related-bottom-desc">Разбираем все варианты получения посылки в СДЭК без паспорта: доверенность, цифровые копии, альтерна</span></a><a href="/articles/k/ku/kupit-hm-cherez-sdek-kak.html" class="related-bottom-card"><span class="related-bottom-title">Как купить H&amp;M через СДЭК: инструкция 2026 с пошаговым гидом</span><span class="related-bottom-desc">Узнайте, как заказать одежду H&amp;M с доставкой через СДЭК: от выбора товара до получения посылки. Поша</span></a><a href="/articles/s/sk/skolko-khranyatsya-veshchi-v-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Сколько хранятся вещи в СДЭК: сроки, тарифы и правила 2026</span><span class="related-bottom-desc">Полный разбор сроков хранения посылок в СДЭК. Узнайте, сколько дней бесплатно лежит груз, как продли</span></a><a href="/articles/k/ka/kak-zabrat-posylku-sdek-aliekspress.html" class="related-bottom-card"><span class="related-bottom-title">Как забрать посылку СДЭК Алиэкспресс: полная инструкция</span><span class="related-bottom-desc">Подробная инструкция: как забрать посылку СДЭК с Алиэкспресс. Коды, сроки, документы и действия при </span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>Как СДЭК работает с Ozon: интеграция, тарифы и нюансы доставки — СДЭК Гид</title>
+    <meta name="description" content="Разбираем схемы взаимодействия СДЭК и Ozon для продавцов: как оформить отправку, тарифы 2026, сроки и типичные ошибки. Пошаговые инструкции + FAQ.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/k/ka/kak-sdek-rabotaet-s-ozonom.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Как СДЭК работает с Ozon: интеграция, тарифы и нюансы доставки">
+    <meta property="og:description" content="Разбираем схемы взаимодействия СДЭК и Ozon для продавцов: как оформить отправку, тарифы 2026, сроки и типичные ошибки. Пошаговые инструкции + FAQ.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/otpravka-gruzov/">Отправка грузов</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Как СДЭК работает с Ozon: интеграция, тарифы и нюансы доставки</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>СДЭК и Ozon: как работает интеграция для продавцов в 2026 году</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#как-сдэк-интегрируется-с-ozon-основные-схемы-работы">Как СДЭК интегрируется с Ozon: основные схемы работы</a></li><li><a href="#пошаговая-инструкция-как-оформить-отправку-через-сдэк-для-заказа-ozon">Пошаговая инструкция: как оформить отправку через СДЭК для заказа Ozon</a></li><li><a href="#тарифы-сдэк-для-заказов-ozon-в-2024-году">Тарифы СДЭК для заказов Ozon в 2024 году</a></li><li><a href="#типичные-ошибки-при-работе-с-сдэк-и-ozon-и-как-их-избежать">Типичные ошибки при работе с СДЭК и Ozon и как их избежать</a></li><li><a href="#как-автоматизировать-работу-с-сдэк-и-ozon-через-api">Как автоматизировать работу с СДЭК и Ozon через API</a></li><li><a href="#что-делать-если-сдэк-задерживает-или-теряет-посылку-ozon">Что делать, если СДЭК задерживает или теряет посылку Ozon</a></li><li><a href="#сравнение-сдэк-с-другими-транспортными-компаниями-для-ozon">Сравнение СДЭК с другими транспортными компаниями для Ozon</a></li><li><a href="#faq-частые-вопросы-о-работе-сдэк-с-ozon">FAQ: Частые вопросы о работе СДЭК с Ozon</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>Сотрудничество <strong>СДЭК</strong> и <em>Ozon</em> — один из ключевых элементов логистики для тысяч продавцов на маркетплейсе. Без грамотной интеграции этих систем риски задержек, штрафов и недовольных клиентов вырастают в разы. Но как именно работает эта связка? Какие тарифы действуют в 2026 году, и как избежать типичных ошибок при оформлении заказов?</p>
+
+<p>Многие продавцы ошибочно думают, что достаточно просто передать посылку в <strong>СДЭК</strong> — и маркетплейс автоматически «увидит» её статус. На практике же процесс требует синхронизации трек-номеров, корректного заполнения документов и учёта нюансов тарификации. В этой статье разберём <strong>все этапы работы</strong> — от создания заказа в личном кабинете <em>Ozon</em> до момента передачи покупателю, включая актуальные тарифы, сроки и «подводные камни».</p>
+
+<p>Особое внимание уделим двум ключевым сценариям: когда продавец сам организует доставку через <strong>СДЭК</strong> (модель <em>FBO</em>) и когда логистикой занимается <em>Ozon</em> (модель <em>FBS</em>). Разница между ними принципиальна — от этого зависят не только расходы, но и ответственность за возможные сбои.
+
+<p><div class="poll-widget" id="poll-61a587e7"><div class="poll-widget-question">📊 Как вы обычно отправляете заказы Ozon?</div><div class="poll-widget-option" data-poll="61a587e7" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Через СДЭК по модели FBO</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="61a587e7" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Через логистику Ozon (FBS)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="61a587e7" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Самостоятельно (другие службы)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="61a587e7" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Ещё не работал с Ozon</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<p>Если вы только начинаете работать с <em>Ozon</em> или планируете сменить логистического партнёра, эта статья поможет избежать ошибок, которые стоят продавцам тысяч рублей ежемесячно. От правильности оформления зависит не только скорость доставки, но и рейтинг вашего магазина на маркетплейсе.
+
+<h2 id="как-сдэк-интегрируется-с-ozon-основные-схемы-работы">Как СДЭК интегрируется с Ozon: основные схемы работы</h2>
+
+<p>Интеграция <strong>СДЭК</strong> и <em>Ozon</em> строится на двух основных моделях: <em>FBO</em> (Fulfillment by Ozon) и <em>FBS</em> (Fulfillment by Seller). Разберём каждую подробно.
+
+<p>В модели <strong><em>FBO</strong></em> логистикой занимается сам <em>Ozon</em>: вы отправляете товар на склад маркетплейса, а дальше он берёт на себя хранение, упаковку и доставку покупателям. Здесь <strong>СДЭК</strong> может использоваться для <strong>перевозки товара со вашего склада на склад <em>Ozon</strong></strong> — это называется «входящая логистика». Тарифы в этом случае фиксированные и зависят от габаритов и веса груза.
+
+<p>В модели <strong><em>FBS</strong></strong> вы полностью контролируете логистику: самостоятельно упаковываете, маркируете и отправляете заказы через <strong>СДЭК</strong> (или другую транспортную компанию). Здесь интеграция происходит через <strong>API или ручной ввод трек-номеров</em> в личном кабинете <em>Ozon</em>. Главное отличие — ответственность за сроки и качество доставки лежит на продавце.
+
+<ul>
+ <li>📦 <strong>FBO (Ozon логистика)</strong>: СДЭК доставляет товар на склад Ozon, дальше маркетплейс управляет заказами. Подходит для крупных продавцов с большим ассортиментом.</li>
+ <li>🚚 <strong>FBS (самостоятельная логистика)</strong>: Вы отправляете каждый заказ напрямую покупателю через СДЭК, синхронизируя данные с Ozon. Оптимально для небольших магазинов или уникальных товаров.</li>
+ <li>⚡ <strong>Гибридная модель</strong>: Часть товаров хранится на складе Ozon (FBO), а часть отправляется самостоятельно (FBS). Требует сложной настройки интеграции.</li>
+</ul>
+
+<p>Важно: при работе по модели <em>FBS</em> <em>Ozon</em> предъявляет жёсткие требования к срокам доставки (обычно <strong>до 4 дней</strong> для большинства регионов). Если <strong>СДЭК</strong> не укладывается в эти сроки, маркетплейс может наложить штрафы или понизить рейтинг магазина.
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Если вы работаете по модели FBS, настройте в личном кабинете Ozon автоматическую отправку уведомлений о статусе заказа. Это снизит количество обращений в поддержку от покупателей.</p></div>
+
+<h2 id="пошаговая-инструкция-как-оформить-отправку-через-сдэк-для-заказа-ozon">Пошаговая инструкция: как оформить отправку через СДЭК для заказа Ozon</h2>
+
+<p>Рассмотрим процесс на примере модели <em>FBS</em>, где продавец самостоятельно организует доставку через <strong>СДЭК</strong>. Алгоритм действий следующий:
+
+<p><strong>Шаг 1. Получение заказа в личном кабинете Ozon</strong>
+<p>После того как покупатель оформил заказ, он появится в разделе <strong>«Заказы»</strong> вашего личного кабинета. Убедитесь, что статус заказа — <strong>«Ожидает отправки»</strong>. Здесь же вы увидите <strong>адрес покупателя</strong> и <strong>требования к упаковке</strong> (если они есть).
+
+<p><strong>Шаг 2. Создание отправления в СДЭК</strong>
+<p>Перейдите на сайт <strong>СДЭК</strong> или в мобильное приложение и создайте новое отправление. Введите данные получателя (они должны <strong>точно совпадать</strong> с данными в заказе <em>Ozon</em>). Обратите внимание на поля:
+<ul>
+ <li>📌 <strong>ФИО получателя</strong> — без ошибок, как в заказе.</li>
+ <li>📍 <strong>Адрес доставки</strong> — проверьте индекс и название улицы (частая ошибка: «ул.» вместо «улица»).</li>
+ <li>📦 <strong>Вес и габариты</strong> — указывайте реальные значения, иначе тариф может быть пересчитан.</li>
+</ul>
+
+<p><strong>Шаг 3. Оплата и печать этикетки</strong>
+<p>Оплатите доставку (если не подключен безналичный расчёт) и распечатайте <strong>транспортную этикетку</strong>. На ней должен быть указан <strong>трек-номер</strong> — его нужно будет передать в <em>Ozon</em>.
+
+<p><strong>Шаг 4. Синхронизация трек-номера с Ozon</strong>
+<p>Вернитесь в личный кабинет <em>Ozon</em>, найдите заказ и введите трек-номер в поле <strong>«Номер отправления»</strong>. После этого статус заказа изменится на <strong>«Отправлен»</strong>. Если интеграция настроена через API, трек-номер может передаваться автоматически.
+
+<p><strong>Шаг 5. Передача посылки в СДЭК</strong>
+<p>Упакуйте товар согласно требованиям (например, для хрупких товаров нужна дополнительная защита) и передайте его в ближайший пункт <strong>СДЭК</strong>. Сохраните квитанцию — она может понадобиться для разрешения споров.
+
+<div class="checklist-block"><h4>☑️ Чек-лист перед отправкой заказа Ozon через СДЭК</h4><label class="check-item"><input type="checkbox"><span>Проверить ФИО и адрес получателя</span></label><label class="check-item"><input type="checkbox"><span>Указать точный вес и габариты</span></label><label class="check-item"><input type="checkbox"><span>Оплатить доставку (если нет безналичного расчёта)</span></label><label class="check-item"><input type="checkbox"><span>Распечатать и наклеить этикетку</span></label><label class="check-item"><input type="checkbox"><span>Ввести трек-номер в личный кабинет Ozon</span></label><label class="check-item"><input type="checkbox"><span>Передать посылку в СДЭК до cutoff-time</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 6</div></div>
+
+<p>⚠️ <blockquote><strong>Внимание:</strong> Если вы указали в <em>Ozon</em> срок доставки <strong>3 дня</strong>, а <strong>СДЭК</strong> гарантирует доставку за <strong>5 дней</strong>, маркетплейс может наложить штраф за нарушение SLA (Service Level Agreement). Всегда сверяйте сроки!</blockquote>
+
+<h2 id="тарифы-сдэк-для-заказов-ozon-в-2026-году">Тарифы СДЭК для заказов Ozon в 2026 году</h2>
+
+<p>Стоимость доставки через <strong>СДЭК</strong> для заказов <em>Ozon</em> зависит от нескольких факторов:
+<ul>
+ <li>📏 <strong>Вес и габариты</strong> посылки (используется формула <code>объёмный вес = (длина × ширина × высота) / 5000</code>).</li>
+ <li>🚗 <strong>Тип доставки</strong>: курьерская («до двери») или до пункта выдачи.</li>
+ <li>📍 <strong>Регион отправления и назначения</strong> (например, доставка из Москвы в Санкт-Петербург дешевле, чем в отдалённые регионы).</li>
+ <li>⚡ <strong>Срочность</strong>: стандартная или экспресс-доставка.</li>
+</ul>
+
+<p>Ниже приведена таблица с актуальными тарифами <strong>СДЭК</strong> для популярных направлений (на июнь 2026 года, для посылок весом до 5 кг):
+
+<table>
+ <thead>
+ <tr>
+ <th>Маршрут</th>
+ <th>Стоимость (до двери), ₽</th>
+ <th>Стоимость (до ПВЗ), ₽</th>
+ <th>Срок доставки, дни</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr>
+ <td>Москва → Санкт-Петербург</td>
+ <td>450</td>
+ <td>380</td>
+ <td>2–3</td>
+ </tr>
+ <tr>
+ <td>Москва → Екатеринбург</td>
+ <td>620</td>
+ <td>550</td>
+ <td>3–4</td>
+ </tr>
+ <tr>
+ <td>Санкт-Петербург → Новосибирск</td>
+ <td>890</td>
+ <td>800</td>
+ <td>5–6</td>
+ </tr>
+ <tr>
+ <td>Москва → Краснодар</td>
+ <td>580</td>
+ <td>500</td>
+ <td>3–4</td>
+ </tr>
+ <tr>
+ <td>Екатеринбург → Казань</td>
+ <td>470</td>
+ <td>420</td>
+ <td>2–3</td>
+ </tr>
+ </tbody>
+</table>
+
+<p>⚠️ <blockquote><strong>Внимание:</strong> <em>Ozon</em> может субсидировать часть стоимости доставки для продавцов, работающих по модели <em>FBS</em>. Уточняйте актуальные условия в личном кабинете или у менеджера маркетплейса. Например, в 2026 году действует программа <strong>«Логистика 0%»</strong>, по которой <em>Ozon</em> компенсирует до 50% расходов на доставку в определённые регионы.</blockquote>
+
+<p>Для точного расчёта используйте <a href="https://www.cdek.ru/ru/calculator" target="_blank">калькулятор СДЭК</a>, выбрав опцию <strong>«Доставка для маркетплейсов»</strong>. Указывайте <strong>реальные габариты</strong> — если они будут занижены, курьер может доначислить плату при приёмке посылки.
+
+<p><mark>В 2026 году СДЭК ввёл новую тарифную сетку для маркетплейсов, где стоимость доставки посылок весом до 1 кг в пределах одного федерального округа снижена на 15% при условии ежемесячного объёма отправлений от 100 штук.</mark>
+
+<h2 id="типичные-ошибки-при-работе-с-сдэк-и-ozon-и-как-их-избежать">Типичные ошибки при работе с СДЭК и Ozon и как их избежать</h2>
+
+<p>Даже опытные продавцы иногда сталкиваются с проблемами из-за некорректной интеграции <strong>СДЭК</strong> и <em>Ozon</em>. Вот самые распространённые ошибки и способы их предотвращения:
+
+<p><strong>1. Несовпадение данных получателя</strong>
+<p>Если в заказе <em>Ozon</em> указано <strong>«Иванов Иван Иванович»</strong>, а в накладной <strong>СДЭК</strong> вы написали <strong>«Иванов И.И.»</strong>, посылка может быть возвращена как невостребованная. Всегда копируйте ФИО <strong>без сокращений</strong>.
+
+<p><strong>2. Неправильный вес или габариты</strong>
+<p>Если вы указали вес 0.5 кг, а реальный вес — 1.2 кг, <strong>СДЭК</strong> доначислит плату при приёмке посылки. Используйте <strong>весы</strong> и измерьте габариты с учётом упаковки.
+
+<p><strong>3. Задержка с вводом трек-номера</strong>
+<p>Если вы передали посылку в <strong>СДЭК</strong>, но забыли ввести трек-номер в <em>Ozon</em>, заказ останется в статусе <strong>«Ожидает отправки»</strong> и может быть отменён покупателем. Автоматизируйте этот процесс через API или ставьте напоминания.
+
+<p><strong>4. Нарушение сроков доставки</strong>
+<p><em>Ozon</em> требует, чтобы заказы по модели <em>FBS</em> доставлялись в указанные сроки (обычно 2–4 дня). Если <strong>СДЭК</strong> задерживает посылку, продавец получает штраф. Отслеживайте статус отправления и при задержках оперативно информируйте поддержку <em>Ozon</em>.
+
+<p><strong>5. Отсутствие маркировки</strong>
+<p>Для некоторых категорий товаров (например, одежды или электроники) <em>Ozon</em> требует специальной маркировки. Если её нет, посылка может быть заблокирована на складе <strong>СДЭК</strong>.
+
+<details class="faq-item"><summary>Что делать, если СДЭК потерял посылку Ozon?</summary><div class="faq-answer"><p>Если посылка не доставлена в срок, проверьте статус на сайте СДЭК. Если статус «В обработке» дольше 5 дней, обратитесь в поддержку СДЭК с номером заказа. Параллельно создайте тикет в Ozon, приложив скриншот трек-номера и квитанцию об отправке. Маркетплейс может компенсировать убытки, если вина лежит на транспортной компании.</p></div></details>
+
+<p>⚠️ <blockquote><strong>Внимание:</strong> Если покупатель отказался от посылки, <strong>СДЭК</strong> вернёт её обратно, но <em>Ozon</em> может удержать комиссию за «неэффективную доставку». Чтобы избежать этого, проверяйте контактные данные покупателя перед отправкой.</blockquote>
+
+<h2 id="как-автоматизировать-работу-с-сдэк-и-ozon-через-api">Как автоматизировать работу с СДЭК и Ozon через API</h2>
+
+<p>Ручной ввод данных занимает много времени и чреват ошибками. Крупные продавцы используют <strong>API-интеграцию</strong> между <strong>СДЭК</strong> и <em>Ozon</em>, которая позволяет:
+<ul>
+ <li>🔄 Автоматически передавать трек-номера из СДЭК в Ozon.</li>
+ <li>📊 Синхронизировать статусы заказов (например, «Отправлен», «Доставлен»).</li>
+ <li>💰 Получать актуальные тарифы СДЭК в личном кабинете Ozon.</li>
+</ul>
+
+<p>Для настройки интеграции потребуется:
+<ol>
+ <li>Получить <code>API-ключ</code> в личном кабинете <strong>СДЭК</strong> (раздел <strong>«Интеграции»</strong>).</li>
+ <li>Настроить вебхуки в <em>Ozon</em> для получения уведомлений о новых заказах.</li>
+ <li>Использовать готовые модули (например, для <em>1С</em> или <em>Bitrix24</em>) или разработать собственное решение.</li>
+</ol>
+
+<p>Пример запроса для создания отправления через API <strong>СДЭК</strong>:
+<pre><code>POST https://api.cdek.ru/v2/orders
+<p>Headers:</p>
+<p>Authorization: Bearer {Ваш_API_ключ}</p>
+<p>Body:</p>
+<p>{</p>
+<p>"type": 1,</p>
+<p>"tariff_code": 136, // Тариф"Доставка до двери"</p>
+<p>"from_location": {</p>
+<p>"code":"44" // Код города отправления (Москва)</p>
+<p>},</p>
+<p>"to_location": {</p>
+<p>"code":"64" // Код города назначения (Санкт-Петербург)</p>
+<p>},</p>
+<p>"packages": [</p>
+<p>{</p>
+<p>"weight": 1000, // Вес в граммах</p>
+<p>"length": 20,</p>
+<p>"width": 10,</p>
+<p>"height": 5</p>
+<p>}</p>
+<p>]</p>
+<p>}</code></pre></p>
+
+<p>Для продавцов, не знакомых с программированием, подойдут готовые сервисы вроде <em>МойСклад</em>, <em>RetailCRM</em> или <em>Ozon API Helper</em>, которые предлагают визуальные конструкторы для настройки интеграции.
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Автоматизация через API сокращает время обработки заказов на 70% и снижает количество ошибок, связанных с ручным вводом данных.</p></div>
+
+<h2 id="что-делать-если-сдэк-задерживает-или-теряет-посылку-ozon">Что делать, если СДЭК задерживает или теряет посылку Ozon</h2>
+
+<p>Задержки или потери посылок — одна из самых болезненных проблем для продавцов. Алгоритм действий зависит от ситуации:
+
+<p><strong>1. Посылка задерживается (статус не обновляется более 3 дней)</strong>
+<ul>
+ <li>Проверьте статус на сайте <strong>СДЭК</strong> по трек-номеру.</li>
+ <li>Если статус <strong>«В обработке»</strong> или <strong>«В пути»</strong> дольше срока, обратитесь в поддержку <strong>СДЭК</strong> с номером заказа.</li>
+ <li>Создайте тикет в <em>Ozon</em>, приложив скриншот трекинга. Маркетплейс может продлить срок доставки без штрафов.</li>
+</ul>
+
+<p><strong>2. Посылка потеряна (статус «Не найдено» или «Возврат»)</strong>
+<ul>
+ <li>Соберите доказательства: квитанцию об отправке, скриншоты статусов, переписку с <strong>СДЭК</strong>.</li>
+ <li>Обратитесь в <em>Ozon</em> с заявлением о компенсации. Если вина лежит на транспортной компании, маркетплейс может вернуть комиссию.</li>
+ <li>Если посылка была застрахована, подавайте претензию в <strong>СДЭК</strong> на возмещение стоимости товара.</li>
+</ul>
+
+<p><strong>3. Посылка доставлена, но покупатель не получил (статус «Доставлено», но клиент не подтверждает)</strong>
+<ul>
+ <li>Попросите покупателя проверить пункт выдачи или связаться с курьером.</li>
+ <li>Если проблема не решается, запросите у <strong>СДЭК</strong> фото или акт вручения.</li>
+ <li>В крайнем случае <em>Ozon</em> может инициировать расследование и вернуть деньги продавцу.</li>
+</ul>
+
+<p>⚠️ <blockquote><strong>Внимание:</strong> Если посылка возвращается как «невостребованная», а покупатель утверждает, что не получал уведомлений, проверьте, правильно ли был указан email или телефон в заказе. <em>Ozon</em> может наложить штраф за «некорректную доставку».</blockquote>
+
+<p>В среднем <strong>СДЭК</strong> находит потерянные посылки в течение <strong>5–7 дней</strong>. Если проблема не решается, продавец может потребовать компенсацию через <em>Ozon</em>, но для этого нужны веские доказательства (например, акт о потере от транспортной компании).
+
+<h2 id="сравнение-сдэк-с-другими-транспортными-компаниями-для-ozon">Сравнение СДЭК с другими транспортными компаниями для Ozon</h2>
+
+<p>Многие продавцы задаются вопросом: почему именно <strong>СДЭК</strong>, а не <em>Почта России</em>, <em>DPD</em> или <em>Boxberry</em>? Разберём плюсы и минусы каждого варианта при работе с <em>Ozon</em>.
+
+<table>
+ <thead>
+ <tr>
+ <th>Критерий</th>
+ <th>СДЭК</th>
+ <th>Почта России</th>
+ <th>DPD</th>
+ <th>Boxberry</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr>
+ <td>Стоимость доставки (Москва–СПб, до 1 кг)</td>
+ <td>380–450 ₽</td>
+ <td>250–300 ₽</td>
+ <td>400–500 ₽</td>
+ <td>350–420 ₽</td>
+ </tr>
+ <tr>
+ <td>Сроки доставки</td>
+ <td>2–3 дня</td>
+ <td>4–7 дней</td>
+ <td>2–3 дня</td>
+ <td>3–5 дней</td>
+ </tr>
+ <tr>
+ <td>Интеграция с Ozon</td>
+ <td>Полная (API + ручной ввод)</td>
+ <td>Частичная (только ручной ввод)</td>
+ <td>Полная</td>
+ <td>Полная</td>
+ </tr>
+ <tr>
+ <td>Возврат посылок</td>
+ <td>Быстрый (3–5 дней)</td>
+ <td>Долгий (до 2 недель)</td>
+ <td>Быстрый</td>
+ <td>Средний (5–7 дней)</td>
+ </tr>
+ <tr>
+ <td>Поддержка</td>
+ <td>Хорошая (чат, телефон)</td>
+ <td>Слабая (только колл-центр)</td>
+ <td>Хорошая</td>
+ <td>Средняя</td>
+ </tr>
+ </tbody>
+</table>
+
+<p><strong>Когда выбрать СДЭК:</strong>
+<ul>
+ <li>📦 Вам нужны <strong>стабильные сроки доставки</strong> (2–4 дня).</li>
+ <li>🔄 Вы работаете по модели <em>FBS</em> и нуждаетесь в <strong>автоматической синхронизации</strong> с <em>Ozon</em>.</li>
+ <li>💰 Вы готовы платить немного больше за <strong>надёжность</strong> и поддержку.</li>
+</ul>
+
+<p><strong>Когда выбрать альтернативы:</strong>
+<ul>
+ <li>💸 Ваш приоритет — <strong>минимальная стоимость</strong> (тогда подойдёт <em>Почта России</em>).</li>
+ <li>📦 Вы отправляете <strong>крупногабаритные товары</strong> (например, мебель) — здесь выгоднее <em>DPD</em> или <em>ПЭК</em>.</li>
+ <li>🏢 У вас много заказов в <strong>отдалённые регионы</strong> — сравните тарифы <em>Boxberry</em> и <strong>СДЭК</strong>.</li>
+</ul>
+
+<p>В 2026 году <em>Ozon</em> активно продвигает собственную логистику (<em>Ozon Rocket</em>), но она доступна не во всех регионах. Если вы работаете по модели <em>FBO</em>, проверьте, не выгоднее ли использовать склады <em>Ozon</em> вместо <strong>СДЭК</strong>.
+
+<h2 id="faq-частые-вопросы-о-работе-сдэк-с-ozon">FAQ: Частые вопросы о работе СДЭК с Ozon</h2>
+
+<details>
+ <summary>Можно ли отправить заказ Ozon через СДЭК без трек-номера?</summary>
+ <p>Нет, <em>Ozon</em> требует обязательного указания трек-номера для всех отправлений по модели <em>FBS</em>. Без него заказ не будет считаться отправленным, и вы получите штраф за нарушение SLA.</p>
+</details>
+
+<details>
+ <summary>Что делать, если СДЭК отказался принимать посылку из-за неправильной упаковки?</summary>
+ <p>Переупакуйте товар согласно <a href="https://www.cdek.ru/ru/requirements" target="_blank">требованиям СДЭК</a> (например, используйте гофрокартон для хрупких товаров). Если проблема в весе или габаритах, скорректируйте данные в накладной. После этого повторите попытку отправки.</p>
+</details>
+
+<details>
+ <summary>Как вернуть деньги за потерянную посылку, отправленную через СДЭК?</summary>
+ <p>Сначала обратитесь в поддержку <strong>СДЭК</strong> с заявлением о розыске. Если посылка не найдена в течение 10 дней, подавайте претензию на возмещение. Параллельно создайте тикет в <em>Ozon</em> с приложением всех документов — маркетплейс может компенсировать комиссию.</p>
+</details>
+
+<details>
+ <summary>Можно ли использовать СДЭК для доставки заказов Ozon за границу?</summary>
+ <p><strong>СДЭК</strong> доставляет заказы в Казахстан, Белоруссию и Армению, но для <em>Ozon</em> это доступно только по модели <em>FBO</em> (через склад маркетплейса). Для самостоятельной отправки (FBS) международная доставка не поддерживается.</p>
+</details>
+
+<details>
+ <summary>Какие документы нужны для отправки товаров через СДЭК на склад Ozon?</summary>
+ <p>Для входящей логистики (FBO) потребуется:
+ <ul>
+ <li>📄 Товарная накладная (ТН) с указанием артикулов и количества.</li>
+ <li>📄 Акт приёмки-передачи (если товар передаётся на ответственное хранение).</li>
+ <li>📄 Этикетки с штрихкодами <em>Ozon</em> (генерируются в личном кабинете).</li>
+ </ul>
+ <p>Без этих документов склад <em>Ozon</em> может отказаться принимать товар.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#как-сдэк-интегрируется-с-ozon-основные-схемы-работы">Как СДЭК интегрируется с Ozon: основные схемы работы</a></li><li><a href="#пошаговая-инструкция-как-оформить-отправку-через-сдэк-для-заказа-ozon">Пошаговая инструкция: как оформить отправку через СДЭК для заказа Ozon</a></li><li><a href="#тарифы-сдэк-для-заказов-ozon-в-2024-году">Тарифы СДЭК для заказов Ozon в 2024 году</a></li><li><a href="#типичные-ошибки-при-работе-с-сдэк-и-ozon-и-как-их-избежать">Типичные ошибки при работе с СДЭК и Ozon и как их избежать</a></li><li><a href="#как-автоматизировать-работу-с-сдэк-и-ozon-через-api">Как автоматизировать работу с СДЭК и Ozon через API</a></li><li><a href="#что-делать-если-сдэк-задерживает-или-теряет-посылку-ozon">Что делать, если СДЭК задерживает или теряет посылку Ozon</a></li><li><a href="#сравнение-сдэк-с-другими-транспортными-компаниями-для-ozon">Сравнение СДЭК с другими транспортными компаниями для Ozon</a></li><li><a href="#faq-частые-вопросы-о-работе-сдэк-с-ozon">FAQ: Частые вопросы о работе СДЭК с Ozon</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/s/sd/sdek-cherez-avito-kak-eto-sdelat.html" class="related-card">СДЭК через Авито: пошаговая инструкция по доставке</a></li><li><a href="/articles/k/ka/kak-otpravlyat-sdek-dostavkoj.html" class="related-card">Как отправить посылку через СДЭК: пошаговая инструкция 2026</a></li><li><a href="/articles/p/po/posylka-sdekom-chto-eto.html" class="related-card">Посылка СДЭК: что это, как работает и как отследить в 2026 году</a></li><li><a href="/articles/k/ka/kak-otpravit-posylku-sdek-v-moskvu.html" class="related-card">Как отправить посылку СДЭК в Москву: пошаговая инструкция 2026</a></li><li><a href="/articles/c/ch/chto-takoe-sdekom-otpravit-posylku.html" class="related-card">СДЭК: как отправить посылку — пошаговая инструкция 2026</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/s/sd/sdek-cherez-avito-kak-eto-sdelat.html" class="related-bottom-card"><span class="related-bottom-title">СДЭК через Авито: пошаговая инструкция по доставке</span><span class="related-bottom-desc">Как отправить груз СДЭК через Авито Доставку. Подробный гайд по оформлению, срокам и правилам упаков</span></a><a href="/articles/k/ka/kak-otpravlyat-sdek-dostavkoj.html" class="related-bottom-card"><span class="related-bottom-title">Как отправить посылку через СДЭК: пошаговая инструкция 2026</span><span class="related-bottom-desc">Подробное руководство по отправке грузов через СДЭК: от оформления заказа до оплаты. Тарифы, упаковк</span></a><a href="/articles/p/po/posylka-sdekom-chto-eto.html" class="related-bottom-card"><span class="related-bottom-title">Посылка СДЭК: что это, как работает и как отследить в 2026 году</span><span class="related-bottom-desc">Разбираемся, что такое посылка СДЭК, как она доставляется, сколько стоит и как отследить её статус. </span></a><a href="/articles/k/ka/kak-otpravit-posylku-sdek-v-moskvu.html" class="related-bottom-card"><span class="related-bottom-title">Как отправить посылку СДЭК в Москву: пошаговая инструкция 2026</span><span class="related-bottom-desc">Подробный гайд по отправке грузов через СДЭК в Москву: тарифы, оформление, упаковка и сроки доставки</span></a><a href="/articles/c/ch/chto-takoe-sdekom-otpravit-posylku.html" class="related-bottom-card"><span class="related-bottom-title">СДЭК: как отправить посылку — пошаговая инструкция 2026</span><span class="related-bottom-desc">Подробное руководство по отправке посылок через СДЭК: способы, стоимость, упаковка и правила. Узнайт</span></a><a href="/articles/k/ka/kak-otpravit-tyazheluyu-posylku-cherez-sdek-chastnomu-litsu.html" class="related-bottom-card"><span class="related-bottom-title">Как отправить тяжелую посылку через СДЭК частному лицу: тарифы и правила</span><span class="related-bottom-desc">Подробная инструкция по отправке крупногабаритных грузов через СДЭК. Лимиты веса, упаковка, расчет с</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

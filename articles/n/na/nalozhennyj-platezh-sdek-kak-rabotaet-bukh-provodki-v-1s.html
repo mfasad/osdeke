@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>Наложенный платеж СДЭК: как работает и бухгалтерские проводки в 1С — СДЭК Гид</title>
+    <meta name="description" content="Подробный разбор механизма наложенного платежа в СДЭК: схемы работы, бухгалтерский учет в 1С (проводки Дт/Кт), налоги и типичные ошибки. Актуально для ИП и ООО в 2026 году.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/n/na/nalozhennyj-platezh-sdek-kak-rabotaet-bukh-provodki-v-1s.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Наложенный платеж СДЭК: как работает и бухгалтерские проводки в 1С">
+    <meta property="og:description" content="Подробный разбор механизма наложенного платежа в СДЭК: схемы работы, бухгалтерский учет в 1С (проводки Дт/Кт), налоги и типичные ошибки. Актуально для ИП и ООО в 2026 году.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/oplata-i-tarify/">Оплата и тарифы</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Наложенный платеж СДЭК: как работает и бухгалтерские проводки в 1С</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Наложенный платеж через СДЭК: пошаговый механизм и проводки в 1С для бухгалтера</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#1-как-работает-наложенный-платеж-в-сдэк-схема-и-участники-процесса">1. Как работает наложенный платеж в СДЭК: схема и участники процесса</a></li><li><a href="#2-бухгалтерские-проводки-в-1с-пошаговая-инструкция">2. Бухгалтерские проводки в 1С: пошаговая инструкция</a></li><li><a href="#3-типичные-ошибки-в-бухучёте-и-как-их-избежать">3. Типичные ошибки в бухучёте и как их избежать</a></li><li><a href="#4-налоговые-последствия-усн-vs-осно">4. Налоговые последствия: УСН vs ОСНО</a></li><li><a href="#5-как-автоматизировать-учёт-наложенного-платежа-в-1с">5. Как автоматизировать учёт наложенного платежа в 1С</a></li><li><a href="#6-альтернативы-наложенному-платежу-что-выгоднее">6. Альтернативы наложенному платежу: что выгоднее?</a></li><li><a href="#faq-частые-вопросы-по-наложенному-платежу-и-бухучёту">FAQ: Частые вопросы по наложенному платежу и бухучёту</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>Наложенный платеж остаётся одним из самых востребованных способов оплаты при отправке товаров через <em>СДЭК</em>, несмотря на рост популярности предоплаты. Для продавцов это инструмент увеличения конверсии, а для покупателей — гарантия безопасности сделки. Однако <strong>бухгалтерский учет</strong> таких операций вызывает вопросы даже у опытных специалистов. Как правильно оформить проводки в <em>1С</em>, чтобы избежать претензий налоговой? Какие нюансы таит в себе взаимодействие с <em>СДЭК</em> при работе с наложенным платежом? И почему некоторые компании теряют деньги, неверно учитывая комиссии транспортной компании?</p>
+
+<p>В этой статье разберём <strong>пошаговый механизм</strong> наложенного платежа в <em>СДЭК</em>, проанализируем типичные бухгалтерские проводки для <em>1С:Бухгалтерия 8.3</em> и <em>1С:Управление торговлей</em>, а также рассмотрим налоговые последствия для <strong>ИП на УСН</strong> и <strong>ООО на ОСНО</strong>. Особое внимание уделим <strong>скрытым комиссиям</strong>, которые часто упускают из виду, и разберём реальные кейсы с ошибками и их исправлением.</p>
+
+<p>Если вы только начинаете работать с наложенным платежом или уже столкнулись с проблемами в учёте — эта инструкция поможет systematize процесс и избежать типичных просчётов.
+
+<h2 id="1-как-работает-наложенный-платеж-в-сдэк-схема-и-участники-процесса">1. Как работает наложенный платеж в СДЭК: схема и участники процесса</h2>
+
+<p>Наложенный платеж в <em>СДЭК</em> — это форма расчётов, при которой <strong>покупатель оплачивает товар при получении</strong> в пункте выдачи или курьеру. На первый взгляд всё просто, но за кулисами задействованы сразу три стороны:
+
+<p>1. <strong>Продавец</strong> — отправляет товар и указывает сумму наложенного платежа в заявке на доставку.
+<p>2. <strong>СДЭК</strong> — выступает посредником: принимает деньги от покупателя, удерживает комиссию и перечисляет остаток продавцу.
+<p>3. <strong>Покупатель</strong> — оплачивает товар + комиссию <em>СДЭК</em> (если она предусмотрена тарифом).
+
+<p>Важно понимать, что <em>СДЭК</em> <strong>не является агентом продавца</strong> — компания оказывает транспортные услуги и дополнительную услугу по инкассации платежей. Это принципиальный момент для бухгалтерского учёта, так как определяет порядок отражения операций.
+
+<ul>
+  <li>📦 <strong>Отправка товара</strong>: Продавец передаёт груз в <em>СДЭК</em>, указывая сумму наложенного платежа в транспортной накладной.</li>
+  <li>💳 <strong>Оплата покупателем</strong>: При получении посылки покупатель вносит сумму товара + комиссию <em>СДЭК</em> (обычно 2–5% от стоимости).</li>
+  <li>🔄 <strong>Перечисление средств</strong>: <em>СДЭК</em> удерживает свою комиссию и переводит остаток продавцу на расчётный счёт (сроки — от 1 до 5 рабочих дней).</li>
+  <li>📊 <strong>Отчётность</strong>: Продавец получает от <em>СДЭК</em> реестр платежей (акты, счета-фактуры на комиссию), которые необходимы для бухучёта.</li>
+</ul>
+
+<p>Ключевой нюанс: <strong>комиссия СДЭК за наложенный платеж</strong> не всегда очевидна. Она может быть включена в тариф доставки или выделена отдельной строкой. Например, при отправке через интернет-кабинет <em>СДЭК</em> комиссия за инкассацию может составлять <mark>3% от суммы платежа, но не менее 50 рублей</mark> (актуально для большинства регионов в 2026 году). Уточняйте тарифы в личном кабинете или у менеджера!
+
+<div class="poll-widget" id="poll-7b7e7b9b"><div class="poll-widget-question">📊 Как часто вы используете наложенный платеж при отправке через СДЭК?</div><div class="poll-widget-option" data-poll="7b7e7b9b" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Постоянно (более 50% заказов)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="7b7e7b9b" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Иногда (10-30% заказов)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="7b7e7b9b" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Редеко (менее 10%)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="7b7e7b9b" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Никогда не использую</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="2-бухгалтерские-проводки-в-1с-пошаговая-инструкция">2. Бухгалтерские проводки в 1С: пошаговая инструкция</h2>
+
+<p>Отражение наложенного платежа в <em>1С</em> зависит от <strong>системы налогообложения</strong>, <strong>типа контрагента</strong> (ИП или ООО) и <strong>момента признания дохода</strong>. Рассмотрим два основных сценария: для <strong>УСН (доходы)</strong> и <strong>ОСНО</strong>.
+
+<p>Общий алгоритм учёта:
+<ol>
+  <li>Отгрузка товара со склада (проводка по себестоимости).</li>
+  <li>Признание выручки (на дату оплаты покупателем или на дату отгрузки — зависит от метода учёта).</li>
+  <li>Учёт комиссии <em>СДЭК</em> как расхода.</li>
+  <li>Поступление денег от <em>СДЭК</em> за минусом комиссии.</li>
+</ol>
+
+<p>Для наглядности приведем таблицу с проводками для <strong>ООО на ОСНО</strong> (метод начисления):
+
+<table>
+  <thead>
+    <tr>
+      <th>Операция</th>
+      <th>Дт</th>
+      <th>Кт</th>
+      <th>Сумма</th>
+      <th>Документ в 1С</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Отгружен товар покупателю (себестоимость)</td>
+      <td>90.02</td>
+      <td>41.01</td>
+      <td>10 000 ₽</td>
+      <td>Реализация товаров и услуг</td>
+    </tr>
+    <tr>
+      <td>Начислен НДС с реализации (20%)</td>
+      <td>90.03</td>
+      <td>68.02</td>
+      <td>2 000 ₽</td>
+      <td>Счёт-фактура выданный</td>
+    </tr>
+    <tr>
+      <td>Признана выручка от продажи (на дату оплаты покупателем)</td>
+      <td>62.01</td>
+      <td>90.01</td>
+      <td>12 000 ₽</td>
+      <td>Поступление на р/с (на основании реестра СДЭК)</td>
+    </tr>
+    <tr>
+      <td>Учтена комиссия СДЭК (3% от 12 000 ₽)</td>
+      <td>91.02</td>
+      <td>76.05</td>
+      <td>360 ₽</td>
+      <td>Поступление на р/с + ручная операция</td>
+    </tr>
+    <tr>
+      <td>Поступили деньги от СДЭК за минусом комиссии</td>
+      <td>51</td>
+      <td>62.01</td>
+      <td>11 640 ₽</td>
+      <td>Банковская выписка</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Для <strong>ИП на УСН (доходы)</strong> схема упрощается:
+<ul>
+  <li>📌 Доход учитывается на дату поступления денег от <em>СДЭК</em> (независимо от даты отгрузки).</li>
+  <li>📌 Комиссия <em>СДЭК</em> включается в расходы (подп. 9 п. 1 ст. 346.16 НК РФ).</li>
+  <li>📌 Проводки в <em>1С</em> формируются документами <code>Поступление на расчётный счёт</code> и <code>Списание с расчётного счёта</code> (для комиссии).</li>
+</ul>
+
+<p>Обратите внимание: если покупатель <strong>отказался от посылки</strong>, <em>СДЭК</em> вернёт товар, но удержит комиссию за обратную доставку. В этом случае в <em>1С</em> нужно сделать <strong>сторно проводок</strong> по выручке и учесть расходы на возврат.
+
+
+<p>Сверьте сумму в реестре СДЭК с банковской выпиской|Убедитесь, что комиссия учтена как расход (Дт 91.02)|Проверьте корректность НДС (если на ОСНО)|Сопоставьте дату оплаты покупателем и дату признания дохода--></p>
+
+<h2 id="3-типичные-ошибки-в-бухучёте-и-как-их-избежать">3. Типичные ошибки в бухучёте и как их избежать</h2>
+
+<p>Даже опытные бухгалтеры допускают ошибки при работе с наложенным платежом через <em>СДЭК</em>. Вот самые распространённые просчёты и способы их предотвращения:
+
+<p>1. <strong>Неучтённая комиссия СДЭК</strong>
+<p>Многие компании забывают включить комиссию за инкассацию в расходы, что приводит к занижению налоговой базы. Например, если продавец получил от <em>СДЭК</em> 10 000 ₽, а комиссия составила 300 ₽, то <strong>фактическая выручка</strong> должна быть отражена как 10 300 ₽, а 300 ₽ — как расход.</p>
+
+<p>2. <strong>Некорректное признание дохода</strong>
+<p>На <strong>УСН</strong> доход учитывается <strong>только после поступления денег</strong> на счёт, а не на дату отгрузки. Если продавец признаёт выручку раньше, это приведёт к завышению налоговой базы.</p>
+
+<p>3. <strong>Отсутствие первичных документов</strong>
+   <em>СДЭК</em> предоставляет реестры платежей и акты об оказании услуг, но некоторые бухгалтеры не прикрепляют их к операциям в <em>1С</em>. Без этих документов налоговая может не принять расходы на комиссию.
+
+<p>4. <strong>Ошибки с НДС при возвратах</strong>
+<p>Если покупатель отказался от товара, продавец должен <strong>восстановить НДС</strong> по реализации и учесть возврат как обратную отгрузку. Часто этот момент упускают, что приводит к конфликтам с ИФНС.</p>
+
+<blockquote>⚠️ <strong>Внимание!</strong> Если вы работаете с наложенным платежом через <em>СДЭК</em> и не учитываете комиссию как расход, налоговая может доначислить налог на прибыль (для ООО) или единый налог (для УСН). В 2023 году были случаи, когда компании получали требования об уплате дополнительных 20% от неучтённых комиссий.</blockquote>
+
+<p>Чтобы избежать ошибок, используйте <strong>автоматизированные правила учёта</strong> в <em>1С</em>. Например, настройте шаблон операции для поступления денег от <em>СДЭК</em>, который будет автоматически:
+<ul>
+  <li>🔹 Разбивать сумму на выручку и комиссию.</li>
+  <li>🔹 Формировать проводки по НДС (если на ОСНО).</li>
+  <li>🔹 Прикреплять сканы реестров <em>СДЭК</em> к документам.</li>
+</ul>
+
+<details class="faq-item"><summary>Что делать, если СДЭК не перечислил деньги в срок?</summary><div class="faq-answer"><p>
+<p>Если деньги от покупателя поступили в СДЭК, но не были переведены вам в установленный срок (обычно 1–5 дней), необходимо:</p>
+<p>1. Проверить статус платежа в личном кабинете СДЭК (раздел "Финансы" → "Платежи").</p>
+<p>2. Связаться с поддержкой по телефону <code>8 800 250-04-05</code> или через чат в ЛК, предоставив номер накладной.</p>
+<p>3. Если проблема не решается, направить официальную претензию на email <code>claim@cdek.ru</code> с указанием реквизитов договора и данных о платеже.</p>
+<p>СДЭК обязана перечислить деньги в течение 30 дней с момента поступления (п. 4.3 Договора на транспортно-экспедиционное обслуживание).</p></div></details></p>
+
+<h2 id="4-налоговые-последствия-усн-vs-осно">4. Налоговые последствия: УСН vs ОСНО</h2>
+
+<p>Налоговый учёт наложенного платежа через <em>СДЭК</em> существенно отличается в зависимости от системы налогообложения. Разберём ключевые моменты для каждого режима.
+
+<p><strong>Для ИП и ООО на УСН (доходы):</strong>
+<ul>
+  <li>📈 <strong>Доход</strong> учитывается на дату поступления денег от <em>СДЭК</em> (п. 1 ст. 346.17 НК РФ).</li>
+  <li>📉 <strong>Расходы</strong>: комиссия <em>СДЭК</em> включается в книгу учёта доходов и расходов (подп. 9 п. 1 ст. 346.16 НК РФ).</li>
+  <li>📑 <strong>Документы</strong>: обязательно сохраняйте реестры платежей и акты от <em>СДЭК</em> — они подтверждают расходы.</li>
+</ul>
+
+<p><strong>Для ООО на ОСНО:</strong>
+<ul>
+  <li>📌 <strong>Выручка</strong> признаётся на дату отгрузки (метод начисления) или на дату оплаты (кассовый метод).</li>
+  <li>💼 <strong>НДС</strong>: начисляется на полную сумму реализации, даже если комиссия удержана <em>СДЭК</em>. Счёт-фактура выписывается покупателю на всю стоимость товара.</li>
+  <li>📊 <strong>Комиссия СДЭК</strong> учитывается как прочие расходы (Дт 91.02).</li>
+</ul>
+
+<p>Особый случай — <strong>возврат товара</strong>. Если покупатель отказался от посылки, продавец должен:
+<ol>
+  <li>Сторнировать выручку и НДС (если на ОСНО).</li>
+  <li>Учесть расходы на обратную доставку (комиссия <em>СДЭК</em> за возврат).</li>
+  <li>Восстановить НДС по возвращённому товару (если он был принят к вычету).</li>
+</ol>
+
+<p>Пример: ООО на ОСНО отгрузило товар на 20 000 ₽ (в т.ч. НДС 3 333 ₽). Покупатель отказался, <em>СДЭК</em> вернул товар и удержал 1 000 ₽ за обратную доставку. Проводки:
+<ul>
+  <li>🔸 Сторно выручки: Дт 62.01 Кт 90.01 на 20 000 ₽.</li>
+  <li>🔸 Сторно НДС: Дт 90.03 Кт 68.02 на 3 333 ₽.</li>
+  <li>🔸 Учёт расходов на возврат: Дт 91.02 Кт 76.05 на 1 000 ₽.</li>
+</ul>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Если вы часто работаете с наложенным платежом, создайте в 1С отдельный аналитический счёт для учёта комиссий СДЭК (например, 76.05 "Расчёты с транспортными компаниями"). Это упростит аналитику и подготовку к проверкам.</p></div>
+
+<h2 id="5-как-автоматизировать-учёт-наложенного-платежа-в-1с">5. Как автоматизировать учёт наложенного платежа в 1С</h2>
+
+<p>Ручной ввод проводок при большом количестве заказов с наложенным платежом — это риск ошибок и потери времени. К счастью, <em>1С</em> позволяет автоматизировать процесс. Вот несколько способов:
+
+<p><strong>1. Настройка шаблонов операций</strong>
+<p>Создайте в <em>1С:Бухгалтерия 8.3</em> шаблон операции для поступления денег от <em>СДЭК</em>:</p>
+   <ul>
+     <li>📝 Укажите счета Дт 51 (расчётный счёт) и Кт 62.01 (расчёты с покупателями).</li>
+     <li>📝 Добавьте строку для комиссии: Дт 91.02 Кт 76.05.</li>
+     <li>📝 Привяжите шаблон к виду операции "Поступление на расчётный счёт".</li>
+   </ul>
+
+<p><strong>2. Интеграция с личным кабинетом СДЭК</strong>
+   <em>СДЭК</em> предоставляет API для автоматического импорта реестров платежей в <em>1С</em>. Для этого:
+   <ol>
+     <li>Получите доступ к API в личном кабинете (<code>Настройки → Интеграции</code>).</li>
+     <li>Настройте обработку в <em>1С</em> (можно использовать готовые решения от партнёров, например, <em>"1С-СДЭК:Обмен данными"</em>).</li>
+     <li>Автоматически загружайте данные о платежах и формируйте документы <code>Поступление на р/с</code>.</li>
+   </ol>
+
+<p><strong>3. Использование отчётов для контроля</strong>
+<p>Создайте в <em>1С</em> пользовательский отчёт, который будет показывать:</p>
+   <ul>
+     <li>📊 Суммы наложенных платежей по периодам.</li>
+     <li>📊 Комиссии <em>СДЭК</em> в разрезе заказов.</li>
+     <li>📊 Сроки поступления денег (чтобы отслеживать задержки).</li>
+   </ul>
+
+<p>Пример запроса для отчёта (можно выполнить в <code>Консоли запросов</code>):
+<pre><code>ВЫБРАТЬ
+<p>ПоступлениеНаРасчетныйСчет.Дата КАК ДатаПоступления,</p>
+<p>ПоступлениеНаРасчетныйСчет.Сумма КАК СуммаПоступления,</p>
+<p>ПоступлениеНаРасчетныйСчет.Комментарий КАК НазначениеПлатежа</p>
+<p>ИЗ</p>
+<p>Документ.ПоступлениеНаРасчетныйСчет КАК ПоступлениеНаРасчетныйСчет</p>
+<p>ГДЕ</p>
+<p>ПоступлениеНаРасчетныйСчет.Комментарий СОДЕРЖИТ "СДЭК"</p>
+<p>И ПоступлениеНаРасчетныйСчет.Дата МЕЖДУ &НачалоПериода И &КонецПериода</code></pre></p>
+
+<p>Автоматизация позволит сэкономить до 70% времени на учёте наложенных платежей и снизить риск ошибок.
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Если вы отправляете более 50 заказов в месяц с наложенным платежом, интеграция 1С с СДЭК через API окупится уже в первый квартал за счёт экономии времени бухгалтера и уменьшения штрафов за ошибки.</p></div>
+
+<h2 id="6-альтернативы-наложенному-платежу-что-выгоднее">6. Альтернативы наложенному платежу: что выгоднее?</h2>
+
+<p>Наложенный платеж удобен, но не всегда выгоден. Рассмотрим альтернативные способы оплаты и их плюсы/минусы в сравнении с наложенным платежом через <em>СДЭК</em>.
+
+<table>
+  <thead>
+    <tr>
+      <th>Способ оплаты</th>
+      <th>Плюсы</th>
+      <th>Минусы</th>
+      <th>Комиссия</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Наложенный платеж (СДЭК)</strong></td>
+      <td>✅ Повышает конверсию (покупатели доверяют оплате при получении)<br>✅ Нет риска неоплаты (деньги гарантированно поступают через СДЭК)</td>
+      <td>❌ Высокая комиссия (3–5%)<br>❌ Задержки в поступлении денег (до 5 дней)</td>
+      <td>3% + фиксированная сумма (от 50 ₽)</td>
+    </tr>
+    <tr>
+      <td><strong>Предоплата (банковская карта)</strong></td>
+      <td>✅ Мгновенное поступление денег<br>✅ Низкая комиссия (1–2%)</td>
+      <td>❌ Риск отказа покупателя после оплаты<br>❌ Требуется интеграция с эквайрингом</td>
+      <td>1–2% (зависит от банка)</td>
+    </tr>
+    <tr>
+      <td><strong>Оплата по счёту (банковский перевод)</strong></td>
+      <td>✅ Минимальная комиссия (0–0,5%)<br>✅ Подходит для B2B</td>
+      <td>❌ Долгий процесс (1–3 дня)<br>❌ Низкая конверсия для физлиц</td>
+      <td>0–0,5%</td>
+    </tr>
+    <tr>
+      <td><strong>Электронные кошельки (ЮMoney, Qiwi)</strong></td>
+      <td>✅ Быстрое зачисление<br>✅ Удобно для покупателей</td>
+      <td>❌ Высокая комиссия (до 5%)<br>❌ Риск мошенничества</td>
+      <td>2–5%</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Когда стоит отказаться от наложенного платежа?</strong>
+<ul>
+  <li>🔹 Если ваша маржа ниже 15% — комиссия <em>СДЭК</em> съест значительную часть прибыли.</li>
+  <li>🔹 Если вы работаете с корпоративными клиентами (им удобнее оплата по счёту).</li>
+  <li>🔹 Если у вас высокий процент возвратов (наложенный платеж увеличивает логистические расходы).</li>
+</ul>
+
+<p><strong>Когда наложенный платеж оправдан?</strong>
+<ul>
+  <li>🔹 Для новых интернет-магазинов (повышает доверие покупателей).</li>
+  <li>🔹 При продаже дорогостоящих товаров (покупатели хотят проверить товар перед оплатой).</li>
+  <li>🔹 Если ваша аудитория — физические лица, не доверяющие предоплате.</li>
+</ul>
+
+<p>Проанализируйте структуру ваших продаж: если более 30% заказов оплачиваются наложенным платежом, имеет смысл оптимизировать этот процесс (например, договориться с <em>СДЭК</em> об индивидуальных тарифах).
+
+<h2 id="faq-частые-вопросы-по-наложенному-платежу-и-бухучёту">FAQ: Частые вопросы по наложенному платежу и бухучёту</h2>
+
+<details>
+  <summary>🔹 Как учесть в 1С комиссию СДЭК, если она не выделена отдельно в реестре?</summary>
+  <p>Если в реестре <em>СДЭК</em> указана только итоговая сумма к перечислению (без разбивки на выручку и комиссию), вам нужно:</p>
+  <ol>
+    <li>Уточнить размер комиссии у менеджера <em>СДЭК</em> или в договоре.</li>
+    <li>В <em>1С</em> создать документ <code>Поступление на расчётный счёт</code> на полную сумму выручки.</li>
+    <li>Добавить ручную операцию на списание комиссии: Дт 91.02 Кт 76.05.</li>
+  </ol>
+  <p>Пример: Поступил платёж 9 700 ₽, комиссия 3%. Тогда выручка = 10 000 ₽, комиссия = 300 ₽. В 1С вводите две операции: поступление 10 000 ₽ и списание 300 ₽.</p>
+</details>
+
+<details>
+  <summary>🔹 Нужно ли выписывать счёт-фактуру покупателю при наложенном платеже?</summary>
+  <p>Да, если вы на <strong>ОСНО</strong> и продаёте товар с НДС. Счёт-фактура выписывается на полную стоимость товара (без вычета комиссии <em>СДЭК</em>) в момент отгрузки. Комиссия <em>СДЭК</em> не уменьшает налоговую базу по НДС — она учитывается отдельно как расход.</p>
+  <p>Для <strong>УСН</strong> счёт-фактура не требуется, но можно выписать товарную накладную (форма ТОРГ-12).</p>
+</details>
+
+<details>
+  <summary>🔹 Что делать, если покупатель не забрал посылку с наложенным платежом?</summary>
+  <p>В этом случае:</p>
+  <ol>
+    <li><em>СДЭК</em> вернёт товар на ваш склад (обычно в течение 7–14 дней).</li>
+    <li>Вы должны сторнировать выручку и НДС (если на ОСНО).</li>
+    <li>Учесть расходы на обратную доставку (комиссия <em>СДЭК</em> за возврат).</li>
+  </ol>
+  <p>В <em>1С</em> создайте документ <code>Возврат товара от покупателя</code> и сторнируйте ранее проведённые операции по реализации.</p>
+</details>
+
+<details>
+  <summary>🔹 Можно ли уменьшить комиссию СДЭК за наложенный платеж?</summary>
+  <p>Да, есть несколько способов:</p>
+  <ul>
+    <li>📌 Заключите индивидуальный договор с <em>СДЭК</em> (при объёмах от 100 заказов в месяц комиссия может быть снижена до 1–2%).</li>
+    <li>📌 Используйте тарифы с предоплатой доставки (иногда комиссия за наложенный платеж ниже).</li>
+    <li>📌 Оптимизируйте логистику: отправляйте заказы со складов <em>СДЭК</em> (комиссия может быть ниже).</li>
+  </ul>
+  <p>Также проверяйте акции: иногда <em>СДЭК</em> проводит промо-периоды с нулевой комиссией за наложенный платеж.</p>
+</details>
+
+<details>
+  <summary>🔹 Как отразить в 1С наложенный платеж, если покупатель оплатил часть суммы наличными курьеру?</summary>
+  <p>Если покупатель оплатил часть наличными, а часть — наложенным платежом через <em>СДЭК</em>, в <em>1С</em> нужно:</p>
+  <ol>
+    <li>Создать документ <code>Поступление наличных</code> на сумму, оплаченную курьеру.</li>
+    <li>Создать документ <code>Реализация товаров и услуг</code> с указанием двух видов оплаты.</li>
+    <li>После поступления денег от <em>СДЭК</em> провести <code>Поступление на р/с</code> на оставшуюся сумму.</li>
+  </ol>
+  <p>Пример: Товар стоит 15 000 ₽. Покупатель оплатил 5 000 ₽ наличными курьеру и 10 000 ₽ наложенным платежом. В 1С фиксируете два поступления: 5 000 ₽ наличными и 10 000 ₽ через <em>СДЭК</em> (минус комиссия).</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#1-как-работает-наложенный-платеж-в-сдэк-схема-и-участники-процесса">1. Как работает наложенный платеж в СДЭК: схема и участники процесса</a></li><li><a href="#2-бухгалтерские-проводки-в-1с-пошаговая-инструкция">2. Бухгалтерские проводки в 1С: пошаговая инструкция</a></li><li><a href="#3-типичные-ошибки-в-бухучёте-и-как-их-избежать">3. Типичные ошибки в бухучёте и как их избежать</a></li><li><a href="#4-налоговые-последствия-усн-vs-осно">4. Налоговые последствия: УСН vs ОСНО</a></li><li><a href="#5-как-автоматизировать-учёт-наложенного-платежа-в-1с">5. Как автоматизировать учёт наложенного платежа в 1С</a></li><li><a href="#6-альтернативы-наложенному-платежу-что-выгоднее">6. Альтернативы наложенному платежу: что выгоднее?</a></li><li><a href="#faq-частые-вопросы-по-наложенному-платежу-и-бухучёту">FAQ: Частые вопросы по наложенному платежу и бухучёту</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/k/ka/kak-oplatit-zakaz-v-postamate-sdek-kartoj.html" class="related-card">Как оплатить заказ в постамате СДЭК картой: пошаговая инструкция</a></li><li><a href="/articles/n/na/nalozhennyj-platezh-sdek-kak-otpravit-posylku.html" class="related-card">Наложенный платеж СДЭК: как отправить посылку в 2026 году</a></li><li><a href="/articles/c/ch/chto-deshevle-poni-ekspress-ili-sdek.html" class="related-card">СДЭК или Пони Экспресс: что дешевле и быстрее в 2026?</a></li><li><a href="/articles/k/ka/kak-sdek-perechislyaet-dengi-za-nalozhennyj-platezh.html" class="related-card">Как СДЭК перечисляет деньги за наложенный платеж: сроки и порядок</a></li><li><a href="/articles/t/ta/tarif-ekspress-lajt-sdek-chto-eto.html" class="related-card">Тариф Экспресс Лайт СДЭК: что это, цены и сроки</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/k/ka/kak-oplatit-zakaz-v-postamate-sdek-kartoj.html" class="related-bottom-card"><span class="related-bottom-title">Как оплатить заказ в постамате СДЭК картой: пошаговая инструкция</span><span class="related-bottom-desc">Подробный гид: как оплатить получение посылки в постамате СДЭК банковской картой. Инструкция по терм</span></a><a href="/articles/n/na/nalozhennyj-platezh-sdek-kak-otpravit-posylku.html" class="related-bottom-card"><span class="related-bottom-title">Наложенный платеж СДЭК: как отправить посылку в 2026 году</span><span class="related-bottom-desc">Пошаговая инструкция по отправке посылки с наложенным платежом через СДЭК: условия, комиссии, ограни</span></a><a href="/articles/c/ch/chto-deshevle-poni-ekspress-ili-sdek.html" class="related-bottom-card"><span class="related-bottom-title">СДЭК или Пони Экспресс: что дешевле и быстрее в 2026?</span><span class="related-bottom-desc">Сравниваем тарифы СДЭК и Пони Экспресс. Узнайте, где выгоднее отправить посылку: расчет стоимости, с</span></a><a href="/articles/k/ka/kak-sdek-perechislyaet-dengi-za-nalozhennyj-platezh.html" class="related-bottom-card"><span class="related-bottom-title">Как СДЭК перечисляет деньги за наложенный платеж: сроки и порядок</span><span class="related-bottom-desc">Полный разбор процесса возврата средств за наложенный платеж через СДЭК. Сроки, комиссии, реквизиты </span></a><a href="/articles/t/ta/tarif-ekspress-lajt-sdek-chto-eto.html" class="related-bottom-card"><span class="related-bottom-title">Тариф Экспресс Лайт СДЭК: что это, цены и сроки</span><span class="related-bottom-desc">Подробный обзор тарифа Экспресс Лайт СДЭК. Узнайте, что это за услуга, как рассчитать стоимость, сро</span></a><a href="/articles/k/ka/kak-oplachivat-postamat-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как оплатить постамат СДЭК: все способы и инструкции 2026</span><span class="related-bottom-desc">Подробный гайд по оплате заказа в постаматах СДЭК: картой, наличными, онлайн и через терминал. Сравн</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

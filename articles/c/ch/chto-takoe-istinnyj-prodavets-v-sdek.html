@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>Истинный продавец в СДЭК: что это и как работает — СДЭК Гид</title>
+    <meta name="description" content="Разбираем статус истинного продавца в СДЭК. Как подключить, в чем разница с обычным отправителем и зачем нужен этот инструмент для e-commerce.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/c/ch/chto-takoe-istinnyj-prodavets-v-sdek.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Истинный продавец в СДЭК: что это и как работает">
+    <meta property="og:description" content="Разбираем статус истинного продавца в СДЭК. Как подключить, в чем разница с обычным отправителем и зачем нужен этот инструмент для e-commerce.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/biznes-i-dogovory/">Бизнес и договоры</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Истинный продавец в СДЭК: что это и как работает</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Что такое истинный продавец в СДЭК: полное руководство</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#суть-концепции-истинного-продавца">Суть концепции истинного продавца</a></li><li><a href="#отличия-от-стандартной-схемы-работы">Отличия от стандартной схемы работы</a></li><li><a href="#технические-требования-и-интеграция">Технические требования и интеграция</a></li><li><a href="#финансовые-аспекты-и-документооборот">Финансовые аспекты и документооборот</a></li><li><a href="#процедура-возврата-товара">Процедура возврата товара</a></li><li><a href="#преимущества-для-интернет-магазинов">Преимущества для интернет-магазинов</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+<p>Современная логистика для интернет-магазинов перестала быть просто процессом доставки коробок из точки А в точку Б. В условиях жесткой конкуренции на рынке e-commerce критически важными становятся скорость обработки заказов, прозрачность финансовых потоков и удобство интеграции с маркетплейсами. Именно для решения этих задач компания СДЭК разработала и внедрила концепцию <strong>истинного продавца</strong>, которая кардинально меняет правила игры для предпринимателей.</p>
+
+<p>Многие владельцы онлайн-бизнеса до сих пор путают этот статус с обычным договором курьерской доставки, упуская возможность оптимизировать свои бизнес-процессы. Понимание сути <strong>истинного продавца</strong> позволяет не только упростить документооборот, но и существенно снизить операционные расходы на логистику. В этой статье мы детально разберем, что скрывается за этим термином, кому он необходим и как правильно настроить взаимодействие с логистическим оператором.</p>
+
+<p>Внедрение данной модели работы особенно актуально для тех, кто масштабирует свой бизнес и сталкивается с растущим объемом отправлений. Если вы хотите, чтобы ваш магазин работал как швейцарские часы, а клиенты получали заказы быстрее, чем у конкурентов, то разобраться в нюансах статуса <strong>истинного продавца</strong> вам просто необходимо. Это не просто бюрократическая формальность, а мощный инструмент управления продажами.</p>
+
+<h2 id="суть-концепции-истинного-продавца">Суть концепции истинного продавца</h2>
+<p>Термин <strong>истинный продавец</strong> (или True Seller) в экосистеме СДЭК обозначает юридическое лицо или индивидуального предпринимателя, который является фактическим владельцем товара и продавцом в чеке для конечного потребителя. В отличие от классической схемы, где логистическая компания может выступать как агент или посредник, здесь все финансовые и юридические обязательства перед покупателем несет именно владелец бизнеса. Это фундаментальное различие меняет всю архитектуру взаимодействия.</p>
+
+<p>Когда вы работаете как <strong>истинный продавец</strong>, СДЭК берет на себя исключительно функции доставки, хранения на складе и выдачи товара. Все вопросы, связанные с гарантией, возвратом денег за товар (не путать с оплатой доставки) и качеством продукции, решаются напрямую между вами и клиентом. Логистический оператор в этой схеме выступает техническим исполнителем, обеспечивающим физическое перемещение груза.</p>
+
+<blockquote>⚠️ Внимание: Статус истинного продавца требует от вас полной готовности нести ответственность за товар на всем пути его следования до момента вручения. Ошибки в маркировке или комплектации ложатся исключительно на ваши плечи.</blockquote>
+
+<p>Важно понимать, что переход на эту модель требует определенной зрелости бизнес-процессов. Вам необходимо четко отслеживать остатки, оперативно реагировать на изменения статусов заказов и иметь отлаженную систему коммуникации с покупателями. <strong>Истинный продавец</strong> — это тот, кто полностью контролирует свой товар, даже когда он находится в пути или на складе партнера.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Используйте API СДЭК для автоматического получения статусов доставки, чтобы ваши менеджеры не тратили время на ручные проверки в личном кабинете.</p></div>
+
+<h2 id="отличия-от-стандартной-схемы-работы">Отличия от стандартной схемы работы</h2>
+<p>Чтобы окончательно разобраться в вопросе, необходимо провести четкую границу между работой обычного отправителя и <strong>истинного продавца</strong>. В стандартной схеме отправитель просто передает груз перевозчику. В схеме с истинным продавцом происходит глубокая интегра бизнес-процессов магазина и логистической компании. Это влияет на документооборот, налогообложение и процедуры возврата.</p>
+
+<p>Ключевое отличие кроется в моменте перехода прав собственности и ответственности. При работе через модель <strong>истинного продавца</strong>, договор купли-продажи заключается между вами и покупателем, а договор перевозки — между вами и СДЭК. Это создает прозрачную цепочку ответственности. В других моделях, например, при работе через агрегаторов или маркетплейсы по схеме FBO, ответственность может размываться или полностью переходить к площадке.</p>
+
+<p>Рассмотрим основные различия в таблице для наглядности:</p>
+
+<table>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>Обычный отправитель</th>
+<th>Истинный продавец (СДЭК)</th>
+<th>Маркетплейс (FBO)</th>
+</tr>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Владелец товара</td>
+<td>Отправитель</td>
+<td>Отправитель (Продавец)</td>
+<td>Маркетплейс (условно)</td>
+</tr>
+<tr>
+<td>Кто выдает чек</td>
+<td>Отправитель</td>
+<td>Отправитель</td>
+<td>Маркетплейс</td>
+</tr>
+<tr>
+<td>Работа с возвратами</td>
+<td>Сложная, через офисы</td>
+<td>Автоматизирована через ЛК</td>
+<td>Автоматизирована площадкой</td>
+</tr>
+<tr>
+<td>Интеграция</td>
+<td>Минимальная</td>
+<td>Глубокая (API)</td>
+<td>Полная</td>
+</tr>
+</tbody>
+</table>
+
+<p>Как видно из сравнения, модель <strong>истинного продавца</strong> сохраняет за предпринимателем контроль над клиентской базой и финансами, что часто является решающим фактором при выборе стратегии развития. Вы не становитесь зависимыми от правил площадки в части ценообразования и коммуникации с клиентом.</p>
+
+<div class="poll-widget" id="poll-2b635be4"><div class="poll-widget-question">📊 Что для вас важнее в логистике?</div><div class="poll-widget-option" data-poll="2b635be4" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Скорость доставки:Стоимость услуг:Удобство возврата:Интеграция с сайтом</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="технические-требования-и-интеграция">Технические требования и интеграция</h2>
+<p>Для полноценной работы в статусе <strong>истинного продавца</strong> недостаточно просто заключить договор. Требуется техническая интеграция вашей учетной системы (CRM, CMS интернет-магазина) с информационными системами СДЭК. Это позволяет передавать данные о заказах в автоматическом режиме, исключая человеческий фактор и ошибки ручного ввода.</p>
+
+<p>Основным инструментом здесь выступает API СДЭК. Через него передаются данные о получателе, составе заказа, габаритах и весе. Система автоматически генерирует транспортные накладные и штрихкоды. Для <strong>истинного продавца</strong> критически важно, чтобы данные в его системе и в системе логиста совпадали на 100%, иначе возникнут проблемы при приемке товара на складе.</p>
+
+<p>Процесс настройки интеграции обычно включает следующие этапы:</p>
+<ul>
+<li>📦 Получение доступов к API в личном кабинете СДЭК для бизнеса.</li>
+<li>⚙️ Настройка маппинга полей (сопоставление данных о товаре и клиенте).</li>
+<li>🧪 Тестирование передачи заказов в тестовом режиме.</li>
+<li>🚀 Запуск в промышленную эксплуатацию и первая реальная отгрузка.</li>
+</ul>
+
+<p>Если у вас нет собственного IT-отдела, многие CMS (например, 1С-Битрикс, WooCommerce, OpenCart) имеют готовые модули для работы со СДЭК, которые поддерживают функционал <strong>истинного продавца</strong>. Это значительно упрощает вход в систему и позволяет начать работу буквально за один день.</p>
+
+<details class="faq-item"><summary>Что такое webhook в интеграции?</summary><div class="faq-answer"><p>Webhook — это метод обратной связи, когда система СДЭК сама отправляет уведомление на ваш сайт об изменении статуса заказа (например, "вручен" или "возврат"), не дожидаясь запроса с вашей стороны.</p></div></details>
+
+<h2 id="финансовые-аспекты-и-документооборот">Финансовые аспекты и документооборот</h2>
+<p>Финансовая прозрачность — один из главных козырей работы как <strong>истинный продавец</strong>. Все расчеты с клиентами проходят через ваши счета, что упрощает ведение бухгалтерии и сдачу налоговой отчетности. Вы видите реальную выручку и маржинальность каждого заказа, не вычитая комиссии площадок постфактум.</p>
+
+<p>Оплата услуг логистики производится согласно договору, обычно раз в неделю или две, на основании актов выполненных работ. В отличие от схем с удержанием комиссии с продаж, здесь вы платите фиксированный тариф за доставку, хранение и дополнительные услуги. Это позволяет более точно прогнозировать расходы на логистику в юнит-экономике.</p>
+
+<blockquote>⚠️ Внимание: При работе с наличными или картами при получении (наложенный платеж), СДЭК перечисляет деньги на ваш расчетный счет после вычета своей комиссии за инкассацию. Срок зачисления средств регламентирован договором.</blockquote>
+
+<p>Документооборот также становится более структурированным. Вы получаете закрывающие документы на услуги доставки отдельно от вашей выручки. Это особенно важно для компаний, работающих с НДС, так как позволяет четко разделять налоговые базы и правильно формировать вычеты. <strong>Истинный продавец</strong> всегда имеет четкое понимание, сколько он заработал на товаре, а сколько потратил на его доставку.</p>
+
+<h2 id="процедура-возврата-товара">Процедура возврата товара</h2>
+<p>Возвраты — неизбежная часть e-commerce, и в модели <strong>истинного продавца</strong> этот процесс максимально автоматизирован. Покупатель может оформить возврат через форму на сайте или в приложении, после чего заявка автоматически попадает в систему СДЭК. Вам не нужно вручную создавать обратные накладные для каждого случая.</p>
+
+<p>Существует два основных сценария возврата:
+<p>1. Отказ при получении. Курьер или сотрудник пункта выдачи фиксирует отказ, и товар автоматически отправляется обратно на ваш склад или на склад возврата, указанный в настройках.</p>
+<p>2. Постпродажный возврат. Клиент приносит товар в пункт выдачи в течение установленного срока (обычно до 14 дней), и товар также возвращается в ваш адрес.</p></p>
+
+<p>Для <strong>истинного продавца</strong> важно настроить правильные сценарии обработки возвратов в личном кабинете. Вы можете указать, куда именно должен ехать товар: на основной склад, на склад уценки или сразу на утилизацию (если товар дешевый и возврат экономически нецелесообразен). Это экономит время и деньги на логистике.</p>
+
+<div class="checklist-block"><h4>☑️ Проверка готовности к возвратам</h4><label class="check-item"><input type="checkbox"><span>Настроен адрес склада возврата:Определены правила утилизации:Интегрированы статусы возвратов в CRM:Обучены менеджеры работе с возвратами</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 1</div></div>
+
+<h2 id="преимущества-для-интернет-магазинов">Преимущества для интернет-магазинов</h2>
+<p>Подводя итог, можно выделить ключевые преимущества, которые получает бизнес, выбирая статус <strong>истинного продавца</strong> в СДЭК. В первую очередь, это сохранение контроля над клиентским опытом. Вы сами решаете, как упаковывать товар, какие вложения делать в коробку и как общаться с покупателем.</p>
+
+<p>Во-вторых, это масштабируемость. Логистическая инфраструктура СДЭК позволяет вам продавать по всей стране (и за ее пределами) без необходимости открывать собственные филиалы в каждом городе. Вы получаете доступ к тысячам пунктов выдачи и постаматов, становясь ближе к клиенту.</p>
+
+<p>И наконец, это данные. Работая как <strong>истинный продавец</strong>, вы накапливаете собственную базу клиентов, их предпочтения и историю покупок. Эти данные — золотой фонд для маркетинга и развития бизнеса, который невозможно получить, работая через посредников, скрывающих информацию о конечных потребителях.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Статус истинного продавца — это выбор в пользу независимости бренда и долгосрочного развития собственного канала продаж, а не просто способ доставки.</p></div>
+
+<h2 id="часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</h2>
+
+<details>
+<summary>Может ли физическое лицо стать истинным продавцом?</summary>
+<p>Нет, статус <strong>истинного продавца</strong> в СДЭК доступен только для юридических лиц и индивидуальных предпринимателей, так как это подразумевает ведение коммерческой деятельности, заключение договоров и работу с кассовой дисциплиной.</p>
+</details>
+
+<details>
+<summary>Нужно ли платить за хранение товара на складе СДЭК?</summary>
+<p>Да, если вы используете услугу фулфилмента или храните товар на складах СДЭК для быстрой отгрузки, плата за хранение взимается согласно тарифам. Однако при обычной схеме работы, когда вы сами привозите товар в пункт приема, плата за хранение не берется.</p>
+</details>
+
+<details>
+<summary>Как быстро СДЭК перечисляет деньги за наложенный платеж?</summary>
+<p>Сроки перечисления денежных средств зависят от условий вашего договора. Обычно деньги зачисляются на расчетный счет в течение 1-3 рабочих дней после поступления средств от получателя в кассу СДЭК.</p>
+</details>
+
+<details>
+<summary>Можно ли изменить статус истинного продавца на обычный?</summary>
+<p>Изменение типа договора возможно, но требует расторжения текущего соглашения и заключения нового. Рекомендуется заранее проконсультироваться с персональным менеджером, чтобы минимизировать простои в работе магазина.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#суть-концепции-истинного-продавца">Суть концепции истинного продавца</a></li><li><a href="#отличия-от-стандартной-схемы-работы">Отличия от стандартной схемы работы</a></li><li><a href="#технические-требования-и-интеграция">Технические требования и интеграция</a></li><li><a href="#финансовые-аспекты-и-документооборот">Финансовые аспекты и документооборот</a></li><li><a href="#процедура-возврата-товара">Процедура возврата товара</a></li><li><a href="#преимущества-для-интернет-магазинов">Преимущества для интернет-магазинов</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/k/ka/kakaya-podklyuchenie-sdek.html" class="related-card">Какое подключение к СДЭК выбрать: сравнение способов 2026</a></li><li><a href="/articles/k/ka/kakie-pasportnye-dannye-nuzhny-dlya-transportnoj-kompanii-sdek.html" class="related-card">Какие паспортные данные нужны для СДЭК в 2026: полный список</a></li><li><a href="/articles/k/ka/kak-zapolnyat-posylku-sdek-po-dogovoru.html" class="related-card">Как правильно заполнять посылку СДЭК по договору в 2026 году</a></li><li><a href="/articles/k/ka/kak-uznat-svoj-nomer-dogovora-sdek.html" class="related-card">Как узнать номер договора СДЭК — 5 способов за 5 минут</a></li><li><a href="/articles/i/is/istinnyj-prodavets-sdek-chto-pisat.html" class="related-card">Истинный продавец СДЭК: как правильно заполнять данные в 2026 году</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/k/ka/kakaya-podklyuchenie-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Какое подключение к СДЭК выбрать: сравнение способов 2026</span><span class="related-bottom-desc">Все варианты подключения к СДЭК для физических и юридических лиц: онлайн-регистрация, личный кабинет</span></a><a href="/articles/k/ka/kakie-pasportnye-dannye-nuzhny-dlya-transportnoj-kompanii-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Какие паспортные данные нужны для СДЭК в 2026: полный список</span><span class="related-bottom-desc">Разбираемся, какие документы и паспортные данные требует СДЭК для физических и юридических лиц при о</span></a><a href="/articles/k/ka/kak-zapolnyat-posylku-sdek-po-dogovoru.html" class="related-bottom-card"><span class="related-bottom-title">Как правильно заполнять посылку СДЭК по договору в 2026 году</span><span class="related-bottom-desc">Пошаговая инструкция по оформлению посылки в СДЭК при работе по договору: от упаковки до заполнения </span></a><a href="/articles/k/ka/kak-uznat-svoj-nomer-dogovora-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как узнать номер договора СДЭК — 5 способов за 5 минут</span><span class="related-bottom-desc">Пошаговая инструкция, как найти номер договора с СДЭК: в личном кабинете, чеках, email и документах.</span></a><a href="/articles/i/is/istinnyj-prodavets-sdek-chto-pisat.html" class="related-bottom-card"><span class="related-bottom-title">Истинный продавец СДЭК: как правильно заполнять данные в 2026 году</span><span class="related-bottom-desc">Что писать в поле «истинный продавец» при отправке через СДЭК? Пошаговая инструкция с примерами для </span></a><a href="/articles/k/ka/kak-otkryt-filial-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как открыть филиал СДЭК: пошаговая инструкция для бизнеса</span><span class="related-bottom-desc">Полное руководство, как открыть филиал СДЭК. Требования к помещению, условия франшизы, необходимые д</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>Наложенный платеж СДЭК: что это значит и как работает — СДЭК Гид</title>
+    <meta name="description" content="Подробный гид по отправке наложенным платежом через СДЭК. Тарифы, лимиты, комиссия и пошаговая инструкция для отправителей и получателей.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/o/ot/otpravka-nalozhennym-platezhom-chto-eto-znachit-sdek.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Наложенный платеж СДЭК: что это значит и как работает">
+    <meta property="og:description" content="Подробный гид по отправке наложенным платежом через СДЭК. Тарифы, лимиты, комиссия и пошаговая инструкция для отправителей и получателей.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/oplata-i-tarify/">Оплата и тарифы</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Наложенный платеж СДЭК: что это значит и как работает</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Отправка наложенным платежом СДЭК: что это значит</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#механика-работы-наложенного-платежа">Механика работы наложенного платежа</a></li><li><a href="#тарифы-и-комиссия-за-перевод-средств">Тарифы и комиссия за перевод средств</a></li><li><a href="#лимиты-и-ограничения-сумм">Лимиты и ограничения сумм</a></li><li><a href="#пошаговая-инструкция-по-оформлению">Пошаговая инструкция по оформлению</a></li><li><a href="#сроки-и-способы-получения-денег">Сроки и способы получения денег</a></li><li><a href="#возврат-и-отказ-от-товара">Возврат и отказ от товара</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+<p>В мире современной логистики возможность оплатить товар непосредственно в момент его получения остается одним из самых востребованных инструментов для интернет-магазинов и частных продавцов. <strong>Наложенный платеж СДЭК</strong> — это финансовая услуга, позволяющая отправителю получить деньги за свой товар от получателя в пункте выдачи или при курьерской доставке. Это решает проблему недоверия между сторонами сделки: покупатель уверен, что товар физически существует и находится в транспортной компании, а продавец гарантированно получает оплату, не полагаясь на честность контрагента.</p>
+
+<p>Суть процесса заключается в том, что транспортная компания выступает финансовым посредником. Получатель вносит полную сумму за товар и стоимость доставки, а затем эти средства переводятся отправителю. <em>СДЭК</em> берет на себя ответственность за сохранность средств до момента их перечисления на расчетный счет продавца. Это особенно актуально для регионов, где другие способы оплаты могут быть недоступны или неудобны для конечного клиента.</p>
+
+<p>Однако система имеет свои нюансы, о которых необходимо знать до оформления накладной. Существуют лимиты на сумму, комиссии за перевод средств и определенные сроки зачисления денег. Понимание того, <strong>как работает наложенный платеж</strong> в СДЭК, поможет избежать кассовых разрывов и недовольства клиентов. В этой статье мы детально разберем механику процесса, тарифы и правила оформления.</p>
+
+<h2 id="механика-работы-наложенного-платежа">Механика работы наложенного платежа</h2>
+<p>Процесс взаимодействия всех сторон сделки строго регламентирован внутренними правилами логистического оператора. Когда продавец оформляет отправку, он указывает сумму, которую должен заплатить получатель. Эта сумма состоит из стоимости самого товара и, как правило, стоимости доставки, если она не была оплачена отправителем заранее. После прибытия груза в город назначения, система отправляет получателю уведомление о готовности к выдаче.</p>
+
+<p>В пункте выдачи <em>СДЭК</em> получатель предъявляет документ, удостоверяющий личность, и оплачивает указанную сумму. Кассир или терминал принимают деньги, после чего статус заказа меняется на «Вручено», а финансовый блок начинает обработку транзакции. <strong>Деньги не выдаются на руки отправителю</strong> в отделении; они переводятся исключительно безналичным путем на реквизиты, указанные при создании заказа.</p>
+
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> Если получатель откажется забирать товар после того, как он прибыл в пункт назначения, расходы на доставку туда и обратно, как правило, ложатся на отправителя. Убедитесь, что ваш клиент настроен на покупку, прежде чем отправлять груз наложенным платежом.</p>
+</blockquote>
+
+<p>Важно понимать разницу между простой доставкой и финансовой услугой. Логистическая компания не проверяет содержимое коробки на соответствие описанию, если это не услуга «примерка». Их задача — доставить груз и обеспечить финансовый транзит. Именно поэтому <strong>аккуратное заполнение накладной</strong> критически важно для избежания ошибок в суммах.</p>
+
+<div class="poll-widget" id="poll-aa139875"><div class="poll-widget-question">📊 Как вы предпочитаете оплачивать покупки в интернете?</div><div class="poll-widget-option" data-poll="aa139875" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Наложенным платежом при получении</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="aa139875" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Банковской картой онлайн</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="aa139875" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Криптовалютой</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="aa139875" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Через СБП (Систему быстрых платежей)</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="aa139875" data-idx="4" onclick="pbPollVote(this)"><span class="poll-widget-label">Только наличными в магазине</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="тарифы-и-комиссия-за-перевод-средств">Тарифы и комиссия за перевод средств</h2>
+<p>Стоимость услуги складывается из двух основных компонентов: тарифа на саму доставку груза и комиссии за перевод денежных средств. Тарифы на доставку зависят от веса, габаритов, расстояния и выбранного тарифного плана (например, «Посылочка» или «Супер-экспресс»). Комиссия за наложенный платеж рассчитывается отдельно и является платой за финансовую операцию.</p>
+
+<p>На текущий момент комиссия составляет процент от суммы, которую получатель вносит за товар. Минимальная фиксированная сумма комиссии также установлена правилами тарификации. Для юридических лиц и индивидуальных предпринимателей, работающих по договору, действуют индивидуальные условия, которые могут быть выгоднее стандартных тарифов для физических лиц.</p>
+
+<ul>
+<li>📦 Комиссия взимается только с суммы, объявленной как стоимость товара, но не с стоимости доставки.</li>
+<li>💰 Минимальная сумма комиссии установлена тарифами и не зависит от стоимости отправляемого груза.</li>
+<li>🔄 При возврате товара отправителю комиссия за наложенный платеж не возвращается, так как услуга была оказана.</li>
+<li>📄 Для юридических лиц НДС включается в стоимость услуги, что важно учитывать при расчете маржинальности.</li>
+</ul>
+
+<p>Стоит отметить, что условия могут меняться, поэтому перед массовой отправкой товаров рекомендуется свериться с актуальным прайс-листом на официальном сайте или в личном кабинете. <strong>Расчет итоговой стоимости</strong> лучше производить заранее, чтобы не уйти в минус при продаже недорогих товаров с высокой логистической составляющей.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>При расчете стоимости товара для наложенного платежа всегда закладывайте комиссию СДЭК в цену, иначе вы можете потерять часть прибыли на финансовых операциях.</p></div>
+
+<h2 id="лимиты-и-ограничения-сумм">Лимиты и ограничения сумм</h2>
+<p>В целях безопасности и соблюдения финансового законодательства, транспортные компании устанавливают лимиты на суммы наложенных платежей. <strong>Максимальная сумма</strong> наложения для одного отправления ограничена. На данный момент для физических лиц и стандартных отправлений она составляет 500 000 рублей. Если стоимость вашего товара превышает этот порог, потребуется искать альтернативные способы расчета или разбивать заказ на несколько частей, что не всегда удобно.</p>
+
+<p>Существуют также ограничения для определенных направлений и типов грузов. Например, при отправке в некоторые удаленные регионы или страны ближнего зарубежья лимиты могут быть снижены. Кроме того, есть минимальная сумма, ниже которой оформление наложенного платежа может быть экономически нецелесообразным из-за фиксированной части комиссии.</p>
+
+<p>Для крупных сделок, превышающих стандартные лимиты, <em>СДЭК</em> предлагает специальные решения для бизнеса. Это требует заключения отдельного договора и прохождения процедуры идентификации. В таких случаях логистический оператор может предложить индивидуальные условия страхования груза и финансовых рисков.</p>
+
+<table>
+<thead>
+<tr>
+<th>Тип отправителя</th>
+<th>Максимальная сумма (руб.)</th>
+<th>Комиссия (%)</th>
+<th>Срок перевода</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Физическое лицо</td>
+<td>до 500 000</td>
+<td>по тарифу</td>
+<td>3-5 рабочих дней</td>
+</tr>
+<tr>
+<td>ИП / ООО (Договор)</td>
+<td>до 500 000</td>
+<td>индивидуально</td>
+<td>1-3 рабочих дня</td>
+</tr>
+<tr>
+<td>Крупный бизнес</td>
+<td>индивидуально</td>
+<td>индивидуально</td>
+<td>по согласованию</td>
+</tr>
+<tr>
+<td>Международная отправка</td>
+<td>ограничено</td>
+<td>повышенный</td>
+<td>до 10 дней</td>
+</tr>
+</tbody>
+</table>
+
+<p>Нарушение лимитов приведет к тому, что система просто не позволит оформить накладную с указанной суммой. Поэтому всегда проверяйте актуальные ограничения в личном кабинете перед поездкой в пункт приема.</p>
+
+<h2 id="пошаговая-инструкция-по-оформлению">Пошаговая инструкция по оформлению</h2>
+<p>Оформление отправки с наложенным платежом требует внимательности, так как ошибка в цифрах может стоить денег. Процесс начинается с создания заказа в личном кабинете на сайте или через мобильное приложение. Вам необходимо выбрать тип отправления, указать адреса отправителя и получателя, а также параметры груза.</p>
+
+<p>На этапе заполнения деталей заказа нужно найти поле, отвечающее за оплату. Там следует выбрать опцию «Наложенный платеж» и ввести точную сумму, которую должен заплатить получатель. <strong>Сумма пишется цифрами</strong>, без лишних символов и пробелов. Также в этом разделе указываются реквизиты для возврата денег: номер карты или расчетный счет.</p>
+
+<div class="checklist-block"><h4>☑️ Оформление наложенного платежа</h4><label class="check-item"><input type="checkbox"><span>Выбрать тип отправления «Посылка» или «Документы»</span></label><label class="check-item"><input type="checkbox"><span>Указать точный вес и габариты</span></label><label class="check-item"><input type="checkbox"><span>Включить опцию «Наложенный платеж»</span></label><label class="check-item"><input type="checkbox"><span>Ввести сумму к оплате получателем</span></label><label class="check-item"><input type="checkbox"><span>Указать реквизиты для возврата средств</span></label><label class="check-item"><input type="checkbox"><span>Распечатать накладную и приклеить на коробку</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 6</div></div>
+
+<p>После заполнения всех полей система сформирует заказ. Вам останется только упаковать товар, приклеить наклейку с трек-номером и сдать груз в пункте приема или вызвать курьера. При сдаче оператор еще раз проверит соответствие declared value (объявленной ценности) и суммы наложения.</p>
+
+<p> Неожиданность может привести к отказу от получения, что повлечет за собой лишние расходы на логистику.</p>
+
+<h2 id="сроки-и-способы-получения-денег">Сроки и способы получения денег</h2>
+<p>Один из самых важных вопросов для продавца — когда деньги окажутся на его счету. <strong>Сроки перевода</strong> зависят от статуса клиента и выбранного тарифа. Для физических лиц, оплачивающих доставку по стандартным тарифам, деньги обычно перечисляются в течение 3-5 рабочих дней после того, как получатель оплатил товар. Бухгалтерия компании должна обработать транзакцию и отправить платежное поручение в банк.</p>
+
+<p>Для клиентов, работающих по договору (юридические лица и ИП), сроки часто сокращены. В зависимости от условий договора, выплата может производиться на следующий рабочий день или даже в день получения денег от клиента. Это создает более здоровый cash flow для бизнеса.</p>
+
+<details class="faq-item"><summary>Что делать, если деньги не пришли вовремя?</summary><div class="faq-answer"><p>Если прошло более 7 рабочих дней с момента вручения, а денег на счете нет, необходимо создать обращение в службу поддержки через личный кабинет. Приложите скан накладной со статусом «Вручено» и подтверждение оплаты получателем (если есть). Чаще всего задержки связаны с ошибками в реквизитах или банковскими выходными.</p></div></details>
+
+<p>Получить средства можно несколькими способами, которые указываются при создании заказа:</p>
+<ul>
+<li>💳 На банковскую карту (наиболее популярный способ для физлиц).</li>
+<li>🏦 На расчетный счет организации (требуется полное указание реквизитов).</li>
+<li>📱 На счет мобильного телефона (доступно только для небольших сумм).</li>
+</ul>
+
+<p>Обязательно проверяйте правильность введенных реквизитов. Ошибка в одном цифре номера карты приведет к тому, что деньги «зависнут» или уйдут не туда, и процесс их возврата займет considerable time.</p>
+
+<h2 id="возврат-и-отказ-от-товара">Возврат и отказ от товара</h2>
+<p>Ситуации, когда получатель отказывается забирать товар, случаются довольно часто. Причины могут быть разными: передумал, не устроил товар при осмотре (если разрешен), не хватило денег или просто не пришел за посылкой. В случае отказа товар отправляется обратно отправителю. <strong>Обратная доставка</strong> в этом случае оплачивается продавцом, если иное не предусмотрено условиями акции или договора.</p>
+
+<p>Если товар возвращается, наложенный платеж, естественно, не взимается. Однако комиссия за попытку оказания финансовой услуги может быть сохранена или возвращена в зависимости от этапа, на котором произошел отказ. Если груз уже был доставлен в город назначения и ожидал выдачи, логистическая компания уже понесла расходы.</p>
+
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> При возврате товара убедитесь, что упаковка не повреждена. Если получатель вскрыл товар и испортил его, вам будет сложнее доказать его ценность при претензионной работе, даже если вы оформляли объявленную ценность.</p>
+</blockquote>
+
+<p>Для минимизации рисков отказов рекомендуется использовать сервис «Примерка» (доступен для определенных категорий товаров, например, одежды). В этом случае получатель может примерить вещь в пункте выдачи, и только если она подойдет, оплатит ее. Это повышает лояльность клиентов, но увеличивает стоимость логистики.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Отказ получателя от товара всегда влечет за собой расходы на обратную логистику для отправителя, поэтому заранее обговаривайте условия сделки.</p></div>
+
+<h2 id="часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</h2>
+<details>
+<summary>Можно ли отправить наложенным платежом в другую страну?</summary>
+<p>Да, <em>СДЭК</em> осуществляет международные перевозки с наложенным платежом, но список стран ограничен. Необходимо уточнять актуальные направления в личном кабинете, так как они могут меняться из-за таможенных regulations и валютного контроля.</p>
+</details>
+
+<details>
+<summary>Нужно ли платить налог с полученной суммы?</summary>
+<p>СДЭК не является налоговым агентом в этой сделке. Вы получаете деньги за свой товар, и декларирование этого дохода — ваша обязанность согласно налоговому кодексу вашей страны (например, заполнение 3-НДФЛ для физлиц или отчетность для ИП).</p>
+</details>
+
+<details>
+<summary>Что будет, если получатель оплатил товар, но деньги потерялись?</summary>
+<p>Такая ситуация практически исключена благодаря системе трекинга и финансовой отчетности. Каждая операция фиксируется. Если деньги не дошли до отправителя в регламентный срок, следует написать заявление на розыск платежа, предоставив номер накладной.</p>
+</details>
+
+<details>
+<summary>Можно ли изменить сумму наложенного платежа после оформления?</summary>
+<p>Как правило, изменить сумму после того, как груз уже передан в доставку и находится в пути, нельзя. Это требует согласования с получателем и оператором, что технически сложно реализуемо. Лучше сразу указывать верную сумму.</p>
+</details>
+
+<details>
+<summary>Принимает ли СДЭК карты иностранных банков для оплаты наложенного платежа?</summary>
+<p>В текущих условиях санкционных ограничений оплата картами иностранных банков (Visa/Mastercard, выпущенных за пределами РФ) на территории России может быть недоступна. Получателю, скорее всего, потребуется наличные или карта российской платежной системы МИР.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#механика-работы-наложенного-платежа">Механика работы наложенного платежа</a></li><li><a href="#тарифы-и-комиссия-за-перевод-средств">Тарифы и комиссия за перевод средств</a></li><li><a href="#лимиты-и-ограничения-сумм">Лимиты и ограничения сумм</a></li><li><a href="#пошаговая-инструкция-по-оформлению">Пошаговая инструкция по оформлению</a></li><li><a href="#сроки-и-способы-получения-денег">Сроки и способы получения денег</a></li><li><a href="#возврат-и-отказ-от-товара">Возврат и отказ от товара</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/s/sk/skolko-stoyat-korobki-v-sdek.html" class="related-card">Сколько стоят коробки в СДЭК: цены 2026 + как сэкономить</a></li><li><a href="/articles/s/sd/sdek-kak-otpravit-za-schet-poluchatelya-i-poluchit-dengi.html" class="related-card">Как отправить СДЭК за счет получателя и получить деньги</a></li><li><a href="/articles/k/ka/kak-oformit-nalozhennyj-platezh-sdek-fizicheskomu-litsu.html" class="related-card">Наложенный платеж СДЭК для физических лиц: пошаговая инструкция 2026</a></li><li><a href="/articles/s/sk/skolko-budet-otpravit-posylku-sdekom.html" class="related-card">Сколько стоит отправить посылку СДЭК в 2026: тарифы и расчет стоимости</a></li><li><a href="/articles/c/ch/chto-nuzhno-chtoby-otpravit-posylku-sdek-v-drugoj-gorod-za-schet-poluchatelya.html" class="related-card">Как отправить посылку СДЭК за счёт получателя в 2026: пошаговая инструкция</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/s/sk/skolko-stoyat-korobki-v-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Сколько стоят коробки в СДЭК: цены 2026 + как сэкономить</span><span class="related-bottom-desc">Актуальные расценки на упаковку в СДЭК: стандартные и брендированные коробки, стоимость в пунктах вы</span></a><a href="/articles/s/sd/sdek-kak-otpravit-za-schet-poluchatelya-i-poluchit-dengi.html" class="related-bottom-card"><span class="related-bottom-title">Как отправить СДЭК за счет получателя и получить деньги</span><span class="related-bottom-desc">Подробная инструкция: как оформить отправку СДЭК наложенным платежом. Тарифы, лимиты, получение дене</span></a><a href="/articles/k/ka/kak-oformit-nalozhennyj-platezh-sdek-fizicheskomu-litsu.html" class="related-bottom-card"><span class="related-bottom-title">Наложенный платеж СДЭК для физических лиц: пошаговая инструкция 2026</span><span class="related-bottom-desc">Как оформить наложенный платеж при отправке посылки через СДЭК физическому лицу: условия, тарифы, ог</span></a><a href="/articles/s/sk/skolko-budet-otpravit-posylku-sdekom.html" class="related-bottom-card"><span class="related-bottom-title">Сколько стоит отправить посылку СДЭК в 2026: тарифы и расчет стоимости</span><span class="related-bottom-desc">Актуальные цены на отправку посылок через СДЭК: как рассчитать стоимость доставки, от чего зависит ц</span></a><a href="/articles/c/ch/chto-nuzhno-chtoby-otpravit-posylku-sdek-v-drugoj-gorod-za-schet-poluchatelya.html" class="related-bottom-card"><span class="related-bottom-title">Как отправить посылку СДЭК за счёт получателя в 2026: пошаговая инструкция</span><span class="related-bottom-desc">Узнайте, как оформить отправку груза через СДЭК с оплатой получателем: условия, документы, тарифы и </span></a><a href="/articles/v/ve/ves-k-oplate-sdek-chto-eto.html" class="related-bottom-card"><span class="related-bottom-title">Вес к оплате СДЭК: что это, как рассчитывается и почему важно</span><span class="related-bottom-desc">Подробный разбор понятия «вес к оплате» в СДЭК: как он влияет на стоимость доставки, формулы расчёта</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

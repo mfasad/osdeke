@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>Преалерт СДЭК: что это, зачем нужен и как настроить — СДЭК Гид</title>
+    <meta name="description" content="Подробно разбираем преалерт СДЭК: что это за статус, зачем он нужен получателю и как его активировать для быстрой доставки.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/p/pr/prealert-sdek-chto-eto.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Преалерт СДЭК: что это, зачем нужен и как настроить">
+    <meta property="og:description" content="Подробно разбираем преалерт СДЭК: что это за статус, зачем он нужен получателю и как его активировать для быстрой доставки.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/poluchenie/">Получение</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Преалерт СДЭК: что это, зачем нужен и как настроить</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Преалерт СДЭК: что это такое и зачем он нужен</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#суть-понятия-преалерт-в-логистике-сдэк">Суть понятия преалерт в логистике СДЭК</a></li><li><a href="#отличия-преалерта-от-реального-трекинга">Отличия преалерта от реального трекинга</a></li><li><a href="#зачем-нужен-преалерт-получателю-посылки">Зачем нужен преалерт получателю посылки</a></li><li><a href="#как-активировать-уведомление-о-прибытии-аналог-преалерта">Как активировать уведомление о прибытии (аналог преалерта)</a></li><li><a href="#особенности-преалерта-для-трансграничных-отправок">Особенности преалерта для трансграничных отправок</a></li><li><a href="#частые-проблемы-и-их-решение">Частые проблемы и их решение</a></li><li><a href="#faq-часто-задаваемые-вопросы">FAQ: Часто задаваемые вопросы</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>В мире логистики и интернет-торговли терминология часто обрастает профессиональным сленгом, который может поставить в тупик обычного пользователя. Одним из таких понятий является <strong>преалерт</strong>, который часто встречается в переписке с продавцами или в трекинге международных отправлений. Многие клиенты компании СДЭК, ожидая свой заказ из-за рубежа, сталкиваются с этим словом и задаются вопросом о его значении. По сути, это сигнал о том, что груз уже в пути, но еще не передан курьерской службе для финальной доставки.</p>
+
+<p>Понимание того, <em>что такое преалерт СДЭК</em>, помогает покупателю контролировать процесс доставки и заранее готовить необходимые документы. Это особенно актуально для трансграничной торговли, где таможенное оформление играет ключевую роль. Статус преалерта означает, что продавец сформировал пакет документов и передал информацию логистическому оператору. <mark>Преалерт — это электронное уведомление о готовности груза к отправке, предшествующее фактическому поступлению товара на склад СДЭК.</mark></p>
+
+<p>Дальнейшее ожидание посылки становится более прозрачным, если вы знаете текущий этап движения груза. В этой статье мы детально разберем механику работы преалертов, их отличие от реального трекинга и способы активации уведомления о прибытии. Вы узнаете, как не пропустить момент поступления товара на склад и ускорить его получение.</p>
+
+<h2 id="суть-понятия-преалерт-в-логистике-сдэк">Суть понятия преалерт в логистике СДЭК</h2>
+
+<p>Термин происходит от английского <em>pre-alert</em>, что дословно переводится как «предварительное предупреждение». В контексте работы СДЭК и международных перевозок это цифровой документ или сообщение, содержащее данные о грузе, который будет передан перевозчику в ближайшее время. <strong>Преалерт</strong> не является подтверждением того, что курьер уже забрал товар, но гарантирует, что процесс запущен.</p>
+
+<p>Обычно преалерт формирует отправитель (интернет-магазин или частное лицо) после упаковки товара. Он отправляет в систему СДЭК список товаров, их стоимость, вес и габариты. Это позволяет логистической компании заранее зарезервировать место на складе или в транспорте. Для получателя наличие преалерта — знак того, что заказ реально существует и движется к нему.</p>
+
+<ul>
+<li>📦 Это цифровой аналог накладной, создаваемый до физической приемки груза.</li>
+<li>🌍 Критически важен для международных отправлений, где нужна предварительная таможенная декларация.</li>
+<li>⏱ Позволяет сократить время обработки груза на складе по прибытии.</li>
+</ul>
+
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> Наличие преалерта не гарантирует, что товар уже пересекает границу. Между формированием преалерта и фактической передачу груза в СДЭК может пройти от нескольких часов до нескольких дней.</p>
+</blockquote>
+
+<p>Важно различать внутренний преалерт (для складской логистики) и внешний (для клиентов). Клиент видит результат обработки преалерта только тогда, когда груз фактически поступает в сортировочный центр. До этого момента трек-номер может не отображать движений, даже если продавец утверждает, что «отправка оформлена».</p>
+
+<h2 id="отличия-преалерта-от-реального-трекинга">Отличия преалерта от реального трекинга</h2>
+
+<p>Частая ошибка пользователей — ожидание движения посылки сразу после получения номера для отслеживания. <strong>Трекинг-номер</strong> может быть присвоен на этапе преалерта, но статусы в системе обновятся позже. Реальный трекинг начинается с момента сканирования штрих-кода сотрудником СДЭК при приемке.</p>
+
+<p>Преалерт содержит прогнозные данные: ожидаемый вес, количество мест, declared value (объявленную ценность). В процессе реальной транспортировки эти данные могут быть перепроверены. Если фактический вес окажется значительно выше заявленного в преалерте, получателя могут попросить доплатить разницу или подтвердить вес перед выдачей.</p>
+
+<div class="poll-widget" id="poll-f3d8f8ee"><div class="poll-widget-question">📊 Сталкивались ли вы с задержкой между заказом и появлением трека?</div><div class="poll-widget-option" data-poll="f3d8f8ee" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Да, постоянно</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="f3d8f8ee" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Иногда бывает</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="f3d8f8ee" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Нет, все всегда быстро</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="f3d8f8ee" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Не знаю, что это</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<p>Система трекинга СДЭК отображает этапы, которые груз прошел физически. Преалерт же находится «над» системой трекинга, являясь частью документооборота. Пока груз не отсканирован на входе в логистическую цепочку СДЭК, для системы он не существует, несмотря на наличие преалерта.</p>
+
+<ul>
+<li>🔍 Преалерт — это план, трекинг — это факт исполнения.</li>
+<li>📉 Данные в преалерте могут быть изменены отправителем до момента фактической сдачи груза.</li>
+<li>🚚 Трекинг показывает местоположение, преалерт — только намерение отправить.</li>
+</ul>
+
+<h2 id="зачем-нужен-преалерт-получателю-посылки">Зачем нужен преалерт получателю посылки</h2>
+
+<p>Казалось бы, получателя не должны волновать внутренние процессы логистики. Однако <strong>преалерт СДЭК</strong> напрямую влияет на скорость доставки, особенно для товаров из Китая (CDEK Shopping, Poizon, TaoBao). Зная о преалерте, вы понимаете, что товар уже упакован и готов к маршрутизации.</p>
+
+<p>Для дорогих или габаритных грузов преалерт позволяет сотруднику СДЭК заранее связаться с получателем для уточнения деталей. Например, если в преалерте указан товар, требующийенных условий хранения или сборки, логисты подготовятся к его встрече. Это снижает риск повреждения при доставке.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Если вы ждете крупногабаритный груз, узнайте у продавца дату формирования преалерта. Это поможет вам примерно рассчитать время звонка от службы доставки СДЭК.</p></div>
+
+<p>Также преалерт важен для проверки данных. Если продавец ошибся в адресе при формировании предварительного уведомления, эту ошибку иногда можно исправить быстрее, чем когда груз уже в пути. <em>Актуальность данных</em> в преалерте — залог того, что посылка не уедет в другой город.</p>
+
+<table>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>Преалерт</th>
+<th>Фактическая отправка</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Статус в трекинге</td>
+<td>Не отображается или «Ожидается»</td>
+<td>«Принято», «В пути»</td>
+</tr>
+<tr>
+<td>Ответственность СДЭК</td>
+<td>Минимальная (только хранение данных)</td>
+<td>Полная (сохранность и сроки)</td>
+</tr>
+<tr>
+<td>Возможность изменений</td>
+<td>Высокая (можно менять адрес, состав)</td>
+<td>Низкая (только через службу поддержки)</td>
+</tr>
+<tr>
+<td>Таможенные данные</td>
+<td>Предварительные</td>
+<td>Окончательные для декларации</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="как-активировать-уведомление-о-прибытии-аналог-преалерта">Как активировать уведомление о прибытии (аналог преалерта)</h2>
+
+<p>В пользовательском интерфейсе СДЭК понятие «преалерт» часто скрыто от глаз клиента. Вместо этого работает система <strong>уведомлений о поступлении</strong>. Чтобы не пропустить момент, когда ваш груз (о котором есть преалерт от продавца) прибудет на склад, нужно правильно настроить профиль.</p>
+
+<p>Для активации необходимо зарегистрироваться на сайте или в приложении СДЭК, используя номер телефона, указанный в качестве контактного при заказе. Система автоматически свяжет ваш аккаунт с ожидаемыми отправками. Как только преалерт превратится в реальный груз на складе, вы получите push-уведомление или SMS.</p>
+
+<div class="checklist-block"><h4>☑️ Настройка уведомлений</h4><label class="check-item"><input type="checkbox"><span>Зарегистрироваться на сайте СДЭК</span></label><label class="check-item"><input type="checkbox"><span>Войти в личный кабинет</span></label><label class="check-item"><input type="checkbox"><span>Проверить номер телефона в профиле</span></label><label class="check-item"><input type="checkbox"><span>Подтвердить email</span></label><label class="check-item"><input type="checkbox"><span>Включить push-уведомления в приложении</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 5</div></div>
+
+<p>Если вы заказываете товары через маркетплейсы, работающие со СДЭК (например, CDEK Shopping), статус «Сформирован преалерт» может отображаться в личном кабинете магазина. Переключение статуса на «Отправлено» в магазине означает, что СДЭК принял груз.</p>
+
+<blockquote>
+<p>⚠️ <strong>Внимание:</strong> Убедитесь, что номер телефона в личном кабинете СДЭК совпадает с номером, который вы указали продавцу. Иначе уведомление о прибытии может прийти другому человеку.</p>
+</blockquote>
+
+<h2 id="особенности-преалерта-для-трансграничных-отправок">Особенности преалерта для трансграничных отправок</h2>
+
+<p>При заказе из-за рубежа преалерт играет роль <strong>таможенной декларации</strong> на начальном этапе. Китайские партнеры СДЭК передают данные о содержимом (посылки) заранее. Это необходимо для прохождения таможни ЕАЭС без задержек.</p>
+
+<p>Если данные в преалерте (наименование товара, код ТН ВЭД, стоимость) не соответствуют реальности, таможня может запросить дополнительные документы. В этом случае статус доставки зависнет на этапе «Таможенное оформление», даже если физически груз уже в России.</p>
+
+<ul>
+<li>🛃 Требуется точное описание товара на английском или языке страны отправителя.</li>
+<li>💰 Стоимость в преалерте не должна быть занижена во избежание проблем с таможней.</li>
+<li>📄 Для некоторых категорий товаров (электроника, бренды) нужны фото шильдиков в преалерте.</li>
+</ul>
+
+<p>СДЭК использует данные преалерта для автоматического расчета пошлин. Если вы заказываете товар стоимостью выше 200 евро, система заранее рассчитает сумму налога к оплате. Получателю придет уведомление с требованием оплатить пошлину до выпуска груза.</p>
+
+<details class="faq-item"><summary>Что делать, если в преалерте ошибка в фамилии?</summary><div class="faq-answer"><p>Если ошибка незначительная (одна буква), груз, скорее всего, выдадут по паспорту. Если ошибка критическая, нужно писать в поддержку СДЭК с фото паспорта и чека, чтобы они обновили данные в карточке груза.</p></div></details>
+
+<h2 id="частые-проблемы-и-их-решение">Частые проблемы и их решение</h2>
+
+<p>Пользователи часто сталкиваются с ситуацией, когда продавец дал трек-номер, но он «не пробивается». Это классический случай, когда сформирован <strong>преалерт</strong>, но груз еще не отсканирован. Паниковать раньше времени не стоит — в периоды распродаж (11.11, Черная пятница) задержка между преалертом и сканированием может достигать 3-5 дней.</p>
+
+<p>Еще одна проблема — расхождение веса. В преалерте указан 1 кг, а по факту пришло 1.5 кг. СДЭК имеет право пересчитать стоимость доставки или запросить доплату, если разница существенна. Всегда проверяйте итоговый вес в приложении перед оплатой доставки (если она за ваш счет).</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Главная причина «зависания» трека — разница во времени между созданием электронной накладной (преалерта) и физической передачей коробки курьеру.</p></div>
+
+<p>Если статус не меняется более 10 дней с момента получения преалерта, стоит обратиться к продавцу. Возможно, товар потерялся на складе отправителя или был отменен, но статус в системе магазина не обновили.</p>
+
+<h2 id="faq-часто-задаваемые-вопросы">FAQ: Часто задаваемые вопросы</h2>
+
+<details>
+<summary>Можно ли изменить адрес доставки, если преалерт уже сформирован?</summary>
+<p>Да, пока груз не поступил на сортировочный центр СДЭК в вашем городе, адрес часто можно изменить через личный кабинет или поддержку. После поступления груза на склад доставки смена адреса может быть платной или невозможной.</p>
+</details>
+
+<details>
+<summary>Сколько времени проходит от преалерта до трекинга?</summary>
+<p>В среднем от 1 до 3 дней внутри страны. Для международных отправок из Китая этот срок может составлять от 3 до 7 дней, пока груз не доедет до границы и не будет передан СДЭК.</p>
+</details>
+
+<details>
+<summary>Обязательно ли регистрироваться на сайте, чтобы видеть преалерт?</summary>
+<p>Нет, сам преалерт вы не увидите. Вы увидите статусы движения только после фактической приемки груза. Регистрация нужна для получения уведомлений и управления доставкой.</p>
+</details>
+
+<details>
+<summary>Что значит статус «Преалерт получен» в личном кабинете магазина?</summary>
+<p>Это значит, что магазин передал данные о вашем заказе в логистическую систему. Товар упакован и готов к передаче курьеру СДЭК, но физически еще может находиться на складе продавца.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#суть-понятия-преалерт-в-логистике-сдэк">Суть понятия преалерт в логистике СДЭК</a></li><li><a href="#отличия-преалерта-от-реального-трекинга">Отличия преалерта от реального трекинга</a></li><li><a href="#зачем-нужен-преалерт-получателю-посылки">Зачем нужен преалерт получателю посылки</a></li><li><a href="#как-активировать-уведомление-о-прибытии-аналог-преалерта">Как активировать уведомление о прибытии (аналог преалерта)</a></li><li><a href="#особенности-преалерта-для-трансграничных-отправок">Особенности преалерта для трансграничных отправок</a></li><li><a href="#частые-проблемы-и-их-решение">Частые проблемы и их решение</a></li><li><a href="#faq-часто-задаваемые-вопросы">FAQ: Часто задаваемые вопросы</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/s/sk/skolko-dnej-khranitsya-posylka-v-sdeke.html" class="related-card">Сколько дней хранится посылка в СДЭК: сроки и правила</a></li><li><a href="/articles/k/kt/kto-mozhet-poluchit-za-menya-posylku-sdek.html" class="related-card">Кто может забрать посылку СДЭК за вас: правила и документы</a></li><li><a href="/articles/k/kt/kto-mozhet-poluchit-zakaz-sdek.html" class="related-card">Кто может получить заказ в СДЭК: условия и правила 2026 года</a></li><li><a href="/articles/k/ka/kak-v-sdek-pomenyat-poluchatelya-onlajn.html" class="related-card">Как в СДЭК поменять получателя онлайн: пошаговая инструкция</a></li><li><a href="/articles/s/sk/skolko-besplatnoe-khranenie-v-sdek-dnej.html" class="related-card">Сколько дней бесплатное хранение в СДЭК: сроки, штрафы и правила</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/s/sk/skolko-dnej-khranitsya-posylka-v-sdeke.html" class="related-bottom-card"><span class="related-bottom-title">Сколько дней хранится посылка в СДЭК: сроки и правила</span><span class="related-bottom-desc">Узнайте, сколько дней хранится посылка в СДЭК бесплатно. Сроки хранения в пункте выдачи и курьером. </span></a><a href="/articles/k/kt/kto-mozhet-poluchit-za-menya-posylku-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Кто может забрать посылку СДЭК за вас: правила и документы</span><span class="related-bottom-desc">Узнайте, кто имеет право получить посылку СДЭК вместо адресата. Полный список документов, правила до</span></a><a href="/articles/k/kt/kto-mozhet-poluchit-zakaz-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Кто может получить заказ в СДЭК: условия и правила 2026 года</span><span class="related-bottom-desc">Узнайте, кто имеет право получить посылку в СДЭК: паспорт, доверенность, электронная подпись. Правил</span></a><a href="/articles/k/ka/kak-v-sdek-pomenyat-poluchatelya-onlajn.html" class="related-bottom-card"><span class="related-bottom-title">Как в СДЭК поменять получателя онлайн: пошаговая инструкция</span><span class="related-bottom-desc">Узнайте, как в СДЭК поменять получателя через личный кабинет. Инструкция по оформлению доверенности,</span></a><a href="/articles/s/sk/skolko-besplatnoe-khranenie-v-sdek-dnej.html" class="related-bottom-card"><span class="related-bottom-title">Сколько дней бесплатное хранение в СДЭК: сроки, штрафы и правила</span><span class="related-bottom-desc">Узнайте точные сроки бесплатного хранения посылок в СДЭК. Разбор тарифов для ПВЗ и курьерской достав</span></a><a href="/articles/k/ka/kak-otkazatsya-ot-dostavki-sdek-onlajn.html" class="related-bottom-card"><span class="related-bottom-title">Как отказаться от доставки СДЭК онлайн: пошаговая инструкция 2026</span><span class="related-bottom-desc">Узнайте, как быстро отменить заказ или доставку СДЭК через личный кабинет, приложение или звонок. Вс</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

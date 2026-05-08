@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>Как создать накладную СДЭК: пошаговая инструкция для отправителя — СДЭК Гид</title>
+    <meta name="description" content="Узнайте, как создается накладная в СДЭК в личном кабинете и через API. Подробный разбор полей, статусов и правил оформления для успешной отправки.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/k/ka/kak-sozdaetsya-nakladnaya-v-sdek.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Как создать накладную СДЭК: пошаговая инструкция для отправителя">
+    <meta property="og:description" content="Узнайте, как создается накладная в СДЭК в личном кабинете и через API. Подробный разбор полей, статусов и правил оформления для успешной отправки.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/otpravka-gruzov/">Отправка грузов</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Как создать накладную СДЭК: пошаговая инструкция для отправителя</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Как создается накладная в СДЭК: полный гид по оформлению</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#что-такое-накладная-сдэк-и-зачем-она-нужна">Что такое накладная СДЭК и зачем она нужна</a></li><li><a href="#регистрация-в-личном-кабинете-и-подготовка-к-отправке">Регистрация в личном кабинете и подготовка к отправке</a></li><li><a href="#пошаговая-инструкция-заполнение-полей-накладной">Пошаговая инструкция: заполнение полей накладной</a></li><li><a href="#печать-накладной-и-маркировка-груза">Печать накладной и маркировка груза</a></li><li><a href="#особенности-создания-накладной-для-интернет-магазинов">Особенности создания накладной для интернет-магазинов</a></li><li><a href="#частые-ошибки-при-оформлении-и-как-их-избежать">Частые ошибки при оформлении и как их избежать</a></li><li><a href="#вопросы-и-ответы-faq">Вопросы и ответы (FAQ)</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+<p>Процесс отправки груза невозможно представить без оформления первичной документации, и именно накладная в СДЭК является ключевым документом, сопровождающим посылку на всем пути следования. Создание этого документа требует внимательности, так как любая ошибка в адресах или весе может привести к задержкам или дополнительным расходам. В современной логистике процедура значительно упрощена благодаря цифровым сервисам компании.</p>
+
+<p>Накладная, или транспортная накладная, фиксирует договоренность между отправителем и перевозчиком о перемещении груза из точки А в точку Б. <strong>Электронный документооборот</strong> позволяет формировать эти данные за считанные минуты, исключая необходимость ручного заполнения бумажных бланков в отделении. Понимание того, как именно формируется этот файл в системе, поможет вам избежать типичных ошибок новичков.</p>
+
+<p>Далее мы подробно разберем все этапы создания накладной, от регистрации до получения трекингового номера. Вы узнаете о нюансах заполнения полей, особенностях работы с разными типами отправлений и о том, какие данные являются критически важными для беспрепятственного прохождения таможни или сортировочных центров.</p>
+
+<h2 id="что-такое-накладная-сдэк-и-зачем-она-нужна">Что такое накладная СДЭК и зачем она нужна</h2>
+<p>Накладная — это юридически значимый документ, подтверждающий факт приема груза курьерской службой. В системе СДЭК она выполняет функцию основного идентификатора отправления, связывая физическую коробку с ее цифровым профилем в базе данных. Без корректно оформленной накладной движение груза по сети компании технически невозможно.</p>
+
+<p><em>Транспортная накладная</em> содержит исчерпывающую информацию об отправителе, получателе, содержимом, declared value (объявленной ценности) и выбранном тарифе. Эти данные необходимы не только для логистов, но и для служб безопасности, которые проверяют грузы на соответствие законодательству. Ошибки в этом документе могут привести к тому, что посылку просто не примут к отправке.</p>
+
+<p>Важно понимать, что накладная создается в момент оформления заказа, но ее юридическая сила набирает полную мощность после фактической передачи груза сотруднику компании или курьеру. Именно с этого момента начинается отсчет гарантийных сроков доставки. <strong>Цифровой след</strong>, оставляемый при создании накладной, позволяет в режиме реального времени отслеживать статус посылки.</p>
+
+<blockquote>⚠️ Внимание: Несоответствие фактического веса и габаритов груза данным, указанным в накладной при создании, приведет к перерасчету стоимости доставки и выставлению дополнительного счета.</blockquote>
+
+<p>Для бизнеса наличие правильно оформленной накладной критически важно для бухгалтерского учета и подтверждения расходов. В случае споров или потери груза именно этот документ является главным доказательством содержания посылки и условий ее перевозки. Поэтому к заполнению реквизитов следует относиться с максимальной тщательности.</p>
+
+<h2 id="регистрация-в-личном-кабинете-и-подготовка-к-отправке">Регистрация в личном кабинете и подготовка к отправке</h2>
+<p>Первым шагом для создания накладной является наличие действующего аккаунта в системе СДЭК. Для физических лиц доступна авторизация через социальные сети или номер телефона, что значительно ускоряет процесс. Бизнес-клиентам потребуется заключить договор, чтобы получить доступ к расширенному функционалу и корпоративным тарифам.</p>
+
+<p>После входа в <strong>Личный кабинет</strong> перед вами откроется панель управления, где находится кнопка создания нового заказа. Система предложит выбрать тип отправления: «Дверь-дверь», «Магазин-дверь» или «Склад-склад». От выбранного варианта будет зависеть набор полей, которые необходимо заполнить для формирования корректной накладной.</p>
+
+<div class="poll-widget" id="poll-3e07d3d4"><div class="poll-widget-question">📊 Какой способ отправки вы используете чаще?</div><div class="poll-widget-option" data-poll="3e07d3d4" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Отправляю сам в пункт выдачи</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="3e07d3d4" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Вызываю курьера на дом</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="3e07d3d4" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Пользуюсь интеграцией через API</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="3e07d3d4" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Отправляю через партнера</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<p>Перед началом заполнения убедитесь, что у вас под рукой есть точные данные получателя: индекс, город, улица, дом, квартира и контактный телефон. Также необходимо заранее взвесить и измерить упакованный груз, так как эти параметры напрямую влияют на итоговую стоимость. <em>Габариты</em> (длина, ширина, высота) должны быть указаны в сантиметрах, а вес — в килограммах с точностью до сотых.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Сохраните шаблоны часто используемых адресов в личном кабинете — это ускорит создание новых накладных в будущем и минимизирует риск опечаток.</p></div>
+
+<h2 id="пошаговая-инструкция-заполнение-полей-накладной">Пошаговая инструкция: заполнение полей накладной</h2>
+<p>Процесс формирования накладной представляет собой последовательное заполнение нескольких блоков информации. Система проводит пользователя через все этапы, подсвечивая обязательные поля. Ошибиться сложно, если внимательно читать подсказки, однако существуют нюансы, требующие особого внимания.</p>
+
+<div class="checklist-block"><h4>☑️ Чек-лист перед отправкой</h4><label class="check-item"><input type="checkbox"><span>Указан полный адрес с индексом</span></label><label class="check-item"><input type="checkbox"><span>Вес и габариты измерены точно</span></label><label class="check-item"><input type="checkbox"><span>Телефон получателя верный</span></label><label class="check-item"><input type="checkbox"><span>Выбран способ оплаты доставки</span></label><label class="check-item"><input type="checkbox"><span>Описано вложение</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 5</div></div>
+
+<p>В блоке «Отправитель» данные обычно подтягиваются автоматически из профиля, но их всегда нужно перепроверить. В блоке «Получатель» важно указать актуальный номер мобильного телефона, так как именно на него придет СМС-уведомление о прибытии груза. Неверный номер может привести к тому, что получатель просто не узнает о приходе посылки.</p>
+
+<p>Особое внимание уделите разделу «Параметры груза». Здесь необходимо выбрать категорию вложения из предложенного списка. Если вы отправляете технику, одежду или документы, выберите соответствующий пункт. Для ценных грузов обязательно укажите <strong>объявленную ценность</strong>, которая влияет на стоимость страховки и сумму компенсации в случае утраты.</p>
+
+<table>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>Описание</th>
+<th>Важность</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Индекс</td>
+<td>Почтовый код города или района</td>
+<td>Критично (без него сортировка невозможна)</td>
+</tr>
+<tr>
+<td>Вес (кг)</td>
+<td>Масса груза в упаковке</td>
+<td>Высокая (влияет на цену)</td>
+</tr>
+<tr>
+<td>Объем (м³)</td>
+<td>Габариты упаковки</td>
+<td>Средняя (важно для габаритных грузов)</td>
+</tr>
+<tr>
+<td>Ценность (руб)</td>
+<td>Стоимость содержимого</td>
+<td>Высокая (основа для страховки)</td>
+</tr>
+</tbody>
+</table>
+
+<p>Завершающим этапом является выбор дополнительных услуг. Вы можете добавить опцию «Примерка» для одежды, «Частичный выкуп» или «Упаковку». Все выбранные услуги будут отражены в итоговой накладной и повлияют на финальную сумму к оплате. После проверки всех данных система сгенерирует трек-номер.</p>
+
+<h2 id="печать-накладной-и-маркировка-груза">Печать накладной и маркировка груза</h2>
+<p>После успешного создания заказа в системе формируется файл накладной, который необходимо распечатать. Для стандартных отправлений достаточно обычной офисной бумаги формата А4. Накладная прикрепляется к грузу в прозрачном файле-вкладыше, который защищает документ от влаги и механических повреждений.</p>
+
+<p>Современные термопринтеры позволяют печатать накладные сразу в виде этикеток, что значительно удобнее для интернет-магазинов. В этом случае используется термобумага, а сама накладная содержит <strong>штрих-код</strong>, который считывается сканерами на всех этапах пути. Это обеспечивает высокую скорость обработки и минимизирует человеческий фактор.</p>
+
+<p>Крепить накладную нужно на самую большую грань коробки, избегая мест стыка коробочных клапанов и швов. Штрих-код должен быть четко виден и не иметь заломов. Если вы отправляете несколько коробок в одном заказе, на каждой из них должна быть своя уникальная маркировка или общая накладная с указанием количества мест.</p>
+
+<blockquote>⚠️ Внимание: Не заклеивайте штрих-код прозрачным скотчем поверх — это может сделать его нечитаемым для сканеров, что приведет к потере трекинга.</blockquote>
+
+<details class="faq-item"><summary>Что делать, если нет принтера?</summary><div class="faq-answer"><p>Вы можете создать заказ в личном кабинете, получить QR-код и показать его сотруднику в пункте выдачи. Сотрудник сам распечатает и наклеит накладную на ваш груз.</p></div></details>
+
+<h2 id="особенности-создания-накладной-для-интернет-магазинов">Особенности создания накладной для интернет-магазинов</h2>
+<p>Для владельцев интернет-магазинов процесс создания накладных имеет свою специфику, связанную с большими объемами и необходимостью интеграции. СДЭК предлагает специальные решения, такие как <em>СДЭК API</em> или модули для популярных CMS (1С-Битрикс, WooCommerce, OpenCart). Это позволяет создавать накладные автоматически сразу после оформления заказа клиентом на сайте.</p>
+
+<p>При работе с маркетплейсами или агрегаторами важно правильно настроить маппинг полей, чтобы данные о товаре, покупателе и адресе передавались без искажений. Автоматизация позволяет генерировать сотни накладных в сутки, что невозможно сделать вручную. Ключевым моментом здесь является синхронизация статусов: как только накладная создана и груз принят, статус в личном кабинете магазина должен обновиться.</p>
+
+<p>Бизнес-клиентам доступен функционал массового импорта накладных через Excel-файлы. Вы можете заполнить шаблон, загрузить его в систему и получить готовый пакет документов для печати. Это существенно экономит время менеджеров по логистике. Однако при массовой загрузке риск ошибки возрастает, поэтому двойная проверка файла перед отправкой обязательна.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Автоматизация создания накладных через API — обязательное условие для магазинов с объемом от 10 отправлений в день, позволяющее исключить ручной труд и ошибки.</p></div>
+
+<h2 id="частые-ошибки-при-оформлении-и-как-их-избежать">Частые ошибки при оформлении и как их избежать</h2>
+<p>Одной из самых распространенных ошибок является неверное указание категории груза. Отправители часто пишут «Подарок» или «Вещи», тогда как требуется конкретика: «Одежда», «Электроника», «Книги». vague описания могут вызвать вопросы у службы безопасности и привести к вскрытию посылки для досмотра.</p>
+
+<p>Еще одна проблема — игнорирование правил упаковки в погоне за снижением веса. Накладная создается на основе заявленных габаритов, но если при приемке выяснится, что коробка мнется или товар может повредиться, сотрудник СДЭК потребует переупаковки. Это повлечет за собой изменение веса и, соответственно, параметров накладной.</p>
+
+<ul>
+<li>📦 <strong>Неверный индекс:</strong> приводит к отправке груза в другой регион и длительной задержке.</li>
+<li>📞 <strong>Ошибка в телефоне:</strong> получатель не получит уведомление и может отказаться от груза.</li>
+<li>💰 <strong>Заниженная ценность:</strong> в случае потери вы получите компенсацию лишь в размере declared value, а не реальную стоимость.</li>
+<li>📝 <strong>Нечитаемый штрих-код:</strong> груз может «потеряться» внутри сортировочного центра.</li>
+</ul>
+
+<p>Во избежание проблем с таможней при международных отправках (ЕАЭС) необходимо максимально подробно описывать состав вложения на языке страны назначения. Использование транслитерации или неправильный перевод названий товаров — частая причина возврата грузов на границе. Всегда проверяйте актуальные требования к ввозу товаров в страну получателя.</p>
+
+<h2 id="вопросы-и-ответы-faq">Вопросы и ответы (FAQ)</h2>
+<details>
+<summary>Можно ли изменить данные в накладной после ее создания?</summary>
+<p>Внести изменения в уже созданную накладную можно только до момента фактической передачи груза курьеру или сотруднику пункта выдачи. После того как груз принят и статус сменился на «Принято», изменение адреса или получателя возможно только через заявку в службу поддержки или изменение маршрута в личном кабинете, что может быть платной услугой.</p>
+</details>
+
+<details>
+<summary>Нужно ли распечатывать накладную в цветном виде?</summary>
+<p>Нет, цветная печать не требуется. Главное условие — четкость штрих-кода и читаемость текста. Накладную можноать на черно-белом лазерном или струйном принтере, а также на термопринтере. Важно, чтобы бумага была плотной и не рвалась при транспортировке.</p>
+</details>
+
+<details>
+<summary>Что делать, если накладная потерялась или порвалась?</summary>
+<p>Если вы потеряли бумажный экземпляр, но груз еще не передан сотруднику СДЭК, вы можете просто скачать и распечатать копию из личного кабинета, используя номер заказа. Если же груз уже в пути, бумажный экземпляр не критичен для отслеживания, так как все данные есть в электронной базе по трек-номеру.</p>
+</details>
+
+<details>
+<summary>Как создать накладную без личного кабинета?</summary>
+<p>Создать полноценную накладную с фиксированными тарифами и историей можно только в личном кабинете. Однако вы можете прийти в пункт выдачи без предварительного оформления, где оператор создаст накладную за вас. В этом случае тариф может быть выше, а очередь в пункте — больше.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#что-такое-накладная-сдэк-и-зачем-она-нужна">Что такое накладная СДЭК и зачем она нужна</a></li><li><a href="#регистрация-в-личном-кабинете-и-подготовка-к-отправке">Регистрация в личном кабинете и подготовка к отправке</a></li><li><a href="#пошаговая-инструкция-заполнение-полей-накладной">Пошаговая инструкция: заполнение полей накладной</a></li><li><a href="#печать-накладной-и-маркировка-груза">Печать накладной и маркировка груза</a></li><li><a href="#особенности-создания-накладной-для-интернет-магазинов">Особенности создания накладной для интернет-магазинов</a></li><li><a href="#частые-ошибки-при-оформлении-и-как-их-избежать">Частые ошибки при оформлении и как их избежать</a></li><li><a href="#вопросы-и-ответы-faq">Вопросы и ответы (FAQ)</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/k/ka/kak-otpravit-tovar-na-vajldberriz-cherez-transportnuyu-kompaniyu-sdek.html" class="related-card">Как отправить товар на Wildberries через СДЭК: пошаговая инструкция 2026</a></li><li><a href="/articles/k/ka/kak-otpravit-tovar-sdekom-cherez-avito.html" class="related-card">Как отправить товар СДЭК через Авито: пошаговая инструкция 2026</a></li><li><a href="/articles/s/sd/sdek-kakie-dokumenty-nuzhny-dlya-otpravleniya-posylki-i-polucheniya.html" class="related-card">Документы для СДЭК: что нужно для отправки и получения</a></li><li><a href="/articles/k/ka/kak-otpravit-posylku-cherez-sdek-i-poluchit-dengi.html" class="related-card">Как отправить посылку через СДЭК и получить деньги: пошаговая инструкция 2026</a></li><li><a href="/articles/s/sd/sdek-kak-otpravit-dostavku.html" class="related-card">Как отправить посылку СДЭК: пошаговая инструкция</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/k/ka/kak-otpravit-tovar-na-vajldberriz-cherez-transportnuyu-kompaniyu-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как отправить товар на Wildberries через СДЭК: пошаговая инструкция 2026</span><span class="related-bottom-desc">Подробное руководство по отправке посылок на маркетплейс Wildberries через транспортную компанию СДЭ</span></a><a href="/articles/k/ka/kak-otpravit-tovar-sdekom-cherez-avito.html" class="related-bottom-card"><span class="related-bottom-title">Как отправить товар СДЭК через Авито: пошаговая инструкция 2026</span><span class="related-bottom-desc">Узнайте, как правильно оформить отправку товара через СДЭК при продаже на Авито: от выбора тарифа до</span></a><a href="/articles/s/sd/sdek-kakie-dokumenty-nuzhny-dlya-otpravleniya-posylki-i-polucheniya.html" class="related-bottom-card"><span class="related-bottom-title">Документы для СДЭК: что нужно для отправки и получения</span><span class="related-bottom-desc">Полный список документов для СДЭК. Узнайте, какие бумаги нужны для получения посылок физлицам, ИП и </span></a><a href="/articles/k/ka/kak-otpravit-posylku-cherez-sdek-i-poluchit-dengi.html" class="related-bottom-card"><span class="related-bottom-title">Как отправить посылку через СДЭК и получить деньги: пошаговая инструкция 2026</span><span class="related-bottom-desc">Подробное руководство по отправке посылок через СДЭК с оплатой при получении: тарифы, оформление, от</span></a><a href="/articles/s/sd/sdek-kak-otpravit-dostavku.html" class="related-bottom-card"><span class="related-bottom-title">Как отправить посылку СДЭК: пошаговая инструкция</span><span class="related-bottom-desc">Полный гид по отправке доставки СДЭК. Инструкция по оформлению накладной, упаковке, оплате и отслежи</span></a><a href="/articles/c/ch/chto-nuzhno-dlya-otpravki-sdekom-ot-otpravitelya.html" class="related-bottom-card"><span class="related-bottom-title">Что нужно для отправки СДЭКом от отправителя: документы и правила</span><span class="related-bottom-desc">Полный гид: что нужно для отправки СДЭКом от отправителя. Список документов, правила упаковки, тариф</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

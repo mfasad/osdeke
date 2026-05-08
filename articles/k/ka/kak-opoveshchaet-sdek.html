@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>Как СДЭК оповещает о статусах заказа: SMS, email, push, звонки — СДЭК Гид</title>
+    <meta name="description" content="Все способы уведомлений от СДЭК: как настроить, почему не приходят оповещения, что делать если не получили SMS о доставке. Инструкции + FAQ.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/k/ka/kak-opoveshchaet-sdek.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Как СДЭК оповещает о статусах заказа: SMS, email, push, звонки">
+    <meta property="og:description" content="Все способы уведомлений от СДЭК: как настроить, почему не приходят оповещения, что делать если не получили SMS о доставке. Инструкции + FAQ.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/otslezhivanie/">Отслеживание</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Как СДЭК оповещает о статусах заказа: SMS, email, push, звонки</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Как СДЭК информирует о статусах посылки: все каналы оповещений в 2026 году</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#1-основные-каналы-оповещений-от-сдэк">1. Основные каналы оповещений от СДЭК</a></li><li><a href="#2-какие-статусы-сопровождаются-оповещениями">2. Какие статусы сопровождаются оповещениями?</a></li><li><a href="#3-почему-не-приходят-уведомления-от-сдэк">3. Почему не приходят уведомления от СДЭК?</a></li><li><a href="#4-как-настроить-или-отключить-уведомления">4. Как настроить или отключить уведомления?</a></li><li><a href="#5-особенности-оповещений-для-разных-типов-доставки">5. Особенности оповещений для разных типов доставки</a></li><li><a href="#6-как-проверить-отправлено-ли-уведомление">6. Как проверить, отправлено ли уведомление?</a></li><li><a href="#7-частые-ошибки-и-как-их-избежать">7. Частые ошибки и как их избежать</a></li><li><a href="#8-что-делать-если-уведомления-не-приходят">8. Что делать, если уведомления не приходят?</a></li><li><a href="#faq-частые-вопросы-об-оповещениях-сдэк">FAQ: Частые вопросы об оповещениях СДЭК</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body"><p>Когда вы отправляете или ждёте посылку через <strong>СДЭК</strong>, своевременные уведомления о её передвижении становятся критически важны. От момента регистрации заказа до выдачи в пункте получения система отправляет клиентам <em>SMS, email-письма, push-уведомления</em> и даже звонит в некоторых случаях. Но как именно работает эта система, какие статусы сопровождаются оповещениями, и что делать, если сообщения перестали приходить? В этой статье разберём все каналы информирования от СДЭК, их особенности и типичные проблемы.</p>
+
+<p>Важно понимать, что <strong>логика оповещений</strong> зависит от типа отправления (стандартная посылка, курьерская доставка, экспресс), статуса заказа и даже от того, кто является получателем — физическое или юридическое лицо. Например, при <code>доставке на дом</code> курьер обязательно позвонит за 30–60 минут до прибытия, а для посылок в <code>постамат</code> уведомление придёт только после размещения груза в ячейке. Мы проанализировали актуальные данные на 2026 год, включая изменения в политике уведомлений после обновления личного кабинета СДЭК.</p>
+
+<p>Если вы никогда не пользовались услугами СДЭК или столкнулись с тем, что оповещения приходят с задержкой (или не приходят вовсе), эта статья поможет разобраться в причинах и настроить уведомления под свои нужды. А для бизнес-клиентов мы отдельно рассмотрим, как настроить массовые оповещения для заказов в личном кабинете <em>СДЭК Бизнес</em>.</p>
+
+<h2 id="1-основные-каналы-оповещений-от-сдэк">1. Основные каналы оповещений от СДЭК</h2>
+
+<p>СДЭК использует <strong>четыре основных канала</strong> для информирования клиентов о статусах заказов. Каждый из них имеет свои особенности, преимущества и ограничения. Рассмотрим их подробно:</p>
+
+<ul>
+ <li>📱 <strong>SMS-уведомления</strong> — самый надёжный и быстрый способ, но зависит от оператора связи. Приходят на номер, указанный при оформлении заказа.</li>
+ <li>✉️ <strong>Email-письма</strong> — содержат подробную информацию и ссылки на отслеживание, но могут попадать в спам.</li>
+ <li>🔔 <strong>Push-уведомления</strong> — работают через мобильное приложение СДЭК или браузер (если включены в личном кабинете).</li>
+ <li>📞 <strong>Звонки от курьера</strong> — используются только для доставки на дом или при необходимости уточнить детали.</li>
+</ul>
+
+<p>По умолчанию <em>SMS и email</em> включены для всех клиентов, если они указали контактные данные при оформлении заказа. Однако <mark>push-уведомления требуют отдельной настройки в личном кабинете или мобильном приложении</mark>. Например, если вы зарегистрированы в системе, но не подтвердили email, письма приходить не будут — даже если номер телефона верен.</p>
+
+<p>Бизнес-клиенты (интернет-магазины, маркетплейсы) могут дополнительно настраивать <code>Webhook-уведомления</code> для интеграции со своими CRM-системами. Это позволяет автоматически обновлять статусы заказов на сайте продавца без ручного отслеживания. Подробнее об этом расскажем в разделе про настройки для юридических лиц.</p>
+
+<div class="poll-widget" id="poll-2cf9df6f"><div class="poll-widget-question">📊 Какой канал оповещений от СДЭК вы используете чаще всего?</div><div class="poll-widget-option" data-poll="2cf9df6f" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">SMS</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="2cf9df6f" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Email</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="2cf9df6f" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Push-уведомления</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="2cf9df6f" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Звонки курьера</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="2cf9df6f" data-idx="4" onclick="pbPollVote(this)"><span class="poll-widget-label">Не получаю уведомления</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="2-какие-статусы-сопровождаются-оповещениями">2. Какие статусы сопровождаются оповещениями?</h2>
+
+<p>Не все изменения статуса посылки приводят к отправке уведомления. СДЭК придерживается <strong>принципа важности</strong>: клиент получает сообщение только о ключевых событиях. Ниже таблица с основными статусами и тем, оповещают ли о них:</p>
+
+<table>
+ <thead>
+ <tr>
+ <th>Статус посылки</th>
+ <th>Оповещение по SMS</th>
+ <th>Оповещение по email</th>
+ <th>Push-уведомление</th>
+ <th>Звонок</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr>
+ <td>Заказ зарегистрирован в СДЭК</td>
+ <td>✅ Да</td>
+ <td>✅ Да</td>
+ <td>✅ Да</td>
+ <td>❌ Нет</td>
+ </tr>
+ <tr>
+ <td>Посылка прибыла на склад отправления</td>
+ <td>❌ Нет</td>
+ <td>✅ Да</td>
+ <td>✅ Да</td>
+ <td>❌ Нет</td>
+ </tr>
+ <tr>
+ <td>Посылка в пути (транзит)</td>
+ <td>❌ Нет</td>
+ <td>❌ Нет</td>
+ <td>✅ Да (только при изменении города)</td>
+ <td>❌ Нет</td>
+ </tr>
+ <tr>
+ <td>Посылка прибыла в город получателя</td>
+ <td>✅ Да</td>
+ <td>✅ Да</td>
+ <td>✅ Да</td>
+ <td>❌ Нет</td>
+ </tr>
+ <tr>
+ <td>Посылка готова к выдаче в ПВЗ/постамате</td>
+ <td>✅ Да (с указанием адреса)</td>
+ <td>✅ Да (с картой проезда)</td>
+ <td>✅ Да</td>
+ <td>❌ Нет</td>
+ </tr>
+ <tr>
+ <td>Курьер в пути к получателю</td>
+ <td>✅ Да (за 1 час)</td>
+ <td>✅ Да</td>
+ <td>✅ Да</td>
+ <td>✅ Да (за 30–60 мин)</td>
+ </tr>
+ </tbody>
+</table>
+
+<p>Обратите внимание: если посылка лежит на складе более <code>5 дней</code> без движения, СДЭК отправляет <strong>дополнительное напоминание</strong> по SMS и email с просьбой забрать груз. Это правило действует с 2023 года для борьбы с «забытыми» посылками. Также уведомление придёт, если:</p>
+<ul>
+ <li>🔴 Истёк срок хранения (обычно <code>7 дней</code> для физических лиц).</li>
+ <li>🟡 Посылка возвращается отправителю (с указанием причины).</li>
+ <li>🟢 Требуется доплата (например, при изменении тарифа или габаритов).</li>
+</ul>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Если вы ждёте посылку из-за границы, уведомления о прохождении таможни приходят отдельно — их отправляет не СДЭК, а таможенный брокер. В личном кабинете СДЭК эти статусы отображаются с пометкой"Таможня".</p></div>
+
+<h2 id="3-почему-не-приходят-уведомления-от-сдэк">3. Почему не приходят уведомления от СДЭК?</h2>
+
+<p>Отсутствие оповещений — одна из самых частых проблем клиентов. Причины можно разделить на <strong>технические</strong> (со стороны СДЭК или операторов связи) и <strong>организационные</strong> (ошибки в данных клиента). Рассмотрим обе категории.</p>
+
+<h3>Технические причины</h3>
+<ul>
+ <li>📵 <strong>Блокировка SMS оператором</strong> — некоторые мобильные операторы (например, <em>Теле2</em> или виртуальные операторы) могут фильтровать массовые рассылки.</li>
+ <li>📧 <strong>Email в спаме</strong> — письма от <code>no-reply@cdek.ru</code> часто попадают в папку «Спам» или «Промоакции».</li>
+ <li>🔕 <strong>Сбои в системе СДЭК</strong> — редко, но бывают задержки в отправке уведомлений (обычно не более 24 часов).</li>
+ <li>📱 <strong>Отключённые push-уведомления</strong> — в настройках телефона или приложения СДЭК.</li>
+</ul>
+
+<h3>Организационные причины</h3>
+<ul>
+ <li>📝 <strong>Неверный номер телефона или email</strong> — опечатка при оформлении заказа.</li>
+ <li>🔄 <strong>Изменение контактных данных</strong> — если вы сменили номер, но не обновили его в личном кабинете.</li>
+ <li>🚫 <strong>Отказ от уведомлений</strong> — в настройках профиля можно отключить SMS или email.</li>
+ <li>📦 <strong>Посылка оформлена без контактов получателя</strong> — например, при отправке через маркетплейс (Ozon, Wildberries), где данные получателя скрыты.</li>
+</ul>
+
+<p>Если уведомления перестали приходить внезапно, проверьте:</p>
+<ol>
+ <li>Папку «Спам» в почте.</li>
+ <li>Настройки уведомлений в <code>личном кабинете СДЭК</code> (раздел «Профиль → Уведомления»).</li>
+ <li>Баланс телефона (иногда SMS не приходят при отрицательном балансе).</li>
+</ol>
+
+<details class="faq-item"><summary>Что делать, если СДЭК не звонит перед доставкой?</summary><div class="faq-answer"><p>
+<p>Если курьер должен был позвонить за 30–60 минут до прибытия, но не сделал этого, причины могут быть следующими:</p>
+<p>1. <strong>Неверный номер телефона</strong> — проверьте, какой номер указан в заказе (иногда маркетплейсы подставляют свой контактный центр).</p>
+<p>2. <strong>Курьер в другом статусе</strong> — если посылка ещё не вышла на доставку, звонка не будет.</p>
+<p>3. <strong>Технические проблемы у курьера</strong> — например, разрядился телефон или ошибка в маршрутном листе.</p>
+<p>4. <strong>Нарушение регламента</strong> — редко, но бывает, что курьеры экономят время и не звонят.</p>
+
+<p>В этом случае можно:</p>
+<p>- Позвонить в контактный центр СДЭК по номеру <code>8 800 250-04-05</code> и уточнить статус.</p>
+<p>- Отследить местоположение курьера через карту в личном кабинете (если функция доступна в вашем регионе).</p>
+<p>- Написать в чат поддержки СДЭК в Telegram или WhatsApp (ссылки есть на официальном сайте).</p>
+<p></p></div></details></p>
+
+<h2 id="4-как-настроить-или-отключить-уведомления">4. Как настроить или отключить уведомления?</h2>
+
+<p>Управлять оповещениями можно через <strong>личный кабинет СДЭК</strong> (для физических лиц) или <em>СДЭК Бизнес</em> (для компаний). Рассмотрим оба варианта.</p>
+
+<h3>Для физических лиц</h3>
+<p>Чтобы изменить настройки уведомлений:</p>
+<ol>
+ <li>Авторизуйтесь на сайте <a href="https://www.cdek.ru/" target="_blank" rel="noopener">СДЭК</a> или в мобильном приложении.</li>
+ <li>Перейдите в раздел <code>Профиль → Настройки уведомлений</code>.</li>
+ <li>Выберите, какие каналы включить:
+ <ul>
+ <li>📱 SMS — можно отключить полностью или оставить только для ключевых статусов.</li>
+ <li>✉️ Email — аналогично, с возможностью выбора типов писем.</li>
+ <li>🔔 Push — настройка доступна только в мобильном приложении.</li>
+ </ol>
+ </li>
+ <li>Сохраните изменения.</li>
+</ol>
+
+<p>Если вы хотите получать уведомления о <strong>всех</strong> изменениях статуса (а не только ключевых), активируйте опцию <code>«Полные уведомления»</code> в настройках. Однако имейте в виду, что в этом случае количество SMS и писем значительно увеличится.</p>
+
+
+<p>Проверить правильность email и телефона в профиле|Выбрать каналы оповещений (SMS/email/push)|Сохранить изменения|Проверить работу уведомлений на тестовом заказе (если есть возможность)</p>
+<p>--></p>
+
+<h3>Для бизнес-клиентов</h3>
+<p>Юридические лица и интернет-магазины могут гибко настраивать уведомления через <em>СДЭК Бизнес</em>:</p>
+<ul>
+ <li>📊 <strong>Шаблоны уведомлений</strong> — можно редактировать текст SMS и email под бренд компании.</li>
+ <li>🔗 <strong>Webhook</strong> — настройка автоматической отправки данных о статусах в CRM или на сайт.</li>
+ <li>📈 <strong>Массовые рассылки</strong> — оповещение всех получателей заказов за один день.</li>
+ <li>🔒 <strong>Ограничение уведомлений</strong> — например, отправлять SMS только при прибытии в город.</li>
+</ul>
+
+<p>Для настройки <code>Webhook</code> потребуется:</p>
+<ol>
+ <li>Перейти в раздел <code>Интеграции → Webhook</code>.</li>
+ <li>Указать URL вашего сервера для приёма уведомлений.</li>
+ <li>Выбрать события, о которых нужно оповещать (например, <code>«Посылка в пути»</code>, <code>«Доставлено»</code>).</li>
+ <li>Проверить работу через тестовый запрос.</li>
+</ol>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Для бизнес-клиентов наиболее надёжный способ отслеживания — настройка Webhook. Это исключает задержки, связанные с SMS или email, и позволяет оперативно обновлять статусы заказов на сайте.</p></div>
+
+<h2 id="5-особенности-оповещений-для-разных-типов-доставки">5. Особенности оповещений для разных типов доставки</h2>
+
+<p>Способы информирования клиентов зависят от <strong>типа доставки</strong>. Например, при отправке в постамат логика уведомлений будет отличаться от курьерской доставки на дом. Разберём основные сценарии.</p>
+
+<h3>Доставка в пункт выдачи заказов (ПВЗ)</h3>
+<ul>
+ <li>📍 <strong>Прибытие на ПВЗ</strong> — SMS и email с адресом пункта и временем работы.</li>
+ <li>⏳ <strong>Напоминание о сроке хранения</strong> — за 2 дня до истечения (обычно 7 дней).</li>
+ <li>🔙 <strong>Возврат отправителю</strong> — если посылка не забрана вовремя.</li>
+</ul>
+<p>В уведомлении всегда указывается <code>номер заказа</code> и <code>адрес ПВЗ</code>. Если пункт работает по графику (например, только по будням), это тоже будет указано.</p>
+
+<h3>Доставка в постамат</h3>
+<ul>
+ <li>📦 <strong>Размещение в ячейке</strong> — SMS с <code>кодом получения</code> и адресом постамата.</li>
+ <li>⏰ <strong>Срок хранения</strong> — обычно <code>3 дня</code> (короче, чем в ПВЗ).</li>
+ <li>🚨 <strong>Предупреждение о возврате</strong> — за 12 часов до изъятия посылки.</li>
+</ul>
+<p><mark>Код из SMS для постамата действует только 3 дня — после этого посылка автоматически возвращается отправителю</mark>. Если вы не успеваете забрать груз, можно продлить срок хранения через личный кабинет (оплачивается отдельно).</p>
+
+<h3>Курьерская доставка на дом</h3>
+<ul>
+ <li>📞 <strong>Звонок за 30–60 минут</strong> — курьер уточняет адрес и время.</li>
+ <li>🏠 <strong>SMS о прибытии</strong> — когда курьер подъехал к дому.</li>
+ <li>📝 <strong>Подтверждение доставки</strong> — email с электронной копией акта приёма-передачи.</li>
+</ul>
+
+<p>Если курьер не может до вас дозвониться, он оставляет <strong>информационный лист</strong> в почтовом ящике с инструкцией, как перенести доставку. В некоторых регионах (Москва, Санкт-Петербург) доступна опция <code>«Умная доставка»</code> — курьер присылает геолокацию и фотографию подъезда за 10 минут до прибытия.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Если вы ждёте курьера, но не уверены во времени, воспользуйтесь функцией «Отследить курьера» в мобильном приложении СДЭК. Она показывает его местоположение на карте в реальном времени (доступно не во всех городах).</p></div>
+
+<h2 id="6-как-проверить-отправлено-ли-уведомление">6. Как проверить, отправлено ли уведомление?</h2>
+
+<p>Если вы сомневаетесь, было ли отправлено оповещение, есть несколько способов это проверить:</p>
+
+<h3>Для физических лиц</h3>
+<ul>
+ <li>🔍 <strong>История уведомлений</strong> — в личном кабинете в разделе <code>«Мои заказы»</code> есть вкладка <code>«Уведомления»</code>, где отображаются все отправленные SMS и email.</li>
+ <li>📱 <strong>Журнал SMS</strong> — проверьте папку «Отправленные» на номере <code>+7 9xxxxxxxxx</code> (отправитель СДЭК).</li>
+ <li>✉️ <strong>Почтовый ящик</strong> — поиск писем от <code>no-reply@cdek.ru</code>.</li>
+</ul>
+
+<h3>Для бизнес-клиентов</h3>
+<ul>
+ <li>📊 <strong>Отчёты по рассылкам</strong> — в <em>СДЭК Бизнес</em> есть раздел <code>«Статистика уведомлений»</code> с данными о доставке SMS/email.</li>
+ <li>🔗 <strong>Логи Webhook</strong> — если настроена интеграция, проверьте, приходили ли запросы на ваш сервер.</li>
+ <li>📞 <strong>Обратная связь от клиентов</strong> — если получатели жалуются на отсутствие уведомлений, запросите у СДЭК лог рассылок по конкретным заказам.</li>
+</ul>
+
+<p>Если в истории уведомлений есть запись об отправке, но вы не получили сообщение, проблема скорее всего на стороне:</p>
+<ul>
+ <li>📵 <strong>Оператора связи</strong> — SMS могlost в сети.</li>
+ <li>📧 <strong>Почтового сервиса</strong> — письмо попало в спам или было удалено фильтрами.</li>
+ <li>📱 <strong>Устройства</strong> — например, блокировка уведомлений на смартфоне.</li>
+</ul>
+
+<details class="faq-item"><summary>Как запросить повторную отправку уведомления?</summary><div class="faq-answer"><p>
+<p>Если уведомление не дошло, его можно запросить повторно:</p>
+<p>1. Для физических лиц:</p>
+<p>- Напишите в чат поддержки СДЭК (кнопка «Написать нам» в личном кабинете).</p>
+<p>- Укажите номер заказа и попросите повторно отправить SMS/email.</p>
+<p>2. Для бизнес-клиентов:</p>
+<p>- Обратитесь в службу поддержки <em>СДЭК Бизнес</em> по телефону <code>8 800 250-04-05</code> (доб. 2 для юридических лиц).</p>
+<p>- Или отправьте запрос через форму обратной связи в личном кабинете.</p>
+
+<p>Обычно повторное уведомление отправляют в течение 1–2 часов.</p>
+<p></p></div></details></p>
+
+<h2 id="7-частые-ошибки-и-как-их-избежать">7. Частые ошибки и как их избежать</h2>
+
+<p>Многие проблемы с оповещениями возникают из-за <strong>невнимательности при оформлении заказа</strong> или незнания особенностей работы СДЭК. Вот самые распространённые ошибки и способы их предотвращения:</p>
+
+<ul>
+ <li>📱 <strong>Неверный номер телефона</strong> — например, указан <code>+7 912 345-67-89</code>, а реальный номер <code>+7 913 345-67-89</code>. Всегда перепроверяйте контакты!</li>
+ <li>✉️ <strong>Опечатка в email</strong> — часто пропускают символы (@, точка) или указывают старый адрес. Используйте автозаполнение в форме заказа.</li>
+ <li>🔕 <strong>Отключённые push-уведомления</strong> — в настройках телефона или браузера. Проверьте разрешения для сайта СДЭК или мобильного приложения.</li>
+ <li>📦 <strong>Отсутствие контактов получателя</strong> — при отправке через маркетплейсы (Ozon, Wildberries) данные получателя могут быть скрыты. В этом случае уведомления приходят на email отправителя.</li>
+ <li>🔄 <strong>Смена номера телефона</strong> — если вы сменили SIM-карту, но не обновили номер в личном кабинете СДЭК, уведомления будут приходить на старый номер.</li>
+</ul>
+
+<p>Чтобы избежать проблем:</p>
+<ol>
+ <li>Всегда указывайте <strong>два контактных телефона</strong> (свой и получателя) при оформлении заказа.</li>
+ <li>Проверяйте папку «Спам» в почте — особенно если используете <em>Gmail</em> или <em>Mail.ru</em>, которые агрессивно фильтруют рассылки.</li>
+ <li>Настройте <strong>резервный email</strong> в личном кабинете на случай блокировки основного.</li>
+ <li>Если ждёте важную посылку, включите <code>«Полные уведомления»</code> в настройках — так вы не пропустите ни одного изменения статуса.</li>
+</ol>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Самая частая причина отсутствия уведомлений — неверно указанный номер телефона или email. Всегда перепроверяйте контактные данные при оформлении заказа, особенно если отправляете посылку через маркетплейс.</p></div>
+
+<h2 id="8-что-делать-если-уведомления-не-приходят">8. Что делать, если уведомления не приходят?</h2>
+
+<p>Если вы уверены, что все данные указаны верно, но оповещения всё равно не приходят, действуйте по следующему алгоритму:</p>
+
+<h3>Шаг 1: Проверьте настройки</h3>
+<ul>
+ <li>Убедитесь, что уведомления не отключены в <code>личном кабинете СДЭК</code>.</li>
+ <li>Проверьте, не блокирует ли ваш оператор SMS от массовых рассылок (например, <em>МТС</em> и <em>Билайн</em> имеют такие фильтры).</li>
+ <li>Для push-уведомлений проверьте разрешения в настройках телефона или браузера.</li>
+</ul>
+
+<h3>Шаг 2: Свяжитесь с поддержкой</h3>
+<p>Если настройки верны, но уведомления не приходят, обратитесь в службу поддержки:</p>
+<ul>
+ <li>📞 По телефону: <code>8 800 250-04-05</code> (звонок бесплатный).</li>
+ <li>💬 Через чат на сайте или в мобильном приложении.</li>
+ <li>✉️ По email: <code>support@cdek.ru</code> (указывайте номер заказа!).</li>
+</ul>
+
+<h3>Шаг 3: Альтернативные способы отслеживания</h3>
+<p>Пока проблема не решена, используйте:</p>
+<ul>
+ <li>🌐 <strong>Отслеживание на сайте</strong> — введите номер заказа на главной странице <a href="https://www.cdek.ru/" target="_blank" rel="noopener">СДЭК</a>.</li>
+ <li>📱 <strong>Мобильное приложение</strong> — в нём статусы обновляются чаще, чем в SMS.</li>
+ <li>🔔 <strong>Уведомления от маркетплейса</strong> — если заказ оформлен через Ozon, Wildberries и т. д., они тоже присылают оповещения.</li>
+</ul>
+
+<p>Если проблема повторяется систематически, попросите поддержку СДЭК проверить, не внесён ли ваш номер в <strong>стоп-лист</strong> (это бывает при частых жалобах на спам). Также уточните, не ведётся ли техническое обслуживание системы уведомлений (иногда это становится причиной массовых сбоев).</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Если вы часто отправляете посылки через СДЭК, сохраните в телефонной книге номер <code>+7 9xxxxxxxxx</code> (отправитель SMS) под именем «СДЭК Уведомления». Так вы не пропустите сообщения среди спама.</p></div>
+
+<h2 id="faq-частые-вопросы-об-оповещениях-сдэк">FAQ: Частые вопросы об оповещениях СДЭК</h2>
+
+<details>
+ <summary>🔹 Почему СДЭК присылает SMS с разных номеров?</summary>
+ <p>СДЭК использует несколько коротких номеров и длинных номеров (в формате <code>+7 9xxxxxxxxx</code>) для рассылок. Это зависит от региона и типа уведомления. Чтобы не пропустить сообщения, добавьте все возможные номера СДЭК в контакты телефона или отметьте их как «Важные» в мессенджере.</p>
+</details>
+
+<details>
+ <summary>🔹 Можно ли получить уведомления о посылке, отправленной не мной?</summary>
+ <p>Да, если отправитель указал ваш номер телефона или email при оформлении заказа. Вы будете получать все оповещения, как если бы сами отправляли посылку. Если это ошибка, свяжитесь с отправителем и попросите его обновить контактные данные в заказе.</p>
+</details>
+
+<details>
+ <summary>🔹 Сколько стоит SMS от СДЭК?</summary>
+ <p>Для физических лиц уведомления от СДЭК бесплатны. Стоимость SMS и email рассылок для бизнес-клиентов включается в тарифы на доставку или оплачивается отдельно (в зависимости от договора). Подробнее можно уточнить в личном кабинете <em>СДЭК Бизнес</em>.</p>
+</details>
+
+<details>
+ <summary>🔹 Почему приходит SMS, но не приходит email?</summary>
+ <p>Наиболее вероятные причины:</p>
+ <ol>
+ <li>Email указан с опечаткой или не подтверждён в личном кабинете.</li>
+ <li>Письма попадают в папку «Спам» или «Промоакции».</li>
+ <li>В настройках профиля отключены email-уведомления.</li>
+ <li>Проблемы на стороне почтового сервиса (например, <em>Yandex</em> или <em>Mail.ru</em> блокируют рассылки).</li>
+ </ol>
+ <p>Проверьте папку «Спам» и настройки почты. Если проблема сохраняется, запросите в поддержке СДЭК тестовое письмо.</p>
+</details>
+
+<details>
+ <summary>🔹 Как отключить уведомления от СДЭК?</summary>
+ <p>Чтобы полностью отключить оповещения:</p>
+ <ol>
+ <li>Авторизуйтесь в <a href="https://www.cdek.ru/" target="_blank" rel="noopener">личном кабинете</a>.</li>
+ <li>Перейдите в <code>Профиль → Настройки уведомлений</code>.</li>
+ <li>Снимите все галочки рядом с каналами (SMS, email, push).</li>
+ <li>Сохраните изменения.</li>
+ </ol>
+ <p>Обратите внимание: даже после отключения вы сможете отслеживать посылку вручную на сайте или в приложении. Однако важные уведомления (например, о возврате посылки) могут приходить несмотря на настройки — это прописано в пользовательском соглашении СДЭК.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#1-основные-каналы-оповещений-от-сдэк">1. Основные каналы оповещений от СДЭК</a></li><li><a href="#2-какие-статусы-сопровождаются-оповещениями">2. Какие статусы сопровождаются оповещениями?</a></li><li><a href="#3-почему-не-приходят-уведомления-от-сдэк">3. Почему не приходят уведомления от СДЭК?</a></li><li><a href="#4-как-настроить-или-отключить-уведомления">4. Как настроить или отключить уведомления?</a></li><li><a href="#5-особенности-оповещений-для-разных-типов-доставки">5. Особенности оповещений для разных типов доставки</a></li><li><a href="#6-как-проверить-отправлено-ли-уведомление">6. Как проверить, отправлено ли уведомление?</a></li><li><a href="#7-частые-ошибки-и-как-их-избежать">7. Частые ошибки и как их избежать</a></li><li><a href="#8-что-делать-если-уведомления-не-приходят">8. Что делать, если уведомления не приходят?</a></li><li><a href="#faq-частые-вопросы-об-оповещениях-сдэк">FAQ: Частые вопросы об оповещениях СДЭК</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/p/pr/pribyl-v-sortirovochnyj-tsentr-sdek-chto.html" class="related-card">Прибыл в СЦ СДЭК: что это значит и что делать дальше?</a></li><li><a href="/articles/v/v-/v-tranzitnom-gorode-eto-kak-status-sdek.html" class="related-card">Статус «В транзитном городе»: что значит и сколько ждать</a></li><li><a href="/articles/k/ka/kak-otsledit-dostavku-sdek-po-nomeru-zakaza.html" class="related-card">Как отследить СДЭК по номеру заказа: полная инструкция</a></li><li><a href="/articles/k/ka/kak-uznat-chto-vnutri-posylki-sdek.html" class="related-card">Как узнать что внутри посылки СДЭК: способы проверки</a></li><li><a href="/articles/k/ko/kogda-zhdat-posylku-sdek.html" class="related-card">СДЭК: сроки доставки посылок в 2026 году — когда ждать заказ</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/p/pr/pribyl-v-sortirovochnyj-tsentr-sdek-chto.html" class="related-bottom-card"><span class="related-bottom-title">Прибыл в СЦ СДЭК: что это значит и что делать дальше?</span><span class="related-bottom-desc">Разбираемся, что означает статус «прибыл в сортировочный центр СДЭК», сколько ждать доставки, как от</span></a><a href="/articles/v/v-/v-tranzitnom-gorode-eto-kak-status-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Статус «В транзитном городе»: что значит и сколько ждать</span><span class="related-bottom-desc">Разбираем статус «В транзитном городе» в СДЭК: что это значит, где находится груз и когда ждать дост</span></a><a href="/articles/k/ka/kak-otsledit-dostavku-sdek-po-nomeru-zakaza.html" class="related-bottom-card"><span class="related-bottom-title">Как отследить СДЭК по номеру заказа: полная инструкция</span><span class="related-bottom-desc">Узнайте, как отследить доставку СДЭК по номеру заказа или накладной. Подробная инструкция, коды стат</span></a><a href="/articles/k/ka/kak-uznat-chto-vnutri-posylki-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как узнать что внутри посылки СДЭК: способы проверки</span><span class="related-bottom-desc">Как узнать содержимое посылки СДЭК до получения? Проверка через личный кабинет, фотофиксация, опись </span></a><a href="/articles/k/ko/kogda-zhdat-posylku-sdek.html" class="related-bottom-card"><span class="related-bottom-title">СДЭК: сроки доставки посылок в 2026 году — когда ждать заказ</span><span class="related-bottom-desc">Точные сроки доставки СДЭК по России и миру: как отследить посылку, почему задерживается груз и что </span></a><a href="/articles/s/sk/skolko-tsifr-v-trek-kode-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Сколько цифр в трек-коде СДЭК: длина и структура кода</span><span class="related-bottom-desc">Узнайте, сколько цифр в трек-коде СДЭК. Подробный разбор форматов трекинга, расшифровка символов и с</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

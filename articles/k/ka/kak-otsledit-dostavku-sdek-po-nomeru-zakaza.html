@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>Как отследить СДЭК по номеру заказа: полная инструкция — СДЭК Гид</title>
+    <meta name="description" content="Узнайте, как отследить доставку СДЭК по номеру заказа или накладной. Подробная инструкция, коды статусов и решение проблем с трекингом на сайте.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/k/ka/kak-otsledit-dostavku-sdek-po-nomeru-zakaza.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Как отследить СДЭК по номеру заказа: полная инструкция">
+    <meta property="og:description" content="Узнайте, как отследить доставку СДЭК по номеру заказа или накладной. Подробная инструкция, коды статусов и решение проблем с трекингом на сайте.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/otslezhivanie/">Отслеживание</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Как отследить СДЭК по номеру заказа: полная инструкция</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Как отследить доставку СДЭК по номеру заказа</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#в-чем-разница-между-номером-заказа-и-номером-накладной">В чем разница между номером заказа и номером накладной</a></li><li><a href="#официальные-способы-отслеживания-по-номеру">Официальные способы отслеживания по номеру</a></li><li><a href="#инструкция-как-отследить-груз-на-сайте-сдэк">Инструкция: как отследить груз на сайте СДЭК</a></li><li><a href="#толкование-статусов-доставки-в-системе">Толкование статусов доставки в системе</a></li><li><a href="#альтернативные-сервисы-и-агрегаторы-трекинга">Альтернативные сервисы и агрегаторы трекинга</a></li><li><a href="#что-делать-если-отслеживание-не-работает">Что делать, если отслеживание не работает</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+<p>Современная логистика ставит перед отправителями и получателями высокие требования к прозрачности процессов. Когда вы заказываете товар в интернет-магазине или отправляете ценный груз, знание точного местоположения посылки становится критически важным. Сервис компании СДЭК предоставляет широкий инструментарий для мониторинга движения грузов, позволяя контролировать каждый этап пути от момента оформления до вручения.</p>
+<p>Однако пользователи часто сталкиваются с трудностями при попытке найти актуальную информацию в системе. Различные номера, присваиваемые отправлению, могут запутать неопытного клиента. В этой статье мы разберем, как правильно использовать <strong>номер заказа</strong> для поиска, чем он отличается от трекингового номера накладной, и какие существуют альтернативные способы получения данных о статусе груза.</p>
+<p>Понимание механики работы системы трекинга позволяет избежать лишней тревожности и своевременно реагировать на изменения в графике доставки. Мы рассмотрим официальные инструменты компании, сторонние сервисы и разберем возможные причины, по которым информация может не отображаться. Это руководство станет исчерпывающим источником знаний для всех, кто регулярно пользуется услугами курьерской доставки.</p>
+
+<h2 id="в-чем-разница-между-номером-заказа-и-номером-накладной">В чем разница между номером заказа и номером накладной</h2>
+<p>Первое, с чем сталкивается пользователь при попытке найти груз, — это наличие двух различных идентификаторов. <strong>Номер заказа</strong> формируется в момент оформления заявки на сайте или в приложении. Он нужен для (внутреннего управления) системой и часто используется для связи с операторами поддержки. Этот номер обычно состоит из 7 цифр и начинается с определенной комбинации, например, <code>7700000</code>.</p>
+<p>В отличие от него, <strong>номер накладной</strong> (или трек-номер) — это уникальный идентификатор самого физического груза. Он присваивается после передачи посылки курьеру или сдачи её в пункт выдачи. Именно этот номер отслеживает путь коробки по логистической сети. Для отслеживания через автоматизированные системы предпочтительнее использовать именно накладную, так как она привязана к сканированию штрих-кодов на сортировочных центрах.</p>
+<blockquote>
+<p>⚠️ Внимание: Если вы введете номер заказа в поле для трекинга на главной странице, система может не найти груз, если он еще не был передан курьеру. Убедитесь, что статус заказа изменился на"Передан в доставку".</p>
+</blockquote>
+<p>Часто клиенты путают эти данные, что приводит к ошибке"Груз не найден". <em>СДЭК</em> старается унифицировать процессы, и в личном кабинете оба номера часто отображаются рядом. Однако для сторонних сервисов и универсальных трекеров требуется именно код накладной, который выглядит как набор цифр, иногда с буквенным префиксом в зависимости от типа услуги.</p>
+<details class="faq-item"><summary>Где найти номер накладной в приложении?</summary><div class="faq-answer"><p>Откройте приложение СДЭК, перейдите в раздел"Мои заказы". Нажмите на конкретный заказ. В открывшемся окне деталей, рядом с номером заказа, будет указан номер накладной (часто подписан как"Трек-номер" или"Штрихкод"). Его можно скопировать одним нажатием.</p></div></details>
+
+<h2 id="официальные-способы-отслеживания-по-номеру">Официальные способы отслеживания по номеру</h2>
+<p>Самый надежный источник информации — это официальные ресурсы компании. Они обновляются в реальном времени и содержат наиболее полные данные о текущем местоположении. Существует несколько каналов, через которые можно получить доступ к этой информации, используя ваш номер.</p>
+<p>Веб-сайт компании предлагает наиболее функциональный интерфейс. На главной странице расположен виджет"Отследить груз". В поле ввода необходимо ввести ваш номер (заказа или накладной) и нажать кнопку поиска. Система мгновенно отобразит временную шкалу с историей перемещений. Для более глубокого анализа можно перейти в расширенный режим, где отображаются детализированные данные о сортировочных центрах.</p>
+<ul>
+<li>📱 <strong>Мобильное приложение</strong>: позволяет настроить push-уведомления о смене статуса, что избавляет от необходимости постоянно проверять сайт вручную.</li>
+<li>💻 <strong>Личный кабинет</strong>: предоставляет полную историю всех ваших отправлений и позволяет управлять доставкой (изменять адрес, время).</li>
+<li>🤖 <strong>Чат-боты</strong>: в мессенджерах Telegram и WhatsApp можно просто отправить номер заказа боту СДЭК и получить актуальный статус.</li>
+</ul>
+<p>Использование личного кабинета дает дополнительные преимущества. Вы видите не только где находится груз, но и можете оперативно реагировать. Например, если курьер не может дозвониться, в кабинете часто есть возможность связаться с ним или изменить параметры доставки. Это делает процесс получения более гибким и удобным для пользователя.</p>
+<div class="poll-widget" id="poll-3bf1184c"><div class="poll-widget-question">📊 Где вам удобнее всего отслеживать посылки?</div><div class="poll-widget-option" data-poll="3bf1184c" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">На официальном сайте СДЭК</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="3bf1184c" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Через мобильное приложение</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="3bf1184c" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">В личном кабинете</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="3bf1184c" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Через сторонние сервисы-агрегаторы</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="инструкция-как-отследить-груз-на-сайте-сдэк">Инструкция: как отследить груз на сайте СДЭК</h2>
+<p>Процесс отслеживания на официальном портале максимально упрощен, но имеет свои нюансы, которые стоит знать для получения точного результата. Следуйте пошаговому алгоритму, чтобы гарантированно найти информацию о вашем отправлении.</p>
+<p>Для начала перейдите на главную страницу сайта. В верхней части экрана вы увидите prominentную форму с полем ввода. Введите туда ваш номер. Система автоматически распознает формат номера. Если вы ввели номер заказа, а груз еще не у курьера, вы увидите статус оформления. Если груз уже в пути, отобразится карта с точками движения.</p>
+<div class="checklist-block"><h4>☑️ Алгоритм действий на сайте</h4><label class="check-item"><input type="checkbox"><span>Перейти на официальную страницу cdek.ru</span></label><label class="check-item"><input type="checkbox"><span>Найти форму"Отследить груз" в шапке сайта</span></label><label class="check-item"><input type="checkbox"><span>Ввести номер заказа или накладной без пробелов</span></label><label class="check-item"><input type="checkbox"><span>Нажать кнопку"Отследить"</span></label><label class="check-item"><input type="checkbox"><span>Изучить детальную информацию на открывшейся странице</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 5</div></div>
+<p>Важно обращать внимание на детализацию. После ввода номера открывается страница с картой. На ней отображаются пункты, где груз был отсканирован. <strong>Зеленая метка</strong> обычно означает текущее местоположение или конечный пункт, а серые — уже пройденный путь. Если на карте есть разрывы, это может означать, что груз находится в пути между крупными хабами и еще не прошел сканирование на въезде в новый регион.</p>
+<blockquote>
+<p>⚠️ Внимание: При вводе номера проверяйте наличие лишних символов. Система может некорректно обработать номер, если вы скопировали его с пробелами в конце или начале строки.</p>
+</blockquote>
+<p>Если стандартный поиск не дает результатов, попробуйте воспользоваться расширенным поиском по номеру телефона, который указывали при отправке. Эта функция доступна в личном кабинете и помогает найти грузы, номер накладной которых затерялся. Такой подход особенно актуален, если вы ждете подарок и отправитель не сообщил вам трек-номер.</p>
+
+<h2 id="толкование-статусов-доставки-в-системе">Толкование статусов доставки в системе</h2>
+<p>Система мониторинга оперирует набором стандартных статусов, которые описывают текущее состояние груза. Понимание их значения помогает адекватно оценивать ситуацию и не паниковать раньше времени. Статусы обновляются автоматически при сканировании штрих-кода сотрудником компании.</p>
+<p>Одним из самых частых вопросов является значение статуса"Груз в пути". Это означает, что посылка покинула пункт приема и движется к сортировочному центру или уже находится в магистральном транспорте. Время обновления этого статуса зависит от расстояния и логистического плеча. В удаленных регионах обновление информации может происходить реже из-за особенностей связи.</p>
+<table>
+<thead>
+<tr>
+<th>Статус</th>
+<th>Значение</th>
+<th>Действия клиента</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Оформлен</td>
+<td>Заказ создан в системе, но еще не передан курьеру</td>
+<td>Ожидать звонка курьера или SMS</td>
+</tr>
+<tr>
+<td>Принят</td>
+<td>Груз получен оператором в пункте выдачи</td>
+<td>Можно отслеживать движение</td>
+</tr>
+<tr>
+<td>В пути</td>
+<td>Груз находится в транспортировке между городами</td>
+<td>Контролировать обновления на карте</td>
+</tr>
+<tr>
+<td>Прибыл</td>
+<td>Груз в городе назначения, готовится к выдаче</td>
+<td>Ждать уведомления о готовности</td>
+</tr>
+</tbody>
+</table>
+<p>Статус <em>"Вручен"</em> является финальным. Он означает, что получатель подписал документы (или ввел код из SMS), и обязательства исполнителя выполнены. Если вы видите этот статус, но ничего не получали, необходимо немедленно поддержку. В некоторых случаях статус может меняться на"Возврат", если получатель не забрал груз в течение срока хранения.</p>
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Сохраняйте скриншоты статусов с датами. В случае спорных ситуаций (например, потеря груза или задержка) это будет вашим доказательством для претензии.</p></div>
+
+<h2 id="альтернативные-сервисы-и-агрегаторы-трекинга">Альтернативные сервисы и агрегаторы трекинга</h2>
+<p>Хотя официальный сайт является приоритетным, существуют ситуации, когда удобнее воспользоваться сторонними ресурсами. Агрегаторы доставок позволяют отслеживать посылки от разных служб (Почта России, Boxberry, СДЭК) в одном окне. Это особенно полезно для тех, кто часто делает покупки в разных интернет-магазинах.</p>
+<p>Популярные сервисы, такие как <strong>GdePosylka</strong> или <strong>Track24</strong>, используют открытые API транспортных компаний. Для работы с ними вам также понадобится номер накладной. Преимущество таких платформ заключается в удобном интерфейсе и возможности получать сводную статистику. Однако стоит помнить, что данные на сторонних сайтах могут обновляться с небольшой задержкой по сравнению с оригиналом.</p>
+<ul>
+<li>🌍 <strong>Глобальные трекеры</strong>: подходят, если ваша посылка идет международной доставкой с участием СДЭК.</li>
+<li>📦 <strong>Приложения магазинов</strong>: многие маркетплейсы (Ozon, Wildberries, Яндекс.Маркет) имеют встроенный трекер, который подтягивает данные от СДЭК автоматически.</li>
+<li>🔍 <strong>Поисковики</strong>: иногда достаточно ввести номер в Google или Яндекс, и умный ответ покажет текущий статус без перехода на сайты.</li>
+</ul>
+<p>Использование сторонних сервисов безопасно, если вы вводите только номер трека. Никогда не вводите паспортные данные или данные банковских карт на сайтах-агрегаторах. Для авторизации и управления доставкой всегда используйте только официальные ресурсы <em>CDEK</em> или проверенные приложения магазинов-партнеров.</p>
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Сторонние сервисы удобны для массового отслеживания, но в случае расхождения данных всегда доверяйте информации на официальном сайте перевозчика.</p></div>
+
+<h2 id="что-делать-если-отслеживание-не-работает">Что делать, если отслеживание не работает</h2>
+<p>Ситуация, когда номер не находится или статус не обновляется несколько дней, может вызывать беспокойство. Однако в логистике существуют технические и организационные причины таких задержек. Первым делом стоит проанализировать время, прошедшее с момента оформления.</p>
+<p>Если с момента заказа прошло менее 24 часов, отсутствие информации — это нормально. Груз может находиться на стадии комплектации на складе отправителя или ожидать вывоза курьером. <strong>Обновление базы данных</strong> происходит не каждую секунду, а пакетно, после обработки партии грузов оператором.</p>
+<blockquote>
+<p>⚠️ Внимание: Если статус не меняется более 3-5 дней в пути между городами, возможно, груз задержался на таможне (для международных отправлений) или потерял маркировку. В этом случае требуется обращение в поддержку.</p>
+</blockquote>
+<p>Для решения проблемы попробуйте следующие шаги:
+<p>1. Проверьте правильность введенного номера.</p>
+<p>2. Убедитесь, что вы используете актуальную версию приложения или браузер.</p>
+<p>3. Свяжитесь с отправителем — возможно, он только создал заказ, но физически еще не передал вещь в СДЭК.</p></p>
+<p>В редких случаях возможны сбои в работе самого сервера компании. Если сайт работает медленно или выдает ошибки, попробуйте вернуться к отслеживанию через несколько часов. Техническая поддержка компании работает круглосуточно и может проверить статус груза по внутренним базам, даже если внешний трекер временно недоступен.</p>
+<details class="faq-item"><summary>Как связаться с поддержкой быстрее?</summary><div class="faq-answer"><p>Используйте чат на сайте или в приложении — это самый быстрый канал. При звонке на горячую линию подготовьте номер заказа заранее, чтобы оператор мог быстрее идентифицировать вас в системе.</p></div></details>
+
+<details>
+<summary>Можно ли отследить посылку СДЭК без номера заказа?</summary>
+<p>Да, это возможно, если вы авторизованы в личном кабинете на сайте или в приложении СДЭК под тем номером телефона, который был указан при отправке. Все грузы, адресованные вам или отправленные вами, автоматически отобразятся в разделе"Мои заказы". Также можно попробовать найти груз по номеру телефона через форму на сайте, если такая опция доступна в вашем регионе.</p>
+</details>
+
+<details>
+<summary>Почему статус"В пути" не меняется несколько дней?</summary>
+<p>Длительное отсутствие обновлений статуса"В пути" часто связано с логистикой между удаленными населенными пунктами. Груз может находиться в машине или контейнере, где нет возможности сканирования до прибытия в крупный хаб. Также задержки возможны в праздничные дни или из-за погодных условий, влияющих на график движения транспорта.</p>
+</details>
+
+<details>
+<summary>Что означает статус"Задержан таможней"?</summary>
+<p>Этот статус появляется при международных отправлениях. Он означает, что груз проходит таможенную проверку. Это стандартная процедура. Если с документами все в порядке и нет ограничений на ввоз товаров, статус вскоре изменится на"Выпущено таможней". В случае проблем таможня свяжется с получателем через указанные контактные данные.</p>
+</details>
+
+<details>
+<summary>Как изменить адрес доставки, если груз уже в пути?</summary>
+<p>Если статус груза еще не"Вручен", вы можете попытаться изменить адрес доставки через личный кабинет или приложение. Эта услуга платная и доступна не для всех типов отправлений. Если кнопка"Изменить адрес" неактивна, необходимо срочно обратиться в службу поддержки, пока груз не прибыл в пункт выдачи.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#в-чем-разница-между-номером-заказа-и-номером-накладной">В чем разница между номером заказа и номером накладной</a></li><li><a href="#официальные-способы-отслеживания-по-номеру">Официальные способы отслеживания по номеру</a></li><li><a href="#инструкция-как-отследить-груз-на-сайте-сдэк">Инструкция: как отследить груз на сайте СДЭК</a></li><li><a href="#толкование-статусов-доставки-в-системе">Толкование статусов доставки в системе</a></li><li><a href="#альтернативные-сервисы-и-агрегаторы-трекинга">Альтернативные сервисы и агрегаторы трекинга</a></li><li><a href="#что-делать-если-отслеживание-не-работает">Что делать, если отслеживание не работает</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/k/ka/kak-otsledit-sdek-bez-nomera-treka.html" class="related-card">Как отследить посылку СДЭК без номера трека: 7 проверенных способов</a></li><li><a href="/articles/k/ka/kak-otsledit-posylku-po-nomeru-zakaza-sdek-v-rossii-transportnoj.html" class="related-card">Как отследить посылку СДЭК по номеру заказа: полная инструкция</a></li><li><a href="/articles/k/ka/kak-otsledit-posylku-v-sdek-esli-ne-znaesh-nomer-zakaza.html" class="related-card">Как отследить посылку СДЭК без номера заказа: все способы</a></li><li><a href="/articles/k/ka/kak-uznat-otslezhivanie-sdek.html" class="related-card">Как узнать отслеживание СДЭК: все способы проверки статуса</a></li><li><a href="/articles/s/sk/skolko-dostavlyaetsya-posylka-sdek.html" class="related-card">Сколько доставляется посылка СДЭК: сроки, тарифы и нюансы</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/k/ka/kak-otsledit-sdek-bez-nomera-treka.html" class="related-bottom-card"><span class="related-bottom-title">Как отследить посылку СДЭК без номера трека: 7 проверенных способов</span><span class="related-bottom-desc">Узнайте, как найти и отследить отправление СДЭК без трек-номера: через сайт, мобильное приложение, e</span></a><a href="/articles/k/ka/kak-otsledit-posylku-po-nomeru-zakaza-sdek-v-rossii-transportnoj.html" class="related-bottom-card"><span class="related-bottom-title">Как отследить посылку СДЭК по номеру заказа: полная инструкция</span><span class="related-bottom-desc">Подробный гид по отслеживанию отправлений СДЭК. Узнайте, как найти груз по номеру заказа на сайте, в</span></a><a href="/articles/k/ka/kak-otsledit-posylku-v-sdek-esli-ne-znaesh-nomer-zakaza.html" class="related-bottom-card"><span class="related-bottom-title">Как отследить посылку СДЭК без номера заказа: все способы</span><span class="related-bottom-desc">Потеряли номер накладной? Узнайте, как отследить посылку СДЭК, если не знаете номер заказа. Рабочие </span></a><a href="/articles/k/ka/kak-uznat-otslezhivanie-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как узнать отслеживание СДЭК: все способы проверки статуса</span><span class="related-bottom-desc">Подробная инструкция, как отследить посылку СДЭК по номеру. Узнайте, где найти трек-номер, что делат</span></a><a href="/articles/s/sk/skolko-dostavlyaetsya-posylka-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Сколько доставляется посылка СДЭК: сроки, тарифы и нюансы</span><span class="related-bottom-desc">Узнайте, сколько времени доставляется посылка СДЭК по России. Точные сроки, факторы влияния и способ</span></a><a href="/articles/s/sk/skolko-dnej-idet-sdek-posylka.html" class="related-bottom-card"><span class="related-bottom-title">Сколько дней идет СДЭК посылка: сроки доставки по РФ и миру</span><span class="related-bottom-desc">Узнайте, сколько дней идет посылка СДЭК до вашего города. Точные сроки, таблица по направлениям и фа</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

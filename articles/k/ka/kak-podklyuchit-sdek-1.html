@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>Как подключить СДЭК 1: Инструкция по интеграции — СДЭК Гид</title>
+    <meta name="description" content="Подробная инструкция: как подключить СДЭК 1 для бизнеса. Настройка виджета, API, личный кабинет и автоматизация расчетов доставки.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/k/ka/kak-podklyuchit-sdek-1.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Как подключить СДЭК 1: Инструкция по интеграции">
+    <meta property="og:description" content="Подробная инструкция: как подключить СДЭК 1 для бизнеса. Настройка виджета, API, личный кабинет и автоматизация расчетов доставки.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/biznes-i-dogovory/">Бизнес и договоры</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Как подключить СДЭК 1: Инструкция по интеграции</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Как подключить СДЭК 1: Полное руководство для бизнеса</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#подготовка-к-интеграции-и-выбор-метода">Подготовка к интеграции и выбор метода</a></li><li><a href="#регистрация-в-сдэк-id-и-получение-ключей">Регистрация в СДЭК ID и получение ключей</a></li><li><a href="#настройка-виджета-доставки-на-сайте">Настройка виджета доставки на сайте</a></li><li><a href="#интеграция-через-api-для-продвинутых-пользователей">Интеграция через API для продвинутых пользователей</a></li><li><a href="#использование-готовых-модулей-для-cms">Использование готовых модулей для CMS</a></li><li><a href="#тестирование-и-отладка-системы">Тестирование и отладка системы</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>Интеграция логистических сервисов в электронную коммерцию перестала быть опцией и превратилась в необходимость для успешного ведения бизнеса. Владельцы интернет-магазинов постоянно ищут способы упростить процесс оформления заказов, и решение "как подключить СДЭК 1" часто встречается в поисковых запросах тех, кто стремится автоматизировать расчет стоимости доставки. Под <strong>СДЭК 1</strong> в данном контексте обычно подразумевается базовый уровень интеграции через виджет или стандартный API, который позволяет клиентам видеть актуальные тарифы и сроки прямо на сайте продавца.</p>
+
+<p>Автоматизация этого процесса критически важна, так как ручное оформление накладных отнимает у менеджеров драгоценное время и часто приводит к человеческим ошибкам при вводе данных. Правильная настройка соединения между вашим сайтом и серверами логистической компании обеспечивает мгновенный <strong>расчет стоимости</strong> для покупателя, что напрямую влияет на конверсию. Клиент сразу видит итоговую сумму и может выбрать удобный пункт выдачи или курьерскую доставку, не дожидаясь звонка оператора.</p>
+
+<p>В этой статье мы подробно разберем все этапы подключения, начиная от регистрации в системе до технической настройки кода на сайте. Вы узнаете, какие существуют методы интеграции, как получить необходимые ключи доступа и какие нюансы стоит учесть для бесперебойной работы сервиса. Глубокое понимание процессов позволит вам выбрать оптимальный вариант для вашей платформы, будь то CMS вроде Bitrix или WordPress, или самописное решение.</p>
+
+<h2 id="подготовка-к-интеграции-и-выбор-метода">Подготовка к интеграции и выбор метода</h2>
+
+<p>Прежде чем приступать к технической части, необходимо четко определить, какой именно способ взаимодействия с логистическим оператором подойдет вашему бизнесу. Существует несколько основных путей: использование готовых плагинов для популярных CMS, внедрение виджета калькулятора или прямая работа с <strong>API</strong>. Выбор зависит от технических возможностей вашей команды и специфики платформы, на которой работает ваш магазин.</p>
+
+<p>Для небольших проектов или стартапов, где важна скорость внедрения, оптимальным решением часто становится виджет. Это готовый программный модуль, который встраивается в код страницы и отображает карту пунктов выдачи или список доступных способов доставки. Он не требует глубоких знаний программирования и настраивается через графический интерфейс в личном кабинете.</p>
+
+<p>Крупным игрокам рынка, имеющим сложные системы учета (ERP) или уникальные сценарии работы с заказами, потребуется полноценная интеграция по API. В этом случае ваш сервер будет напрямую обмениваться данными с сервером перевозчика: передавать габариты товара, вес, адрес и получать в ответ трек-номер и стоимость. Это обеспечивает максимальную гибкость и автоматизацию процессов.</p>
+
+<div class="poll-widget" id="poll-ad97f0a4"><div class="poll-widget-question">📊 Какой метод интеграции вы планируете использовать?</div><div class="poll-widget-option" data-poll="ad97f0a4" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Готовый плагин для CMS</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="ad97f0a4" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Виджет калькулятора</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="ad97f0a4" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Прямая интеграция через API</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="ad97f0a4" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Затрудняюсь ответить</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<p>Важным этапом подготовки является сбор всей необходимой документации и доступов. Вам потребуется зарегистрированный аккаунт в системе для партнеров, заключенный договор и, возможно, доступы к FTP или админ-панели сайта. Без этих базовых элементов дальнейшая настройка будет невозможна, поэтому убедитесь, что все юридические и организационные вопросы решены заранее.</p>
+
+<h2 id="регистрация-в-сдэк-id-и-получение-ключей">Регистрация в СДЭК ID и получение ключей</h2>
+
+<p>Первым шагом на пути к автоматизации является создание учетной записи в системе <em>СДЭК ID</em>. Это единый аккаунт, который дает доступ ко всем сервисам компании, включая личный кабинет предпринимателя и инструменты разработчика. Процесс регистрации стандартен: необходимо ввести контактные данные, подтвердить номер телефона и выбрать тип аккаунта "Для бизнеса".</p>
+
+<p>После успешной регистрации и авторизации в личном кабинете вам потребуется перейти в раздел, отвечающий за разработку и интеграции. Именно здесь генерируются уникальные идентификаторы, необходимые для настройки связи. Основными параметрами, которые нужно сохранить в надежном месте, являются <strong>Account ID</strong> (код клиента) и <strong>Secure Key</strong> (секретный ключ).</p>
+
+<p>Секретный ключ используется для формирования подписи запросов и обеспечивает безопасность передачи данных. <blockquote>⚠️ Внимание: Никогда не публикуйте Secure Key в открытом доступе или в исходном коде JavaScript на стороне клиента, так как это позволит злоумышленникам отправлять запросы от вашего имени.</blockquote> Эти данные будут запрашиваться при настройке плагина или прописываться в конфигурационных файлах вашего сайта.</p>
+
+<p>Также в этом разделе можно найти ссылки на официальную документацию API, где описаны все методы, форматы JSON-запросов и коды ошибок. Рекомендуется внимательно изучить разделы, касающиеся ограничений по частоте запросов (rate limiting), чтобы избежать блокировки вашего IP-адреса сервером при тестировании.</p>
+
+<h2 id="настройка-виджета-доставки-на-сайте">Настройка виджета доставки на сайте</h2>
+
+<p>Установка виджета — это наиболее быстрый способ подключить расчет доставки. После получения ключей доступа вам необходимо скачать скрипт виджета или скопировать его код из личного кабинета. Этот код представляет собой набор JavaScript-команд, которые загружают интерфейс выбора доставки на страницу оформления заказа (Checkout).</p>
+
+<p>Вставка кода осуществляется в HTML-разметку вашей страницы. Обычно достаточно разместить скрипт перед закрывающим тегом <code>&lt;/body&gt;</code>. В параметрах инициализации виджета обязательно указываются ваши <strong>Account ID</strong> и <strong>Secure Key</strong>, а также ID точки интеграции, если их у вас несколько. Корректное заполнение этих полей гарантирует, что виджет будет работать от имени вашего договора.</p>
+
+<div class="checklist-block"><h4>☑️ Чек-лист настройки виджета</h4><label class="check-item"><input type="checkbox"><span>Получить ключи в личном кабинете</span></label><label class="check-item"><input type="checkbox"><span>Скопировать код виджета</span></label><label class="check-item"><input type="checkbox"><span>Вставить код в шаблон checkout</span></label><label class="check-item"><input type="checkbox"><span>Проверить отображение на мобильной версии</span></label><label class="check-item"><input type="checkbox"><span>Провести тестовый расчет</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 5</div></div>
+
+<p>Гибкость настройки виджета позволяет адаптировать его внешний вид под дизайн вашего магазина. Вы можете менять цвета кнопок, шрифты и расположение элементов, чтобы они не выбивались из общей стилистики. Кроме того, можно настроить приоритеты отображения способов доставки, скрывая нерелевантные или слишком дорогие для клиента варианты.</p>
+
+<p>После установки кода необходимо провести тщательное тестирование. Проверьте, как виджет работает на разных устройствах: десктопах, планшетах и смартфонах. Убедитесь, что карта пунктов выдачи грузится корректно, а расчет стоимости происходит без задержек. Любые ошибки в коде могут привести к тому, что клиент не сможет завершить покупку.</p>
+
+<h2 id="интеграция-через-api-для-продвинутых-пользователей">Интеграция через API для продвинутых пользователей</h2>
+
+<p>Для тех, кому виджета недостаточно, доступна прямая интеграция через API. Этот метод требует наличия квалифицированного разработчика, который сможет настроить обмен данными между серверами. API позволяет не только рассчитывать стоимость, но и автоматически создавать заказы, печатать manifests и отслеживать статусы в реальном времени.</p>
+
+<p>Процесс взаимодействия строится на отправке HTTP-запросов. Ваш сервер формирует JSON-объект с данными о заказе (вес, габариты, адрес отправителя и получателя) и отправляет его на шлюз логиста. В ответ приходит JSON с информацией о тарифах или подтверждение создания заказа с присвоенным трек-номером. Для авторизации используется токен, который получается по логину и паролю или ключам.</p>
+
+<table>
+<thead>
+<tr>
+<th>Метод API</th>
+<th>Описание функции</th>
+<th>Тип запроса</th>
+<th>Необходимые права</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>auth</td>
+<td>Получение токена авторизации</td>
+<td>POST</td>
+<td>Базовые</td>
+</tr>
+<tr>
+<td>calculator</td>
+<td>Расчет стоимости и сроков</td>
+<td>POST</td>
+<td>Калькулятор</td>
+</tr>
+<tr>
+<td>orders</td>
+<td>Создание заказа в системе</td>
+<td>POST</td>
+<td>Создание заказов</td>
+</tr>
+<tr>
+<td>orders/{uuid}</td>
+<td>Получение статуса заказа</td>
+<td>GET</td>
+<td>Просмотр</td>
+</tr>
+</tbody>
+</table>
+
+<p>Особое внимание следует уделить обработке ошибок. Сервер логиста может вернуть различные коды ответов, указывающие на проблемы с валидацией данных, превышение лимитов или технические сбои. Ваша система должна уметь корректно обрабатывать эти ответы и информировать пользователя или администратора о проблеме, а не просто "падать" с ошибкой 500.</p>
+
+<details class="faq-item"><summary>Технические нюансы работы с API</summary><div class="faq-answer"><p>При работе с API важно учитывать таймауты. Если сервер логиста не ответит в течение заданного времени (обычно 5-10 секунд), ваш скрипт должен иметь механизм повторной попытки или альтернативный сценарий, чтобы не блокировать оформление заказа клиентом. Также рекомендуется логировать все запросы и ответы для последующего разбора инцидентов.</p></div></details>
+
+<h2 id="использование-готовых-модулей-для-cms">Использование готовых модулей для CMS</h2>
+
+<p>Если ваш магазин работает на популярной платформе, такой как <em>Bitrix</em>, <em>WordPress (WooCommerce)</em>, <em>OpenCart</em> или <em>Tilda</em>, процесс интеграции значительно упрощается. Для большинства этих систем существуют готовые модули, разработанные самой компанией или сторонними вендорами. Они позволяют подключить все функции "из коробки" без написания кода.</p>
+
+<p>Установка модуля обычно происходит через административную панель сайта. Вам нужно найти раздел "Доставка" или "Модули", загрузить архив с плагином и активировать его. После активации в настройках модуля потребуется ввести ранее полученные <strong>Account ID</strong> и <strong>Secure Key</strong>. Система сама настроит необходимые endpoints и методы передачи данных.</p>
+
+<p>Преимущество готовых решений заключается в том, что они уже протестированы и поддерживаются разработчиками. При обновлении API логиста разработчики модулей оперативно вносят изменения, и вам не нужно ничего делать вручную. Кроме того, такие модули часто имеют расширенный функционал, например, автоматическую печать этикеток или SMS-уведомления.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Совет: Перед установкой плагина на "живой" сайт обязательно протестируйте его на копии сайта (staging). Это позволит выявить конфликты с другими модулями или темой оформления без риска для реальных продаж.</p></div>
+
+<p>Тем не менее, даже при использовании готового модуля требуется первоначальная настройка. Необходимо указать, какие именно службы доставки доступны для показа, настроить округление цен, определить зоны доставки и правила бесплатной доставки. Игнорирование этих настроек может привести к тому, что клиент увидит некорректную стоимость или отсутствие вариантов доставки.</p>
+
+<h2 id="тестирование-и-отладка-системы">Тестирование и отладка системы</h2>
+
+<p>Запуск интеграции в продакшн без тщательного тестирования — это риск потери клиентов и репутации. После настройки необходимо провести серию тестовых заказов. Создайте заказ с разными параметрами: разным весом, габаритами и адресами доставки (в пределах города, в другой регион, в отдаленную местность).</p>
+
+<p>Проверьте, корректно ли отображаются сроки доставки. Иногда бывает, что расчет стоимости верный, но сроки показываются неактуальные или не учитываются выходные дни. Также убедитесь, что при выборе платной доставки стоимость правильно добавляется к общей сумме заказа в корзине.</p>
+
+<p>Важно проверить сценарии отказа. Что увидит клиент, если сервис логиста временно недоступен? Хорошим тоном считается показывать сообщение о временной недоступности расчета или предлагать альтернативные способы доставки, а не оставлять поле пустым. Это сохраняет конверсию даже в случае технических проблем на стороне партнера.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Качественное тестирование сценариев ошибок важнее, чем проверка идеального пути пользователя, так как именно в нестандартных ситуациях чаще всего возникают проблемы, блокирующие продажи.</p></div>
+
+<p>Не забудьте проверить работу системы в мобильной версии сайта. Более половины покупок совершается со смартфонов, и если виджет или форма выбора доставки будут неудобны на маленьком экране или будут перекрывать кнопку "Оплатить", вы потеряете значительную часть выручки. Интерфейс должен быть адаптивным и отзывчивым.</p>
+
+<h2 id="часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</h2>
+
+<details>
+<summary>Сколько стоит подключение СДЭК 1 и использование API?</summary>
+<p>Использование API и виджетов для клиентов, заключивших договор, обычно бесплатно. Вы оплачиваете только услуги доставки по тарифам договора. Однако, если вы используете платные CMS-модули от сторонних разработчиков, за них может взиматься единоразовая плата или подписка.</p>
+</details>
+
+<details>
+<summary>Можно ли подключить расчет доставки без договора?</summary>
+<p>Для полноценной работы виджета и API, как правило, требуется действующий договор и присвоенный код клиента (Account ID). Без договора функционал может быть ограничен или недоступен, так как система должна знать, по каким тарифам считать доставку.</p>
+</details>
+
+<details>
+<summary>Как часто обновляются тарифы в виджете?</summary>
+<p>Тарифы в виджете и при расчете через API обновляются в реальном времени. При каждом запросе система обращается к актуальной базе данных тарифов, поэтому любые изменения цен со стороны логиста сразу отображаются у вас на сайте.</p>
+</details>
+
+<details>
+<summary>Что делать, если виджет не загружается?</summary>
+<p>В первую очередь проверьте консоль браузера (F12) на наличие ошибок JavaScript. Убедитесь, что ключи доступа введены верно, сайт доступен извне (не стоит на локальном сервере без проброса) и не блокируется антивирусами или настройками безопасности браузера.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#подготовка-к-интеграции-и-выбор-метода">Подготовка к интеграции и выбор метода</a></li><li><a href="#регистрация-в-сдэк-id-и-получение-ключей">Регистрация в СДЭК ID и получение ключей</a></li><li><a href="#настройка-виджета-доставки-на-сайте">Настройка виджета доставки на сайте</a></li><li><a href="#интеграция-через-api-для-продвинутых-пользователей">Интеграция через API для продвинутых пользователей</a></li><li><a href="#использование-готовых-модулей-для-cms">Использование готовых модулей для CMS</a></li><li><a href="#тестирование-и-отладка-системы">Тестирование и отладка системы</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/s/sd/sdek-kak-oformit-dogovor-s-samozanyatym.html" class="related-card">СДЭК: как оформить договор с самозанятым, пошаговая инструкция</a></li><li><a href="/articles/k/ka/kak-rastorgnut-dogovor-s-sdek.html" class="related-card">Как расторгнуть договор с СДЭК: пошаговая инструкция 2026</a></li><li><a href="/articles/k/ko/kompleksnyj-prikhod-sdek-kak-sdelat.html" class="related-card">Комплексный приход СДЭК: пошаговая инструкция 2026</a></li><li><a href="/articles/m/ma/marketplejs-sdek-chto-eto.html" class="related-card">Маркетплейс СДЭК: что это и как работает для бизнеса</a></li><li><a href="/articles/c/ch/chto-daet-dogovor-so-sdek.html" class="related-card">Что дает договор со СДЭК: преимущества и условия</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/s/sd/sdek-kak-oformit-dogovor-s-samozanyatym.html" class="related-bottom-card"><span class="related-bottom-title">СДЭК: как оформить договор с самозанятым, пошаговая инструкция</span><span class="related-bottom-desc">Подробная инструкция: как СДЭК оформить договор с самозанятым. Документы, нюансы налогообложения и п</span></a><a href="/articles/k/ka/kak-rastorgnut-dogovor-s-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как расторгнуть договор с СДЭК: пошаговая инструкция 2026</span><span class="related-bottom-desc">Полный гид по расторжению договора с СДЭК для ИП и ООО. Образцы заявлений, сроки, штрафы и нюансы за</span></a><a href="/articles/k/ko/kompleksnyj-prikhod-sdek-kak-sdelat.html" class="related-bottom-card"><span class="related-bottom-title">Комплексный приход СДЭК: пошаговая инструкция 2026</span><span class="related-bottom-desc">Как оформить комплексный приход в СДЭК: шаги, требования, ошибки и советы для бизнеса. Актуальные пр</span></a><a href="/articles/m/ma/marketplejs-sdek-chto-eto.html" class="related-bottom-card"><span class="related-bottom-title">Маркетплейс СДЭК: что это и как работает для бизнеса</span><span class="related-bottom-desc">Маркетплейс СДЭК — это платформа для интеграции бизнеса с логистикой. Узнайте, что это, как подключи</span></a><a href="/articles/c/ch/chto-daet-dogovor-so-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Что дает договор со СДЭК: преимущества и условия</span><span class="related-bottom-desc">Узнайте, что дает договор со СДЭК для бизнеса. Тарифы до -70%, интеграция API, постоплата и персонал</span></a><a href="/articles/k/ka/kak-zapolnit-doverennost-dlya-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Доверенность на СДЭК 2026: образец заполнения и правила оформления</span><span class="related-bottom-desc">Пошаговая инструкция, как правильно заполнить доверенность для СДЭК: бланк, требования 2026 года, ош</span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

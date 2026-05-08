@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>Как работает терминал СДЭК: устройство, функции и настройки — СДЭК Гид</title>
+    <meta name="description" content="Подробный разбор работы терминала СДЭК. Как пользоваться устройством, сканировать штрих-коды, печатать этикетки и устранять основные неполадки системы.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/k/ka/kak-rabotaet-terminal-sdek.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Как работает терминал СДЭК: устройство, функции и настройки">
+    <meta property="og:description" content="Подробный разбор работы терминала СДЭК. Как пользоваться устройством, сканировать штрих-коды, печатать этикетки и устранять основные неполадки системы.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/punkty-i-adresa/">Пункты и адреса</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Как работает терминал СДЭК: устройство, функции и настройки</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Как работает терминал СДЭК: устройство, функции и настройки</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#архитектура-и-аппаратная-часть-терминала">Архитектура и аппаратная часть терминала</a></li><li><a href="#программное-обеспечение-и-интерфейс-пользователя">Программное обеспечение и интерфейс пользователя</a></li><li><a href="#процесс-приема-и-выдачи-груза-через-терминал">Процесс приема и выдачи груза через терминал</a></li><li><a href="#работа-с-весогабаритными-характеристиками">Работа с весогабаритными характеристиками</a></li><li><a href="#печать-документов-и-маркировка">Печать документов и маркировка</a></li><li><a href="#диагностика-и-устранение-типовых-неисправностей">Диагностика и устранение типовых неисправностей</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>Современная логистическая компания не может эффективно функционировать без автоматизации процессов приема и выдачи грузов. <strong>Терминал СДЭК</strong> представляет собой специализированное программно-аппаратное решение, которое служит основным инструментом взаимодействия сотрудника ПВЗ с центральной информационной системой логистического оператора. Это не просто компьютер с принтером, а сложный комплекс, обеспечивающий мгновенную синхронизацию данных о миллионах отправлений по всей стране. Понимание принципов его работы необходимо для оперативного решения задач в условиях высокой загруженности пункта выдачи.</p>
+
+<p>В основе функционирования устройства лежит постоянный обмен данными с сервером компании через защищенные каналы связи. Когда вы подходите к стойке, сотрудник вводит данные или сканирует трек-номер, и <em>локальная база данных</em> терминала отправляет запрос на удаленный сервер. Ответ приходит за доли секунды, позволяя мгновенно увидеть статус груза, его местоположение и возможность выдачи. Такая архитектура минимизирует ошибки человеческого фактора и исключает возможность выдачи чужого груза или потери информации о перемещении посылки.</p>
+
+<p>Однако работа системы зависит не только от серверов, но и от корректности работы периферийных устройств. Сканеры штрих-кодов, принтеры этикеток и весогабаритные измерители должны быть правильно интегрированы в единую сеть терминала. <strong>Сбой в драйвере</strong> одного из этих компонентов может парализовать работу всей точки приема-выдачи. Именно поэтому знание внутренней логики работы терминала и умение диагностировать базовые проблемы являются ключевыми навыками для любого сотрудника, работающего с логистическими операциями.</p>
+
+<h2 id="архитектура-и-аппаратная-часть-терминала">Архитектура и аппаратная часть терминала</h2>
+
+<p>Физически терминал СДЭК чаще всего представляет собой стационарный компьютер или ноутбук, оснащенный специализированным набором периферии. Центральным элементом является <strong>системный блок</strong>, на котором установлена операционная система (обычно Windows) и клиентское приложение или доступ к веб-интерфейсу через браузер. Производительность этого узла критически важна, так как он должен обрабатывать графику, управлять печатью и поддерживать постоянное соединение с интернетом без задержек.</p>
+
+<p>Ключевым элементом ввода данных является сканер штрих-кодов. В отличие от бытовых моделей, в логистике используются промышленные сканеры с высокой скоростью считывания и способностью распознавать поврежденные или плохо напечатанные коды. Они могут работать в режиме эмуляции клавиатуры или через COM-порт, передавая данные непосредственно в активное поле терминала. <em>Лазерные</em> и <em>имиджевые</em> сканеры имеют разные принципы работы, и терминал должен быть настроен соответствующим образом для корректного приема данных.</p>
+
+<blockquote>
+<p>⚠️ Внимание: Использование неавторизованных сканеров или драйверов может привести к некорректному считыванию символов, что вызовет ошибки при поиске отправлений в базе данных.</p>
+</blockquote>
+
+<p>Вторым важным аппаратным компонентом является принтер этикеток. Это термопринтеры, работающие с рулонной лентой без использования чернил. Терминал формирует макет этикетки, содержащий трек-номер, адресата, штрих-код и маршрут, и отправляет команду на печать. Качество печати напрямую влияет на скорость дальнейшей сортировки груза, поэтому <strong>разрешающая способность</strong> принтера (обычно 203 или 303 dpi) должна строго соответствовать требованиям системы.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Регулярно протирайте печатающую головку термопринтера спиртовой салфеткой — это предотвратит появление белых полос на этикетках и продлит срок службы устройства.</p></div>
+
+<h2 id="программное-обеспечение-и-интерфейс-пользователя">Программное обеспечение и интерфейс пользователя</h2>
+
+<p>Программная оболочка терминала — это интерфейс, через который сотрудник управляет всеми процессами. Современные версии ПО СДЭК часто работают в веб-браузере, что упрощает обновление функционала: изменения вносятся централизованно на сервере и сразу становятся доступны на всех терминалах. Однако существуют и <strong>клиент-серверные приложения</strong>, требующие локальной установки и периодического обновления файлов конфигурации. Интерфейс разделен на логические блоки: поиск грузов, оформление новых отправлений, отчетность и настройки оборудования.</p>
+
+<p>Основной рабочий стол оператора обычно содержит поля для быстрого ввода трек-номеров и статусные индикаторы. При сканировании кода терминал автоматически определяет тип операции: если груз пришел в пункт, система предложит распечатать уведомление или выдать его клиенту. Если отправляется новый груз, откроется форма заполнения данных отправителя и получателя. <em>Алгоритмы валидации</em> проверяют заполненность полей в реальном времени, не позволяя оформить отправку с ошибками в адресе или телефоне.</p>
+
+<p>Важной частью ПО является модуль безопасности. Доступ к терминалу осуществляется через <strong>персональные логины</strong> и пароли сотрудников. Система фиксирует каждое действие: кто принял груз, кто оформил возврат, кто пробил кассу. Это обеспечивает полную прозрачность процессов и позволяет в случае спорных ситуаций восстановить хронологию событий. Кроме того, ПО может блокировать доступ к определенным функциям в зависимости от роли пользователя (например, кассир не может изменять тарифы).</p>
+
+<div class="poll-widget" id="poll-309385ff"><div class="poll-widget-question">📊 Что чаще всего вызывает сложности в работе терминала?</div><div class="poll-widget-option" data-poll="309385ff" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Сканер штрих-кода</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="309385ff" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Принтер этикеток</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="309385ff" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Медленный интернет</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="309385ff" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Сложный интерфейс программы</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<h2 id="процесс-приема-и-выдачи-груза-через-терминал">Процесс приема и выдачи груза через терминал</h2>
+
+<p>Основной сценарий использования терминала — это прием и выдача отправлений. Процесс начинается с идентификации клиента. При выдаче сотрудник сканирует трек-номер или вводит данные паспорта, после чего терминал запрашивает подтверждение выдачи. Система проверяет, оплачен ли груз, и если все верно, формирует задание на печать документа о передаче. <strong>Электронная подпись</strong> клиента на планшете или бумажном носителе фиксируется в системе как финальный этап сделки.</p>
+
+<p>При приеме груза от отправителя терминал выполняет более сложную работу. Сначала рассчитывается стоимость доставки на основе веса, габаритов и направления. Оператор вводит параметры коробки, и <em>тарифный калькулятор</em> мгновенно выдает сумму к оплате. После оплаты терминал генерирует уникальную накладную (waybill) с штрих-кодом, которую необходимо наклеить на груз. Этот штрих-код становится цифровым паспортом посылки на всем пути следования.</p>
+
+<ul>
+ <li>📦 Сканирование штрих-кода накладной для активации статуса"Принято".</li>
+ <li>📏 Взвешивание и замер габаритов для подтверждения данных в системе.</li>
+ <li>🖨️ Печать копий документов для отправителя и маркировки для груза.</li>
+ <li>💾 Автоматическая отправка данных о новом грузе в сортировочный центр.</li>
+</ul>
+
+<p>Особое внимание уделяется оформлению возвратов. Терминал позволяет оформить возврат как по инициативе получателя, так и отправителя. В этом случае система пересчитывает стоимость доставки, определяет, кто несет расходы, и меняет статус груза на"Возврат". <strong>Логистический маршрут</strong> автоматически перестраивается, направляя посылку обратно в город отправителя, а клиент получает уведомление о изменении статуса.</p>
+
+<div class="checklist-block"><h4>☑️ Алгоритм приема сложного груза</h4><label class="check-item"><input type="checkbox"><span>Проверить целостность упаковки</span></label><label class="check-item"><input type="checkbox"><span>Сверить вложение с описанием</span></label><label class="check-item"><input type="checkbox"><span>Внести данные в терминал</span></label><label class="check-item"><input type="checkbox"><span>Распечатать и наклеить этикетку</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 4</div></div>
+
+<h2 id="работа-с-весогабаритными-характеристиками">Работа с весогабаритными характеристиками</h2>
+
+<p>Точность данных о весе и размере груза критически важна для логистической компании. Терминалы СДЭК могут быть интегрированы с автоматическими весами и дальномерами. В этом случае оператор просто кладет груз на платформу, и данные автоматически передаются в соответствующие поля программы, исключая ручной ввод. Если автоматизация отсутствует, используется <strong>ручной ввод</strong>, но система может запросить фотофиксацию груза для контроля.</p>
+
+<p>Существует понятие"объемного веса", который рассчитывается по формуле (длина × ширина × высота) / 5000 (или другой коэффициент). Терминал автоматически сравнивает физический вес и объемный, выбирая больший из них для расчета стоимости доставки. Это предотвращает ситуации, когда легкие, но габаритные грузы занимают много места в транспорте, но оплачиваются по минимальному тарифу.</p>
+
+<table>
+ <thead>
+ <tr>
+ <th>Параметр</th>
+ <th>Единица измерения</th>
+ <th>Точность терминала</th>
+ <th>Влияние на тариф</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr>
+ <td>Вес</td>
+ <td>Килограммы (кг)</td>
+ <td>до 0.01 кг</td>
+ <td>Прямое (каждые 0.5 кг)</td>
+ </tr>
+ <tr>
+ <td>Длина</td>
+ <td>Сантиметры (см)</td>
+ <td>до 1 см</td>
+ <td>Расчет объема</td>
+ </tr>
+ <tr>
+ <td>Ширина</td>
+ <td>Сантиметры (см)</td>
+ <td>до 1 см</td>
+ <td>Расчет объема</td>
+ </tr>
+ <tr>
+ <td>Высота</td>
+ <td>Сантиметры (см)</td>
+ <td>до 1 см</td>
+ <td>Расчет объема</td>
+ </tr>
+ </tbody>
+</table>
+
+<p>В случае расхождения фактических параметров, измеренных на сортировочном центре, с данными, внесенными через терминал ПВЗ, система автоматически формирует претензию. <em>Догруз</em> (дополнительная оплата) может быть выставлен отправителю или партнерскому пункту, допустившему ошибку. Поэтому калибровка весов и внимательность при замере являются обязательными процедурами.</p>
+
+<details class="faq-item"><summary>Что такое коэффициент объемности?</summary><div class="faq-answer"><p>Коэффициент объемности (обычно 5000 или 6000) — это число, на которое делится произведение габаритов груза в сантиметрах, чтобы получить его условный вес в килограммах. Это стандартная практика в авиа- и автоперевозках.</p></div></details>
+
+<h2 id="печать-документов-и-маркировка">Печать документов и маркировка</h2>
+
+<p>Печать — это финальный и самый видимый результат работы терминала. Для маркировки грузов используются этикетки формата 58х40 мм или 70х100 мм, содержащие всю необходимую информацию для сортировщиков и курьеров. Терминал генерирует изображение этикетки, включающее логотипы, штрих-коды (часто 2D DataMatrix для быстрого считывания) и текстовые данные. Важно, чтобы принтер был настроен на правильный размер страницы, иначе <strong>штрих-код</strong> может обрезаться и стать нечитаемым.</p>
+
+<p>Кроме маркировочных этикеток, терминал печатает сопроводительные документы: накладные (CMR), инвойсы для таможенных целей (при международных отправках) и чеки ККМ. Для международных отправок система автоматически формирует декларации на английском языке, переводя данные, введенные оператором на русском. Это требует точного заполнения полей, так как ошибки в транслитерации могут привести к задержке груза на таможне.</p>
+
+<blockquote>
+<p>⚠️ Внимание: Используйте только оригинальные термобумаги и риббоны рекомендованного качества. Дешевые аналоги могут выцветать через 2-3 месяца, что сделает груз"немым" и потерянным в системе.</p>
+</blockquote>
+
+<p>Управление очередью печати также осуществляется через терминал. Оператор видит статус задачи:"В очереди","Печать","Ошибка". Если этикетка напечаталась некорректно (смялась, порвалась), система позволяет аннулировать старый трек-код этикетки и сгенерировать новый, чтобы избежать дублирования в базе. <strong>Уникальность штрих-кода</strong> — фундаментальный принцип работы логистической системы.</p>
+
+<h2 id="диагностика-и-устранение-типовых-неисправностей">Диагностика и устранение типовых неисправностей</h2>
+
+<p>Как и любая сложная техника, терминал СДЭК подвержен сбоям. Наиболее частая проблема — потеря связи с сервером. В этом случае интерфейс переходит в офлайн-режим или выдает ошибку соединения. Оператору необходимо проверить физическое подключение кабеля сети, состояние роутера и наличие интернета на других устройствах. Иногда требуется перезапуск сетевого адаптера через командную строку или сброс кэша браузера.</p>
+
+<p>Вторая по частоте проблема — отказ периферии. Сканер может перестать реагировать на нажатие курка, а принтер — мигать красным индикатором. В большинстве случаев терминал выводит понятное сообщение о том, какое устройство не отвечает. Для сканеров часто помогает переподключение USB-порта или замена кабеля. Для принтеров — проверка закрытия крышки и наличия ленты. <em>Драйверы устройств</em> также могут слетать после обновления Windows, требуя повторной установки.</p>
+
+<ul>
+ <li>🔌 Проверка целостности кабелей питания и USB-соединений.</li>
+ <li>🔄 Перезагрузка службы печати в диспетчере задач.</li>
+ <li>🌐 Тест скорости интернет-соединения через встроенные утилиты.</li>
+ <li>🧹 Очистка временных файлов и кэша браузера терминала.</li>
+</ul>
+
+<p>Если программный сбой не удается устранить стандартными методами, терминал позволяет отправить лог-файл в техническую поддержку. В логах содержится детальная информация о всех действиях системы за последние часы, что помогает инженерам удаленно найти причину ошибки. Самостоятельное вмешательство в системные файлы или реестр терминала <strong>категорически запрещено</strong>, так как это может нарушить лицензионную защиту ПО.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>90% проблем с терминалом решаются простой перезагрузкой оборудования и проверкой кабелей, поэтому не спешите вызывать техподдержку при первом же сбое.</p></div>
+
+<h2 id="часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</h2>
+
+<details>
+ <summary>Можно ли работать с терминалом СДЭК без интернета?</summary>
+ <p>Полноценная работа без интернета невозможна, так как терминал не имеет локальной базы всех отправлений и тарифов. Однако в некоторых версиях ПО существует режим"Офлайн-прием", позволяющий принять груз и напечатать временную этикетку. Данные сохраняются в буфере и отправляются на сервер автоматически при восстановлении соединения.</p>
+</details>
+
+<details>
+ <summary>Почему терминал не видит сканер штрих-кодов?</summary>
+ <p>Скорее всего, проблема в драйвере или порте подключения. Проверьте, горит ли индикатор на сканере. Попробуйте подключить устройство в другой USB-порт. Если используется COM-порт, убедитесь, что в настройках терминала выбран правильный номер порта и скорость передачи данных (обычно 9600 или 115200).</p>
+</details>
+
+<details>
+ <summary>Как обновить программное обеспечение терминала?</summary>
+ <p>Обычно обновление происходит автоматически при запуске приложения или по расписанию. Если доступна новая версия, система сама предложит установить ее. Ручное обновление требуется редко и производится только по инструкции от регионального менеджера или технической поддержки, так как некорректная установка может заблокировать работу точки.</p>
+</details>
+
+<details>
+ <summary>Что делать, если принтер печатает пустые этикетки?</summary>
+ <p>Проверьте, правильно ли заправлена термолента (термо должна быть снаружи рулона). Также убедитесь, что в настройках драйвера принтера выбран правильный тип печати (Direct Thermal), а не Thermal Transfer (если не используется риббон). Иногда помогает калибровка принтера через зажатие кнопки подачи бумаги.</p>
+</details>
+
+<details>
+ <summary>Где хранится история операций на терминале?</summary>
+ <p>Вся история сохраняется в личном кабинете партнера на сайте СДЭК в разделе"Отчетность" или"История операций". На самом терминале история может храниться только во временном кэше браузера, который очищается при сбросе настроек, поэтому для аудита всегда используйте веб-интерфейс.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#архитектура-и-аппаратная-часть-терминала">Архитектура и аппаратная часть терминала</a></li><li><a href="#программное-обеспечение-и-интерфейс-пользователя">Программное обеспечение и интерфейс пользователя</a></li><li><a href="#процесс-приема-и-выдачи-груза-через-терминал">Процесс приема и выдачи груза через терминал</a></li><li><a href="#работа-с-весогабаритными-характеристиками">Работа с весогабаритными характеристиками</a></li><li><a href="#печать-документов-и-маркировка">Печать документов и маркировка</a></li><li><a href="#диагностика-и-устранение-типовых-неисправностей">Диагностика и устранение типовых неисправностей</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/a/ad/adres-sdek-chto-eto.html" class="related-card">Адрес СДЭК: что это и как правильно указать в 2026 году</a></li><li><a href="/articles/s/sd/sdek-verkhnepecherskaya-14b-gde-vkhod.html" class="related-card">СДЭК Верхне-Печерская 14Б: где вход, схема и режим работы</a></li><li><a href="/articles/s/sd/sdek-kuda-obratitsya.html" class="related-card">СДЭК: куда обратиться за помощью в 2026 году — все контакты и способы</a></li><li><a href="/articles/k/ka/kak-otkryt-punkt-vydachi-sdek-v-svoem-poselke.html" class="related-card">Как открыть пункт выдачи СДЭК в поселке: инструкция</a></li><li><a href="/articles/s/sd/sdek-leninsk-kuznetskij-gde-nakhoditsya.html" class="related-card">СДЭК в Ленинске-Кузнецком: адреса, телефоны, график работы 2026</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/a/ad/adres-sdek-chto-eto.html" class="related-bottom-card"><span class="related-bottom-title">Адрес СДЭК: что это и как правильно указать в 2026 году</span><span class="related-bottom-desc">Разбираемся, что такое адрес СДЭК, как его найти, проверить и правильно заполнить при отправке или п</span></a><a href="/articles/s/sd/sdek-verkhnepecherskaya-14b-gde-vkhod.html" class="related-bottom-card"><span class="related-bottom-title">СДЭК Верхне-Печерская 14Б: где вход, схема и режим работы</span><span class="related-bottom-desc">Точное местоположение входа в СДЭК на Верхне-Печерской 14Б. Схема прохода, ориентиры, режим работы, </span></a><a href="/articles/s/sd/sdek-kuda-obratitsya.html" class="related-bottom-card"><span class="related-bottom-title">СДЭК: куда обратиться за помощью в 2026 году — все контакты и способы</span><span class="related-bottom-desc">Не знаете, куда звонить или писать в СДЭК? Полный гайд по всем каналам связи: горячая линия, чат, em</span></a><a href="/articles/k/ka/kak-otkryt-punkt-vydachi-sdek-v-svoem-poselke.html" class="related-bottom-card"><span class="related-bottom-title">Как открыть пункт выдачи СДЭК в поселке: инструкция</span><span class="related-bottom-desc">Полное руководство для бизнеса: требования, документы и условия открытия ПВЗ СДЭК в малом населенном</span></a><a href="/articles/s/sd/sdek-leninsk-kuznetskij-gde-nakhoditsya.html" class="related-bottom-card"><span class="related-bottom-title">СДЭК в Ленинске-Кузнецком: адреса, телефоны, график работы 2026</span><span class="related-bottom-desc">Где находится СДЭК в Ленинске-Кузнецком: точные адреса пунктов выдачи, телефоны, карты проезда и сов</span></a><a href="/articles/n/no/nomer-punkta-sdek-kak-uznat.html" class="related-bottom-card"><span class="related-bottom-title">Номер пункта СДЭК: как узнать, где найти и что означает</span><span class="related-bottom-desc">Узнайте, где найти номер пункта СДЭК и код ПВЗ. Подробная инструкция по расшифровке трекинга, кодов </span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>

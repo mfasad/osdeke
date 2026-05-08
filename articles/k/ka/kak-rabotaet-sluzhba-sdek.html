@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>📦</text></svg>">
+    <title>Как работает СДЭК: схема работы службы доставки — СДЭК Гид</title>
+    <meta name="description" content="Подробный разбор логистических процессов СДЭК. Узнайте, как работает служба доставки от приемки до вручения.">
+    <link rel="canonical" href="https://osdeke.vercel.app/articles/k/ka/kak-rabotaet-sluzhba-sdek.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Как работает СДЭК: схема работы службы доставки">
+    <meta property="og:description" content="Подробный разбор логистических процессов СДЭК. Узнайте, как работает служба доставки от приемки до вручения.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=1778220388">
+    <style>
+    .site-footer-premium {
+        margin-top: 60px; padding: 40px 0 0; background: #1e293b; color: #94a3b8;
+    }
+    .footer-grid {
+        display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+        padding-bottom: 32px; border-bottom: 1px solid #334155;
+    }
+    .footer-brand { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+    .footer-about { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; }
+    .footer-updated { font-size: 0.8rem; color: #64748b; }
+    .footer-col h4 { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { color: #94a3b8; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #60a5fa; }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.85rem; }
+    @media (max-width: 640px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .cookie-popup {
+        position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; color: #fff;
+        padding: 16px; transition: transform 0.5s ease; z-index: 9999; border-top: 2px solid #2563eb;
+        transform: translateY(100%);
+    }
+    .cookie-popup.visible { transform: translateY(0); }
+    .cookie-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9rem; }
+    .cookie-btn { background: #2563eb; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .cookie-btn:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+        .cookie-inner { flex-direction: column; text-align: center; }
+    }
+</style>
+    
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+        <!--#include virtual="/ssi/body_top.html" -->
+    <style>
+    .nav-dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle {
+        background: none; border: none; cursor: pointer;
+        font: inherit; color: inherit; padding: 8px 12px;
+        border-radius: 8px; transition: background 0.2s;
+    }
+    .dropdown-toggle:hover { background: rgba(0,0,0,0.05); }
+    .dropdown-menu {
+        display: none; position: absolute; right: 0; top: 100%;
+        min-width: 240px; max-height: 70vh; overflow-y: auto;
+        background: var(--card-bg, #fff); border: 1px solid var(--border, #e5e7eb);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        padding: 8px 0; z-index: 1000;
+    }
+    .nav-dropdown::after {
+        content: ''; position: absolute; left: 0; right: 0;
+        top: 100%; height: 12px;
+    }
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu { display: block; }
+    .dropdown-item {
+        display: block; padding: 10px 20px; color: var(--text, #1f2937);
+        text-decoration: none; font-size: 0.95rem; transition: background 0.15s;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: rgba(37,99,235,0.06); color: var(--primary, #2563eb); }
+    @media (max-width: 768px) {
+        .main-nav > .nav-link { display: none; }
+        .dropdown-toggle { display: none; }
+        .dropdown-menu {
+            display: block !important; position: static;
+            box-shadow: none; border: none; border-radius: 0;
+            min-width: auto; max-height: none; padding: 0;
+            background: transparent;
+        }
+        .dropdown-item {
+            padding: 8px 0; font-size: 1rem;
+        }
+    }
+    </style>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">📦</span>
+                <span>СДЭК Гид</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Меню" id="menuBtn">☰</button>
+            <nav class="main-nav" id="mainNav">
+                <a href="/category/otslezhivanie/" class="nav-link">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="nav-link">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="nav-link">🤲 Получение</a>
+<a href="/category/sdek-id/" class="nav-link">🆔 СДЭК ID</a>
+<div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">📂 Все разделы ▾</button>
+            <div class="dropdown-menu"><a href="/category/otslezhivanie/" class="dropdown-item">🔍 Отслеживание</a>
+<a href="/category/otpravka-gruzov/" class="dropdown-item">🚚 Отправка грузов</a>
+<a href="/category/poluchenie/" class="dropdown-item">🤲 Получение</a>
+<a href="/category/sdek-id/" class="dropdown-item">🆔 СДЭК ID</a>
+<a href="/category/oplata-i-tarify/" class="dropdown-item">💳 Оплата и тарифы</a>
+<a href="/category/problemy-i-vozvrat/" class="dropdown-item">⚠️ Проблемы и возврат</a>
+<a href="/category/spetsgruzy/" class="dropdown-item">🧊 Спецгрузы</a>
+<a href="/category/biznes-i-dogovory/" class="dropdown-item">🤝 Бизнес и договоры</a>
+<a href="/category/punkty-i-adresa/" class="dropdown-item">📍 Пункты и адреса</a>
+<a href="/category/bezopasnost/" class="dropdown-item">🛡️ Безопасность</a>
+<a href="/category/drugoe/" class="dropdown-item">📁 Другое</a></div>
+        </div>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Навигация">
+        <div class="container"><a href="/">Главная</a><span class="breadcrumb-sep">›</span><a href="/category/otslezhivanie/">Отслеживание</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Как работает СДЭК: схема работы службы доставки</span></div>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-main">
+                    
+                    <h1>Как работает служба СДЭК: от приемки до доставки</h1>
+                    <nav class="mobile-toc"><details><summary>📋 Содержание</summary><ul><li><a href="#приемка-и-первичная-обработка-грузов">Приемка и первичная обработка грузов</a></li><li><a href="#сортировка-и-логистические-хабы">Сортировка и логистические хабы</a></li><li><a href="#транспортировка-между-городами-и-регионами">Транспортировка между городами и регионами</a></li><li><a href="#финальная-миля-и-курьерская-доставка">Финальная миля и курьерская доставка</a></li><li><a href="#система-отслеживания-и-уведомления">Система отслеживания и уведомления</a></li><li><a href="#безопасность-и-страхование-отправлений">Безопасность и страхование отправлений</a></li><li><a href="#возвраты-и-работа-с-претензиями">Возвраты и работа с претензиями</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></details></nav>
+                    <!--#include virtual="/ssi/article_before.html" -->
+                    <div class="article-body">
+
+<p>Современная логистика представляет собой сложную систему, где каждая секунда имеет значение, а точность маршрутизации определяет успех всей операции. Когда вы отправляете или получаете посылку через курьерскую службу, за этим стоит отлаженный механизм, который функционирует 24 часа в сутки. Понимание внутренних процессов позволяет избежать лишних тревог и четко контролировать перемещение вашего груза. <strong>Служба доставки</strong> использует передовые технологии для обеспечения прозрачности каждого этапа.</p>
+
+<p>В основе функционирования компании лежит принцип консолидации грузов и их последующего распределения по региональным направлениям. Это не просто перевозка коробок из точки А в точку Б, а сложная математическая модель, учитывающая габариты, вес, стоимость и срочность. <em>Логистические хабы</em> работают как огромные сортировочные центры, где потоки разделяются и отправляются дальше. Клиент видит лишь верхушку айсберга, но знание принципов работы помогает правильно оформить документы.</p>
+
+<p>Каждый отправленный parcel проходит через множество рук и автоматизированных систем сканирования. Именно эти данные формируют статусы, которые вы видите в приложении или на сайте. Ошибки на любом этапе могут привести к задержкам, поэтому система безопасности и контроля внедрена на всех уровнях. В этой статье мы детально разберем, что происходит с вашей посылкой после того, как вы передали ее курьеру или оставили в пункте выдачи.</p>
+
+<h2 id="приемка-и-первичная-обработка-грузов">Приемка и первичная обработка грузов</h2>
+
+<p>Процесс начинается с момента обращения клиента в пункт выдачи заказов (ПВЗ) или вызова курьера. Сотрудник службы проводит визуальный осмотр упаковки и сверку содержимого с описью, если она требуется. На этом этапе формируется <strong>электронная накладная</strong>, которая становится основным документом сопровождения. Без правильно заполненных данных дальнейшее движение груза невозможно.</p>
+
+<p>После приемки груз маркируется уникальным штрих-кодом или QR-кодом. Этот идентификатор присваивается один раз и сопровождает посылку до самого конца пути. Сканеры считывают информацию мгновенно, обновляя статус в единой базе данных. <em>Первичная сортировка</em> происходит прямо в отделении, где грузы группируются по направлениям следования.</p>
+
+<blockquote>
+<p>⚠️ Внимание: Неправильно указанная опись вложения или запрет на перевозку определенных веществ могут привести к отказу в отправке или изъятию груза службой безопасности. Всегда проверяйте актуальный список запрещенных товаров перед оформлением.</p>
+</blockquote>
+
+<p>Важно понимать, что габаритные параметры измеряются с высокой точностью. Если фактический вес или объем отличаются от заявленных в накладной, система автоматически пересчитает стоимость. Это может привести к <strong>доплате</strong> со стороны получателя или отправителя при получении. Поэтому честное декларирование параметров — залог быстрой обработки.</p>
+
+<div class="checklist-block"><h4>☑️ Подготовка к сдаче груза</h4><label class="check-item"><input type="checkbox"><span>Упаковать товар в прочную коробку</span></label><label class="check-item"><input type="checkbox"><span>Заполнить опись вложения (если нужно)</span></label><label class="check-item"><input type="checkbox"><span>Проверить запретные товары</span></label><label class="check-item"><input type="checkbox"><span>Распечатать или сохранить номер накладной</span></label><div class="check-progress">Выполнено: <span class="check-count">0</span> / 4</div></div>
+
+<h2 id="сортировка-и-логистические-хабы">Сортировка и логистические хабы</h2>
+
+<p>Попав на сортировочный центр, грузы проходят через конвейерные линии с автоматическими сканерами. Машины считывают коды и направляют коробки в соответствующие отсеки для дальнейшей транспортировки. Здесь работает <strong>автоматизированная система</strong>, минимизирующая человеческий фактор. Скорость обработки достигает тысяч единиц в час.</p>
+
+<p>Логистические хабы — это ключевые узлы сети, расположенные в крупных городах. Они связывают между собой регионы и страны. Груз может пройти через несколько таких центров, прежде чем попасть в город назначения. Маршрутизация строится динамически: если один путь перегружен, система перенаправит поток по альтеривному пути.</p>
+
+<p>На крупных складах применяются технологии компьютерного зрения и роботизированные манипуляторы. Это позволяет обрабатывать fragile-грузы (хрупкие предметы) с особой осторожностью. <em>Сортировочные линии</em> настроены так, чтобы минимизировать количество касаний и падений. Каждый этап фиксируется камерами видеонаблюдения.</p>
+
+<div class="poll-widget" id="poll-045b8ddf"><div class="poll-widget-question">📊 Что для вас важнее в работе службы доставки?</div><div class="poll-widget-option" data-poll="045b8ddf" data-idx="0" onclick="pbPollVote(this)"><span class="poll-widget-label">Скорость доставки</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="045b8ddf" data-idx="1" onclick="pbPollVote(this)"><span class="poll-widget-label">Низкая цена</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="045b8ddf" data-idx="2" onclick="pbPollVote(this)"><span class="poll-widget-label">Возможность отслеживания</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div><div class="poll-widget-option" data-poll="045b8ddf" data-idx="3" onclick="pbPollVote(this)"><span class="poll-widget-label">Вежливость курьера</span><span class="poll-widget-bar"></span><span class="poll-widget-pct"></span></div></div>
+
+<p>Особое внимание уделяется транзитным грузам, которые следуют транзитом через несколько временных зон. Для них создаются специальные условия хранения. Температура, влажность и освещенность контролируются датчиками IoT. Это особенно важно для товаров, чувствительных к внешним условиям.</p>
+
+<h2 id="транспортировка-между-городами-и-регионами">Транспортировка между городами и регионами</h2>
+
+<p>Магистральная перевозка осуществляется различными видами транспорта в зависимости от расстояния и срочности. Для дальних расстояний чаще всего используется авиационный транспорт или железнодорожные контейнеры. Автомобильные перевозки доминируют на средних и коротких дистанциях. Выбор <strong>транспортного средства</strong> влияет на итоговое время доставки.</p>
+
+<p>Каждая фура или вагон оснащена GPS-трекерами. Диспетчерский центр видит местоположение груза в реальном времени. Это позволяет прогнозировать время прибытия с высокой точностью. В случае форс-мажорных ситуаций на дороге, логисты оперативно меняют маршрут.</p>
+
+<p>Консолидация грузов позволяет снизить стоимость доставки для конечного клиента. В один контейнер могут попасть сотни посылок разных отправителей, следующих в одном направлении. <em>Мультимодальные перевозки</em> сочетают в себе преимущества разных видов транспорта для оптимизации пути.</p>
+
+<details class="faq-item"><summary>Как отслеживают температуру при перевозке?</summary><div class="faq-answer"><p>В рефрижераторных контейнерах установлены датчики, которые передают данные о температуре каждые 15 минут. Если показатели выходят за пределы нормы, система отправляет сигнал водителю и диспетчеру.</p></div></details>
+
+<p>Безопасность груза в пути обеспечивается пломбированием контейнеров и наличием охранной сигнализации. Доступ к содержимому возможен только в пунктах назначения или на специализированных терминалах. Это исключает хищения и потерю частей заказа.</p>
+
+<h2 id="финальная-миля-и-курьерская-доставка">Финальная миля и курьерская доставка</h2>
+
+<p>Когда груз прибывает в город получателя, он поступает на локальный склад"последней мили". Здесь происходит финальная сортировка по районам и улицам. Курьеры получают маршрутные листы, сформированные искусственным интеллектом с учетом пробок и плотности застройки. <strong>Эффективность доставки</strong> зависит именно от этого этапа.</p>
+
+<p>Курьер связывается с получателем заранее, чтобы согласовать время и место встречи. Это может быть doorstep-доставка (до двери квартиры) или встреча у подъезда. В некоторых случаях возможна доставка в <em>пункты выдачи заказов</em> или постаматы, если клиент предпочитает самовывоз.</p>
+
+<p>При вручении проводится повторная проверка личности получателя. Необходимо предъявить документ, удостоверяющий личность, или код из SMS-сообщения. После успешной передачи статус в системе меняется на"Вручено".</p>
+
+<blockquote>
+<p>⚠️ Внимание: Если курьер не застал вас дома, он оставит извещение и попытается связаться повторно. Груз будет храниться в пункте выдачи ограниченное время, после чего может быть возвращен отправителю.</p>
+</blockquote>
+
+<p>Современные приложения позволяют отслеживать курьера на карте в режиме реального времени. Вы видите, сколько осталось до встречи, и можете скорректировать свои планы. Это повышает прозрачность процесса и снижает уровень стресса.</p>
+
+<h2 id="система-отслеживания-и-уведомления">Система отслеживания и уведомления</h2>
+
+<p>Цифровая экосистема компании позволяет клиенту видеть все перемещения груза. Статусы обновляются автоматически при каждом сканировании штрих-кода. Вы можете получать уведомления через SMS, Push-уведомления или электронную почту. <strong>Прозрачность</strong> — ключевой принцип работы сервиса.</p>
+
+<p>В личном кабинете доступна детальная история перемещений с указанием времени и места. Если груз задерживается, система информирует об этом заранее. Это позволяет планировать получение или инициировать возврат средств, если сроки критичны.</p>
+
+<p>Технологии Big Data анализируют миллионы доставок, чтобы улучшать сервис. Алгоритмы предсказывают возможные задержки и предлагают решения. <em>Интеграция с маркетплейсами</em> позволяет видеть статус заказа прямо в магазине, где была совершена покупка.</p>
+
+<p>| Статус трека | Значение | Действия клиента |</p>
+<p>|:--- |:--- |:--- |</p>
+<p>| <code>Принят</code> | Груз поступил в систему | Ожидать сортировки |</p>
+<p>| <code>В пути</code> | Груз движется между городами | Контролировать обновление геолокации |</p>
+<p>| <code>Прибыл</code> | Груз в городе получения | Ждать звонка курьера |</p>
+<p>| <code>Вручен</code> | Заказ получен адресатом | Проверить комплектацию |</p>
+<p>| <code>Возврат</code> | Груз отправлен отправителю | Связаться с поддержкой |</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>Система отслеживания обновляется в реальном времени, но иногда задержка статуса может составлять до 2-3 часов из-за загруженности каналов связи на сортировочных центрах.</p></div>
+
+<h2 id="безопасность-и-страхование-отправлений">Безопасность и страхование отправлений</h2>
+
+<p>Сохранность груза гарантируется не только физическими мерами, но и юридическими механизмами. Каждый отправленный предмет может быть застрахован на полную стоимость. В случае повреждения или утери клиент получает компенсацию. <strong>Страховой полис</strong> оформляется автоматически при выборе соответствующей опции.</p>
+
+<p>Служба безопасности проводит проверки сотрудников и контрагентов. Видеомониторинг ведется во всех зонах обработки грузов. Это дисциплинирует персонал и помогает расследовать инциденты. Конфиденциальность данных клиентов также находится под строгой защитой.</p>
+
+<p>Для ценных грузов (электроника, jewelry, документы) существуют специальные протоколы передачи. Они требуют двойной проверки и подписания актов на каждом этапе. <em>Специализированная упаковка</em> защищает от ударов и влаги.</p>
+
+<blockquote>
+<p>⚠️ Внимание: При полученииного товара обязательно вскройте упаковку в присутствии курьера или сотрудника ПВЗ. Подписание акта приема-передачи без проверки содержимого может осложнить процесс получения компенсации в случае брака.</p>
+</blockquote>
+
+<p>Внутренние расследования проводятся по каждому случаю нарушения. Компания дорожит репутацией, поэтому инциденты разбираются максимально тщательно. Клиент всегда может запросить отчет о движении груза.</p>
+
+<h2 id="возвраты-и-работа-с-претензиями">Возвраты и работа с претензиями</h2>
+
+<p>Если получатель отказывается от товара или хочет его вернуть, запускается обратная логистика. Процесс называется реверсивной логистикой. Груз проходит те же этапы проверки и транспортировки, но в обратном направлении. <strong>Возврат средств</strong> инициируется после подтверждения получения товара отправителем.</p>
+
+<p>Для оформления возврата необходимо заполнить соответствующее заявление. Это можно сделать онлайн или в отделении. Система автоматически пересчитывает стоимость доставки, если она не была оплачена отправителем полностью. Возвратные потоки также оптимизируются алгоритмами.</p>
+
+<p>В случае возникновения споров (бой товара, пересорт, недокомплект) создается претензия. К ней прикладываются фото- и видеоматериалы, акты о вскрытии. Служба поддержки рассматривает каждый случай индивидуально. Срок рассмотрения обычно составляет от 3 до 30 дней.</p>
+
+<div class="attention-box attention-tip"><span class="attention-icon">💡</span><p>При оформлении возврата обязательно сохраните чек об отправке и трек-номер обратной посылки. Это ваш главный аргумент в случае, если товар затеряется на пути обратно к продавцу.</p></div>
+
+<p>Автоматизация процессов возврата позволяет сокращать сроки ожидания денег. Интеграция с банковскими системами ускоряет транзакции. Клиент получает уведомление о зачислении средств сразу после проведения операции.</p>
+
+<h2 id="часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</h2>
+
+<details>
+<summary>Как долго хранится посылка в пункте выдачи, если я не могу забрать ее сразу?</summary>
+<p>Стандартный срок бесплатного хранения составляет 7 дней для пунктов выдачи и до 3-5 дней для постаматов. После истечения этого срока груз может быть отправлен обратно отправителю или перемещен на платное хранение, условия которого зависят от тарифа.</p>
+</details>
+
+<details>
+<summary>Можно ли изменить адрес доставки уже после отправки груза?</summary>
+<p>Да, изменить адрес или способ доставки (например, с курьера на ПВЗ) можно, пока груз не поступил в доставку курьеру или не был отсортирован в конкретный район. Это делается через личный кабинет или по звонку в поддержку, но может потребовать доплаты за изменение маршрута.</p>
+</details>
+
+<details>
+<summary>Что делать, если статус трека не обновляется несколько дней?</summary>
+<p>Отсутствие обновлений более 3-4 дней может свидетельствовать о задержке на сортировке, технических проблемах со сканерами или утере штрих-кода. В этом случае необходимо создать обращение в службу поддержки с указанием трек-номера для проведения внутреннего расследования.</p>
+</details>
+
+<details>
+<summary>Как упаковать хрупкий предмет, чтобы он доехал целым?</summary>
+<p>Используйте жесткую коробку, заполнив все пустоты амортизирующим материалом (пупырчатая пленка, пенопласт). Предмет не должен болтаться внутри. Для электроники желательно использовать оригинальную упаковку, вложенную во второй короб.</p>
+</details>
+
+<details>
+<summary>Нужно ли платить таможенные пошлины при получении международного заказа?</summary>
+<p>Это зависит от стоимости и веса товара, а также от текущих таможенных лимитов вашей страны. Если лимиты превышены, пошлину нужно оплатить перед вручением. Калькулятор пошлин доступен на сайте таможенной службы или в приложении логистического оператора.</p>
+</details></div>
+                    <!--#include virtual="/ssi/article_after.html" -->
+
+                </article>
+                <aside class="article-sidebar"><!--#include virtual="/ssi/sidebar_top.html" --><nav class="sidebar-search"><div class="sidebar-search-box"><input type="text" id="globalSearchInput" placeholder="🔍 Поиск статей..." autocomplete="off"><div class="search-dropdown" id="globalSearchDropdown"></div></div></nav><!--#include virtual="/ssi/sidebar_before_toc.html" --><nav class="sidebar-toc" id="sidebarToc"><h3>Содержание</h3><ul><li><a href="#приемка-и-первичная-обработка-грузов">Приемка и первичная обработка грузов</a></li><li><a href="#сортировка-и-логистические-хабы">Сортировка и логистические хабы</a></li><li><a href="#транспортировка-между-городами-и-регионами">Транспортировка между городами и регионами</a></li><li><a href="#финальная-миля-и-курьерская-доставка">Финальная миля и курьерская доставка</a></li><li><a href="#система-отслеживания-и-уведомления">Система отслеживания и уведомления</a></li><li><a href="#безопасность-и-страхование-отправлений">Безопасность и страхование отправлений</a></li><li><a href="#возвраты-и-работа-с-претензиями">Возвраты и работа с претензиями</a></li><li><a href="#часто-задаваемые-вопросы-faq">Часто задаваемые вопросы (FAQ)</a></li></ul></nav><!--#include virtual="/ssi/sidebar_before_related.html" --><nav class="sidebar-related"><h3>Похожие статьи</h3><ul><li><a href="/articles/k/ka/kak-perevozyat-posylki-sdek.html" class="related-card">Как перевозят посылки СДЭК: этапы доставки и логистика</a></li><li><a href="/articles/k/ka/kak-proverit-status-dostavki-sdek.html" class="related-card">Как проверить статус доставки СДЭК: 5 способов онлайн и офлайн</a></li><li><a href="/articles/p/po/pochta-rossii-sdek-chto-eto-takoe.html" class="related-card">Почта России и СДЭК: что это, сравнение и отличия</a></li><li><a href="/articles/n/no/nomer-otslezhivaniya-sdek-chto-eto-takoe.html" class="related-card">Номер отслеживания СДЭК: что это и как пользоваться</a></li><li><a href="/articles/p/po/posylka-sklad-sklad-sdek-chto-eto-takoe.html" class="related-card">Статус «Посылка на складе»: что это значит в СДЭК?</a></li></ul></nav><!--#include virtual="/ssi/sidebar_after_related.html" --></aside>
+            </div>
+        </div>
+    </main>
+
+    <!--#include virtual="/ssi/before_related_bottom.html" -->
+    <section class="related-bottom">
+        <div class="container">
+            <h2 class="related-bottom-heading">📖 Читайте также</h2>
+            <div class="related-bottom-grid"><a href="/articles/k/ka/kak-perevozyat-posylki-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как перевозят посылки СДЭК: этапы доставки и логистика</span><span class="related-bottom-desc">Подробный разбор того, как перевозят посылки СДЭК. Этапы транспортировки, сортировка, сроки и особен</span></a><a href="/articles/k/ka/kak-proverit-status-dostavki-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Как проверить статус доставки СДЭК: 5 способов онлайн и офлайн</span><span class="related-bottom-desc">Пошаговая инструкция по отслеживанию посылок СДЭК через сайт, приложение, SMS и звонок. Актуальные с</span></a><a href="/articles/p/po/pochta-rossii-sdek-chto-eto-takoe.html" class="related-bottom-card"><span class="related-bottom-title">Почта России и СДЭК: что это, сравнение и отличия</span><span class="related-bottom-desc">Подробный разбор связки Почты России и СДЭК. Что такое совместные тарифы, как отследить трек-номер и</span></a><a href="/articles/n/no/nomer-otslezhivaniya-sdek-chto-eto-takoe.html" class="related-bottom-card"><span class="related-bottom-title">Номер отслеживания СДЭК: что это и как пользоваться</span><span class="related-bottom-desc">Узнайте, что такое номер отслеживания СДЭК, где его найти и как проверить статус доставки посылки. П</span></a><a href="/articles/p/po/posylka-sklad-sklad-sdek-chto-eto-takoe.html" class="related-bottom-card"><span class="related-bottom-title">Статус «Посылка на складе»: что это значит в СДЭК?</span><span class="related-bottom-desc">Почему статус «Склад» висит долго? Что значит «Склад СДЭК» при отправке и получении. Разбор причин з</span></a><a href="/articles/c/ch/chto-delat-esli-posylka-zastryala-sdek.html" class="related-bottom-card"><span class="related-bottom-title">Посылка застряла в СДЭК: что делать, причины и сроки</span><span class="related-bottom-desc">Где находится груз, если статус не меняется? Инструкция для получателей: сроки задержки, как подать </span></a></div>
+        </div>
+    </section>
+    <!--#include virtual="/ssi/after_related_bottom.html" -->
+
+    <footer class="site-footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">📦 СДЭК Гид</div>
+                    <p class="footer-about">Полный справочник по отправке, отслеживанию и получению посылок через транспортную компанию СДЭК.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul><li><a href="/category/otslezhivanie/">🔍 Отслеживание</a></li>
+<li><a href="/category/otpravka-gruzov/">🚚 Отправка грузов</a></li>
+<li><a href="/category/poluchenie/">🤲 Получение</a></li>
+<li><a href="/category/sdek-id/">🆔 СДЭК ID</a></li>
+<li><a href="/category/oplata-i-tarify/">💳 Оплата и тарифы</a></li>
+<li><a href="/category/problemy-i-vozvrat/">⚠️ Проблемы и возврат</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about.html">О проекте</a></li>
+                        <li><a href="/categories.html">Все разделы</a></li>
+                        <li><a href="/contact.html">Контакты</a></li>
+                        <li><a href="/privacy.html">Конфиденциальность</a></li>
+                        <li><a href="/sitemap.xml">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© СДЭК Гид. Все права защищены.</p>
+                <!--LiveInternet counter--><div style="margin-top:10px;"><a href="https://www.liveinternet.ru/click"
+                target="_blank"><img id="licnt06C4" width="88" height="15" style="border:0" 
+                title="LiveInternet: показано число посетителей за сегодня"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+                alt=""/></a><script>(function(d,s){d.getElementById("licnt06C4").src=
+                "https://counter.yadro.ru/hit?t26.5;r"+escape(d.referrer)+
+                ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+                (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+                ";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script></div><!--/LiveInternet-->
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-consent" class="cookie-popup">
+        <div class="cookie-inner">
+            <span>🍪 Мы используем файлы cookie для улучшения работы сайта.</span>
+            <button id="cookie-accept" class="cookie-btn">Принять</button>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function() {
+        const popup = document.getElementById('cookie-consent');
+        const btn = document.getElementById('cookie-accept');
+        if (popup && btn && !localStorage.getItem('cookie-accepted')) {
+            popup.classList.add('visible');
+            btn.onclick = () => {
+                localStorage.setItem('cookie-accepted', 'true');
+                popup.classList.remove('visible');
+            };
+        }
+    })();
+    </script>
+    <script>
+    function pbPollVote(el) {
+        var poll = el.closest('.poll-widget');
+        if (poll.classList.contains('voted')) return;
+        poll.classList.add('voted');
+        el.classList.add('selected');
+        var opts = poll.querySelectorAll('.poll-widget-option');
+        var n = opts.length;
+        var raw = [];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = Math.random() * 50 + 5;
+            if (opts[i] === el) v += 30;
+            raw.push(v);
+            sum += v;
+        }
+        var pcts = raw.map(function(v) { return Math.round(v / sum * 100); });
+        var diff = 100 - pcts.reduce(function(a,b){ return a+b; }, 0);
+        pcts[Array.from(opts).indexOf(el)] += diff;
+        setTimeout(function() {
+            opts.forEach(function(opt, i) {
+                opt.querySelector('.poll-widget-bar').style.width = pcts[i] + '%';
+                opt.querySelector('.poll-widget-pct').textContent = pcts[i] + '%';
+            });
+        }, 50);
+    }
+    </script>
+    <!--#include virtual="/ssi/body_bottom.html" -->
+    <script src="/static/js/inject.js" defer></script>
+</body>
+</html>
